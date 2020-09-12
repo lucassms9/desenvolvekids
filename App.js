@@ -1,24 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import { Toast } from 'react-native-redux-toast';
+
+import Root from './src';
+import store from './src/store';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <SafeAreaView>
-        <View>
-          <Text>teste1</Text>
-        </View>
-      </SafeAreaView>
-    </NavigationContainer>
+    <Provider store={store}>
+      <Root />
+      <Toast messageStyle={{ color: 'white' }} />
+    </Provider>
   );
 };
 
