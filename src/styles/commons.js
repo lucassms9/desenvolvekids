@@ -3,7 +3,7 @@ import colors from './colors';
 export default {
   pageTitle: {
     fontSize: 24,
-    color: colors.darkGray,
+    color: colors.white,
     fontWeight: 'bold',
   },
   title: {
@@ -19,5 +19,12 @@ export default {
   },
   error: {
     color: colors.danger,
+  },
+  body: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
+  container: {
+    margin: 10,
   },
 };

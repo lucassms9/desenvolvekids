@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { View, Animated, Easing } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 import { colors } from '~/styles';
 import rocketImage from '~/assets/images/rocket.png';
 
-function RocketAnimated() {
+function RocketAnimated({ authCheck }) {
   const [endAnimate, setEndAnimate] = useState(false);
-  const [bottomPosition, setBottomPosition] = useState(new Animated.Value(0));
+  const [bottomPosition, setBottomPosition] = useState(
+    new Animated.Value(-100),
+  );
 
   const navigation = useNavigation();
 
   const setCompleteAnimate = () => {
     setTimeout(() => {
       setEndAnimate(true);
-    }, 2550);
+    }, 3005);
   };
 
   const mooveLR = () => {
     Animated.timing(bottomPosition, {
       toValue: 1000,
-      duration: 2500, // the duration of the animation
+      duration: 3000, // the duration of the animation
       easing: Easing.linear, // the style of animation
       useNativeDriver: false,
     }).start(); // starts this annimation once this method is called
@@ -34,12 +36,12 @@ function RocketAnimated() {
 
   useEffect(() => {
     if (endAnimate) {
-      if (false) {
-        return navigation.navigate('Main');
+      if (authCheck) {
+        return navigation.dispatch(StackActions.replace('Main'));
       }
-      return navigation.navigate('Auth');
+      return navigation.dispatch(StackActions.replace('Auth'));
     }
-  }, [endAnimate, navigation]);
+  }, [endAnimate, navigation, authCheck]);
 
   return (
     <View
@@ -61,9 +63,8 @@ function RocketAnimated() {
   );
 }
 
-const mapStateToProps = ({ auth: { authCheck, user } }) => ({
+const mapStateToProps = ({ auth: { authCheck } }) => ({
   authCheck,
-  user,
 });
 
 const mapDispatchToProps = () => ({});

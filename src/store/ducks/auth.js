@@ -38,7 +38,7 @@ const { Types, Creators } = createActions({
 });
 
 const INITIAL_STATE = Immutable({
-  authCheck: null,
+  authCheck: true,
   status: '',
   user: null,
 });

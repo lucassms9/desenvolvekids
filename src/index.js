@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Routes from './routes';
 
-const Root = ({ user, authCheck }) => {
+const Root = (props) => {
   return <Routes />;
 };
 

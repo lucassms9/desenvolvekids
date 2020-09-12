@@ -1,11 +1,18 @@
 import React from 'react';
+import { Text } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-Ionicons.loadFont();
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+MaterialIcons.loadFont();
+FontAwesome.loadFont();
+MaterialCommunityIcons.loadFont();
+
+import colors from '~/styles/colors';
 /**
  * Public
  */
@@ -26,32 +33,99 @@ import Store from '~/screens/Store';
  */
 
 function Routes() {
+  const MovieStack = createStackNavigator();
+
+  function MovieStackScreen() {
+    return (
+      <MovieStack.Navigator>
+        <MovieStack.Screen
+          name="Movies"
+          component={Movies}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </MovieStack.Navigator>
+    );
+  }
+
   const Tab = createBottomTabNavigator();
   const MainTabBottom = () => {
     return (
       <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            if (route.name === 'Movies') {
-              iconName = focused
-                ? 'ios-information-circle'
-                : 'ios-information-circle-outline';
-            } else {
-              iconName = focused ? 'ios-list-box' : 'ios-list';
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
+        initialRouteName="Movies"
         tabBarOptions={{
-          activeTintColor: 'tomato',
+          activeTintColor: colors.primary,
           inactiveTintColor: 'gray',
+          style: {
+            backgroundColor: colors.tabBarColor,
+            borderTopColor: 'transparent',
+          },
         }}>
-        <Tab.Screen name="Movies" component={Movies} />
-        <Tab.Screen name="Podcasts" component={Podcasts} />
-        <Tab.Screen name="Tips" component={Tips} />
-        <Tab.Screen name="Store" component={Store} />
+        <Tab.Screen
+          name="Movies"
+          component={MovieStackScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <MaterialIcons name="ondemand-video" size={25} color={color} />
+              );
+            },
+            tabBarLabel: (props) => {
+              console.log(props);
+              return <Text style={{ fontSize: 14 }}> Vídeos </Text>;
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Podcasts"
+          component={Podcasts}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return <FontAwesome name="podcast" size={25} color={color} />;
+            },
+            tabBarLabel: (props) => {
+              console.log(props);
+              return <Text style={{ fontSize: 14 }}> Podcasts </Text>;
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Tips"
+          component={Tips}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <MaterialCommunityIcons
+                  name="lightbulb-on-outline"
+                  size={25}
+                  color={color}
+                />
+              );
+            },
+            tabBarLabel: (props) => {
+              console.log(props);
+              return <Text style={{ fontSize: 14 }}> Dicas </Text>;
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Store"
+          component={Store}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return <MaterialIcons name="shop" size={25} color={color} />;
+            },
+            tabBarLabel: (props) => {
+              console.log(props);
+              return <Text style={{ fontSize: 14 }}> Loja </Text>;
+            },
+          }}
+        />
       </Tab.Navigator>
     );
   };
@@ -69,9 +143,21 @@ function Routes() {
   return (
     <NavigationContainer>
       <ContentStack.Navigator initialRouteName={'Rocket'}>
-        <ContentStack.Screen name="Rocket" component={RocketAnimated} />
+        <ContentStack.Screen
+          name="Rocket"
+          component={RocketAnimated}
+          options={{
+            headerShown: false,
+          }}
+        />
         <ContentStack.Screen name="Auth" component={AuthStackScreen} />
-        <ContentStack.Screen name="Main" component={MainTabBottom} />
+        <ContentStack.Screen
+          name="Main"
+          component={MainTabBottom}
+          options={{
+            headerShown: false,
+          }}
+        />
       </ContentStack.Navigator>
     </NavigationContainer>
   );
