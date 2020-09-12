@@ -22,9 +22,14 @@ export default {
   },
   body: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.backgroung,
+    flexDirection: 'column',
   },
   container: {
     margin: 10,
+    backgroundColor: colors.backgroung,
+  },
+  textWhite: {
+    color: '#fff',
   },
 };

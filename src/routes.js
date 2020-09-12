@@ -134,7 +134,13 @@ function Routes() {
   function AuthStackScreen() {
     return (
       <AuthStack.Navigator>
-        <AuthStack.Screen name="SignIn" component={SignIn} />
+        <AuthStack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={{
+            headerShown: false,
+          }}
+        />
       </AuthStack.Navigator>
     );
   }
@@ -150,7 +156,13 @@ function Routes() {
             headerShown: false,
           }}
         />
-        <ContentStack.Screen name="Auth" component={AuthStackScreen} />
+        <ContentStack.Screen
+          name="Auth"
+          component={AuthStackScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
         <ContentStack.Screen
           name="Main"
           component={MainTabBottom}

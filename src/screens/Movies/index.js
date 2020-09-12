@@ -49,6 +49,5 @@ function Movies() {
     </View>
   );
 }
-console.log(Movies);
 
 export default Movies;

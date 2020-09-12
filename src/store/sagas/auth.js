@@ -7,7 +7,9 @@ import storageKeys from '~/helpers/storageKeys';
 import { Creators as AuthActions } from '../ducks/auth';
 
 export function* init() {
-  const token = yield call([AsyncStorage, 'getItem'], storageKeys.token);
+  console.log('init');
+  const token = yield call([AsyncStorage, 'getItem'], storageKeys.userId);
+  yield put(AuthActions.authCheck(false));
   if (token) {
     yield put(AuthActions.validateTokenRequest(token));
   } else {

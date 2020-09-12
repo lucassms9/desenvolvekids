@@ -38,9 +38,10 @@ const { Types, Creators } = createActions({
 });
 
 const INITIAL_STATE = Immutable({
-  authCheck: true,
+  authCheck: false,
   status: '',
   user: null,
+  loading: false,
 });
 
 const error = (state = INITIAL_STATE, action) =>
@@ -60,6 +61,9 @@ const signInSignUpSuccess = (state = INITIAL_STATE, { user }) => {
 const request = (state = INITIAL_STATE) => state.merge({ status: 'loading' });
 const signOut = () => INITIAL_STATE.merge({ authCheck: false });
 
+const authCheckStatus = (state = INITIAL_STATE, { status }) =>
+  state.merge({ authCheck: status });
+
 export default createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_ERROR]: error,
   [Types.SIGN_IN_SUCCESS]: signInSignUpSuccess,
@@ -70,6 +74,7 @@ export default createReducer(INITIAL_STATE, {
   [Types.SIGN_UP_REQUEST]: request,
   [Types.SIGN_UP_SUCCESS]: (state = INITIAL_STATE, payload) =>
     signInSignUpSuccess(state, payload),
+  [Types.AUTH_CHECK]: authCheckStatus,
 });
 
 export { Types, Creators };

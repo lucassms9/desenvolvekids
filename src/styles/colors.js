@@ -1,5 +1,5 @@
 export default {
-  primary: '#01B0F1',
+  primary: '#D31D1D',
   secondary: '#003048',
 
   white: '#fff',
@@ -14,6 +14,7 @@ export default {
 
   orange: '#ff8500',
   blue: '#16709C',
-
+  backgroung: '#003048',
   tabBarColor: '#f7f7f7',
+  header: '#01B0F1',
 };

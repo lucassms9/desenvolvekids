@@ -6,7 +6,7 @@ import { init, signIn, signUp, signOut, recover } from './auth';
 
 export default function* rootSaga() {
   return yield all([
-    // init(),
+    init(),
     takeLatest(AuthTypes.RECOVER_PASSWORD_REQUEST, init),
     // takeLatest(AuthTypes.SIGN_IN_REQUEST, signIn),
     // takeLatest(AuthTypes.SIGN_OUT_REQUEST, signOut),
