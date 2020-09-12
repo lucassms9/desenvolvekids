@@ -15,7 +15,7 @@ const App = () => {
     <NavigationContainer>
       <SafeAreaView>
         <View>
-          <Text>teste</Text>
+          <Text>teste1</Text>
         </View>
       </SafeAreaView>
     </NavigationContainer>
