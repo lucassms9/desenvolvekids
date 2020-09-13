@@ -34,6 +34,7 @@ import Store from '~/screens/Store';
  * Stacks
  */
 import Profile from '~/screens/Profile';
+import MovieDetail from '~/screens/Movies/detail';
 
 function Routes() {
   const MovieStack = createStackNavigator();
@@ -78,7 +79,7 @@ function Routes() {
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.primary : '#000';
               return (
-                <Text style={{ fontSize: 14, color: color }}> Podcasts </Text>
+                <Text style={{ fontSize: 14, color: color }}> Vídeos </Text>
               );
             },
           }}
@@ -172,6 +173,13 @@ function Routes() {
   return (
     <NavigationContainer>
       <ContentStack.Navigator initialRouteName={'Rocket'}>
+        <MovieStack.Screen
+          name="MovieDetail"
+          component={MovieDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
         <ContentStack.Screen
           name="Profile"
           component={Profile}
