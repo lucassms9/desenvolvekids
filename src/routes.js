@@ -33,6 +33,7 @@ import Store from '~/screens/Store';
 /**
  * Stacks
  */
+import Profile from '~/screens/Profile';
 
 function Routes() {
   const MovieStack = createStackNavigator();
@@ -74,9 +75,11 @@ function Routes() {
                 <MaterialIcons name="ondemand-video" size={25} color={color} />
               );
             },
-            tabBarLabel: (props) => {
-              console.log(props);
-              return <Text style={{ fontSize: 14 }}> Vídeos </Text>;
+            tabBarLabel: ({ focused }) => {
+              const color = focused ? colors.primary : '#000';
+              return (
+                <Text style={{ fontSize: 14, color: color }}> Podcasts </Text>
+              );
             },
           }}
         />
@@ -88,9 +91,11 @@ function Routes() {
             tabBarIcon: ({ focused, color, size }) => {
               return <FontAwesome name="podcast" size={25} color={color} />;
             },
-            tabBarLabel: (props) => {
-              console.log(props);
-              return <Text style={{ fontSize: 14 }}> Podcasts </Text>;
+            tabBarLabel: ({ focused }) => {
+              const color = focused ? colors.primary : '#000';
+              return (
+                <Text style={{ fontSize: 14, color: color }}> Podcasts </Text>
+              );
             },
           }}
         />
@@ -108,8 +113,11 @@ function Routes() {
                 />
               );
             },
-            tabBarLabel: (props) => {
-              return <Text style={{ fontSize: 14 }}> Dicas </Text>;
+            tabBarLabel: ({ focused }) => {
+              const color = focused ? colors.primary : '#000';
+              return (
+                <Text style={{ fontSize: 14, color: color }}> Dicas </Text>
+              );
             },
           }}
         />
@@ -121,9 +129,9 @@ function Routes() {
             tabBarIcon: ({ focused, color, size }) => {
               return <MaterialIcons name="shop" size={25} color={color} />;
             },
-            tabBarLabel: (props) => {
-              console.log(props);
-              return <Text style={{ fontSize: 14 }}> Loja </Text>;
+            tabBarLabel: ({ focused }) => {
+              const color = focused ? colors.primary : '#000';
+              return <Text style={{ fontSize: 14, color: color }}> Loja </Text>;
             },
           }}
         />
@@ -164,6 +172,13 @@ function Routes() {
   return (
     <NavigationContainer>
       <ContentStack.Navigator initialRouteName={'Rocket'}>
+        <ContentStack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            headerShown: false,
+          }}
+        />
         <ContentStack.Screen
           name="Rocket"
           component={RocketAnimated}

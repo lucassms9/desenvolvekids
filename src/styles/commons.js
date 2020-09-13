@@ -29,6 +29,16 @@ export default {
     margin: 10,
     backgroundColor: colors.backgroung,
   },
+  bodyGlobal: {
+    flex: 1,
+    backgroundColor: colors.backgroung,
+    flexDirection: 'column',
+  },
+  containerItems: {
+    flex: 1,
+    margin: 20,
+    backgroundColor: colors.backgroung,
+  },
   textWhite: {
     color: '#fff',
   },

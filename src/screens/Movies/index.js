@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as AuthActions } from '~/store/ducks/auth';
+
 import { SafeAreaView, View, Text } from 'react-native';
 import { Card, ListItem, Button, Icon, Image } from 'react-native-elements';
 
 import Header from '~/components/Header';
 import { commons } from '~/styles';
-function Movies() {
+
+function Movies({ setNavigation, navigation }) {
   const [users, setUsers] = useState([
     {
       name: 'brynn',
       avatar:
         'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
     },
-    {
-      name: 'brynn',
-      avatar:
-        'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
-    },
-    {
-      name: 'brynn',
-      avatar:
-        'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
-    },
   ]);
+  useEffect(() => {
+    setNavigation(navigation);
+  });
   return (
     <View style={commons.body}>
       <Header title="Vídeos" />
@@ -50,4 +48,17 @@ function Movies() {
   );
 }
 
-export default Movies;
+const mapStateToProps = ({ auth: { user, status } }) => ({
+  userEntity: user,
+  status,
+});
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      ...AuthActions,
+    },
+    dispatch,
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Movies);

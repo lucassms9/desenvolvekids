@@ -37,3 +37,20 @@ export function* signUp({ data: signUpData }) {
     yield put(AuthActions.signUpError('erro no cadastro'));
   }
 }
+
+export function* signOut() {
+  try {
+    yield call([AsyncStorage, 'removeItem'], storageKeys.user);
+
+    const {
+      auth: { navigationGlobal },
+    } = yield select();
+
+    yield call([navigationGlobal, 'dispatch'], StackActions.replace('Auth'));
+
+    yield put(AuthActions.signOutSuccess());
+  } catch (error) {
+    yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
+    yield put(AuthActions.signOutError(error));
+  }
+}

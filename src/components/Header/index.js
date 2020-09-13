@@ -6,7 +6,7 @@ import { Header } from 'react-native-elements';
 import { colors, commons } from '~/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-function HeaderComponent({ title, hasBack }) {
+function HeaderComponent({ title, hasBack, hasntProfile }) {
   const navigation = useNavigation();
 
   const leftComp = hasBack ? (
@@ -19,7 +19,16 @@ function HeaderComponent({ title, hasBack }) {
   ) : (
     {}
   );
-
+  const rightComp = !hasntProfile ? (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('Profile');
+      }}>
+      <Feather name="user" size={30} color={colors.white} />
+    </TouchableOpacity>
+  ) : (
+    {}
+  );
   return (
     <Header
       ViewComponent={LinearGradient} // Don't forget this!
@@ -35,14 +44,7 @@ function HeaderComponent({ title, hasBack }) {
         style: { color: colors.white, ...commons.pageTitle },
       }}
       containerStyle={{ borderBottomWidth: 0 }}
-      rightComponent={
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}>
-          <Feather name="user" size={30} color={colors.white} />
-        </TouchableOpacity>
-      }
+      rightComponent={rightComp}
       barStyle="light-content"
     />
   );

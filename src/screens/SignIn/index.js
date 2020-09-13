@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+
+import { bindActionCreators } from 'redux';
+import { Creators as AuthActions } from '~/store/ducks/auth';
+
 import {
   SafeAreaView,
   View,
@@ -17,7 +21,10 @@ import logo from '~/assets/images/logo.png';
 
 import styles from './styles';
 
-function SignIn({ loading, navigation }) {
+function SignIn({ loading, navigation, setNavigation }) {
+  useEffect(() => {
+    setNavigation(navigation);
+  });
   const requestLogin = () => {
     alert('faz login');
   };
@@ -87,6 +94,12 @@ const mapStateToProps = ({ auth: { loading } }) => ({
   loading,
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      ...AuthActions,
+    },
+    dispatch,
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

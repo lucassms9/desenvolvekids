@@ -10,7 +10,7 @@ export default function* rootSaga() {
     init(),
     // takeLatest(AuthTypes.RECOVER_PASSWORD_REQUEST, init),
     // takeLatest(AuthTypes.SIGN_IN_REQUEST, signIn),
-    // takeLatest(AuthTypes.SIGN_OUT_REQUEST, signOut),
+    takeLatest(AuthTypes.SIGN_OUT_REQUEST, signOut),
     takeLatest(AuthTypes.SIGN_UP_REQUEST, signUp),
   ]);
 }
