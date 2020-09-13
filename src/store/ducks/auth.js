@@ -4,41 +4,30 @@ import { createReducer, createActions } from 'reduxsauce';
 const { Types, Creators } = createActions({
   validateTokenSuccess: ['user'],
   validateTokenRequest: ['token'],
+
   signInError: ['error'],
-  signInRequest: ['emailPhone', 'password'],
+  signInRequest: ['email', 'password'],
   signInSuccess: ['user'],
+
   signOutError: ['error'],
   signOutRequest: null,
   signOutSuccess: null,
+
   signUpError: ['error'],
   signUpRequest: ['data'],
   signUpSuccess: ['user'],
-  signUpLeadError: ['error'],
-  signUpLeadRequest: ['data', 'setIsLoading'],
-  signUpLeadSuccess: ['company', 'retailer', 'user'],
-  recoverPasswordRequest: ['emailOrPhone'],
+
+  recoverPasswordRequest: ['email'],
   recoverPasswordSuccess: ['message'],
-  recoverPasswordWithPhoneStep1: ['token', 'phone'],
-  recoverPasswordRequestStep2: ['phone', 'code', 'newPassword'],
-  recoverPasswordClearToken: null,
   recoverPasswordError: ['error'],
-  savePartialDataRequest: ['set', 'data'],
-  savePartialDataSuccess: ['set', 'data'],
-  savePartialDataError: ['error'],
-  loadPartialDataRequest: null,
-  loadPartialDataSuccess: ['set', 'data'],
-  loadPartialDataError: ['error'],
-  resetPartialDataRequest: null,
-  resetPartialDataSuccess: null,
-  saveTimeStamp: ['timeStamp'],
   authCheck: ['status'],
-  fetchChannelsRequest: ['data'],
-  fetchChannelsSuccess: ['channels'],
-  setNotAfterBecomeRetailer: [],
+
+  setNavigation: ['nav'],
 });
 
 const INITIAL_STATE = Immutable({
   authCheck: false,
+  navigationGlobal: () => {},
   status: '',
   user: {
     name: '',
@@ -48,24 +37,29 @@ const INITIAL_STATE = Immutable({
     parent: '',
     phone: '',
   },
-  loading: false,
 });
 
 const error = (state = INITIAL_STATE, action) =>
-  state.merge({ status: 'error', error: action.error.description });
+  state.merge({
+    status: 'error',
+    error: action.error.description,
+  });
 
 const signInSignUpSuccess = (state = INITIAL_STATE, { user }) => {
   return state.merge({
     status: 'success',
-    user: {
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-    },
+    user,
   });
 };
 
-const request = (state = INITIAL_STATE) => state.merge({ status: 'loading' });
+const request = (state = INITIAL_STATE) => {
+  return state.merge({ status: 'loading' });
+};
+
+const setNavigationGlobal = (state = INITIAL_STATE, { nav }) => {
+  return state.merge({ navigationGlobal: nav });
+};
+
 const signOut = () => INITIAL_STATE.merge({ authCheck: false });
 
 const authCheckStatus = (state = INITIAL_STATE, { status }) =>
@@ -82,6 +76,7 @@ export default createReducer(INITIAL_STATE, {
   [Types.SIGN_UP_SUCCESS]: (state = INITIAL_STATE, payload) =>
     signInSignUpSuccess(state, payload),
   [Types.AUTH_CHECK]: authCheckStatus,
+  [Types.SET_NAVIGATION]: setNavigationGlobal,
 });
 
 export { Types, Creators };

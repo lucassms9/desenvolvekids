@@ -1,3 +1,3 @@
 export default {
-  userId: '@Kotaki:userId',
+  user: '@DevKids:user',
 };

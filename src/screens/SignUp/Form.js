@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as AuthActions } from '~/store/ducks/auth';
 import * as yup from 'yup';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
@@ -9,15 +12,18 @@ import InputText from '~/components/InputText';
 import styles from './styles';
 
 const validationSchema = yup.object().shape({
-  email: yup.string().required('Campo obrigatório'),
+  //   email: yup.string().required('Campo obrigatório'),
 });
 
-function Form() {
+function Form(props) {
+  console.log(props);
+  const { signUpRequest, status } = props;
+
   return (
     <Formik
       initialValues={{ email: '' }}
       validationSchema={validationSchema}
-      onSubmit={(values) => console.log(values)}>
+      onSubmit={(values) => signUpRequest(values)}>
       {({ handleSubmit, values, setFieldValue, errors }) => (
         <View>
           <InputText
@@ -43,35 +49,44 @@ function Form() {
             onChangeText={(text) => setFieldValue('email', text)}
           />
           {errors.email && <Text style={styles.error}>{errors.email}</Text>}
-          <Text style={{ color: '#fff' }}>Grau de Parentesco</Text>
-          <RNPickerSelect
-            onValueChange={(text) => setFieldValue('parent', text)}
-            value={values.parent}
-            items={[
-              { label: 'Mãe', value: 'mae' },
-              { label: 'Pai', value: 'pai' },
-              { label: 'Tutor', value: 'tutor' },
-            ]}
-            placeholder={{
-              label: 'Escolha',
-              value: null,
-              color: '#9EA0A4',
-            }}
-            style={{
-              ...pickerSelectStyles,
-              iconContainer: {
-                top: 10,
-                right: 10,
-              },
-            }}
-            useNativeAndroidPickerStyle={false}
-            textInputProps={{ underlineColor: 'yellow' }}
-            Icon={() => {
-              return <Ionicons name="md-arrow-down" size={24} color="gray" />;
-            }}
-          />
-          {errors.parent && <Text style={styles.error}>{errors.parent}</Text>}
-
+          <View style={{ marginHorizontal: 5 }}>
+            <Text
+              style={{
+                color: '#fff',
+                fontWeight: '600',
+                fontSize: 16,
+                marginBottom: 5,
+              }}>
+              Grau de Parentesco
+            </Text>
+            <RNPickerSelect
+              onValueChange={(text) => setFieldValue('parent', text)}
+              value={values.parent}
+              items={[
+                { label: 'Mãe', value: 'mae' },
+                { label: 'Pai', value: 'pai' },
+                { label: 'Tutor', value: 'tutor' },
+              ]}
+              placeholder={{
+                label: 'Escolha',
+                value: null,
+                color: '#9EA0A4',
+              }}
+              style={{
+                ...pickerSelectStyles,
+                iconContainer: {
+                  top: 10,
+                  right: 10,
+                },
+              }}
+              useNativeAndroidPickerStyle={false}
+              textInputProps={{ underlineColor: 'yellow' }}
+              Icon={() => {
+                return <Ionicons name="md-arrow-down" size={24} color="gray" />;
+              }}
+            />
+            {errors.parent && <Text style={styles.error}>{errors.parent}</Text>}
+          </View>
           <InputText
             value={values.phone}
             label={'Celular'}
@@ -101,17 +116,34 @@ function Form() {
           {errors.passwordConfirm && (
             <Text style={styles.error}>{errors.passwordConfirm}</Text>
           )}
-          <ButtonPrimary onPress={handleSubmit} text="Enviar" />
+          <ButtonPrimary
+            loading={status === 'loading'}
+            onPress={handleSubmit}
+            text="Enviar"
+          />
         </View>
       )}
     </Formik>
   );
 }
 
-export default Form;
+const mapStateToProps = ({ auth: { status } }) => ({
+  status,
+});
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      ...AuthActions,
+    },
+    dispatch,
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
+    marginBottom: 20,
     fontSize: 16,
     paddingVertical: 12,
     paddingHorizontal: 10,
@@ -123,6 +155,7 @@ const pickerSelectStyles = StyleSheet.create({
   },
   inputAndroid: {
     fontSize: 16,
+    marginBottom: 20,
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderWidth: 0.5,

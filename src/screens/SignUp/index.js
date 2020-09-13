@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as AuthActions } from '~/store/ducks/auth';
 
-import ButtonPrimary from '~/components/ButtonPrimary';
 import Header from '~/components/Header';
 
 import Form from './Form';
-import { commons } from '~/styles';
 import styles from './styles';
 
-function SignUp({ userEntity, loading }) {
+function SignUp({ userEntity, loading, navigation, setNavigation }) {
+  useEffect(() => {
+    setNavigation(navigation);
+  }, []);
+
   return (
     <View style={styles.bodyLogin}>
       <Header title="Cadastre-se" hasBack />
@@ -27,6 +31,12 @@ const mapStateToProps = ({ auth: { user, loading } }) => ({
   loading,
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      ...AuthActions,
+    },
+    dispatch,
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
