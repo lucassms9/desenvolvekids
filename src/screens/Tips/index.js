@@ -74,8 +74,10 @@ function Tips({ navigation }) {
                     />
                     <CardAction separator={true} inColumn={false}>
                       <CardButton
-                        onPress={() => {}}
-                        title="ASSISTIR"
+                        onPress={() => {
+                          navigation.navigate('TipDetail');
+                        }}
+                        title="LER MAIS"
                         color="blue"
                       />
                     </CardAction>

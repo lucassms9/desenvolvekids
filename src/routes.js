@@ -36,8 +36,31 @@ import Store from '~/screens/Store';
 import Profile from '~/screens/Profile';
 import MovieDetail from '~/screens/Movies/detail';
 import PodcastDetail from '~/screens/Podcasts/detail';
+import TipDetail from '~/screens/Tips/detail';
 
 function Routes() {
+  const TipStack = createStackNavigator();
+
+  function TipStackScreen() {
+    return (
+      <TipStack.Navigator>
+        <TipStack.Screen
+          name="Tips"
+          component={Tips}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <TipStack.Screen
+          name="TipDetail"
+          component={TipDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </TipStack.Navigator>
+    );
+  }
   const MovieStack = createStackNavigator();
 
   function MovieStackScreen() {
@@ -103,7 +126,7 @@ function Routes() {
         />
         <Tab.Screen
           name="Tips"
-          component={Tips}
+          component={TipStackScreen}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
