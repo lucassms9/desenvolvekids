@@ -65,6 +65,9 @@ const signOut = () => INITIAL_STATE.merge({ authCheck: false });
 const authCheckStatus = (state = INITIAL_STATE, { status }) =>
   state.merge({ authCheck: status });
 
+const recoverPasswordSuccess = (state = INITIAL_STATE) =>
+  state.merge({ status: 'success', error: '' });
+
 export default createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_ERROR]: error,
   [Types.SIGN_IN_SUCCESS]: signInSignUpSuccess,
@@ -77,6 +80,9 @@ export default createReducer(INITIAL_STATE, {
     signInSignUpSuccess(state, payload),
   [Types.AUTH_CHECK]: authCheckStatus,
   [Types.SET_NAVIGATION]: setNavigationGlobal,
+  [Types.RECOVER_PASSWORD_REQUEST]: request,
+  [Types.RECOVER_PASSWORD_ERROR]: error,
+  [Types.RECOVER_PASSWORD_SUCCESS]: recoverPasswordSuccess,
 });
 
 export { Types, Creators };

@@ -18,7 +18,11 @@ export default {
     alignItems: 'center',
   },
   error: {
-    color: colors.danger,
+    color: colors.white,
+    fontSize: 15,
+    fontWeight: '500',
+    marginLeft: 10,
+    top: -15,
   },
   body: {
     flex: 1,

@@ -54,3 +54,39 @@ export function* signOut() {
     yield put(AuthActions.signOutError(error));
   }
 }
+
+export function* signIn({ email, password }) {
+  try {
+    //faz request login
+    // const { data } = yield call(api.post, '/login', { email, password });
+    // if (typeof data === 'undefined') {
+    //   throw Error('Credenciais inválidas');
+    // }
+
+    const user = { name: 'user lucas' };
+    const {
+      auth: { navigationGlobal },
+    } = yield select();
+
+    yield call(
+      [AsyncStorage, 'setItem'],
+      storageKeys.user,
+      JSON.stringify(user),
+    );
+
+    yield put(AuthActions.signInSuccess(user));
+
+    yield call([navigationGlobal, 'dispatch'], StackActions.replace('Main'));
+  } catch (error) {
+    yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
+    yield put(AuthActions.signInError(error));
+  }
+}
+
+export function* recover() {
+  try {
+  } catch (error) {
+    yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
+    yield put(AuthActions.signInError(error));
+  }
+}

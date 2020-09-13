@@ -11,24 +11,28 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import { Input, SocialIcon } from 'react-native-elements';
+import { SocialIcon } from 'react-native-elements';
+import { Formik } from 'formik';
 
 import '~/config/StatusBar';
 import { commons } from '~/styles';
 import ButtonPrimary from '~/components/ButtonPrimary';
+import InputText from '~/components/InputText';
 
+import validationSchema from './validation';
 import logo from '~/assets/images/logo.png';
 
 import styles from './styles';
 
-function SignIn({ loading, navigation, setNavigation }) {
+function SignIn({ status, navigation, setNavigation, signInRequest }) {
   useEffect(() => {
     setNavigation(navigation);
   });
-  const requestLogin = () => {
-    alert('faz login');
+  const handleLogin = async ({ email, senha }) => {
+    signInRequest(email, senha);
   };
 
+  console.log(status);
   return (
     <View style={styles.bodyLogin}>
       <SafeAreaView style={styles.container}>
@@ -37,27 +41,44 @@ function SignIn({ loading, navigation, setNavigation }) {
             <Image source={logo} />
           </View>
           <View style={styles.containerForm}>
-            <Input
-              placeholder="E-mail"
-              inputStyle={commons.textWhite}
-              labelStyle={commons.textWhite}
-              label="E-mail"
-            />
-            <Input
-              placeholder="Senha"
-              label="Senha"
-              inputStyle={commons.textWhite}
-              labelStyle={commons.textWhite}
-              secureTextEntry={true}
-            />
-            <View style={{ marginTop: 30 }}>
-              <ButtonPrimary
-                loading={loading}
-                text="ENTRAR"
-                action={requestLogin}
-              />
-            </View>
-
+            <Formik
+              initialValues={{ email: '', password: '' }}
+              validationSchema={validationSchema}
+              onSubmit={(values) => handleLogin(values)}>
+              {({ handleSubmit, values, setFieldValue, errors }) => (
+                <View>
+                  <InputText
+                    value={values.email}
+                    label={'E-mail'}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    placeholder={'E-mail'}
+                    onChangeText={(text) => setFieldValue('email', text)}
+                  />
+                  {errors.email && (
+                    <Text style={commons.error}>{errors.email}</Text>
+                  )}
+                  <InputText
+                    value={values.password}
+                    label={'Senha'}
+                    autoCapitalize="none"
+                    placeholder={'Senha'}
+                    onChangeText={(text) => setFieldValue('password', text)}
+                    secureTextEntry={true}
+                  />
+                  {errors.password && (
+                    <Text style={commons.error}>{errors.password}</Text>
+                  )}
+                  <View style={{ marginTop: 30 }}>
+                    <ButtonPrimary
+                      loading={status === 'loading'}
+                      text="ENTRAR"
+                      onPress={handleSubmit}
+                    />
+                  </View>
+                </View>
+              )}
+            </Formik>
             <View style={styles.containerSocial}>
               <Text style={[commons.textWhite, { fontSize: 17 }]}>
                 Faça Login usando:
@@ -90,8 +111,8 @@ function SignIn({ loading, navigation, setNavigation }) {
   );
 }
 
-const mapStateToProps = ({ auth: { loading } }) => ({
-  loading,
+const mapStateToProps = ({ auth: { status } }) => ({
+  status,
 });
 
 const mapDispatchToProps = (dispatch) =>
