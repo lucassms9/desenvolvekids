@@ -35,6 +35,7 @@ import Store from '~/screens/Store';
  */
 import Profile from '~/screens/Profile';
 import MovieDetail from '~/screens/Movies/detail';
+import PodcastDetail from '~/screens/Podcasts/detail';
 
 function Routes() {
   const MovieStack = createStackNavigator();
@@ -173,6 +174,13 @@ function Routes() {
   return (
     <NavigationContainer>
       <ContentStack.Navigator initialRouteName={'Rocket'}>
+        <MovieStack.Screen
+          name="PodcastDetail"
+          component={PodcastDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
         <MovieStack.Screen
           name="MovieDetail"
           component={MovieDetail}

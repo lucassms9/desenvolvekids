@@ -73,7 +73,9 @@ function Podcasts({ navigation }) {
                     />
                     <CardAction separator={true} inColumn={false}>
                       <CardButton
-                        onPress={() => {}}
+                        onPress={() => {
+                          navigation.navigate('PodcastDetail');
+                        }}
                         title="ASSISTIR"
                         color="blue"
                       />
