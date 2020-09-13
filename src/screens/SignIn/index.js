@@ -1,20 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { SafeAreaView, View, Text, Image } from 'react-native';
-import { Input, Button, SocialIcon } from 'react-native-elements';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import { Input, SocialIcon } from 'react-native-elements';
 
 import '~/config/StatusBar';
-import { commons, colors } from '~/styles';
+import { commons } from '~/styles';
 import ButtonPrimary from '~/components/ButtonPrimary';
 
 import logo from '~/assets/images/logo.png';
 
 import styles from './styles';
 
-function SignIn({ loading }) {
+function SignIn({ loading, navigation }) {
   const requestLogin = () => {
     alert('faz login');
   };
+
   return (
     <View style={styles.bodyLogin}>
       <SafeAreaView style={styles.container}>
@@ -53,12 +60,22 @@ function SignIn({ loading }) {
             </View>
           </View>
           <View style={styles.containerFooter}>
-            <Text style={[commons.textWhite, { fontSize: 17 }]}>
-              Registre-se!
-            </Text>
-            <Text style={[commons.textWhite, { fontSize: 17 }]}>
-              Esqueci Minha Senha
-            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.push('SignUp');
+              }}>
+              <Text style={[commons.textWhite, { fontSize: 17 }]}>
+                Registre-se!
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.push('Recover');
+              }}>
+              <Text style={[commons.textWhite, { fontSize: 17 }]}>
+                Esqueci Minha Senha
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>

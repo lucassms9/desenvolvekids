@@ -14,12 +14,6 @@ function RocketAnimated({ authCheck }) {
 
   const navigation = useNavigation();
 
-  const setCompleteAnimate = () => {
-    setTimeout(() => {
-      setEndAnimate(true);
-    }, 3005);
-  };
-
   const mooveLR = () => {
     Animated.timing(bottomPosition, {
       toValue: 1000,
@@ -27,10 +21,13 @@ function RocketAnimated({ authCheck }) {
       easing: Easing.linear, // the style of animation
       useNativeDriver: false,
     }).start(); // starts this annimation once this method is called
+
+    setTimeout(() => {
+      setEndAnimate(true);
+    }, 2900);
   };
 
   useEffect(() => {
-    setCompleteAnimate();
     mooveLR();
   }, []);
 
@@ -47,7 +44,7 @@ function RocketAnimated({ authCheck }) {
     <View
       style={{
         flex: 1,
-        backgroundColor: colors.blue,
+        backgroundColor: colors.backgroung,
         justifyContent: 'flex-end',
         alignItems: 'center',
       }}>

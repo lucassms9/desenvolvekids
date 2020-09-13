@@ -18,6 +18,8 @@ import colors from '~/styles/colors';
  */
 import RocketAnimated from '~/components/RocketAnimated';
 import SignIn from '~/screens/SignIn';
+import SignUp from '~/screens/SignUp';
+import Recover from '~/screens/Recover';
 
 /**
  * Tabs
@@ -107,7 +109,6 @@ function Routes() {
               );
             },
             tabBarLabel: (props) => {
-              console.log(props);
               return <Text style={{ fontSize: 14 }}> Dicas </Text>;
             },
           }}
@@ -137,6 +138,20 @@ function Routes() {
         <AuthStack.Screen
           name="SignIn"
           component={SignIn}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <AuthStack.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <AuthStack.Screen
+          name="Recover"
+          component={Recover}
           options={{
             headerShown: false,
           }}
