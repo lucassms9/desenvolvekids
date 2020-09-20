@@ -1,0 +1,33 @@
+{
+    "products": [
+        { 
+            "id": 1,
+            "nome": "Camiseta Pequena", 
+            "marca": "Lacoste", 
+            "descricao":"camiseta top demais, bora gastar",
+            "preco":110,
+            "preco_promocional":90,
+            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png"
+
+        },
+        { 
+            "id": 2,
+            "nome": "Camiseta Média", 
+            "marca": "Lacoste", 
+            "descricao":"camiseta top demais, bora gastar",
+            "preco":100,
+            "preco_promocional":80,
+            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png"
+
+        },
+        { 
+            "id": 3,
+            "nome": "Camiseta Grande", 
+            "marca": "Lacoste", 
+            "descricao":"camiseta top demais, bora gastar",
+            "preco":200,
+            "preco_promocional":0,
+            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png"
+        }
+    ]
+}

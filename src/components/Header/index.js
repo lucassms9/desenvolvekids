@@ -2,14 +2,15 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Header } from 'react-native-elements';
 import { colors, commons } from '~/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-function HeaderComponent({ title, hasBack, hasntProfile }) {
+function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
   const navigation = useNavigation();
 
-  const leftComp = hasBack ? (
+  let leftComp = hasBack ? (
     <TouchableOpacity
       onPress={() => {
         navigation.goBack();
@@ -19,6 +20,22 @@ function HeaderComponent({ title, hasBack, hasntProfile }) {
   ) : (
     {}
   );
+
+  if (!hasBack && showIconCart) {
+    leftComp = (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Cart');
+        }}>
+        <MaterialCommunityIcons
+          name="cart-outline"
+          size={30}
+          color={colors.white}
+        />
+      </TouchableOpacity>
+    );
+  }
+  console.log(leftComp);
   const rightComp = !hasntProfile ? (
     <TouchableOpacity
       onPress={() => {

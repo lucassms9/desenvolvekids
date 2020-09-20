@@ -1,13 +1,14 @@
 import React from 'react';
+
 import { View, SafeAreaView, Platform, StyleSheet, Text } from 'react-native';
 
 import Header from '~/components/Header';
 import { commons } from '~/styles';
 
-function Product() {
+function FinishedOrder() {
   return (
     <View style={commons.body}>
-      <Header title="Produto name" hasBack />
+      <Header title="Finalizar Compra" hasBack />
       <SafeAreaView>
         <View style={[commons.container, { paddingBottom: 70 }]}>
           <Text>as</Text>
@@ -17,4 +18,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default FinishedOrder;

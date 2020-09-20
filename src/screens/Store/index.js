@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as AuthActions } from '~/store/ducks/auth';
-
+import { Creators as ProductActions } from '~store/ducks/product';
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
-import { Image, Button } from 'react-native-elements';
+import { Image, Button, Icon } from 'react-native-elements';
+
 import {
   Card,
   CardTitle,
@@ -15,49 +16,39 @@ import {
 } from 'react-native-material-cards';
 
 import Header from '~/components/Header';
+import Loader from '~/components/Loader';
+import TryAgain from '~/components/TryAgain';
+
 import { commons } from '~/styles';
 
-function Store({ navigation }) {
-  const [users, setUsers] = useState([
-    {
-      name: 'brynn',
-      avatar:
-        'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
-    },
-    {
-      name: 'brynn',
-      avatar:
-        'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
-    },
-    {
-      name: 'brynn',
-      avatar:
-        'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
-    },
-    {
-      name: 'brynn',
-      avatar:
-        'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
-    },
-  ]);
+function Store(props) {
+  const { navigation, productsRequest, status, products } = props;
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       console.log('focado na screen store');
+      productsRequest();
     });
 
     return unsubscribe;
   }, [navigation]);
 
+  useEffect(() => {
+    productsRequest();
+  }, []);
+
   return (
     <View style={commons.body}>
-      <Header title="Loja" />
+      <Header title="Loja" showIconCart />
       <SafeAreaView>
         <View style={[commons.container, { paddingBottom: 70 }]}>
           <ScrollView>
-            {users.map((u, i) => {
+            {status === 'loading' && <Loader />}
+            {status === 'error' && <TryAgain tryAgain={productsRequest} />}
+            {products.map((u, i) => {
               return (
                 <View
+                  key={i}
                   style={{
                     backgroundColor: '#fff',
                     height: 250,
@@ -90,15 +81,16 @@ function Store({ navigation }) {
   );
 }
 
-const mapStateToProps = ({ auth: { user, status } }) => ({
-  userEntity: user,
-  status,
+const mapStateToProps = ({ product }) => ({
+  products: product.products,
+  status: product.status,
 });
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       ...AuthActions,
+      ...ProductActions,
     },
     dispatch,
   );

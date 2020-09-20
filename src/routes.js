@@ -29,6 +29,9 @@ import Movies from '~/screens/Movies';
 import Podcasts from '~/screens/Podcasts';
 import Tips from '~/screens/Tips';
 import Store from '~/screens/Store';
+import Cart from '~/screens/Cart';
+import Product from '~/screens/Product';
+import FinishedOrder from '~/screens/FinishedOrder';
 
 /**
  * Stacks
@@ -39,6 +42,43 @@ import PodcastDetail from '~/screens/Podcasts/detail';
 import TipDetail from '~/screens/Tips/detail';
 
 function Routes() {
+  const StoreStack = createStackNavigator();
+
+  function StoreStackScreen() {
+    return (
+      <StoreStack.Navigator>
+        <StoreStack.Screen
+          name="Store"
+          component={Store}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StoreStack.Screen
+          name="Cart"
+          component={Cart}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StoreStack.Screen
+          name="Product"
+          component={Product}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StoreStack.Screen
+          name="FinishedOrder"
+          component={FinishedOrder}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </StoreStack.Navigator>
+    );
+  }
+
   const TipStack = createStackNavigator();
 
   function TipStackScreen() {
@@ -148,7 +188,7 @@ function Routes() {
         />
         <Tab.Screen
           name="Store"
-          component={Store}
+          component={StoreStackScreen}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
