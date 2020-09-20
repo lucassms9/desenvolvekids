@@ -28,6 +28,24 @@
             "preco":200,
             "preco_promocional":0,
             "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png"
+        },
+        { 
+            "id": 4,
+            "nome": "Camiseta Grande asdasd asdasd as d", 
+            "marca": "Lacoste", 
+            "descricao":"camiseta top demais, bora gastar",
+            "preco":200,
+            "preco_promocional":0,
+            "imagem":"https://ae01.alicdn.com/kf/HTB15gvvPVXXXXa6XVXXq6xXFXXXv/BLACKINK-OWLS-png-Impress-o-Do-Logotipo-Dos-Homens-T-Shirt-Da-Forma-T-Camisas-Moda.jpg"
+        },
+        { 
+            "id": 5,
+            "nome": "Camiseta Grande", 
+            "marca": "Lacoste", 
+            "descricao":"camiseta top demais, bora gastar",
+            "preco":200,
+            "preco_promocional":0,
+            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png"
         }
     ]
 }

@@ -4,7 +4,9 @@ import { View, SafeAreaView, Platform, StyleSheet, Text } from 'react-native';
 import Header from '~/components/Header';
 import { commons } from '~/styles';
 
-function Product() {
+function Product({ route, navigation }) {
+  const { productId } = route.params;
+  console.log(productId);
   return (
     <View style={commons.body}>
       <Header title="Produto name" hasBack />

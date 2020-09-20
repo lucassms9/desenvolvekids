@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Header } from 'react-native-elements';
+import { Header, Badge } from 'react-native-elements';
 import { colors, commons } from '~/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -31,6 +31,11 @@ function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
           name="cart-outline"
           size={30}
           color={colors.white}
+        />
+        <Badge
+          badgeStyle={{ backgroundColor: colors.primary }}
+          value="2"
+          containerStyle={{ position: 'absolute', top: -4, right: -4 }}
         />
       </TouchableOpacity>
     );

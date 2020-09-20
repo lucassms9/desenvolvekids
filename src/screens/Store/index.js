@@ -3,27 +3,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 import { Creators as ProductActions } from '~store/ducks/product';
-import { SafeAreaView, ScrollView, View, Text } from 'react-native';
+import { SafeAreaView, ScrollView, View, FlatList } from 'react-native';
 import { Image, Button, Icon } from 'react-native-elements';
-
-import {
-  Card,
-  CardTitle,
-  CardContent,
-  CardAction,
-  CardButton,
-  CardImage,
-} from 'react-native-material-cards';
 
 import Header from '~/components/Header';
 import Loader from '~/components/Loader';
 import TryAgain from '~/components/TryAgain';
+import ProductCard from '~/components/ProductCard';
 
 import { commons } from '~/styles';
+import styles from './styles';
 
 function Store(props) {
   const { navigation, productsRequest, status, products } = props;
-
+  const productList = [...products];
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       console.log('focado na screen store');
@@ -37,44 +30,46 @@ function Store(props) {
     productsRequest();
   }, []);
 
+  const columns = 2;
+
+  const createRows = (data, columnsParam) => {
+    const rows = Math.floor(data.length / columnsParam); // [A]
+    let lastRowElements = data.length - rows * columnsParam; // [B]
+    while (lastRowElements !== columnsParam) {
+      // [C]
+      data.push({
+        // [D]
+        id: `empty-${lastRowElements}`,
+        name: `empty-${lastRowElements}`,
+        empty: true,
+      });
+      lastRowElements += 1; // [E]
+    }
+    return data; // [F]
+  };
+
   return (
     <View style={commons.body}>
       <Header title="Loja" showIconCart />
       <SafeAreaView>
         <View style={[commons.container, { paddingBottom: 70 }]}>
-          <ScrollView>
-            {status === 'loading' && <Loader />}
-            {status === 'error' && <TryAgain tryAgain={productsRequest} />}
-            {products.map((u, i) => {
+          {status === 'loading' && <Loader />}
+          {status === 'error' && <TryAgain tryAgain={productsRequest} />}
+
+          <FlatList
+            data={createRows(productList, columns)}
+            keyExtractor={(product) => product.id}
+            numColumns={2} // Número de colunas
+            renderItem={(product) => {
+              console.log(product);
+              if (product.empty) {
+                return <View style={[styles.item, styles.itemEmpty]} />;
+              }
               return (
-                <View
-                  key={i}
-                  style={{
-                    backgroundColor: '#fff',
-                    height: 250,
-                    marginBottom: 15,
-                  }}>
-                  <Card>
-                    <CardImage
-                      source={{ uri: 'http://placehold.it/480x270' }}
-                      title="Above all i am here"
-                    />
-                    <CardContent
-                      style={{ flex: 0 }}
-                      text="Your device will reboot in few seconds once successful, be patient meanwhile"
-                    />
-                    <CardAction separator={true} inColumn={false}>
-                      <CardButton
-                        onPress={() => {}}
-                        title="ASSISTIR"
-                        color="blue"
-                      />
-                    </CardAction>
-                  </Card>
-                </View>
+                <ProductCard product={product.item} navigation={navigation} />
               );
-            })}
-          </ScrollView>
+            }}
+          />
         </View>
       </SafeAreaView>
     </View>
