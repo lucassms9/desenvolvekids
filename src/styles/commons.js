@@ -31,6 +31,7 @@ export default {
   },
   container: {
     margin: 10,
+    borderRadius: 10,
     backgroundColor: colors.backgroung,
   },
   bodyGlobal: {

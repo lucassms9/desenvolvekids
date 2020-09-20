@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 import { Creators as ProductActions } from '~store/ducks/product';
-import { SafeAreaView, ScrollView, View, FlatList } from 'react-native';
-import { Image, Button, Icon } from 'react-native-elements';
+import { SafeAreaView, View, FlatList } from 'react-native';
 
 import Header from '~/components/Header';
 import Loader from '~/components/Loader';

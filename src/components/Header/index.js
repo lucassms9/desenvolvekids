@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
@@ -9,7 +10,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
   const navigation = useNavigation();
-
+  const counter = useSelector((state) => state.cart.products.length);
   let leftComp = hasBack ? (
     <TouchableOpacity
       onPress={() => {
@@ -34,7 +35,7 @@ function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
         />
         <Badge
           badgeStyle={{ backgroundColor: colors.primary }}
-          value="2"
+          value={counter}
           containerStyle={{ position: 'absolute', top: -4, right: -4 }}
         />
       </TouchableOpacity>
