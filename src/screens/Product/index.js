@@ -3,7 +3,7 @@ import { View, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Creators as CartActions } from '~/store/ducks/cart';
+import { Creators as ProductActions } from '~/store/ducks/product';
 
 import Header from '~/components/Header';
 import Loader from '~/components/Loader';
@@ -15,7 +15,6 @@ import api from '~/services/api';
 import ButtonPrimary from '~/components/ButtonPrimary';
 
 function Product(props) {
-  console.log(props);
   const { route, navigation, addProduct } = props;
   const { productId } = route.params;
   const [product, setProduct] = useState({});
@@ -78,7 +77,7 @@ const mapStateToProps = ({ cart }) => ({
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
-      ...CartActions,
+      ...ProductActions,
     },
     dispatch,
   );

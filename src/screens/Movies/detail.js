@@ -98,7 +98,7 @@ class Detail extends Component {
               onFullScreen={this.state.isFullScreen}
               source={{
                 uri:
-                  'https://84vod-adaptive.akamaized.net/exp=1600031314~acl=%2F56282283%2F%2A~hmac=e7207583326c5cde4b8c04df63200bf26fc8f09ff3281583adbea3a0619867ac/56282283/sep/video/136008184,136008183/master.m3u8?f=dash',
+                  'https://72vod-adaptive.akamaized.net/exp=1600698157~acl=%2F76979871%2F%2A~hmac=e785ba05cdf218a65d350781ad7fa56ad9136a6e1c47e06a55616a0b215f517d/76979871/sep/video/468975811,449262797,449260574,449260571,197358455/subtitles/170-Deutsch-de,171-Espa%C3%B1ol-es,140662-English-en,4678937-Fran%C3%A7ais-fr/master.m3u8?external-subs=1&f=dash',
               }}
               style={styles.mediaPlayer}
               volume={10}
