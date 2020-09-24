@@ -13,28 +13,16 @@ import { commons } from '~/styles';
 import styles from './styles';
 
 function Cart({ navigation }) {
-  const confirmOrder = () => {};
+  const confirmOrder = () => {
+    navigation.navigate('DeliveryInfo');
+  };
 
-  const productsCart = useSelector((state) => state.cart.products);
-  const products = useSelector((state) => state.product.products);
+  const productsCart = useSelector((state) => state.product.cart.products);
+  console.log(productsCart);
 
-  const handleProducts = productsCart.map((prod) => {
-    const find = products.find((prodF) => prodF.id === prod.id);
-    if (find) {
-      return {
-        ...find,
-        count: prod.count,
-      };
-    }
-  });
-
-  const total = 50;
-  // const total = useEffect(() => {
-  //   const value = handleProducts.reduce((soma, product) => {
-  //     return product.preco + soma;
-  //   }, 0);
-  //   return value;
-  // }, [handleProducts]);
+  const total = productsCart.reduce((soma, prod) => {
+    return prod.count * prod.preco + soma;
+  }, 0);
 
   return (
     <View style={commons.body}>
@@ -45,9 +33,9 @@ function Cart({ navigation }) {
             commons.container,
             { paddingBottom: 70, flexDirection: 'column' },
           ]}>
-          <View style={{ height: '94%' }}>
+          <View style={{ height: '92%' }}>
             <FlatList
-              data={handleProducts}
+              data={productsCart}
               keyExtractor={(product) => product.id}
               renderItem={(product) => {
                 return (
@@ -57,10 +45,21 @@ function Cart({ navigation }) {
             />
           </View>
           <View>
-            <View>
-              <Text style={{ color: '#fff' }}>Total: {total}</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                paddingBottom: 10,
+              }}>
+              <Text style={{ color: '#fff', fontSize: 16 }}>
+                Total:{' '}
+                {total.toLocaleString('pt-br', {
+                  style: 'currency',
+                  currency: 'BRL',
+                })}
+              </Text>
             </View>
-            <ButtonPrimary onPress={confirmOrder} text="Confirmar" />
+            <ButtonPrimary onPress={confirmOrder} text="COMPRAR" />
           </View>
         </View>
       </SafeAreaView>

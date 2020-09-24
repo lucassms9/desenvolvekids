@@ -40,8 +40,9 @@ const add = (state = INITIAL_STATE, { id }) => {
   const newProducts = [...state.cart.products];
   const productExist = state.cart.products.find((product) => product.id === id);
   if (!productExist) {
+    const findP = state.products.find((product) => product.id === id);
     newProducts.push({
-      id: id,
+      ...findP,
       count: 1,
     });
     return state.merge({

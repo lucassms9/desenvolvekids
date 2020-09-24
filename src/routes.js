@@ -29,9 +29,6 @@ import Movies from '~/screens/Movies';
 import Podcasts from '~/screens/Podcasts';
 import Tips from '~/screens/Tips';
 import Store from '~/screens/Store';
-import Cart from '~/screens/Cart';
-import Product from '~/screens/Product';
-import FinishedOrder from '~/screens/FinishedOrder';
 
 /**
  * Stacks
@@ -40,6 +37,12 @@ import Profile from '~/screens/Profile';
 import MovieDetail from '~/screens/Movies/detail';
 import PodcastDetail from '~/screens/Podcasts/detail';
 import TipDetail from '~/screens/Tips/detail';
+
+import Cart from '~/screens/Cart';
+import DeliveryInfo from '~/screens/DeliveryInfo';
+import Product from '~/screens/Product';
+import MethodPayment from '~/screens/MethodPayment';
+import FinishedOrder from '~/screens/FinishedOrder';
 
 function Routes() {
   const StoreStack = createStackNavigator();
@@ -69,8 +72,22 @@ function Routes() {
           }}
         />
         <StoreStack.Screen
+          name="DeliveryInfo"
+          component={DeliveryInfo}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StoreStack.Screen
           name="FinishedOrder"
           component={FinishedOrder}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StoreStack.Screen
+          name="MethodPayment"
+          component={MethodPayment}
           options={{
             headerShown: false,
           }}
