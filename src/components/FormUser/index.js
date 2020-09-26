@@ -10,7 +10,7 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import InputText from '~/components/InputText';
 import styles from './styles';
 
-import { maskCPF, maskCEP } from '~/helpers';
+import { maskCPF, maskDate, maskPhone } from '~/helpers';
 
 import validationSchema from './validation';
 
@@ -42,7 +42,7 @@ function Form({ submitForm, status, textButton }) {
             value={values.fiscal_number}
             label={'CPF'}
             placeholder={'CPF'}
-            onChangeText={(text) => maskCEP(setFieldValue, text)}
+            onChangeText={maskCPF(setFieldValue, 'fiscal_number')}
           />
           {errors.fiscal_number && (
             <Text style={styles.error}>{errors.fiscal_number}</Text>
@@ -51,7 +51,7 @@ function Form({ submitForm, status, textButton }) {
             value={values.birth_date}
             label={'Data de Nascimento'}
             placeholder={'Data de Nascimento'}
-            onChangeText={(text) => setFieldValue('birth_date', text)}
+            onChangeText={maskDate(setFieldValue, 'birth_date')}
           />
           {errors.birth_date && (
             <Text style={styles.error}>{errors.birth_date}</Text>
@@ -59,6 +59,8 @@ function Form({ submitForm, status, textButton }) {
           <InputText
             value={values.email}
             label={'E-mail'}
+            autoCapitalize="none"
+            keyboardType="email-address"
             placeholder={'E-mail'}
             onChangeText={(text) => setFieldValue('email', text)}
           />
@@ -97,7 +99,7 @@ function Form({ submitForm, status, textButton }) {
             value={values.phone}
             label={'Celular'}
             placeholder={'Celular'}
-            onChangeText={(text) => setFieldValue('phone', text)}
+            onChangeText={maskPhone(setFieldValue, 'phone')}
           />
           {errors.phone && <Text style={styles.error}>{errors.phone}</Text>}
 
@@ -106,6 +108,7 @@ function Form({ submitForm, status, textButton }) {
             label={'Senha'}
             placeholder={'Senha'}
             secureTextEntry={true}
+            autoCapitalize="none"
             onChangeText={(text) => setFieldValue('password', text)}
           />
           {errors.password && (
@@ -116,6 +119,7 @@ function Form({ submitForm, status, textButton }) {
             value={values.passwordConfirm}
             label={'Confirmar Senha'}
             placeholder={'Confirmar Senha'}
+            autoCapitalize="none"
             secureTextEntry={true}
             onChangeText={(text) => setFieldValue('passwordConfirm', text)}
           />
