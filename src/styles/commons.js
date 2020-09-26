@@ -47,4 +47,5 @@ export default {
   textWhite: {
     color: '#fff',
   },
+  fs17: { fontSize: 17 },
 };

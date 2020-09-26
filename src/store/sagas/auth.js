@@ -57,13 +57,13 @@ export function* signOut() {
 
 export function* signIn({ email, password }) {
   try {
+    const req = {
+      email,
+      senha: password,
+    };
     //faz request login
-    // const { data } = yield call(api.post, '/login', { email, password });
-    // if (typeof data === 'undefined') {
-    //   throw Error('Credenciais inválidas');
-    // }
+    const data = yield call(api.post, '/login/post', req);
 
-    const user = { name: 'user lucas' };
     const {
       auth: { navigationGlobal },
     } = yield select();
@@ -71,10 +71,10 @@ export function* signIn({ email, password }) {
     yield call(
       [AsyncStorage, 'setItem'],
       storageKeys.user,
-      JSON.stringify(user),
+      JSON.stringify(data.user),
     );
 
-    yield put(AuthActions.signInSuccess(user));
+    yield put(AuthActions.signInSuccess(data.user));
 
     yield call([navigationGlobal, 'dispatch'], StackActions.replace('Main'));
   } catch (error) {

@@ -28,11 +28,10 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
   useEffect(() => {
     setNavigation(navigation);
   });
-  const handleLogin = async ({ email, senha }) => {
-    signInRequest(email, senha);
+  const handleLogin = async ({ email, password }) => {
+    signInRequest(email, password);
   };
 
-  console.log(status);
   return (
     <View style={styles.bodyLogin}>
       <SafeAreaView style={styles.container}>
@@ -69,7 +68,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
                   {errors.password && (
                     <Text style={commons.error}>{errors.password}</Text>
                   )}
-                  <View style={{ marginTop: 30 }}>
+                  <View style={styles.mp30}>
                     <ButtonPrimary
                       loading={status === 'loading'}
                       text="ENTRAR"
@@ -80,7 +79,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
               )}
             </Formik>
             <View style={styles.containerSocial}>
-              <Text style={[commons.textWhite, { fontSize: 17 }]}>
+              <Text style={[commons.textWhite, commons.fs17]}>
                 Faça Login usando:
               </Text>
               <SocialIcon onPress={() => alert('Face')} type="facebook" />
@@ -92,7 +91,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
               onPress={() => {
                 navigation.push('SignUp');
               }}>
-              <Text style={[commons.textWhite, { fontSize: 17 }]}>
+              <Text style={[commons.textWhite, commons.fs17]}>
                 Registre-se!
               </Text>
             </TouchableOpacity>
@@ -100,7 +99,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
               onPress={() => {
                 navigation.push('Recover');
               }}>
-              <Text style={[commons.textWhite, { fontSize: 17 }]}>
+              <Text style={[commons.textWhite, commons.fs17]}>
                 Esqueci Minha Senha
               </Text>
             </TouchableOpacity>

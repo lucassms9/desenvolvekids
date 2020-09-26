@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  mp30: { marginTop: 30 },
 });
 
 export default styles;
