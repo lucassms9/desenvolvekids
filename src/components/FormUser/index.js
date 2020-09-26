@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import * as yup from 'yup';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import InputText from '~/components/InputText';
 import styles from './styles';
 
-const validationSchema = yup.object().shape({
-  //   email: yup.string().required('Campo obrigatório'),
-});
+import { maskCPF, maskCEP } from '~/helpers';
+
+import validationSchema from './validation';
 
 function Form({ submitForm, status, textButton }) {
   return (
@@ -38,22 +39,32 @@ function Form({ submitForm, status, textButton }) {
             <Text style={styles.error}>{errors.lastName}</Text>
           )}
           <InputText
+            value={values.fiscal_number}
+            label={'CPF'}
+            placeholder={'CPF'}
+            onChangeText={(text) => maskCEP(setFieldValue, text)}
+          />
+          {errors.fiscal_number && (
+            <Text style={styles.error}>{errors.fiscal_number}</Text>
+          )}
+          <InputText
+            value={values.birth_date}
+            label={'Data de Nascimento'}
+            placeholder={'Data de Nascimento'}
+            onChangeText={(text) => setFieldValue('birth_date', text)}
+          />
+          {errors.birth_date && (
+            <Text style={styles.error}>{errors.birth_date}</Text>
+          )}
+          <InputText
             value={values.email}
             label={'E-mail'}
             placeholder={'E-mail'}
             onChangeText={(text) => setFieldValue('email', text)}
           />
           {errors.email && <Text style={styles.error}>{errors.email}</Text>}
-          <View style={{ marginHorizontal: 5 }}>
-            <Text
-              style={{
-                color: '#fff',
-                fontWeight: '600',
-                fontSize: 16,
-                marginBottom: 5,
-              }}>
-              Grau de Parentesco
-            </Text>
+          <View style={styles.mh5}>
+            <Text style={styles.labelPicker}>Grau de Parentesco</Text>
             <RNPickerSelect
               onValueChange={(text) => setFieldValue('parent', text)}
               value={values.parent}

@@ -10,6 +10,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     top: -15,
   },
+  mh5: { marginHorizontal: 5 },
+  labelPicker: {
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: 16,
+    marginBottom: 5,
+  },
 });
 
 export default styles;

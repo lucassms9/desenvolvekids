@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as AuthActions } from '~/store/ducks/auth';
@@ -15,11 +15,13 @@ function SignUp({ signUpRequest, userEntity, status }) {
       <Header title="Cadastre-se" hasBack />
       <SafeAreaView style={styles.container}>
         <View style={styles.containerLogin}>
-          <FormUser
-            initData={userEntity}
-            status={status}
-            submitForm={signUpRequest}
-          />
+          <ScrollView>
+            <FormUser
+              initData={userEntity}
+              status={status}
+              submitForm={signUpRequest}
+            />
+          </ScrollView>
         </View>
       </SafeAreaView>
     </View>

@@ -20,7 +20,9 @@ export function* init() {
   }
 }
 export function* signUp({ data: signUpData }) {
-  const user = { name: 'user lucas' };
+  //faz request login
+  const { user } = yield call(api.post, '/user/post', signUpData);
+
   const {
     auth: { navigationGlobal },
   } = yield select();
@@ -61,6 +63,7 @@ export function* signIn({ email, password }) {
       email,
       senha: password,
     };
+
     //faz request login
     const data = yield call(api.post, '/login/post', req);
 
