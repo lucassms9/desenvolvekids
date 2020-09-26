@@ -32,7 +32,7 @@ function DeliveryInfo({ navigation }) {
     modalizeRef.current?.close();
   };
   const confirmAddres = () => {
-    navigation.navigate('MethodPayment');
+    navigation.navigate('PaymentMethod');
   };
   return (
     <View style={commons.body}>

@@ -50,6 +50,7 @@ function Cart({ navigation }) {
                 flexDirection: 'row',
                 justifyContent: 'flex-end',
                 paddingBottom: 10,
+                marginHorizontal: 10,
               }}>
               <Text style={{ color: '#fff', fontSize: 16 }}>
                 Total:{' '}

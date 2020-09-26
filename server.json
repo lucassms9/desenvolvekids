@@ -7,8 +7,12 @@
             "descricao":"camiseta top demais, bora gastar",
             "preco":110,
             "preco_promocional":90,
-            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png"
-
+            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png",
+            "imagens":[
+                    "https://i.imgur.com/UYiroysl.jpg",
+                    "https://i.imgur.com/UPrs1EWl.jpg",
+                    "https://i.imgur.com/MABUbpDl.jpg"
+                ]
         },
         { 
             "id": 2,
@@ -17,8 +21,12 @@
             "descricao":"camiseta top demais, bora gastar",
             "preco":100,
             "preco_promocional":80,
-            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png"
-
+            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png",
+            "imagens":[
+                "https://i.imgur.com/UYiroysl.jpg",
+                "https://i.imgur.com/UPrs1EWl.jpg",
+                "https://i.imgur.com/MABUbpDl.jpg"
+            ]
         },
         { 
             "id": 3,
@@ -27,7 +35,12 @@
             "descricao":"camiseta top demais, bora gastar",
             "preco":200,
             "preco_promocional":0,
-            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png"
+            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png",
+            "imagens":[
+                "https://i.imgur.com/UYiroysl.jpg",
+                "https://i.imgur.com/UPrs1EWl.jpg",
+                "https://i.imgur.com/MABUbpDl.jpg"
+            ]
         },
         { 
             "id": 4,
@@ -36,7 +49,12 @@
             "descricao":"camiseta top demais, bora gastar",
             "preco":200,
             "preco_promocional":0,
-            "imagem":"https://ae01.alicdn.com/kf/HTB15gvvPVXXXXa6XVXXq6xXFXXXv/BLACKINK-OWLS-png-Impress-o-Do-Logotipo-Dos-Homens-T-Shirt-Da-Forma-T-Camisas-Moda.jpg"
+            "imagem":"https://ae01.alicdn.com/kf/HTB15gvvPVXXXXa6XVXXq6xXFXXXv/BLACKINK-OWLS-png-Impress-o-Do-Logotipo-Dos-Homens-T-Shirt-Da-Forma-T-Camisas-Moda.jpg",
+            "imagens":[
+                "https://i.imgur.com/UYiroysl.jpg",
+                "https://i.imgur.com/UPrs1EWl.jpg",
+                "https://i.imgur.com/MABUbpDl.jpg"
+            ]
         },
         { 
             "id": 5,
@@ -45,7 +63,12 @@
             "descricao":"camiseta top demais, bora gastar",
             "preco":200,
             "preco_promocional":0,
-            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png"
+            "imagem":"https://images.vexels.com/media/users/3/153094/isolated/preview/e78cd1c525b8fb1be46a7f26b1e4cdfd---cone-plana-de-gola-camiseta-by-vexels.png",
+            "imagens":[
+                "https://i.imgur.com/UYiroysl.jpg",
+                "https://i.imgur.com/UPrs1EWl.jpg",
+                "https://i.imgur.com/MABUbpDl.jpg"
+            ]
         }
     ]
 }

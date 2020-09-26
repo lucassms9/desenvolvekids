@@ -41,7 +41,7 @@ import TipDetail from '~/screens/Tips/detail';
 import Cart from '~/screens/Cart';
 import DeliveryInfo from '~/screens/DeliveryInfo';
 import Product from '~/screens/Product';
-import MethodPayment from '~/screens/MethodPayment';
+import PaymentMethod from '~/screens/PaymentMethod';
 import FinishedOrder from '~/screens/FinishedOrder';
 
 function Routes() {
@@ -86,8 +86,8 @@ function Routes() {
           }}
         />
         <StoreStack.Screen
-          name="MethodPayment"
-          component={MethodPayment}
+          name="PaymentMethod"
+          component={PaymentMethod}
           options={{
             headerShown: false,
           }}
