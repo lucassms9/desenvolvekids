@@ -26,6 +26,7 @@ api.interceptors.request.use(async (config) => {
 });
 
 const errorHandler = ({ response }) => {
+  console.log(response);
   if (!response || response.status >= 500) {
     // timeout, internal server error...
     return Promise.reject(Error('Verifique sua conexão com a internet'));
@@ -35,7 +36,7 @@ const errorHandler = ({ response }) => {
   }
   const { data } = response;
   if (data && 'message' in data) {
-    return Promise.reject(Error(data.message));
+    return data;
   }
   return Promise.reject(Error('Erro inesperado'));
 };

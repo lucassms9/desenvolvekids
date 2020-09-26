@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { SafeAreaView, View } from 'react-native';
+import { SafeAreaView, View, ScrollView } from 'react-native';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 
 import Header from '~/components/Header';
@@ -20,7 +20,7 @@ function Profile({ userEntity, loading, signOutRequest }) {
     <View style={commons.bodyGlobal}>
       <Header title="Meus Dados" hasBack />
       <SafeAreaView style={commons.container}>
-        <View>
+        <ScrollView style={{ marginBottom: 70 }}>
           <FormUser
             initData={userEntity}
             loading={loading}
@@ -30,7 +30,7 @@ function Profile({ userEntity, loading, signOutRequest }) {
           <View style={{ marginTop: 15 }}>
             <ButtonSecondary text="FAZER LOGOUT" onPress={signOutRequest} />
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </View>
   );

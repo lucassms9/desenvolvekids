@@ -42,7 +42,7 @@ const INITIAL_STATE = Immutable({
 const error = (state = INITIAL_STATE, action) =>
   state.merge({
     status: 'error',
-    error: action.error.description,
+    error: action.error,
   });
 
 const signInSignUpSuccess = (state = INITIAL_STATE, { user }) => {

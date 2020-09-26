@@ -20,13 +20,39 @@ export function* init() {
   }
 }
 export function* signUp({ data: signUpData }) {
-  //faz request login
-  const { user } = yield call(api.post, '/user/post', signUpData);
-
-  const {
-    auth: { navigationGlobal },
-  } = yield select();
   try {
+    const {
+      birthDate,
+      email,
+      fiscalNumber,
+      lastName,
+      name,
+      parent,
+      password,
+      phone,
+    } = signUpData;
+
+    const request = {
+      nome: name,
+      sobrenome: lastName,
+      data_nascimento: birthDate,
+      email: email,
+      parentesco: parent,
+      celular: phone,
+      cpf: fiscalNumber,
+      senha: password,
+    };
+    //faz request signUp
+    const data = yield call(api.post, '/user/post', request);
+    if (typeof data.user === 'undefined') {
+      throw data;
+    }
+
+    const user = {};
+    const {
+      auth: { navigationGlobal },
+    } = yield select();
+
     yield put(AuthActions.signUpSuccess(user));
     yield call(
       [AsyncStorage, 'setItem'],
@@ -35,8 +61,9 @@ export function* signUp({ data: signUpData }) {
     );
     yield call([navigationGlobal, 'dispatch'], StackActions.replace('Main'));
   } catch (error) {
-    yield put(ToastActionsCreators.displayError('Erro: erro no cadastro'));
-    yield put(AuthActions.signUpError('erro no cadastro'));
+    console.log(error);
+    yield put(ToastActionsCreators.displayError(error.message));
+    yield put(AuthActions.signUpError(error.message));
   }
 }
 

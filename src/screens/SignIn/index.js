@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
@@ -9,6 +9,8 @@ import {
   View,
   Text,
   Image,
+  Platform,
+  KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
 import { SocialIcon } from 'react-native-elements';
@@ -17,7 +19,7 @@ import { Formik } from 'formik';
 import '~/config/StatusBar';
 import { commons } from '~/styles';
 import ButtonPrimary from '~/components/ButtonPrimary';
-import InputText from '~/components/InputText';
+import { Input } from 'react-native-elements';
 
 import validationSchema from './validation';
 import logo from '~/assets/images/logo.png';
@@ -25,6 +27,9 @@ import logo from '~/assets/images/logo.png';
 import styles from './styles';
 
 function SignIn({ status, navigation, setNavigation, signInRequest }) {
+  const emailRef = useRef();
+  const passRef = useRef();
+
   useEffect(() => {
     setNavigation(navigation);
   });
@@ -40,44 +45,54 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
             <Image source={logo} />
           </View>
           <View style={styles.containerForm}>
-            <Formik
-              initialValues={{ email: '', password: '' }}
-              validationSchema={validationSchema}
-              onSubmit={(values) => handleLogin(values)}>
-              {({ handleSubmit, values, setFieldValue, errors }) => (
-                <View>
-                  <InputText
-                    value={values.email}
-                    label={'E-mail'}
-                    autoCapitalize="none"
-                    keyboardType="email-address"
-                    placeholder={'E-mail'}
-                    onChangeText={(text) => setFieldValue('email', text)}
-                  />
-                  {errors.email && (
-                    <Text style={commons.error}>{errors.email}</Text>
-                  )}
-                  <InputText
-                    value={values.password}
-                    label={'Senha'}
-                    autoCapitalize="none"
-                    placeholder={'Senha'}
-                    onChangeText={(text) => setFieldValue('password', text)}
-                    secureTextEntry={true}
-                  />
-                  {errors.password && (
-                    <Text style={commons.error}>{errors.password}</Text>
-                  )}
-                  <View style={styles.mp30}>
-                    <ButtonPrimary
-                      loading={status === 'loading'}
-                      text="ENTRAR"
-                      onPress={handleSubmit}
+            <KeyboardAvoidingView
+              behavior={Platform.OS === 'ios' ? 'padding' : null}>
+              <Formik
+                initialValues={{ email: '', password: '' }}
+                validationSchema={validationSchema}
+                onSubmit={(values) => handleLogin(values)}>
+                {({ handleSubmit, values, setFieldValue, errors }) => (
+                  <View>
+                    <Input
+                      inputStyle={commons.textWhite}
+                      labelStyle={commons.textWhite}
+                      value={values.email}
+                      label={'E-mail'}
+                      autoCapitalize="none"
+                      keyboardType="email-address"
+                      placeholder={'E-mail'}
+                      onChangeText={(text) => setFieldValue('email', text)}
+                      ref={emailRef}
+                      onSubmitEditing={() => passRef.current.focus()}
                     />
+                    {errors.email && (
+                      <Text style={commons.error}>{errors.email}</Text>
+                    )}
+                    <Input
+                      inputStyle={commons.textWhite}
+                      labelStyle={commons.textWhite}
+                      value={values.password}
+                      label={'Senha'}
+                      autoCapitalize="none"
+                      placeholder={'Senha'}
+                      onChangeText={(text) => setFieldValue('password', text)}
+                      secureTextEntry={true}
+                      ref={passRef}
+                    />
+                    {errors.password && (
+                      <Text style={commons.error}>{errors.password}</Text>
+                    )}
+                    <View style={styles.mp30}>
+                      <ButtonPrimary
+                        loading={status === 'loading'}
+                        text="ENTRAR"
+                        onPress={handleSubmit}
+                      />
+                    </View>
                   </View>
-                </View>
-              )}
-            </Formik>
+                )}
+              </Formik>
+            </KeyboardAvoidingView>
             <View style={styles.containerSocial}>
               <Text style={[commons.textWhite, commons.fs17]}>
                 Faça Login usando:

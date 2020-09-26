@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
@@ -9,12 +9,27 @@ import RNPickerSelect from 'react-native-picker-select';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import InputText from '~/components/InputText';
 import styles from './styles';
+import { Input } from 'react-native-elements';
 
 import { maskCPF, maskDate, maskPhone } from '~/helpers';
+import { commons } from '~/styles';
 
 import validationSchema from './validation';
 
 function Form({ submitForm, status, textButton }) {
+  const input = useRef();
+  const fiscalNumberRef = useRef();
+  const birthDateRef = useRef();
+  const emailRef = useRef();
+
+  const passwordRef = useRef();
+  const phoneRef = useRef();
+  const passwordConfirmRef = useRef();
+
+  useEffect(() => {
+    console.log(input);
+  }, [input]);
+
   return (
     <Formik
       initialValues={{ email: '' }}
@@ -22,52 +37,74 @@ function Form({ submitForm, status, textButton }) {
       onSubmit={(values) => submitForm(values)}>
       {({ handleSubmit, values, setFieldValue, errors }) => (
         <View>
-          <InputText
+          <Input
+            inputStyle={commons.textWhite}
+            labelStyle={commons.textWhite}
             value={values.name}
             label={'Nome'}
             placeholder={'Nome'}
             onChangeText={(text) => setFieldValue('name', text)}
+            onSubmitEditing={() =>
+              input.current ? input.current.focus() : () => {}
+            }
           />
           {errors.name && <Text style={styles.error}>{errors.name}</Text>}
-          <InputText
+          <Input
+            inputStyle={commons.textWhite}
+            labelStyle={commons.textWhite}
             value={values.lastName}
             label={'Sobrenome'}
+            ref={input}
             placeholder={'Sobrenome'}
             onChangeText={(text) => setFieldValue('lastName', text)}
+            onSubmitEditing={() => fiscalNumberRef.current.focus()}
           />
+
           {errors.lastName && (
             <Text style={styles.error}>{errors.lastName}</Text>
           )}
-          <InputText
-            value={values.fiscal_number}
+          <Input
+            inputStyle={commons.textWhite}
+            labelStyle={commons.textWhite}
+            value={values.fiscalNumber}
             label={'CPF'}
+            ref={fiscalNumberRef}
             placeholder={'CPF'}
-            onChangeText={maskCPF(setFieldValue, 'fiscal_number')}
+            onChangeText={maskCPF(setFieldValue, 'fiscalNumber')}
+            onSubmitEditing={() => birthDateRef.current.focus()}
           />
-          {errors.fiscal_number && (
-            <Text style={styles.error}>{errors.fiscal_number}</Text>
+          {errors.fiscalNumber && (
+            <Text style={styles.error}>{errors.fiscalNumber}</Text>
           )}
-          <InputText
-            value={values.birth_date}
+          <Input
+            inputStyle={commons.textWhite}
+            labelStyle={commons.textWhite}
+            ref={birthDateRef}
+            value={values.birthDate}
             label={'Data de Nascimento'}
             placeholder={'Data de Nascimento'}
-            onChangeText={maskDate(setFieldValue, 'birth_date')}
+            onChangeText={maskDate(setFieldValue, 'birthDate')}
+            onSubmitEditing={() => emailRef.current.focus()}
           />
-          {errors.birth_date && (
-            <Text style={styles.error}>{errors.birth_date}</Text>
+          {errors.birthDate && (
+            <Text style={styles.error}>{errors.birthDate}</Text>
           )}
-          <InputText
+          <Input
+            inputStyle={commons.textWhite}
+            labelStyle={commons.textWhite}
             value={values.email}
             label={'E-mail'}
             autoCapitalize="none"
             keyboardType="email-address"
             placeholder={'E-mail'}
+            ref={emailRef}
             onChangeText={(text) => setFieldValue('email', text)}
           />
           {errors.email && <Text style={styles.error}>{errors.email}</Text>}
           <View style={styles.mh5}>
             <Text style={styles.labelPicker}>Grau de Parentesco</Text>
             <RNPickerSelect
+              onSubmitEditing={() => phoneRef.current.focus()}
               onValueChange={(text) => setFieldValue('parent', text)}
               value={values.parent}
               items={[
@@ -95,28 +132,39 @@ function Form({ submitForm, status, textButton }) {
             />
             {errors.parent && <Text style={styles.error}>{errors.parent}</Text>}
           </View>
-          <InputText
+          <Input
+            inputStyle={commons.textWhite}
+            labelStyle={commons.textWhite}
+            ref={phoneRef}
             value={values.phone}
             label={'Celular'}
             placeholder={'Celular'}
             onChangeText={maskPhone(setFieldValue, 'phone')}
+            onSubmitEditing={() => passwordRef.current.focus()}
           />
           {errors.phone && <Text style={styles.error}>{errors.phone}</Text>}
 
-          <InputText
+          <Input
+            inputStyle={commons.textWhite}
+            labelStyle={commons.textWhite}
+            ref={passwordRef}
             value={values.password}
             label={'Senha'}
             placeholder={'Senha'}
             secureTextEntry={true}
             autoCapitalize="none"
             onChangeText={(text) => setFieldValue('password', text)}
+            onSubmitEditing={() => passwordConfirmRef.current.focus()}
           />
           {errors.password && (
             <Text style={styles.error}>{errors.password}</Text>
           )}
 
-          <InputText
+          <Input
+            inputStyle={commons.textWhite}
+            labelStyle={commons.textWhite}
             value={values.passwordConfirm}
+            ref={passwordConfirmRef}
             label={'Confirmar Senha'}
             placeholder={'Confirmar Senha'}
             autoCapitalize="none"

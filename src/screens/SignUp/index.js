@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, SafeAreaView, ScrollView } from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  ScrollView,
+  Platform,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as AuthActions } from '~/store/ducks/auth';
@@ -11,20 +17,24 @@ import styles from './styles';
 
 function SignUp({ signUpRequest, userEntity, status }) {
   return (
-    <View style={styles.bodyLogin}>
-      <Header title="Cadastre-se" hasBack />
-      <SafeAreaView style={styles.container}>
-        <View style={styles.containerLogin}>
-          <ScrollView>
-            <FormUser
-              initData={userEntity}
-              status={status}
-              submitForm={signUpRequest}
-            />
-          </ScrollView>
-        </View>
-      </SafeAreaView>
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      style={{ flex: 1 }}>
+      <View style={styles.bodyLogin}>
+        <Header title="Cadastre-se" hasBack />
+        <SafeAreaView style={styles.container}>
+          <View style={styles.containerLogin}>
+            <ScrollView>
+              <FormUser
+                initData={userEntity}
+                status={status}
+                submitForm={signUpRequest}
+              />
+            </ScrollView>
+          </View>
+        </SafeAreaView>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
