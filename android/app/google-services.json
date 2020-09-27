@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "863121690538",
+    "firebase_url": "https://desenvolvekids-e264b.firebaseio.com",
+    "project_id": "desenvolvekids-e264b",
+    "storage_bucket": "desenvolvekids-e264b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863121690538:android:c8397f4171d9a5d8de25d3",
+        "android_client_info": {
+          "package_name": "br.com.desenvolvekids"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863121690538-o9ka9hnbgtvfrh2qv4e6td8btb3c8vc6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB87D-bQuuZgD8UbgPQ-l67Hj2wmEoIlFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863121690538-o9ka9hnbgtvfrh2qv4e6td8btb3c8vc6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "863121690538-pqi8e98qc542kh64nds6qgv65gr84ao4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.desenvolvekids"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

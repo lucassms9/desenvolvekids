@@ -24,7 +24,10 @@ import { Input } from 'react-native-elements';
 import validationSchema from './validation';
 import logo from '~/assets/images/logo.png';
 
-import api from '~/services/api';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-community/google-signin';
 
 import { LoginManager } from 'react-native-fbsdk';
 
@@ -38,7 +41,13 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
 
   useEffect(() => {
     setNavigation(navigation);
-  });
+    GoogleSignin.configure({
+      scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
+      webClientId:
+        '863121690538-pqi8e98qc542kh64nds6qgv65gr84ao4.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+      offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+    });
+  }, []);
 
   const handleLogin = async ({ email, password }) => {
     signInRequest(email, password);
@@ -49,9 +58,9 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
       const result = await facebookService.fetchProfile();
       signInRequest(result.email, null, result);
     } catch (error) {
-      // dispatch(
-      //   ToastActionsCreators.displayError('Erro ao logar. Tente novamente.'),
-      // );
+      dispatch(
+        ToastActionsCreators.displayError('Erro ao logar. Tente novamente.'),
+      );
     }
   };
 
@@ -71,6 +80,32 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
     );
   };
 
+  const loginGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+
+      const { user } = await GoogleSignin.signIn();
+      const data = {
+        email: user.email,
+        first_name: user.givenName,
+        last_name: user.familyName,
+      };
+      signInRequest(user.email, null, data);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        alert('Cancel');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        alert('Signin in progress');
+        // operation (f.e. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        alert('PLAY_SERVICES_NOT_AVAILABLE');
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
   return (
     <View style={styles.bodyLogin}>
       <SafeAreaView style={styles.container}>
@@ -132,7 +167,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
                 Faça Login usando:
               </Text>
               <SocialIcon onPress={loginFacebook} type="facebook" />
-              <SocialIcon onPress={() => alert('google')} type="google" />
+              <SocialIcon onPress={loginGoogle} type="google" />
             </View>
           </View>
           <View style={styles.containerFooter}>

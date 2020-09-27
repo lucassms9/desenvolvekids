@@ -18,7 +18,7 @@ import styles from './styles';
 function SignUp({ signUpRequest, status, route }) {
   const initData = route.params
     ? {
-        email: route.params,
+        email: route.params.email,
         name: route.params.first_name,
         lastName: route.params.last_name,
       }
