@@ -6,7 +6,7 @@ const { Types, Creators } = createActions({
   validateTokenRequest: ['token'],
 
   signInError: ['error'],
-  signInRequest: ['email', 'password'],
+  signInRequest: ['email', 'password', 'dataSocial'],
   signInSuccess: ['user'],
 
   signOutError: ['error'],

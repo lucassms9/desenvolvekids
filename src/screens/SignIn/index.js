@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
 import { Creators as AuthActions } from '~/store/ducks/auth';
-
+import { facebookService } from '~/services/FacebookService';
 import {
   SafeAreaView,
   View,
@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import { SocialIcon } from 'react-native-elements';
 import { Formik } from 'formik';
-
+import { ToastActionsCreators } from 'react-native-redux-toast';
 import '~/config/StatusBar';
 import { commons } from '~/styles';
 import ButtonPrimary from '~/components/ButtonPrimary';
@@ -24,17 +24,51 @@ import { Input } from 'react-native-elements';
 import validationSchema from './validation';
 import logo from '~/assets/images/logo.png';
 
+import api from '~/services/api';
+
+import { LoginManager } from 'react-native-fbsdk';
+
 import styles from './styles';
+import Profile from '../Profile/index';
 
 function SignIn({ status, navigation, setNavigation, signInRequest }) {
   const emailRef = useRef();
   const passRef = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setNavigation(navigation);
   });
+
   const handleLogin = async ({ email, password }) => {
     signInRequest(email, password);
+  };
+
+  const profile = async () => {
+    try {
+      const result = await facebookService.fetchProfile();
+      signInRequest(result.email, null, result);
+    } catch (error) {
+      // dispatch(
+      //   ToastActionsCreators.displayError('Erro ao logar. Tente novamente.'),
+      // );
+    }
+  };
+
+  const loginFacebook = () => {
+    // Attempt a login using the Facebook login dialog asking for default permissions.
+    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+      function (result) {
+        if (result.isCancelled) {
+          console.log('Login cancelled');
+        } else {
+          profile();
+        }
+      },
+      function (error) {
+        console.log('Login fail with error: ' + error);
+      },
+    );
   };
 
   return (
@@ -97,7 +131,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
               <Text style={[commons.textWhite, commons.fs17]}>
                 Faça Login usando:
               </Text>
-              <SocialIcon onPress={() => alert('Face')} type="facebook" />
+              <SocialIcon onPress={loginFacebook} type="facebook" />
               <SocialIcon onPress={() => alert('google')} type="google" />
             </View>
           </View>

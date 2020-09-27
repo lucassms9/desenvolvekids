@@ -1,4 +1,4 @@
-package com.desenvolvekids;
+package br.com.desenvolvekids;
 
 import com.facebook.react.ReactActivity;
 

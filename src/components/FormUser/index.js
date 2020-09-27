@@ -1,13 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
-import * as yup from 'yup';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
 import ButtonPrimary from '~/components/ButtonPrimary';
-import InputText from '~/components/InputText';
+
 import styles from './styles';
 import { Input } from 'react-native-elements';
 
@@ -16,7 +15,8 @@ import { commons } from '~/styles';
 
 import validationSchema from './validation';
 
-function Form({ submitForm, status, textButton }) {
+function Form({ submitForm, status, textButton, initData }) {
+  const { email, name, lastName } = initData;
   const input = useRef();
   const fiscalNumberRef = useRef();
   const birthDateRef = useRef();
@@ -25,14 +25,17 @@ function Form({ submitForm, status, textButton }) {
   const passwordRef = useRef();
   const phoneRef = useRef();
   const passwordConfirmRef = useRef();
-
-  useEffect(() => {
-    console.log(input);
-  }, [input]);
+  const valuesInit = email
+    ? {
+        email,
+        name,
+        lastName,
+      }
+    : {};
 
   return (
     <Formik
-      initialValues={{ email: '' }}
+      initialValues={valuesInit}
       validationSchema={validationSchema}
       onSubmit={(values) => submitForm(values)}>
       {({ handleSubmit, values, setFieldValue, errors }) => (

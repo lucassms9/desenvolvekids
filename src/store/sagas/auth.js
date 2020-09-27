@@ -61,7 +61,6 @@ export function* signUp({ data: signUpData }) {
     );
     yield call([navigationGlobal, 'dispatch'], StackActions.replace('Main'));
   } catch (error) {
-    console.log(error);
     yield put(ToastActionsCreators.displayError(error.message));
     yield put(AuthActions.signUpError(error.message));
   }
@@ -84,29 +83,40 @@ export function* signOut() {
   }
 }
 
-export function* signIn({ email, password }) {
+export function* signIn({ email, password, dataSocial }) {
   try {
-    const req = {
-      email,
-      senha: password,
-    };
-
-    //faz request login
-    const data = yield call(api.post, '/login/post', req);
-
     const {
       auth: { navigationGlobal },
     } = yield select();
 
-    yield call(
-      [AsyncStorage, 'setItem'],
-      storageKeys.user,
-      JSON.stringify(data.user),
-    );
+    const req = {
+      email,
+      senha: password,
+    };
+    let data;
 
-    yield put(AuthActions.signInSuccess(data.user));
+    //faz request login
+    if (dataSocial) {
+      data = yield call(api.post, '/login/social', dataSocial);
 
-    yield call([navigationGlobal, 'dispatch'], StackActions.replace('Main'));
+      if (typeof data.user === 'undefined') {
+        yield call([navigationGlobal, 'navigate'], 'SignUp', dataSocial);
+        yield put(AuthActions.signInError('not auth'));
+      }
+    } else {
+      data = yield call(api.post, '/login/post', req);
+    }
+
+    if (typeof data.user !== 'undefined') {
+      yield call(
+        [AsyncStorage, 'setItem'],
+        storageKeys.user,
+        JSON.stringify(data.user),
+      );
+
+      yield put(AuthActions.signInSuccess(data.user));
+      yield call([navigationGlobal, 'dispatch'], StackActions.replace('Main'));
+    }
   } catch (error) {
     yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
     yield put(AuthActions.signInError(error));
