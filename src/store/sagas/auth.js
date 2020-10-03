@@ -116,6 +116,8 @@ export function* signIn({ email, password, dataSocial }) {
 
       yield put(AuthActions.signInSuccess(data.user));
       yield call([navigationGlobal, 'dispatch'], StackActions.replace('Main'));
+    } else {
+      throw data;
     }
   } catch (error) {
     yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));

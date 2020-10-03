@@ -1,14 +1,17 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './ducks';
 import rootSaga from './sagas';
 
-const sagaMiddleware = createSagaMiddleware();
+import Reactotron from 'reactotron-react-native';
 
-const middlewares = [sagaMiddleware];
+const sagaMonitor = Reactotron.createSagaMonitor;
+const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
 
-const store = createStore(rootReducer, applyMiddleware(...middlewares));
+const middleware = applyMiddleware(sagaMiddleware);
+
+const store = createStore(rootReducer, middleware);
 
 sagaMiddleware.run(rootSaga);
 
