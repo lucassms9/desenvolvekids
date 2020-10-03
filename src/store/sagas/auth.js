@@ -12,10 +12,13 @@ import { Creators as AuthActions } from '../ducks/auth';
 export function* init() {
   console.log('init');
   const userAsync = yield call([AsyncStorage, 'getItem'], storageKeys.user);
-
+  const user = JSON.parse(userAsync);
+  console.log(userAsync);
   if (userAsync) {
     yield put(AuthActions.authCheck(true));
+    yield put(AuthActions.signInSuccess(user));
   } else {
+    console.log('aqui');
     yield put(AuthActions.authCheck(false));
   }
 }
@@ -68,7 +71,7 @@ export function* signUp({ data: signUpData }) {
 
 export function* signOut() {
   try {
-    yield call([AsyncStorage, 'removeItem'], storageKeys.user);
+    // yield call([AsyncStorage, 'removeItem'], storageKeys.user);
 
     const {
       auth: { navigationGlobal },
@@ -78,8 +81,9 @@ export function* signOut() {
 
     yield put(AuthActions.signOutSuccess());
   } catch (error) {
-    yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
-    yield put(AuthActions.signOutError(error));
+    console.log(error);
+    // yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
+    // yield put(AuthActions.signOutError(error));
   }
 }
 
@@ -108,12 +112,6 @@ export function* signIn({ email, password, dataSocial }) {
     }
 
     if (typeof data.user !== 'undefined') {
-      yield call(
-        [AsyncStorage, 'setItem'],
-        storageKeys.user,
-        JSON.stringify(data.user),
-      );
-
       yield put(AuthActions.signInSuccess(data.user));
       yield call([navigationGlobal, 'dispatch'], StackActions.replace('Main'));
     } else {

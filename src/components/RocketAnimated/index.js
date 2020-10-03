@@ -7,6 +7,7 @@ import { colors } from '~/styles';
 import rocketImage from '~/assets/images/rocket.png';
 
 function RocketAnimated({ authCheck }) {
+  console.log(authCheck);
   const [endAnimate, setEndAnimate] = useState(false);
   const [bottomPosition, setBottomPosition] = useState(
     new Animated.Value(-100),

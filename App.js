@@ -3,13 +3,16 @@ import { Provider } from 'react-redux';
 import { Toast } from 'react-native-redux-toast';
 
 import Root from './src';
-import store from './src/store';
+import { store, persistor } from '~/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Root />
-      <Toast messageStyle={{ color: 'white' }} />
+      <PersistGate loading={null} persistor={persistor}>
+        <Root />
+        <Toast messageStyle={{ color: 'white' }} />
+      </PersistGate>
     </Provider>
   );
 };

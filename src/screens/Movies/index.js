@@ -16,38 +16,39 @@ import {
 
 import Header from '~/components/Header';
 import { commons } from '~/styles';
+import Loader from '~/components/Loader';
+import api from '~/services/api';
+import { cos } from 'react-native-reanimated';
 
 function Movies({ setNavigation, navigation }) {
-  const [users, setUsers] = useState([
-    {
-      name: 'brynn',
-      avatar:
-        'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
-    },
-    {
-      name: 'brynn',
-      avatar:
-        'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
-    },
-    {
-      name: 'brynn',
-      avatar:
-        'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
-    },
-    {
-      name: 'brynn',
-      avatar:
-        'https://img.freepik.com/free-vector/video-media-player-design_114579-839.jpg?size=626&ext=jpg',
-    },
-  ]);
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getMovies = async () => {
+    setLoading(true);
+    try {
+      const res = await api.get('/multimidias', {
+        params: {
+          multimidias_tipos: 1,
+        },
+      });
+      setMovies(res.videos);
+      console.log(res);
+    } catch (error) {
+      setLoading(false);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
     setNavigation(navigation);
+    getMovies();
   }, []);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       console.log('focado na screen videos');
+      getMovies();
     });
 
     return unsubscribe;
@@ -58,38 +59,43 @@ function Movies({ setNavigation, navigation }) {
       <Header title="Vídeos" />
       <SafeAreaView>
         <View style={[commons.container, { paddingBottom: 70 }]}>
-          <ScrollView>
-            {users.map((u, i) => {
-              return (
-                <View
-                  style={{
-                    backgroundColor: '#fff',
-                    height: 250,
-                    marginBottom: 15,
-                  }}>
-                  <Card>
-                    <CardImage
-                      source={{ uri: 'http://placehold.it/480x270' }}
-                      title="Above all i am here"
-                    />
-                    <CardContent
-                      style={{ flex: 0 }}
-                      text="Your device will reboot in few seconds once successful, be patient meanwhile"
-                    />
-                    <CardAction separator={true} inColumn={false}>
-                      <CardButton
-                        onPress={() => {
-                          navigation.navigate('MovieDetail');
-                        }}
-                        title="ASSISTIR"
-                        color="blue"
+          {loading && <Loader />}
+          {!loading && (
+            <ScrollView>
+              {movies.map((movie, index) => {
+                return (
+                  <View
+                    style={{
+                      backgroundColor: '#fff',
+                      height: 250,
+                      marginBottom: 15,
+                    }}>
+                    <Card>
+                      <CardImage
+                        source={{ uri: 'http://placehold.it/480x270' }}
+                        title={movie.titulo}
                       />
-                    </CardAction>
-                  </Card>
-                </View>
-              );
-            })}
-          </ScrollView>
+                      <CardContent
+                        style={{ flex: 0 }}
+                        text={movie.descricao_resumida}
+                      />
+                      <CardAction separator={true} inColumn={false}>
+                        <CardButton
+                          onPress={() => {
+                            navigation.navigate('MovieDetail', {
+                              movie: movie,
+                            });
+                          }}
+                          title="ASSISTIR"
+                          color="blue"
+                        />
+                      </CardAction>
+                    </Card>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          )}
         </View>
       </SafeAreaView>
     </View>

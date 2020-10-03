@@ -1,127 +1,122 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, Platform, StyleSheet, Text } from 'react-native';
 import Video from 'react-native-video';
 import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
-
+import axios from 'axios';
 import Header from '~/components/Header';
-import { commons } from '~/styles';
+import { commons, colors } from '~/styles';
 
 import styles from './styles';
 
-class Detail extends Component {
-  videoPlayer;
+let videoPlayer;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentTime: 0,
-      duration: 0,
-      isFullScreen: false,
-      isLoading: true,
-      paused: false,
-      playerState: PLAYER_STATES.PLAYING,
-      screenType: 'content',
-    };
-  }
+const Detail = ({ route }) => {
+  const [uriComplete, setUriComplete] = useState('');
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const [playerState, setPlayerState] = useState(PLAYER_STATES.PLAYING);
+  const [screenType, setScreenType] = useState('content');
 
-  onSeek = (seek) => {
+  const podcast = route.params.podcast;
+
+  const onSeek = (seek) => {
     //Handler for change in seekbar
-    this.videoPlayer.seek(seek);
+    videoPlayer.seek(seek);
   };
 
-  onPaused = (playerState) => {
+  const onPaused = (playerState) => {
     //Handler for Video Pause
-    this.setState({
-      paused: !this.state.paused,
-      playerState,
-    });
+    setPlayerState(playerState);
+    setPaused(!paused);
   };
 
-  onReplay = () => {
+  const onReplay = () => {
     //Handler for Replay
-    this.setState({ playerState: PLAYER_STATES.PLAYING });
-    this.videoPlayer.seek(0);
+    setPlayerState(PLAYER_STATES.PLAYING);
+    videoPlayer.seek(0);
   };
 
-  onProgress = (data) => {
-    const { isLoading, playerState } = this.state;
+  const onProgress = (data) => {
     // Video Player will continue progress even if the video already ended
     if (!isLoading && playerState !== PLAYER_STATES.ENDED) {
-      this.setState({ currentTime: data.currentTime });
+      setCurrentTime(data.currentTime);
     }
   };
 
-  onLoad = (data) =>
-    this.setState({ duration: data.duration, isLoading: false });
+  const onLoad = (data) => {
+    setDuration(data.duration);
+    setIsLoading(false);
+  };
 
-  onLoadStart = (data) => this.setState({ isLoading: true });
+  const onLoadStart = (data) => setIsLoading(true);
 
-  onEnd = () => this.setState({ playerState: PLAYER_STATES.ENDED });
+  const onEnd = () => setPlayerState(PLAYER_STATES.ENDED);
 
-  onError = (error) => alert('Oh! ', error);
+  const onError = (error) => alert('Oh! ', error);
 
-  exitFullScreen = () => {
+  const exitFullScreen = () => {
     alert('Exit full screen');
     // https://player.vimeo.com/video/56282283/config
   };
 
-  enterFullScreen = () => {};
+  const enterFullScreen = () => {};
 
-  onFullScreen = () => {
-    if (this.state.screenType == 'content') {
-      this.setState({ screenType: 'cover' });
+  const onFullScreen = () => {
+    if (screenType == 'content') {
+      setScreenType('cover');
     } else {
-      this.setState({ screenType: 'content' });
+      setScreenType('content');
     }
   };
-  renderToolbar = () => (
+
+  const renderToolbar = () => (
     <View>
       <Text> toolbar </Text>
     </View>
   );
-  onSeeking = (currentTime) => this.setState({ currentTime });
 
-  render() {
-    return (
-      <View style={commons.body}>
-        <Header title="Tútulo Vídeo" hasBack />
-        <SafeAreaView style={{ flex: 1 }}>
-          <View style={{ flex: 1 }}>
-            <Video
-              onEnd={this.onEnd}
-              onLoad={this.onLoad}
-              onLoadStart={this.onLoadStart}
-              onProgress={this.onProgress}
-              paused={this.state.paused}
-              ref={(videoPlayer) => (this.videoPlayer = videoPlayer)}
-              resizeMode={this.state.screenType}
-              onFullScreen={this.state.isFullScreen}
-              poster="https://baconmockup.com/300/200/"
-              source={{
-                uri:
-                  'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3',
-              }}
-              style={styles.mediaPlayer}
-              volume={10}
-            />
-            <MediaControls
-              duration={this.state.duration}
-              isLoading={this.state.isLoading}
-              mainColor="#333"
-              onFullScreen={this.onFullScreen}
-              onPaused={this.onPaused}
-              onReplay={this.onReplay}
-              onSeek={this.onSeek}
-              onSeeking={this.onSeeking}
-              playerState={this.state.playerState}
-              progress={this.state.currentTime}
-              toolbar={this.renderToolbar()}
-            />
-          </View>
-        </SafeAreaView>
-      </View>
-    );
-  }
-}
+  const onSeeking = (currentTime) => this.setState({ currentTime });
+
+  return (
+    <View style={commons.body}>
+      <Header title="Tútulo Vídeo" hasBack />
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <Video
+            onEnd={onEnd}
+            onLoad={onLoad}
+            onLoadStart={onLoadStart}
+            onProgress={onProgress}
+            paused={paused}
+            ref={(videoPlayer) => (videoPlayer = videoPlayer)}
+            resizeMode={screenType}
+            onFullScreen={isFullScreen}
+            source={{
+              uri: podcast.uri_vmeo,
+            }}
+            style={styles.mediaPlayer}
+            volume={10}
+          />
+          <MediaControls
+            duration={duration}
+            isLoading={isLoading}
+            mainColor={colors.primary}
+            onFullScreen={onFullScreen}
+            onPaused={onPaused}
+            onReplay={onReplay}
+            onSeek={onSeek}
+            onSeeking={onSeeking}
+            playerState={playerState}
+            progress={currentTime}
+            toolbar={renderToolbar()}
+          />
+        </View>
+      </SafeAreaView>
+    </View>
+  );
+};
 
 export default Detail;

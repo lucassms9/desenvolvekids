@@ -29,14 +29,7 @@ const INITIAL_STATE = Immutable({
   authCheck: false,
   navigationGlobal: () => {},
   status: '',
-  user: {
-    name: '',
-    email: '',
-    lastName: '',
-    nickName: '',
-    parent: '',
-    phone: '',
-  },
+  user: {},
 });
 
 const error = (state = INITIAL_STATE, action) =>
@@ -49,6 +42,7 @@ const signInSignUpSuccess = (state = INITIAL_STATE, { user }) => {
   return state.merge({
     status: 'success',
     user,
+    authCheck: true,
   });
 };
 
@@ -57,10 +51,15 @@ const request = (state = INITIAL_STATE) => {
 };
 
 const setNavigationGlobal = (state = INITIAL_STATE, { nav }) => {
+  console.log(state);
+  // return {
+  //   ...state,
+  //   navigationGlobal:
+  // }
   return state.merge({ navigationGlobal: nav });
 };
 
-const signOut = () => INITIAL_STATE.merge({ authCheck: false });
+const signOut = () => INITIAL_STATE.merge({ authCheck: false, user: {} });
 
 const authCheckStatus = (state = INITIAL_STATE, { status }) =>
   state.merge({ authCheck: status });
