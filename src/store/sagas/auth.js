@@ -16,7 +16,6 @@ export function* init() {
   const user = JSON.parse(userAsync);
 
   if (userAsync) {
-    console.log(user);
     try {
       const data = yield call(api.get, '/planos/get-by-client', {
         params: {},
@@ -30,7 +29,6 @@ export function* init() {
     yield put(AuthActions.signInSuccess(user));
     yield put(AuthActions.authCheck(true));
   } else {
-    console.log('aqui');
     yield put(AuthActions.authCheck(false));
   }
 }
@@ -74,7 +72,7 @@ export function* signUp({ data: signUpData }) {
       storageKeys.user,
       JSON.stringify(user),
     );
-    yield call([navigationGlobal, 'dispatch'], StackActions.replace('Main'));
+    yield call([navigationGlobal, 'dispatch'], StackActions.replace('Plans'));
   } catch (error) {
     yield put(ToastActionsCreators.displayError(error.message));
     yield put(AuthActions.signUpError(error.message));
@@ -125,7 +123,22 @@ export function* signIn({ email, password, dataSocial }) {
 
     if (typeof data.user !== 'undefined') {
       yield put(AuthActions.signInSuccess(data.user));
-      yield call([navigationGlobal, 'dispatch'], StackActions.replace('Main'));
+
+      try {
+        const data = yield call(api.get, '/planos/get-by-client', {
+          params: {},
+          headers: { Client: data.user.id },
+        });
+        yield call(
+          [navigationGlobal, 'dispatch'],
+          StackActions.replace('Main'),
+        );
+      } catch (error) {
+        yield call(
+          [navigationGlobal, 'dispatch'],
+          StackActions.replace('Plans'),
+        );
+      }
     } else {
       throw data;
     }
