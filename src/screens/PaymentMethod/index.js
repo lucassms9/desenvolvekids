@@ -21,7 +21,9 @@ import { commons } from '~/styles';
 import styles from './styles';
 import { colors } from '~/styles/index';
 
-function PaymentMethod({ navigation }) {
+function PaymentMethod({ navigation, route }) {
+  console.log(route);
+  const { origem, plan } = route.params;
   const modalizeRef = useRef(null);
 
   const [visible, setVisible] = useState(false);
@@ -33,7 +35,10 @@ function PaymentMethod({ navigation }) {
     modalizeRef.current?.close();
   };
   const confirmPayment = () => {
-    navigation.navigate('FinishedOrder');
+    if (origem === 'plans') {
+      return navigation.navigate('PlanConfirm', { plan });
+    }
+    return navigation.navigate('FinishedOrder');
   };
 
   return (

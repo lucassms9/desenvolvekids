@@ -6,8 +6,7 @@ import { useNavigation, StackActions } from '@react-navigation/native';
 import { colors } from '~/styles';
 import rocketImage from '~/assets/images/rocket.png';
 
-function RocketAnimated({ authCheck }) {
-  console.log(authCheck);
+function RocketAnimated({ authCheck, user }) {
   const [endAnimate, setEndAnimate] = useState(false);
   const [bottomPosition, setBottomPosition] = useState(
     new Animated.Value(-100),
@@ -35,11 +34,16 @@ function RocketAnimated({ authCheck }) {
   useEffect(() => {
     if (endAnimate) {
       if (authCheck) {
+        console.log('lucas');
+        console.log(user);
+        if (!user.plan) {
+          return navigation.dispatch(StackActions.replace('Plans'));
+        }
         return navigation.dispatch(StackActions.replace('Main'));
       }
       return navigation.dispatch(StackActions.replace('Auth'));
     }
-  }, [endAnimate, navigation, authCheck]);
+  }, [endAnimate, navigation, authCheck, user]);
 
   return (
     <View
@@ -61,8 +65,9 @@ function RocketAnimated({ authCheck }) {
   );
 }
 
-const mapStateToProps = ({ auth: { authCheck } }) => ({
+const mapStateToProps = ({ auth: { authCheck, user } }) => ({
   authCheck,
+  user,
 });
 
 const mapDispatchToProps = () => ({});

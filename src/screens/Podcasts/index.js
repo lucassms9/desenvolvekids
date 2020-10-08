@@ -71,7 +71,7 @@ function Podcasts({ navigation }) {
                     }}>
                     <Card>
                       <CardImage
-                        source={{ uri: 'http://placehold.it/480x270' }}
+                        source={{ uri: podcast.thumb }}
                         title={podcast.titulo}
                       />
                       <CardContent
@@ -85,7 +85,7 @@ function Podcasts({ navigation }) {
                               podcast: podcast,
                             });
                           }}
-                          title="ASSISTIR"
+                          title="OUVIR"
                           color="blue"
                         />
                       </CardAction>

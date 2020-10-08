@@ -72,7 +72,7 @@ function Movies({ setNavigation, navigation }) {
                     }}>
                     <Card>
                       <CardImage
-                        source={{ uri: 'http://placehold.it/480x270' }}
+                        source={{ uri: movie.thumb }}
                         title={movie.titulo}
                       />
                       <CardContent

@@ -43,6 +43,8 @@ import DeliveryInfo from '~/screens/DeliveryInfo';
 import Product from '~/screens/Product';
 import PaymentMethod from '~/screens/PaymentMethod';
 import FinishedOrder from '~/screens/FinishedOrder';
+import Plans from '~/screens/Plans';
+import PlanConfirm from '~/screens/PlanConfirm';
 
 function Routes() {
   const StoreStack = createStackNavigator();
@@ -221,6 +223,35 @@ function Routes() {
     );
   };
 
+  const PlansStack = createStackNavigator();
+  function PlansStackScreen() {
+    return (
+      <PlansStack.Navigator>
+        <PlansStack.Screen
+          name="Plans"
+          component={Plans}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <PlansStack.Screen
+          name="PaymentMethod"
+          component={PaymentMethod}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <PlansStack.Screen
+          name="PlanConfirm"
+          component={PlanConfirm}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </PlansStack.Navigator>
+    );
+  }
+
   const AuthStack = createStackNavigator();
   function AuthStackScreen() {
     return (
@@ -278,6 +309,13 @@ function Routes() {
         <ContentStack.Screen
           name="Rocket"
           component={RocketAnimated}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ContentStack.Screen
+          name="Plans"
+          component={PlansStackScreen}
           options={{
             headerShown: false,
           }}

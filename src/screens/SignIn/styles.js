@@ -29,9 +29,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroung,
   },
   containerSocial: {
-    marginTop: 10,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   mp30: { marginTop: 30 },

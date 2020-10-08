@@ -6,3 +6,4 @@ export const VERSION_NUMBER = DeviceInfo.getVersion();
 export const BUILD_NUMBER = DeviceInfo.getBuildNumber();
 export const ENVIRONMENT = ENVIRONMENT_CONFG;
 export const SERVER_URL = 'http://desenvolvekids.com/api';
+// export const SERVER_URL = 'http://localhost:3000';

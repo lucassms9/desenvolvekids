@@ -11,12 +11,24 @@ import { Creators as AuthActions } from '../ducks/auth';
 
 export function* init() {
   console.log('init');
+
   const userAsync = yield call([AsyncStorage, 'getItem'], storageKeys.user);
   const user = JSON.parse(userAsync);
-  console.log(userAsync);
+
   if (userAsync) {
-    yield put(AuthActions.authCheck(true));
+    console.log(user);
+    try {
+      const data = yield call(api.get, '/planos/get-by-client', {
+        params: {},
+        headers: { Client: user.id },
+      });
+      user.plan = data.plano;
+    } catch (error) {
+      user.plan = false;
+    }
+
     yield put(AuthActions.signInSuccess(user));
+    yield put(AuthActions.authCheck(true));
   } else {
     console.log('aqui');
     yield put(AuthActions.authCheck(false));

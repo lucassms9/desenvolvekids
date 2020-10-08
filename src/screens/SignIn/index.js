@@ -151,6 +151,21 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
                     {errors.password && (
                       <Text style={commons.error}>{errors.password}</Text>
                     )}
+                    <View style={styles.containerSocial}>
+                      <Text style={[commons.textWhite, commons.fs17]}>
+                        Entrar com
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        marginTop: 20,
+                      }}>
+                      <SocialIcon onPress={loginFacebook} type="facebook" />
+                      <SocialIcon onPress={loginGoogle} type="google" />
+                    </View>
+
                     <View style={styles.mp30}>
                       <ButtonPrimary
                         loading={status === 'loading'}
@@ -162,13 +177,6 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
                 )}
               </Formik>
             </KeyboardAvoidingView>
-            <View style={styles.containerSocial}>
-              <Text style={[commons.textWhite, commons.fs17]}>
-                Faça Login usando:
-              </Text>
-              <SocialIcon onPress={loginFacebook} type="facebook" />
-              <SocialIcon onPress={loginGoogle} type="google" />
-            </View>
           </View>
           <View style={styles.containerFooter}>
             <TouchableOpacity

@@ -14,8 +14,7 @@ api.interceptors.request.use(async (config) => {
   const state = await store.getState();
 
   const headers = { ...config.headers };
-  console.log(state.auth.user);
-  if (state.auth.user) {
+  if (state.auth.user && state.auth.user.id) {
     headers.Client = `${state.auth.user.id}`;
   }
 
@@ -26,8 +25,8 @@ api.interceptors.request.use(async (config) => {
 });
 
 const errorHandler = ({ response }) => {
-  console.tron.log(response);
-  if (!response || response.status >= 500) {
+  console.log(response.data);
+  if (!response && response.status >= 500) {
     // timeout, internal server error...
     return Promise.reject(Error('Verifique sua conexão com a internet'));
   }
@@ -36,7 +35,8 @@ const errorHandler = ({ response }) => {
   }
   const { data } = response;
   if (data && 'message' in data) {
-    return data;
+    console.log('aqui');
+    return Promise.reject(Error(data.message));
   }
   return Promise.reject(Error('Erro inesperado'));
 };
