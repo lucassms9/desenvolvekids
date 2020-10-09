@@ -42,6 +42,7 @@ const errorHandler = ({ response }) => {
 };
 
 const successHandler = (response) => {
+  console.log(response);
   const { data, status } = response;
   return data;
 };

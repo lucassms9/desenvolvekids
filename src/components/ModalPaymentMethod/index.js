@@ -3,8 +3,8 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Formik } from 'formik';
 
-import { Overlay } from 'react-native-elements';
-import InputText from '~/components/InputText';
+import { Overlay, Input } from 'react-native-elements';
+
 import validationSchema from './validation';
 import ButtonPrimary from '../ButtonPrimary';
 import { commons, colors } from '~/styles';
@@ -12,19 +12,19 @@ import { commons, colors } from '~/styles';
 function ModalPaymentMethod({
   visible,
   toggleOverlay,
-  handleAdress,
   status,
   onOClose,
+  onSave,
 }) {
   return (
     <View style={{ padding: 10 }}>
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{}}
         validationSchema={validationSchema}
-        onSubmit={(values) => handleAdress(values)}>
+        onSubmit={(values) => onSave(values)}>
         {({ handleSubmit, values, setFieldValue, errors }) => (
           <View>
-            <InputText
+            <Input
               value={values.cardNumber}
               label={'Número do Cartão'}
               autoCapitalize="none"
@@ -34,7 +34,7 @@ function ModalPaymentMethod({
             {errors.cardNumber && (
               <Text style={commons.error}>{errors.cardNumber}</Text>
             )}
-            <InputText
+            <Input
               value={values.cardName}
               label={'Nome escrito no cartão'}
               autoCapitalize="none"
@@ -44,7 +44,7 @@ function ModalPaymentMethod({
             {errors.cardName && (
               <Text style={commons.error}>{errors.cardName}</Text>
             )}
-            <InputText
+            <Input
               value={values.cardValid}
               label={'Validade'}
               autoCapitalize="none"
@@ -54,7 +54,7 @@ function ModalPaymentMethod({
             {errors.cardValid && (
               <Text style={commons.error}>{errors.cardValid}</Text>
             )}
-            <InputText
+            <Input
               value={values.cardCode}
               label={'CCV'}
               autoCapitalize="none"
@@ -69,7 +69,7 @@ function ModalPaymentMethod({
               <ButtonPrimary
                 loading={status === 'loading'}
                 text="SALVAR"
-                onPress={onOClose}
+                onPress={handleSubmit}
               />
             </View>
           </View>

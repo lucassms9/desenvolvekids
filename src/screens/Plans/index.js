@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
+import { Creators as PlanActions } from '~/store/ducks/plan';
+import { bindActionCreators } from 'redux';
 import { PricingCard } from 'react-native-elements';
 import { ToastActionsCreators } from 'react-native-redux-toast';
 import { StackActions } from '@react-navigation/native';
@@ -12,7 +14,8 @@ import api from '~/services/api';
 
 import { maskMoney } from '~/helpers';
 
-function Plans({ navigation }) {
+function Plans(props) {
+  const { navigation, addPlan } = props;
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -22,9 +25,7 @@ function Plans({ navigation }) {
     setLoading(true);
     try {
       const res = await api.get('/planos');
-
       setPlans(res.planos.reverse());
-      console.log(res);
     } catch (error) {
       setLoading(false);
     }
@@ -44,7 +45,8 @@ function Plans({ navigation }) {
 
   const payPlan = (plan) => {
     if (plan.valor > 0) {
-      return navigation.navigate('PaymentMethod', { origem: 'plans', plan });
+      addPlan(plan);
+      return navigation.navigate('PlanTerm');
     }
     getPlanFree(plan);
   };
@@ -82,4 +84,16 @@ function Plans({ navigation }) {
   );
 }
 
-export default Plans;
+const mapStateToProps = ({ plan }) => ({
+  plan,
+});
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      ...PlanActions,
+    },
+    dispatch,
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Plans);

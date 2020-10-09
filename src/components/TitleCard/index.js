@@ -2,17 +2,17 @@ import React from 'react';
 
 import { View, Text } from 'react-native';
 
-function TitleCard() {
+function TitleCard({ cardName, cardNumber, cardValid }) {
   return (
     <View style={{ paddingHorizontal: 10 }}>
       <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>
-        2123123123
+        {cardNumber}
       </Text>
       <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>
-        lucas s m silva
+        {cardName}
       </Text>
       <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>
-        11/2020
+        {cardValid}
       </Text>
     </View>
   );

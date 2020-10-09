@@ -45,6 +45,7 @@ import PaymentMethod from '~/screens/PaymentMethod';
 import FinishedOrder from '~/screens/FinishedOrder';
 import Plans from '~/screens/Plans';
 import PlanConfirm from '~/screens/PlanConfirm';
+import PlanTerm from '~/screens/PlanTerm';
 
 function Routes() {
   const StoreStack = createStackNavigator();
@@ -230,6 +231,13 @@ function Routes() {
         <PlansStack.Screen
           name="Plans"
           component={Plans}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <PlansStack.Screen
+          name="PlanTerm"
+          component={PlanTerm}
           options={{
             headerShown: false,
           }}

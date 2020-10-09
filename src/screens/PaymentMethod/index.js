@@ -9,6 +9,9 @@ import {
   Animated,
 } from 'react-native';
 import { CheckBox, Divider } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { Creators as PlanActions } from '~/store/ducks/plan';
+import { bindActionCreators } from 'redux';
 
 import Header from '~/components/Header';
 import ModalPaymentMethod from '~/components/ModalPaymentMethod';
@@ -21,12 +24,13 @@ import { commons } from '~/styles';
 import styles from './styles';
 import { colors } from '~/styles/index';
 
-function PaymentMethod({ navigation, route }) {
-  console.log(route);
-  const { origem, plan } = route.params;
+function PaymentMethod({ navigation, route, addMethodPayment, plan }) {
+  const { origem } = route.params;
   const modalizeRef = useRef(null);
 
   const [visible, setVisible] = useState(false);
+  const [cardChecked, setCardChecked] = useState(null);
+  const [cards, setCards] = useState([]);
 
   const onOpen = () => {
     modalizeRef.current?.open();
@@ -34,9 +38,20 @@ function PaymentMethod({ navigation, route }) {
   const onOClose = () => {
     modalizeRef.current?.close();
   };
+  const onSave = (data) => {
+    const oldCards = [...cards, data];
+    setCards(oldCards);
+    console.log(data);
+    onOClose();
+  };
   const confirmPayment = () => {
     if (origem === 'plans') {
-      return navigation.navigate('PlanConfirm', { plan });
+      const methodFilter = cards.find(
+        (card) => card.cardNumber === cardChecked,
+      );
+      console.log(methodFilter);
+      addMethodPayment(methodFilter);
+      return navigation.navigate('PlanConfirm');
     }
     return navigation.navigate('FinishedOrder');
   };
@@ -51,52 +66,43 @@ function PaymentMethod({ navigation, route }) {
               Forma de pagamento
             </Text>
           </View>
-          <View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
-              <CheckBox
-                title="Boleto"
-                textStyle={{ color: '#fff' }}
-                checkedColor={colors.primary}
-                uncheckedColor={colors.primary}
-                containerStyle={{
-                  backgroundColor: 'transparent',
-                  borderColor: 'transparent',
-                }}
-                checked
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Divider style={{ backgroundColor: '#fff' }} />
-            </View>
-          </View>
-          <View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
-              <CheckBox
-                title={<TitleCard />}
-                textStyle={{ color: '#fff' }}
-                checkedColor={colors.primary}
-                uncheckedColor={colors.primary}
-                containerStyle={{
-                  backgroundColor: 'transparent',
-                  borderColor: 'transparent',
-                }}
-                checked
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Divider style={{ backgroundColor: '#fff' }} />
-            </View>
-          </View>
+          {cards.map((card) => {
+            return (
+              <View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <CheckBox
+                    title={
+                      <TitleCard
+                        cardValid={card.cardValid}
+                        cardName={card.cardName}
+                        cardNumber={card.cardNumber}
+                      />
+                    }
+                    textStyle={{ color: '#fff' }}
+                    checkedColor={colors.primary}
+                    uncheckedColor={colors.primary}
+                    containerStyle={{
+                      backgroundColor: 'transparent',
+                      borderColor: 'transparent',
+                    }}
+                    checked={cardChecked === card.cardNumber}
+                    onPress={() => {
+                      setCardChecked(card.cardNumber);
+                    }}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Divider style={{ backgroundColor: '#fff' }} />
+                </View>
+              </View>
+            );
+          })}
+
           <View style={{ margin: 15 }}>
             <ButtonSecondary onPress={onOpen} text="ADICIONAR NOVO CARTÃO" />
           </View>
@@ -109,10 +115,22 @@ function PaymentMethod({ navigation, route }) {
         </View>
       </SafeAreaView>
       <Modalize modalHeight={700} ref={modalizeRef}>
-        <ModalPaymentMethod onOClose={onOClose} />
+        <ModalPaymentMethod onSave={onSave} onOClose={onOClose} />
       </Modalize>
     </View>
   );
 }
 
-export default PaymentMethod;
+const mapStateToProps = ({ plan }) => ({
+  plan,
+});
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      ...PlanActions,
+    },
+    dispatch,
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentMethod);

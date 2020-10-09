@@ -280,6 +280,8 @@ PODS:
   - react-native-fbsdk/Share (2.0.0):
     - FBSDKShareKit (~> 7.0)
     - React
+  - react-native-rsa-native (2.0.1):
+    - React
   - react-native-safe-area-context (3.1.7):
     - React
   - react-native-video (5.1.0-alpha8):
@@ -395,6 +397,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
+  - react-native-rsa-native (from `../node_modules/react-native-rsa-native`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -475,6 +478,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-fbsdk:
     :path: "../node_modules/react-native-fbsdk"
+  react-native-rsa-native:
+    :path: "../node_modules/react-native-rsa-native"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-video:
@@ -557,6 +562,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 8bf0b2707f05865113415088c398a7f98c0cf546
   React-jsinspector: 8e5913c4c6c54f0d3f9c9fc630c465a89cded65d
   react-native-fbsdk: 00c15d138bba6d4efa628670886fc58cec858c19
+  react-native-rsa-native: 2ef975a6b0120e201f85de88155efec90a85cd2b
   react-native-safe-area-context: fcece23844742b6f7f0627c3715b806a7deff946
   react-native-video: 8d97379f3c2322a569f1e27542ad1a646cad9444
   react-native-webview: 33f7a5ed311808ae42518c3722c9cc48513fa597
@@ -582,6 +588,6 @@ SPEC CHECKSUMS:
   Yoga: 9db9ff2025ad21d1ac0a8b3c85d5ac4e7c29d525
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: b01328223642c5849eea3563c48dc62f4febf023
+PODFILE CHECKSUM: a4e0fa3b9d7b338f283a77d07fb330f2e1056cfd
 
 COCOAPODS: 1.8.4

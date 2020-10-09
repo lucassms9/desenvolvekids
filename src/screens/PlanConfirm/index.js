@@ -8,7 +8,11 @@ import {
   Text,
   ScrollView,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import { Creators as PlanActions } from '~/store/ducks/plan';
+import { bindActionCreators } from 'redux';
+import generateCardHash from 'react-native-pagarme-card-hash';
+import { ENCRYPTION_KEY } from '~/config/constantes';
 import { Divider } from 'react-native-elements';
 
 import Header from '~/components/Header';
@@ -20,10 +24,22 @@ import { maskMoney } from '~/helpers';
 
 import { commons, colors } from '~/styles';
 
-function PlanConfirm({ route }) {
-  const { plan } = route.params;
+function PlanConfirm({ plan: planState, requestPaymentPlan }) {
+  const { plan, methodPayment } = planState;
 
-  const confirmPayment = () => {};
+  const confirmPayment = async () => {
+    const hash = await generateCardHash(
+      {
+        number: methodPayment.cardNumber,
+        holderName: methodPayment.cardName,
+        expirationDate: methodPayment.cardValid,
+        cvv: methodPayment.cardCode,
+      },
+      ENCRYPTION_KEY,
+    );
+    console.log(hash);
+    requestPaymentPlan(plan, methodPayment, hash);
+  };
 
   return (
     <View style={commons.body}>
@@ -54,7 +70,11 @@ function PlanConfirm({ route }) {
                 Forma de Pagamento
               </Text>
               <View>
-                <TitleCard />
+                <TitleCard
+                  cardValid={methodPayment.cardValid}
+                  cardName={methodPayment.cardName}
+                  cardNumber={methodPayment.cardNumber}
+                />
               </View>
               <View style={{ flex: 1 }}>
                 <Divider style={{ backgroundColor: '#fff' }} />
@@ -78,4 +98,16 @@ function PlanConfirm({ route }) {
   );
 }
 
-export default PlanConfirm;
+const mapStateToProps = ({ plan }) => ({
+  plan,
+});
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      ...PlanActions,
+    },
+    dispatch,
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlanConfirm);
