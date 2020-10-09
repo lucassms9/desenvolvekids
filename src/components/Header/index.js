@@ -41,7 +41,7 @@ function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
       </TouchableOpacity>
     );
   }
-  console.log(leftComp);
+
   const rightComp = !hasntProfile ? (
     <TouchableOpacity
       onPress={() => {

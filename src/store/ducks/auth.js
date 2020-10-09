@@ -23,6 +23,8 @@ const { Types, Creators } = createActions({
   authCheck: ['status'],
 
   setNavigation: ['nav'],
+
+  addAddressRequest: ['data'],
 });
 
 const INITIAL_STATE = Immutable({
@@ -82,6 +84,7 @@ export default createReducer(INITIAL_STATE, {
   [Types.RECOVER_PASSWORD_REQUEST]: request,
   [Types.RECOVER_PASSWORD_ERROR]: error,
   [Types.RECOVER_PASSWORD_SUCCESS]: recoverPasswordSuccess,
+  [Types.ADD_ADDRESS_REQUEST]: request,
 });
 
 export { Types, Creators };

@@ -243,6 +243,13 @@ function Routes() {
           }}
         />
         <PlansStack.Screen
+          name="DeliveryInfo"
+          component={DeliveryInfo}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <PlansStack.Screen
           name="PaymentMethod"
           component={PaymentMethod}
           options={{

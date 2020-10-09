@@ -8,9 +8,13 @@ import Header from '~/components/Header';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import { commons, colors } from '~/styles';
 
-function PlanTerm({ navigation, plan }) {
+function PlanTerm({ navigation, plan, auth }) {
   const goPayment = () => {
-    return navigation.navigate('PaymentMethod', { origem: 'plans' });
+    if (auth.user.enderecos.length > 0) {
+      return navigation.navigate('PaymentMethod', { origem: 'plans' });
+    } else {
+      return navigation.navigate('DeliveryInfo', { origem: 'plans' });
+    }
   };
 
   return (
@@ -34,8 +38,9 @@ function PlanTerm({ navigation, plan }) {
   );
 }
 
-const mapStateToProps = ({ plan }) => ({
+const mapStateToProps = ({ plan, auth }) => ({
   plan,
+  auth,
 });
 
 const mapDispatchToProps = (dispatch) =>

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { View, Animated, Easing } from 'react-native';
+import { bindActionCreators } from 'redux';
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { Creators as AuthActions } from '~/store/ducks/auth';
 
 import { colors } from '~/styles';
 import rocketImage from '~/assets/images/rocket.png';
 
-function RocketAnimated({ authCheck, user }) {
+function RocketAnimated({ authCheck, user, navigation, setNavigation }) {
   const [endAnimate, setEndAnimate] = useState(false);
   const [bottomPosition, setBottomPosition] = useState(
     new Animated.Value(-100),
   );
-
-  const navigation = useNavigation();
 
   const mooveLR = () => {
     Animated.timing(bottomPosition, {
@@ -28,6 +28,7 @@ function RocketAnimated({ authCheck, user }) {
   };
 
   useEffect(() => {
+    setNavigation(navigation);
     mooveLR();
   }, []);
 
@@ -36,7 +37,7 @@ function RocketAnimated({ authCheck, user }) {
       if (authCheck) {
         console.log('lucas');
         console.log(user);
-        if (!user.plan) {
+        if (user.plano.length === 0) {
           return navigation.dispatch(StackActions.replace('Plans'));
         }
         return navigation.dispatch(StackActions.replace('Main'));
@@ -70,6 +71,12 @@ const mapStateToProps = ({ auth: { authCheck, user } }) => ({
   user,
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      ...AuthActions,
+    },
+    dispatch,
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(RocketAnimated);

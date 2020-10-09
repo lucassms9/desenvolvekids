@@ -16,17 +16,12 @@ export function* init() {
   const user = JSON.parse(userAsync);
 
   if (userAsync) {
-    try {
-      const data = yield call(api.get, '/planos/get-by-client', {
-        params: {},
-        headers: { Client: user.id },
-      });
-      user.plan = data.plano;
-    } catch (error) {
-      user.plan = false;
-    }
+    const data = yield call(api.get, '/user/get-data', {
+      params: {},
+      headers: { Client: user.id },
+    });
 
-    yield put(AuthActions.signInSuccess(user));
+    yield put(AuthActions.signInSuccess(data.user));
     yield put(AuthActions.authCheck(true));
   } else {
     yield put(AuthActions.authCheck(false));
@@ -142,6 +137,18 @@ export function* signIn({ email, password, dataSocial }) {
     } else {
       throw data;
     }
+  } catch (error) {
+    yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
+    yield put(AuthActions.signInError(error));
+  }
+}
+
+export function* requestAddress({ data }) {
+  try {
+    yield call(api.post, '/user/add-address', data);
+
+    const datares = yield call(api.get, '/user/get-data');
+    yield put(AuthActions.signInSuccess(datares.user));
   } catch (error) {
     yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
     yield put(AuthActions.signInError(error));

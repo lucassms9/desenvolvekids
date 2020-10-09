@@ -3,102 +3,191 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Formik } from 'formik';
 
-import { Overlay } from 'react-native-elements';
-import InputText from '~/components/InputText';
+import Toast from 'react-native-tiny-toast';
+import { Input } from 'react-native-elements';
+
 import validationSchema from './validation';
 import ButtonPrimary from '../ButtonPrimary';
 import { commons, colors } from '~/styles';
+import axios from 'axios';
 
 function ModalDelivery({
   visible,
   toggleOverlay,
-  handleAdress,
+  handleAddress,
   status,
   onOClose,
 }) {
   return (
     <View style={{ padding: 10 }}>
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{}}
         validationSchema={validationSchema}
-        onSubmit={(values) => handleAdress(values)}>
-        {({ handleSubmit, values, setFieldValue, errors }) => (
-          <View>
-            <InputText
-              value={values.zipCode}
-              label={'CEP'}
-              autoCapitalize="none"
-              placeholder={'CEP'}
-              onChangeText={(text) => setFieldValue('zipCode', text)}
-            />
-            {errors.zipCode && (
-              <Text style={commons.error}>{errors.zipCode}</Text>
-            )}
-            <InputText
-              value={values.nameAdress}
-              label={'Nome do Endereço'}
-              autoCapitalize="none"
-              placeholder={'Nome do Endereço'}
-              onChangeText={(text) => setFieldValue('nameAdress', text)}
-            />
-            {errors.nameAdress && (
-              <Text style={commons.error}>{errors.nameAdress}</Text>
-            )}
-            <InputText
-              value={values.adress}
-              label={'Endereço'}
-              autoCapitalize="none"
-              placeholder={'Endereço'}
-              onChangeText={(text) => setFieldValue('adress', text)}
-            />
-            {errors.adress && (
-              <Text style={commons.error}>{errors.adress}</Text>
-            )}
-            <InputText
-              value={values.neighborhood}
-              label={'Bairro'}
-              autoCapitalize="none"
-              placeholder={'Bairro'}
-              onChangeText={(text) => setFieldValue('neighnorhood', text)}
-            />
-            {errors.neighnorhood && (
-              <Text style={commons.error}>{errors.neighnorhood}</Text>
-            )}
-            <InputText
-              value={values.city}
-              label={'Cidade'}
-              autoCapitalize="none"
-              placeholder={'Cidade'}
-              onChangeText={(text) => setFieldValue('city', text)}
-            />
-            {errors.city && <Text style={commons.error}>{errors.city}</Text>}
-            <InputText
-              value={values.state}
-              label={'UF'}
-              autoCapitalize="none"
-              placeholder={'UF'}
-              onChangeText={(text) => setFieldValue('state', text)}
-            />
-            {errors.state && <Text style={commons.error}>{errors.state}</Text>}
-            <InputText
-              value={values.recipient}
-              label={'Destinatário'}
-              autoCapitalize="none"
-              placeholder={'Destinatário'}
-              onChangeText={(text) => setFieldValue('recipient', text)}
-            />
-            {errors.recipient && (
-              <Text style={commons.error}>{errors.recipient}</Text>
-            )}
-            <View style={{ marginTop: 30 }}>
-              <ButtonPrimary
-                loading={status === 'loading'}
-                text="SALVAR"
-                onPress={onOClose}
+        onSubmit={(values) => handleAddress(values)}>
+        {({ handleSubmit, values, setFieldValue, errors }) => {
+          const loadingCep = async (state) => {
+            if (state) {
+              setFieldValue('address', '...');
+              setFieldValue('state', '...');
+              setFieldValue('city', '...');
+            } else {
+              setFieldValue('address', '');
+              setFieldValue('state', '');
+              setFieldValue('city', '');
+            }
+          };
+
+          const getCep = async (cep) => {
+            const response = await axios.get(
+              `https://viacep.com.br/ws/${cep}/json/`,
+            );
+
+            const {
+              data: { logradouro, uf, localidade, erro, bairro, complemento },
+            } = response;
+            if (!erro) {
+              setFieldValue('complement', complemento);
+              setFieldValue('neighnorhood', bairro);
+              setFieldValue('address', logradouro);
+              setFieldValue('state', uf);
+              setFieldValue('city', localidade);
+            } else {
+              loadingCep(false);
+              setFieldValue('zipCode', '');
+              Toast.show('CEP não encontrado.', {
+                duration: 2000,
+                containerStyle: {
+                  backgroundColor: '#ff3d3d',
+                  borderRadius: 15,
+                },
+              });
+            }
+          };
+
+          const handleBlurCep = async (e) => {
+            loadingCep(true);
+            let cep = e.nativeEvent.text;
+            cep = cep.replace(/\D/, '');
+            if (cep !== '') {
+              const validacep = /^[0-9]{8}$/;
+              // Valida o formato do CEP.
+              if (validacep.test(cep)) {
+                getCep(cep);
+              } else {
+                Toast.show('Formato de CEP inválido.', {
+                  position: Toast.position.center,
+                  duration: 2000,
+                  containerStyle: {
+                    backgroundColor: '#ff3d3d',
+                    borderRadius: 15,
+                  },
+                });
+                loadingCep(false);
+              }
+            }
+          };
+          return (
+            <View>
+              <Input
+                value={values.zipCode}
+                label={'CEP'}
+                onEndEditing={handleBlurCep}
+                autoCapitalize="none"
+                placeholder={'CEP'}
+                onChangeText={(text) => setFieldValue('zipCode', text)}
               />
+              {errors.zipCode && (
+                <Text style={commons.error}>{errors.zipCode}</Text>
+              )}
+              <Input
+                value={values.nameAddress}
+                label={'Nome do Endereço'}
+                autoCapitalize="none"
+                placeholder={'Nome do Endereço'}
+                onChangeText={(text) => setFieldValue('nameAddress', text)}
+              />
+              {errors.nameAddress && (
+                <Text style={commons.error}>{errors.nameAddress}</Text>
+              )}
+              <Input
+                value={values.address}
+                label={'Endereço'}
+                autoCapitalize="none"
+                placeholder={'Endereço'}
+                onChangeText={(text) => setFieldValue('address', text)}
+              />
+              {errors.address && (
+                <Text style={commons.error}>{errors.address}</Text>
+              )}
+              <Input
+                value={values.number}
+                label={'Número'}
+                autoCapitalize="none"
+                placeholder={'Número'}
+                onChangeText={(text) => setFieldValue('number', text)}
+              />
+              {errors.number && (
+                <Text style={commons.error}>{errors.number}</Text>
+              )}
+              <Input
+                value={values.neighborhood}
+                label={'Bairro'}
+                autoCapitalize="none"
+                placeholder={'Bairro'}
+                onChangeText={(text) => setFieldValue('neighnorhood', text)}
+              />
+              {errors.neighnorhood && (
+                <Text style={commons.error}>{errors.neighnorhood}</Text>
+              )}
+              <Input
+                value={values.complement}
+                label={'Complemento'}
+                autoCapitalize="none"
+                placeholder={'Complemento'}
+                onChangeText={(text) => setFieldValue('complement', text)}
+              />
+              {errors.complement && (
+                <Text style={commons.error}>{errors.complement}</Text>
+              )}
+
+              <Input
+                value={values.city}
+                label={'Cidade'}
+                autoCapitalize="none"
+                placeholder={'Cidade'}
+                onChangeText={(text) => setFieldValue('city', text)}
+              />
+              {errors.city && <Text style={commons.error}>{errors.city}</Text>}
+              <Input
+                value={values.state}
+                label={'UF'}
+                autoCapitalize="none"
+                placeholder={'UF'}
+                onChangeText={(text) => setFieldValue('state', text)}
+              />
+              {errors.state && (
+                <Text style={commons.error}>{errors.state}</Text>
+              )}
+              <Input
+                value={values.recipient}
+                label={'Nome do Destinatário'}
+                autoCapitalize="none"
+                placeholder={'Destinatário'}
+                onChangeText={(text) => setFieldValue('recipient', text)}
+              />
+              {errors.recipient && (
+                <Text style={commons.error}>{errors.recipient}</Text>
+              )}
+              <View style={{ marginTop: 30 }}>
+                <ButtonPrimary
+                  loading={status === 'loading'}
+                  text="SALVAR"
+                  onPress={handleSubmit}
+                />
+              </View>
             </View>
-          </View>
-        )}
+          );
+        }}
       </Formik>
     </View>
   );

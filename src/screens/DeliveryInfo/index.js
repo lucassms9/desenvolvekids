@@ -8,6 +8,11 @@ import {
   ScrollView,
   Animated,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { Creators as PlanActions } from '~/store/ducks/plan';
+import { Creators as AuthActions } from '~/store/ducks/auth';
+import { bindActionCreators } from 'redux';
+
 import { CheckBox, Divider } from 'react-native-elements';
 
 import Header from '~/components/Header';
@@ -20,19 +25,29 @@ import { commons } from '~/styles';
 import styles from './styles';
 import { colors } from '~/styles/index';
 
-function DeliveryInfo({ navigation }) {
+function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
+  const { origem } = route.params;
+
   const modalizeRef = useRef(null);
 
   const [visible, setVisible] = useState(false);
+  const [checkedAddress, setCheckedAddress] = useState(null);
 
   const onOpen = () => {
     modalizeRef.current?.open();
   };
+
+  const handleAddress = (address) => {
+    addAddressRequest(address);
+    console.log(address);
+    onOClose();
+  };
+
   const onOClose = () => {
     modalizeRef.current?.close();
   };
   const confirmAddres = () => {
-    navigation.navigate('PaymentMethod');
+    return navigation.navigate('PaymentMethod', { origem });
   };
   return (
     <View style={commons.body}>
@@ -43,32 +58,39 @@ function DeliveryInfo({ navigation }) {
             <Text style={{ color: '#fff', fontSize: 18, fontWeight: '700' }}>
               Meus Enderecos
             </Text>
-            <View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <CheckBox
-                  title="Casa"
-                  textStyle={{ color: '#fff' }}
-                  checkedColor={colors.primary}
-                  uncheckedColor={colors.primary}
-                  containerStyle={{
-                    backgroundColor: 'transparent',
-                    borderColor: 'transparent',
-                  }}
-                  checked
-                />
-                <TouchableOpacity onPress={onOpen}>
-                  <Text style={{ color: '#fff' }}>Ver/Editar Endereço</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Divider style={{ backgroundColor: '#fff' }} />
-              </View>
-            </View>
+            {auth.user.enderecos.map((endereco) => {
+              return (
+                <View key={endereco.id}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    <CheckBox
+                      title={endereco.nome_endereco}
+                      textStyle={{ color: '#fff' }}
+                      checkedColor={colors.primary}
+                      uncheckedColor={colors.primary}
+                      containerStyle={{
+                        backgroundColor: 'transparent',
+                        borderColor: 'transparent',
+                      }}
+                      onPress={() => {
+                        setCheckedAddress(endereco.id);
+                      }}
+                      checked={checkedAddress === endereco.id}
+                    />
+                    <TouchableOpacity onPress={onOpen}>
+                      <Text style={{ color: '#fff' }}>Ver/Editar Endereço</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Divider style={{ backgroundColor: '#fff' }} />
+                  </View>
+                </View>
+              );
+            })}
           </View>
           <View style={{ margin: 15 }}>
             <ButtonSecondary onPress={onOpen} text="NOVO ENDEREÇO" />
@@ -79,10 +101,24 @@ function DeliveryInfo({ navigation }) {
         </View>
       </SafeAreaView>
       <Modalize modalHeight={700} ref={modalizeRef}>
-        <ModalDelivery onOClose={onOClose} />
+        <ModalDelivery handleAddress={handleAddress} onOClose={onOClose} />
       </Modalize>
     </View>
   );
 }
 
-export default DeliveryInfo;
+const mapStateToProps = ({ plan, auth }) => ({
+  plan,
+  auth,
+});
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      ...PlanActions,
+      ...AuthActions,
+    },
+    dispatch,
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeliveryInfo);
