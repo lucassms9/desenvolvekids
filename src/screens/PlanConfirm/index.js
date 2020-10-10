@@ -27,13 +27,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { commons, colors } from '~/styles';
 
 function PlanConfirm({ plan: planState, requestPaymentPlan }) {
-  const { plan, methodPayment } = planState;
+  const { plan, methodPayment, status } = planState;
   const [installment, setInstallment] = useState(null);
   const [installments, setInstallments] = useState([{ label: '', value: '' }]);
 
   useEffect(() => {
     const install = plan.parcelas.map((ins) => ({
-      label: `${String(ins.valor)} - ${ins.qtd}x`,
+      label: `${maskMoney(ins.valor)} - ${ins.qtd}x`,
       value: String(ins.qtd),
     }));
     setInstallments(install);
@@ -83,6 +83,7 @@ function PlanConfirm({ plan: planState, requestPaymentPlan }) {
               </Text>
               <View>
                 <TitleCard
+                  styles={{ marginVertical: 10 }}
                   cardValid={methodPayment.cardValid}
                   cardName={methodPayment.cardName}
                   cardNumber={methodPayment.cardNumber}
@@ -92,32 +93,44 @@ function PlanConfirm({ plan: planState, requestPaymentPlan }) {
                 <Divider style={{ backgroundColor: '#fff' }} />
               </View>
             </View>
-            <View style={{ padding: 15 }}>
-              <RNPickerSelect
-                onValueChange={(text) => setInstallment(text)}
-                value={installment}
-                items={installments}
-                placeholder={{
-                  label: 'Escolha',
-                  value: null,
-                  color: '#9EA0A4',
-                }}
-                style={{
-                  ...pickerSelectStyles,
-                  iconContainer: {
-                    top: 10,
-                    right: 10,
-                  },
-                }}
-                useNativeAndroidPickerStyle={false}
-                textInputProps={{ underlineColor: 'yellow' }}
-                Icon={() => {
-                  return (
-                    <Ionicons name="md-arrow-down" size={24} color="gray" />
-                  );
-                }}
-              />
-            </View>
+            {plan.parcelas.length > 0 && (
+              <View style={{ padding: 15 }}>
+                <Text
+                  style={{
+                    color: '#fff',
+                    fontSize: 18,
+                    fontWeight: '700',
+                    marginBottom: 15,
+                  }}>
+                  Parcelas
+                </Text>
+                <RNPickerSelect
+                  onValueChange={(text) => setInstallment(text)}
+                  value={installment}
+                  items={installments}
+                  placeholder={{
+                    label: 'Escolha',
+                    value: null,
+                    color: '#9EA0A4',
+                  }}
+                  style={{
+                    ...pickerSelectStyles,
+                    iconContainer: {
+                      top: 10,
+                      right: 10,
+                    },
+                  }}
+                  useNativeAndroidPickerStyle={false}
+                  textInputProps={{ underlineColor: 'yellow' }}
+                  Icon={() => {
+                    return (
+                      <Ionicons name="md-arrow-down" size={24} color="gray" />
+                    );
+                  }}
+                />
+              </View>
+            )}
+
             <View style={{ margin: 15 }}>
               <View
                 style={{
@@ -127,7 +140,11 @@ function PlanConfirm({ plan: planState, requestPaymentPlan }) {
                   marginHorizontal: 10,
                 }}
               />
-              <ButtonPrimary onPress={confirmPayment} text="CONCLUIR PEDIDO" />
+              <ButtonPrimary
+                loading={status === 'loading'}
+                onPress={confirmPayment}
+                text="CONCLUIR PEDIDO"
+              />
             </View>
           </View>
         </ScrollView>

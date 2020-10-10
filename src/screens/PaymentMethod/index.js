@@ -9,9 +9,10 @@ import {
   Animated,
 } from 'react-native';
 import { CheckBox, Divider } from 'react-native-elements';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Creators as PlanActions } from '~/store/ducks/plan';
 import { bindActionCreators } from 'redux';
+import { ToastActionsCreators } from 'react-native-redux-toast';
 
 import Header from '~/components/Header';
 import ModalPaymentMethod from '~/components/ModalPaymentMethod';
@@ -27,6 +28,7 @@ import { colors } from '~/styles/index';
 function PaymentMethod({ navigation, route, addMethodPayment, plan }) {
   const { origem } = route.params;
   const modalizeRef = useRef(null);
+  const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(false);
   const [cardChecked, setCardChecked] = useState(null);
@@ -41,10 +43,20 @@ function PaymentMethod({ navigation, route, addMethodPayment, plan }) {
   const onSave = (data) => {
     const oldCards = [...cards, data];
     setCards(oldCards);
+    setCardChecked(data.cardNumber);
     console.log(data);
     onOClose();
   };
   const confirmPayment = () => {
+    if (!cardChecked) {
+      return dispatch(
+        ToastActionsCreators.displayError(
+          'Cadastre e escolha um cartão para continuar',
+          5000,
+        ),
+      );
+    }
+
     if (origem === 'plans') {
       const methodFilter = cards.find(
         (card) => card.cardNumber === cardChecked,

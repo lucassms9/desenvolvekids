@@ -71,7 +71,7 @@ function Plans(props) {
                     title={plan.titulo}
                     price={maskMoney(plan.valor)}
                     info={[plan.subtitulo, plan.descricao]}
-                    button={{ title: 'COMPRAR', icon: 'flight-takeoff' }}
+                    button={{ title: 'COMPRAR' }}
                     onButtonPress={() => payPlan(plan)}
                   />
                 );

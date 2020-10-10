@@ -24,6 +24,13 @@ export default {
     marginLeft: 10,
     top: -15,
   },
+  errorWhite: {
+    color: colors.primary,
+    fontSize: 15,
+    fontWeight: '500',
+    marginLeft: 10,
+    top: -15,
+  },
   body: {
     flex: 1,
     backgroundColor: colors.backgroung,
