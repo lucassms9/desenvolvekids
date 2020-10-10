@@ -27,25 +27,53 @@ import { colors } from '~/styles/index';
 
 function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
   const { origem } = route.params;
-
+  console.log(origem);
   const modalizeRef = useRef(null);
 
   const [visible, setVisible] = useState(false);
   const [checkedAddress, setCheckedAddress] = useState(null);
+  const [addressEdit, setAddressEdit] = useState({});
 
+  const createAddress = () => {
+    setAddressEdit({});
+    onOpen();
+  };
   const onOpen = () => {
     modalizeRef.current?.open();
   };
 
   const handleAddress = (address) => {
-    addAddressRequest(address);
+    if (addressEdit) {
+      address.id = addressEdit.id;
+    }
+    console.log(addressEdit);
     console.log(address);
+    addAddressRequest(address);
     onOClose();
   };
 
   const onOClose = () => {
     modalizeRef.current?.close();
   };
+
+  const editAddress = (address) => {
+    const dataAddress = {
+      zipCode: address.cep,
+      nameAddress: address.nome_endereco,
+      address: address.endereco,
+      city: address.cidade,
+      complement: address.complemento,
+      neighborhood: address.bairro,
+      number: address.numero,
+      recipient: address.nome_destinatario,
+      state: address.estado,
+      id: address.id,
+    };
+
+    setAddressEdit(dataAddress);
+    onOpen();
+  };
+
   const confirmAddres = () => {
     return navigation.navigate('PaymentMethod', { origem });
   };
@@ -67,22 +95,43 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <CheckBox
-                      title={endereco.nome_endereco}
-                      textStyle={{ color: '#fff' }}
-                      checkedColor={colors.primary}
-                      uncheckedColor={colors.primary}
-                      containerStyle={{
-                        backgroundColor: 'transparent',
-                        borderColor: 'transparent',
-                      }}
-                      onPress={() => {
-                        setCheckedAddress(endereco.id);
-                      }}
-                      checked={checkedAddress === endereco.id}
-                    />
-                    <TouchableOpacity onPress={onOpen}>
-                      <Text style={{ color: '#fff' }}>Ver/Editar Endereço</Text>
+                    {origem !== 'options' ? (
+                      <CheckBox
+                        title={endereco.nome_endereco}
+                        textStyle={{ color: '#fff' }}
+                        checkedColor={colors.primary}
+                        uncheckedColor={colors.primary}
+                        containerStyle={{
+                          backgroundColor: 'transparent',
+                          borderColor: 'transparent',
+                        }}
+                        onPress={() => {
+                          setCheckedAddress(endereco.id);
+                        }}
+                        checked={checkedAddress === endereco.id}
+                      />
+                    ) : (
+                      <View style={{ padding: 10 }}>
+                        <Text
+                          style={{
+                            color: '#fff',
+                            fontSize: 16,
+                            fontWeight: '500',
+                          }}>
+                          {endereco.nome_endereco}
+                        </Text>
+                      </View>
+                    )}
+
+                    <TouchableOpacity onPress={() => editAddress(endereco)}>
+                      <Text
+                        style={{
+                          color: '#fff',
+                          fontSize: 16,
+                          fontWeight: '500',
+                        }}>
+                        Ver/Editar Endereço
+                      </Text>
                     </TouchableOpacity>
                   </View>
                   <View style={{ flex: 1 }}>
@@ -93,15 +142,21 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
             })}
           </View>
           <View style={{ margin: 15 }}>
-            <ButtonSecondary onPress={onOpen} text="NOVO ENDEREÇO" />
+            <ButtonSecondary onPress={createAddress} text="NOVO ENDEREÇO" />
           </View>
         </View>
-        <View style={{ margin: 15 }}>
-          <ButtonPrimary onPress={confirmAddres} text="CONFIMAR ENDEREÇO" />
-        </View>
+        {origem !== 'options' && (
+          <View style={{ margin: 15 }}>
+            <ButtonPrimary onPress={confirmAddres} text="CONFIMAR ENDEREÇO" />
+          </View>
+        )}
       </SafeAreaView>
       <Modalize modalHeight={700} ref={modalizeRef}>
-        <ModalDelivery handleAddress={handleAddress} onOClose={onOClose} />
+        <ModalDelivery
+          initData={addressEdit}
+          handleAddress={handleAddress}
+          onOClose={onOClose}
+        />
       </Modalize>
     </View>
   );
