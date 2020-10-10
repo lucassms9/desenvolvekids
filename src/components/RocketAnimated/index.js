@@ -8,7 +8,13 @@ import { Creators as AuthActions } from '~/store/ducks/auth';
 import { colors } from '~/styles';
 import rocketImage from '~/assets/images/rocket.png';
 
-function RocketAnimated({ authCheck, user, navigation, setNavigation }) {
+function RocketAnimated(props) {
+  console.log(props);
+  const {
+    auth: { authCheck, user },
+    navigation,
+    setNavigation,
+  } = props;
   const [endAnimate, setEndAnimate] = useState(false);
   const [bottomPosition, setBottomPosition] = useState(
     new Animated.Value(-100),
@@ -34,8 +40,8 @@ function RocketAnimated({ authCheck, user, navigation, setNavigation }) {
 
   useEffect(() => {
     if (endAnimate) {
+      console.log(authCheck);
       if (authCheck) {
-        console.log('lucas');
         console.log(user);
         if (user.plano.length === 0) {
           return navigation.dispatch(StackActions.replace('Plans'));
@@ -66,9 +72,8 @@ function RocketAnimated({ authCheck, user, navigation, setNavigation }) {
   );
 }
 
-const mapStateToProps = ({ auth: { authCheck, user } }) => ({
-  authCheck,
-  user,
+const mapStateToProps = ({ auth }) => ({
+  auth,
 });
 
 const mapDispatchToProps = (dispatch) =>

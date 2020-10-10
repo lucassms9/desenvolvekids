@@ -45,7 +45,7 @@ function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
   const rightComp = !hasntProfile ? (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('Profile');
+        navigation.navigate('Options');
       }}>
       <Feather name="user" size={30} color={colors.white} />
     </TouchableOpacity>

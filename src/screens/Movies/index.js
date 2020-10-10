@@ -18,7 +18,6 @@ import Header from '~/components/Header';
 import { commons } from '~/styles';
 import Loader from '~/components/Loader';
 import api from '~/services/api';
-import { cos } from 'react-native-reanimated';
 
 function Movies({ setNavigation, navigation }) {
   const [movies, setMovies] = useState([]);

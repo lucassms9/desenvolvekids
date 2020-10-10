@@ -33,7 +33,7 @@ import Store from '~/screens/Store';
 /**
  * Stacks
  */
-import Profile from '~/screens/Profile';
+
 import MovieDetail from '~/screens/Movies/detail';
 import PodcastDetail from '~/screens/Podcasts/detail';
 import TipDetail from '~/screens/Tips/detail';
@@ -47,7 +47,55 @@ import Plans from '~/screens/Plans';
 import PlanConfirm from '~/screens/PlanConfirm';
 import PlanTerm from '~/screens/PlanTerm';
 
+import Options from '~/screens/Options';
+import Profile from '~/screens/Profile';
+import MyPlan from '~/screens/MyPlan';
+import MyOrders from '~/screens/MyOrders';
+
 function Routes() {
+  const OptionsStack = createStackNavigator();
+  function OptionsStackScreen() {
+    return (
+      <OptionsStack.Navigator>
+        <OptionsStack.Screen
+          name="Options"
+          component={Options}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <OptionsStack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <OptionsStack.Screen
+          name="DeliveryInfo"
+          component={DeliveryInfo}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <OptionsStack.Screen
+          name="MyPlan"
+          component={MyPlan}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <OptionsStack.Screen
+          name="MyOrders"
+          component={MyOrders}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </OptionsStack.Navigator>
+    );
+  }
+
   const StoreStack = createStackNavigator();
 
   function StoreStackScreen() {
@@ -315,8 +363,8 @@ function Routes() {
           }}
         />
         <ContentStack.Screen
-          name="Profile"
-          component={Profile}
+          name="Options"
+          component={OptionsStackScreen}
           options={{
             headerShown: false,
           }}

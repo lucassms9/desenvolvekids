@@ -14,13 +14,13 @@ export function* init() {
 
   const userAsync = yield call([AsyncStorage, 'getItem'], storageKeys.user);
   const user = JSON.parse(userAsync);
-
+  console.log(user);
   if (userAsync) {
     const data = yield call(api.get, '/user/get-data', {
       params: {},
       headers: { Client: user.id },
     });
-
+    console.log(data);
     yield put(AuthActions.signInSuccess(data.user));
     yield put(AuthActions.authCheck(true));
   } else {
@@ -62,11 +62,7 @@ export function* signUp({ data: signUpData }) {
     } = yield select();
 
     yield put(AuthActions.signUpSuccess(user));
-    yield call(
-      [AsyncStorage, 'setItem'],
-      storageKeys.user,
-      JSON.stringify(user),
-    );
+
     yield call([navigationGlobal, 'dispatch'], StackActions.replace('Plans'));
   } catch (error) {
     yield put(ToastActionsCreators.displayError(error.message));
@@ -76,7 +72,7 @@ export function* signUp({ data: signUpData }) {
 
 export function* signOut() {
   try {
-    // yield call([AsyncStorage, 'removeItem'], storageKeys.user);
+    yield call([AsyncStorage, 'removeItem'], 'persist:root');
 
     const {
       auth: { navigationGlobal },
@@ -87,8 +83,8 @@ export function* signOut() {
     yield put(AuthActions.signOutSuccess());
   } catch (error) {
     console.log(error);
-    // yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
-    // yield put(AuthActions.signOutError(error));
+    yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
+    yield put(AuthActions.signOutError(error));
   }
 }
 
@@ -118,17 +114,12 @@ export function* signIn({ email, password, dataSocial }) {
 
     if (typeof data.user !== 'undefined') {
       yield put(AuthActions.signInSuccess(data.user));
-
-      try {
-        const data = yield call(api.get, '/planos/get-by-client', {
-          params: {},
-          headers: { Client: data.user.id },
-        });
+      if (data && data.user && data.user.plano && data.user.plano.id) {
         yield call(
           [navigationGlobal, 'dispatch'],
           StackActions.replace('Main'),
         );
-      } catch (error) {
+      } else {
         yield call(
           [navigationGlobal, 'dispatch'],
           StackActions.replace('Plans'),
