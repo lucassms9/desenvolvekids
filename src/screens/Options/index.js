@@ -26,6 +26,9 @@ function Options({ signOutRequest, navigation }) {
   const openDelivery = () => {
     navigation.navigate('DeliveryInfo', { origem: 'options' });
   };
+  const openChildrens = () => {
+    navigation.navigate('Childrens');
+  };
   return (
     <View style={commons.body}>
       <Header title="Opções" hasBack />
@@ -34,6 +37,10 @@ function Options({ signOutRequest, navigation }) {
           <View style={{ flex: 1 }}>
             <TouchableOpacity onPress={openProfile} style={styles.items}>
               <Text style={styles.itemLabel}>Meus Dados</Text>
+              <Icon color="#fff" name="arrow-right" type="feather" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={openChildrens} style={styles.items}>
+              <Text style={styles.itemLabel}>Meus Filhos</Text>
               <Icon color="#fff" name="arrow-right" type="feather" />
             </TouchableOpacity>
             <TouchableOpacity onPress={openDelivery} style={styles.items}>

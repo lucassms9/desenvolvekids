@@ -17,6 +17,10 @@ const { Types, Creators } = createActions({
   signUpRequest: ['data'],
   signUpSuccess: ['user'],
 
+  updateUserError: ['error'],
+  updateUserRequest: ['data'],
+  updateUserSuccess: ['user'],
+
   recoverPasswordRequest: ['email'],
   recoverPasswordSuccess: ['message'],
   recoverPasswordError: ['error'],
@@ -53,11 +57,6 @@ const request = (state = INITIAL_STATE) => {
 };
 
 const setNavigationGlobal = (state = INITIAL_STATE, { nav }) => {
-  console.log(state);
-  // return {
-  //   ...state,
-  //   navigationGlobal:
-  // }
   return state.merge({ navigationGlobal: nav });
 };
 
@@ -68,6 +67,9 @@ const authCheckStatus = (state = INITIAL_STATE, { status }) =>
 
 const recoverPasswordSuccess = (state = INITIAL_STATE) =>
   state.merge({ status: 'success', error: '' });
+
+const updateUserSuccess = (state = INITIAL_STATE, { user }) =>
+  state.merge({ status: 'success', user });
 
 export default createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_ERROR]: error,
@@ -85,6 +87,10 @@ export default createReducer(INITIAL_STATE, {
   [Types.RECOVER_PASSWORD_ERROR]: error,
   [Types.RECOVER_PASSWORD_SUCCESS]: recoverPasswordSuccess,
   [Types.ADD_ADDRESS_REQUEST]: request,
+
+  [Types.UPDATE_USER_ERROR]: error,
+  [Types.UPDATE_USER_REQUEST]: request,
+  [Types.UPDATE_USER_SUCCESS]: updateUserSuccess,
 });
 
 export { Types, Creators };

@@ -8,3 +8,12 @@ export const maskPhone = (setFieldValueCallback, field) => (text) => {
   });
   return setFieldValueCallback(field, phone);
 };
+
+export const maskOnlyPhone = (text) => {
+  const phone = MaskService.toMask('cel-phone', text, {
+    maskType: 'BRL',
+    withDDD: true,
+    dddMask: '(99) ',
+  });
+  return phone;
+};

@@ -3,42 +3,49 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SafeAreaView, View, ScrollView } from 'react-native';
 import { Creators as AuthActions } from '~/store/ducks/auth';
+import moment from 'moment';
 
 import Header from '~/components/Header';
 import FormUser from '~/components/FormUser';
-import ButtonSecondary from '~/components/ButtonSecondary';
+
+import { maskOnlyCPF, maskOnlyPhone } from '~/helpers';
 
 import { commons } from '~/styles';
 
-function Profile({ userEntity, loading, signOutRequest }) {
+function Profile({ auth: { user, status }, updateUserRequest }) {
   const handleSubmitForm = (values) => {
-    console.log(values);
-    alert('aqui');
+    updateUserRequest(values);
   };
 
+  const initData = {
+    name: user.nome,
+    fiscalNumber: maskOnlyCPF(user.cpf),
+    birthDate: moment(user.data_nascimento).format('DD/MM/YYYY'),
+    email: user.email,
+    parent: user.parentesco,
+    phone: maskOnlyPhone(user.celular),
+  };
+  console.log(status);
   return (
     <View style={commons.bodyGlobal}>
       <Header title="Meus Dados" hasBack />
       <SafeAreaView style={commons.container}>
         <ScrollView style={{ marginBottom: 70 }}>
           <FormUser
-            initData={userEntity}
-            loading={loading}
+            initData={initData}
+            status={status}
             submitForm={handleSubmitForm}
             textButton="SALVAR DADOS"
+            mode="update"
           />
-          <View style={{ marginTop: 15 }}>
-            <ButtonSecondary text="FAZER LOGOUT" onPress={signOutRequest} />
-          </View>
         </ScrollView>
       </SafeAreaView>
     </View>
   );
 }
 
-const mapStateToProps = ({ auth: { user, loading } }) => ({
-  userEntity: user,
-  loading,
+const mapStateToProps = ({ auth }) => ({
+  auth,
 });
 
 const mapDispatchToProps = (dispatch) =>

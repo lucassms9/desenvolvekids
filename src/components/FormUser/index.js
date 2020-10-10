@@ -14,9 +14,10 @@ import { maskCPF, maskDate, maskPhone } from '~/helpers';
 import { commons } from '~/styles';
 
 import validationSchema from './validation';
+import validationUpdateSchema from './validationUpdate';
 
-function Form({ submitForm, status, textButton, initData }) {
-  const { email, name, lastName } = initData;
+function Form({ submitForm, status, textButton, initData, mode }) {
+  const { email } = initData;
   const input = useRef();
   const fiscalNumberRef = useRef();
   const birthDateRef = useRef();
@@ -27,16 +28,16 @@ function Form({ submitForm, status, textButton, initData }) {
   const passwordConfirmRef = useRef();
   const valuesInit = email
     ? {
-        email,
-        name,
-        lastName,
+        ...initData,
       }
     : {};
 
   return (
     <Formik
       initialValues={valuesInit}
-      validationSchema={validationSchema}
+      validationSchema={
+        mode === 'update' ? validationUpdateSchema : validationSchema
+      }
       onSubmit={(values) => submitForm(values)}>
       {({ handleSubmit, values, setFieldValue, errors }) => (
         <View>
@@ -52,20 +53,7 @@ function Form({ submitForm, status, textButton, initData }) {
             }
           />
           {errors.name && <Text style={styles.error}>{errors.name}</Text>}
-          <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
-            value={values.lastName}
-            label={'Sobrenome'}
-            ref={input}
-            placeholder={'Sobrenome'}
-            onChangeText={(text) => setFieldValue('lastName', text)}
-            onSubmitEditing={() => fiscalNumberRef.current.focus()}
-          />
 
-          {errors.lastName && (
-            <Text style={styles.error}>{errors.lastName}</Text>
-          )}
           <Input
             inputStyle={commons.textWhite}
             labelStyle={commons.textWhite}
@@ -111,9 +99,9 @@ function Form({ submitForm, status, textButton, initData }) {
               onValueChange={(text) => setFieldValue('parent', text)}
               value={values.parent}
               items={[
-                { label: 'Mãe', value: 'mae' },
-                { label: 'Pai', value: 'pai' },
-                { label: 'Tutor', value: 'tutor' },
+                { label: 'Mãe', value: 'Mãe' },
+                { label: 'Pai', value: 'Pai' },
+                { label: 'Tutor', value: 'Tutor' },
               ]}
               placeholder={{
                 label: 'Escolha',
@@ -162,21 +150,23 @@ function Form({ submitForm, status, textButton, initData }) {
           {errors.password && (
             <Text style={styles.error}>{errors.password}</Text>
           )}
-
-          <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
-            value={values.passwordConfirm}
-            ref={passwordConfirmRef}
-            label={'Confirmar Senha'}
-            placeholder={'Confirmar Senha'}
-            autoCapitalize="none"
-            secureTextEntry={true}
-            onChangeText={(text) => setFieldValue('passwordConfirm', text)}
-          />
+          {mode !== 'update' && (
+            <Input
+              inputStyle={commons.textWhite}
+              labelStyle={commons.textWhite}
+              value={values.passwordConfirm}
+              ref={passwordConfirmRef}
+              label={'Confirmar Senha'}
+              placeholder={'Confirmar Senha'}
+              autoCapitalize="none"
+              secureTextEntry={true}
+              onChangeText={(text) => setFieldValue('passwordConfirm', text)}
+            />
+          )}
           {errors.passwordConfirm && (
             <Text style={styles.error}>{errors.passwordConfirm}</Text>
           )}
+
           <ButtonPrimary
             loading={status === 'loading'}
             onPress={handleSubmit}
@@ -188,8 +178,8 @@ function Form({ submitForm, status, textButton, initData }) {
   );
 }
 
-const mapStateToProps = ({ auth: { status } }) => ({
-  status,
+const mapStateToProps = ({ auth }) => ({
+  auth,
 });
 
 const mapDispatchToProps = () => ({});

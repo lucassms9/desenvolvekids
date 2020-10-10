@@ -51,6 +51,7 @@ import Options from '~/screens/Options';
 import Profile from '~/screens/Profile';
 import MyPlan from '~/screens/MyPlan';
 import MyOrders from '~/screens/MyOrders';
+import Childrens from '~/screens/Childrens';
 
 function Routes() {
   const OptionsStack = createStackNavigator();
@@ -88,6 +89,13 @@ function Routes() {
         <OptionsStack.Screen
           name="MyOrders"
           component={MyOrders}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <OptionsStack.Screen
+          name="Childrens"
+          component={Childrens}
           options={{
             headerShown: false,
           }}

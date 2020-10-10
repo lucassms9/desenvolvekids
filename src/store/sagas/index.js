@@ -4,7 +4,15 @@ import { Types as AuthTypes } from '../ducks/auth';
 import { Types as ProductTypes } from '../ducks/product';
 import { Types as PlanTypes } from '../ducks/plan';
 
-import { init, signIn, signUp, signOut, recover, requestAddress } from './auth';
+import {
+  init,
+  signIn,
+  signUp,
+  signOut,
+  recover,
+  requestAddress,
+  requestUpdate,
+} from './auth';
 import { fetchAll } from './product';
 import { requestPayment } from './plan';
 
@@ -18,5 +26,6 @@ export default function* rootSaga() {
     takeLatest(ProductTypes.PRODUCTS_REQUEST, fetchAll),
     takeLatest(PlanTypes.REQUEST_PAYMENT_PLAN, requestPayment),
     takeLatest(AuthTypes.ADD_ADDRESS_REQUEST, requestAddress),
+    takeLatest(AuthTypes.UPDATE_USER_REQUEST, requestUpdate),
   ]);
 }

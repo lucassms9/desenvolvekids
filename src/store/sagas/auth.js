@@ -27,13 +27,47 @@ export function* init() {
     yield put(AuthActions.authCheck(false));
   }
 }
+
+export function* requestUpdate({ data: userData }) {
+  try {
+    const {
+      birthDate,
+      email,
+      fiscalNumber,
+      name,
+      parent,
+      password,
+      phone,
+    } = userData;
+
+    const request = {
+      nome: name,
+      data_nascimento: birthDate,
+      email: email,
+      parentesco: parent,
+      celular: phone,
+      cpf: fiscalNumber,
+      senha: password,
+    };
+    //faz request signUp
+    const data = yield call(api.post, '/user/update', request);
+    if (typeof data.user === 'undefined') {
+      throw data;
+    }
+    yield put(ToastActionsCreators.displayInfo('Dados Salvos com sucesso'));
+    yield put(AuthActions.updateUserSuccess(data.user));
+  } catch (error) {
+    yield put(ToastActionsCreators.displayError(error.message));
+    yield put(AuthActions.signUpError(error.message));
+  }
+}
+
 export function* signUp({ data: signUpData }) {
   try {
     const {
       birthDate,
       email,
       fiscalNumber,
-      lastName,
       name,
       parent,
       password,
@@ -42,7 +76,6 @@ export function* signUp({ data: signUpData }) {
 
     const request = {
       nome: name,
-      sobrenome: lastName,
       data_nascimento: birthDate,
       email: email,
       parentesco: parent,
@@ -50,6 +83,7 @@ export function* signUp({ data: signUpData }) {
       cpf: fiscalNumber,
       senha: password,
     };
+
     //faz request signUp
     const data = yield call(api.post, '/user/post', request);
     if (typeof data.user === 'undefined') {
