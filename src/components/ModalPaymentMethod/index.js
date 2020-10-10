@@ -19,7 +19,12 @@ function ModalPaymentMethod({
   return (
     <View style={{ padding: 10 }}>
       <Formik
-        initialValues={{}}
+        initialValues={{
+          cardName: 'lucas silva',
+          cardNumber: '5445517066048864',
+          cardValid: '11/2021',
+          cardCode: '11/446',
+        }}
         validationSchema={validationSchema}
         onSubmit={(values) => onSave(values)}>
         {({ handleSubmit, values, setFieldValue, errors }) => (

@@ -4,7 +4,7 @@ import { createReducer, createActions } from 'reduxsauce';
 const { Types, Creators } = createActions({
   addPlan: ['plan'],
   addMethodPayment: ['methodPayment'],
-  requestPaymentPlan: ['plan', 'methodPayment', 'hash'],
+  requestPaymentPlan: ['plan', 'methodPayment', 'hash', 'installment'],
   requestPaymentPlanSuccess: null,
   requestPaymentPlanError: null,
   requestPaymentPlanResult: null,

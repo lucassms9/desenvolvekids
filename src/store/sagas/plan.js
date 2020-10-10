@@ -6,12 +6,13 @@ import api from '../../services/api';
 
 import { Creators as PlanActions } from '../ducks/plan';
 
-export function* requestPayment({ plan, methodPayment, hash }) {
+export function* requestPayment({ plan, methodPayment, hash, installment }) {
   try {
     const response = yield call(api.post, 'planos/pay', {
       methodPayment,
       plan,
       hash,
+      installment,
     });
 
     yield put(PlanActions.requestPaymentPlanResult(response));
