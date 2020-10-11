@@ -106,7 +106,19 @@ function Childrens({ navigation, auth, addChildrenRequest }) {
             })}
           </View>
           <View style={{ margin: 15 }}>
-            <ButtonSecondary onPress={createChildren} text="NOVO FILHO" />
+            <ButtonSecondary
+              icon={
+                <Icon
+                  style={{ marginRight: 5, marginTop: 3 }}
+                  color="#fff"
+                  size={18}
+                  name="plus-circle"
+                  type="feather"
+                />
+              }
+              onPress={createChildren}
+              text="NOVO FILHO"
+            />
           </View>
         </View>
       </SafeAreaView>

@@ -36,28 +36,56 @@ function Options({ signOutRequest, navigation }) {
         <View style={[commons.container, { flex: 1 }]}>
           <View style={{ flex: 1 }}>
             <TouchableOpacity onPress={openProfile} style={styles.items}>
-              <Text style={styles.itemLabel}>Meus Dados</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Icon color="#fff" name="user" type="feather" />
+                <Text style={styles.itemLabel}>Meus Dados</Text>
+              </View>
               <Icon color="#fff" name="arrow-right" type="feather" />
             </TouchableOpacity>
             <TouchableOpacity onPress={openChildrens} style={styles.items}>
-              <Text style={styles.itemLabel}>Meus Filhos</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Icon color="#fff" name="child-care" type="material" />
+                <Text style={styles.itemLabel}>Meus Filhos</Text>
+              </View>
               <Icon color="#fff" name="arrow-right" type="feather" />
             </TouchableOpacity>
             <TouchableOpacity onPress={openDelivery} style={styles.items}>
-              <Text style={styles.itemLabel}>Meus Endereços</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Icon color="#fff" name="map-pin" type="feather" />
+                <Text style={styles.itemLabel}>Meus Endereços</Text>
+              </View>
+
               <Icon color="#fff" name="arrow-right" type="feather" />
             </TouchableOpacity>
             <TouchableOpacity onPress={openMyPlan} style={styles.items}>
-              <Text style={styles.itemLabel}>Meu Plano</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Icon color="#fff" name="clipboard" type="feather" />
+                <Text style={styles.itemLabel}>Meu Plano</Text>
+              </View>
               <Icon color="#fff" name="arrow-right" type="feather" />
             </TouchableOpacity>
             <TouchableOpacity onPress={openMyOrder} style={styles.items}>
-              <Text style={styles.itemLabel}>Meus Pedidos</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Icon color="#fff" name="shopping-bag" type="feather" />
+                <Text style={styles.itemLabel}>Meus Pedidos</Text>
+              </View>
               <Icon color="#fff" name="arrow-right" type="feather" />
             </TouchableOpacity>
           </View>
-          <View style={{ marginTop: 15 }}>
-            <ButtonPrimary text="FAZER LOGOUT" onPress={signOutRequest} />
+          <View style={{ marginTop: 15, backgroundColor: '#f00' }}>
+            <ButtonPrimary
+              icon={
+                <Icon
+                  style={{ marginLeft: 5, marginTop: 3 }}
+                  color="#fff"
+                  size={18}
+                  name="log-out"
+                  type="feather"
+                />
+              }
+              text="FAZER LOGOUT"
+              onPress={signOutRequest}
+            />
           </View>
         </View>
       </SafeAreaView>

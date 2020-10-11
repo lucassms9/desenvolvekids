@@ -134,7 +134,19 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
             })}
           </View>
           <View style={{ margin: 15 }}>
-            <ButtonSecondary onPress={createAddress} text="NOVO ENDEREÇO" />
+            <ButtonSecondary
+              icon={
+                <Icon
+                  style={{ marginRight: 5, marginTop: 3 }}
+                  color="#fff"
+                  size={18}
+                  name="plus-circle"
+                  type="feather"
+                />
+              }
+              onPress={createAddress}
+              text="NOVO ENDEREÇO"
+            />
           </View>
         </View>
         {origem !== 'options' && (

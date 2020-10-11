@@ -8,7 +8,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import ButtonPrimary from '~/components/ButtonPrimary';
 
 import styles from './styles';
-import { Input } from 'react-native-elements';
+import { Input, Icon } from 'react-native-elements';
 
 import { maskCPF, maskDate, maskPhone } from '~/helpers';
 import { commons } from '~/styles';
@@ -168,6 +168,15 @@ function Form({ submitForm, status, textButton, initData, mode }) {
           )}
 
           <ButtonPrimary
+            icon={
+              <Icon
+                style={{ marginRight: 5, marginTop: 3 }}
+                color="#fff"
+                size={18}
+                name="save"
+                type="feather"
+              />
+            }
             loading={status === 'loading'}
             onPress={handleSubmit}
             text={textButton ? textButton : 'Enviar'}

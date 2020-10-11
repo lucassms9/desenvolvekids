@@ -11,7 +11,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  itemLabel: { color: '#fff', fontSize: 18, fontWeight: '800' },
+  itemLabel: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '800',
+    marginLeft: 5,
+    marginTop: 2,
+  },
 });
 
 export default styles;
