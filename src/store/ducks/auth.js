@@ -21,6 +21,10 @@ const { Types, Creators } = createActions({
   updateUserRequest: ['data'],
   updateUserSuccess: ['user'],
 
+  addChildrenError: ['error'],
+  addChildrenRequest: ['data'],
+  addChildrenSuccess: ['user'],
+
   recoverPasswordRequest: ['email'],
   recoverPasswordSuccess: ['message'],
   recoverPasswordError: ['error'],
@@ -71,6 +75,9 @@ const recoverPasswordSuccess = (state = INITIAL_STATE) =>
 const updateUserSuccess = (state = INITIAL_STATE, { user }) =>
   state.merge({ status: 'success', user });
 
+const addChildrenSuccess = (state = INITIAL_STATE, { user }) =>
+  state.merge({ status: 'success', user });
+
 export default createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_ERROR]: error,
   [Types.SIGN_IN_SUCCESS]: signInSignUpSuccess,
@@ -91,6 +98,10 @@ export default createReducer(INITIAL_STATE, {
   [Types.UPDATE_USER_ERROR]: error,
   [Types.UPDATE_USER_REQUEST]: request,
   [Types.UPDATE_USER_SUCCESS]: updateUserSuccess,
+
+  [Types.ADD_CHILDREN_ERROR]: error,
+  [Types.ADD_CHILDREN_REQUEST]: request,
+  [Types.ADD_CHILDREN_SUCCESS]: addChildrenSuccess,
 });
 
 export { Types, Creators };

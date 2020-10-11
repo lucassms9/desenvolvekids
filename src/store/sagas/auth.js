@@ -182,6 +182,19 @@ export function* requestAddress({ data }) {
     yield put(AuthActions.signInError(error));
   }
 }
+export function* requestChildren({ data }) {
+  try {
+    console.log(data);
+    yield call(api.post, '/user/add-children', data);
+
+    const datares = yield call(api.get, '/user/get-data');
+
+    yield put(AuthActions.signInSuccess(datares.user));
+  } catch (error) {
+    yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
+    yield put(AuthActions.signInError(error));
+  }
+}
 
 export function* recover() {
   try {

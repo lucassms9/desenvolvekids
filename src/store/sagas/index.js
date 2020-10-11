@@ -12,6 +12,7 @@ import {
   recover,
   requestAddress,
   requestUpdate,
+  requestChildren,
 } from './auth';
 import { fetchAll } from './product';
 import { requestPayment } from './plan';
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     takeLatest(PlanTypes.REQUEST_PAYMENT_PLAN, requestPayment),
     takeLatest(AuthTypes.ADD_ADDRESS_REQUEST, requestAddress),
     takeLatest(AuthTypes.UPDATE_USER_REQUEST, requestUpdate),
+    takeLatest(AuthTypes.ADD_CHILDREN_REQUEST, requestChildren),
   ]);
 }
