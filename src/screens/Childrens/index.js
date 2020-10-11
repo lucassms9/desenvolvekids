@@ -13,7 +13,7 @@ import { Creators as PlanActions } from '~/store/ducks/plan';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 import { bindActionCreators } from 'redux';
 import momento from 'moment';
-import { CheckBox, Divider } from 'react-native-elements';
+import { Icon, Divider } from 'react-native-elements';
 
 import Header from '~/components/Header';
 import ModalChildren from '~/components/ModalChildren';
@@ -81,6 +81,7 @@ function Childrens({ navigation, auth, addChildrenRequest }) {
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
+                      paddingVertical: 10,
                       alignItems: 'center',
                     }}>
                     <View style={{ padding: 10 }}>
@@ -88,21 +89,13 @@ function Childrens({ navigation, auth, addChildrenRequest }) {
                         style={{
                           color: '#fff',
                           fontSize: 16,
-                          fontWeight: '500',
+                          fontWeight: '600',
                         }}>
                         {filho.nome}
                       </Text>
                     </View>
-
                     <TouchableOpacity onPress={() => editChildren(filho)}>
-                      <Text
-                        style={{
-                          color: '#fff',
-                          fontSize: 16,
-                          fontWeight: '500',
-                        }}>
-                        Ver/Editar Endereço
-                      </Text>
+                      <Icon color="#fff" name="edit" type="feather" />
                     </TouchableOpacity>
                   </View>
                   <View style={{ flex: 1 }}>

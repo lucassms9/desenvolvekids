@@ -13,7 +13,7 @@ import { Creators as PlanActions } from '~/store/ducks/plan';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 import { bindActionCreators } from 'redux';
 
-import { CheckBox, Divider } from 'react-native-elements';
+import { CheckBox, Divider, Icon } from 'react-native-elements';
 
 import Header from '~/components/Header';
 import ModalDelivery from '~/components/ModalDelivery';
@@ -22,12 +22,11 @@ import ButtonSecondary from '~/components/ButtonSecondary';
 import { Modalize } from 'react-native-modalize';
 import { commons } from '~/styles';
 
-import styles from './styles';
 import { colors } from '~/styles/index';
 
 function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
   const { origem } = route.params;
-  console.log(origem);
+
   const modalizeRef = useRef(null);
 
   const [visible, setVisible] = useState(false);
@@ -46,8 +45,7 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
     if (addressEdit) {
       address.id = addressEdit.id;
     }
-    console.log(addressEdit);
-    console.log(address);
+
     addAddressRequest(address);
     onOClose();
   };
@@ -93,6 +91,7 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
+                      paddingVertical: 10,
                       alignItems: 'center',
                     }}>
                     {origem !== 'options' ? (
@@ -124,14 +123,7 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
                     )}
 
                     <TouchableOpacity onPress={() => editAddress(endereco)}>
-                      <Text
-                        style={{
-                          color: '#fff',
-                          fontSize: 16,
-                          fontWeight: '500',
-                        }}>
-                        Ver/Editar Endereço
-                      </Text>
+                      <Icon color="#fff" name="edit" type="feather" />
                     </TouchableOpacity>
                   </View>
                   <View style={{ flex: 1 }}>
