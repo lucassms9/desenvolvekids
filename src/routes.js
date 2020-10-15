@@ -38,7 +38,7 @@ import Forum from '~/screens/Forum';
 import MovieDetail from '~/screens/Movies/detail';
 import PodcastDetail from '~/screens/Podcasts/detail';
 import TipDetail from '~/screens/Tips/detail';
-import ForumDetail from '~/screens/ForumDetail/';
+import ForumCreate from '~/screens/ForumCreate/';
 
 import Cart from '~/screens/Cart';
 import DeliveryInfo from '~/screens/DeliveryInfo';
@@ -170,8 +170,8 @@ function Routes() {
           }}
         />
         <ForumStack.Screen
-          name="ForumDetail"
-          component={ForumDetail}
+          name="ForumCreate"
+          component={ForumCreate}
           options={{
             headerShown: false,
           }}

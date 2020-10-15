@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 
-function ForumDetail() {
+function ForumCreate() {
   return <View />;
 }
 
-export default ForumDetail;
+export default ForumCreate;

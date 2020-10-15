@@ -52,7 +52,6 @@ function Tips({ navigation }) {
           {!loading && (
             <ScrollView>
               {tips.map((tip, index) => {
-                console.log(tip.imagem_1);
                 return (
                   <View
                     key={tip.id}
