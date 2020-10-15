@@ -12,13 +12,15 @@ import { Creators as AuthActions } from '../ducks/auth';
 export function* init() {
   console.log('init');
 
-  const userAsync = yield call([AsyncStorage, 'getItem'], storageKeys.user);
+  const userAsync = yield call([AsyncStorage, 'getItem'], storageKeys.root);
   const user = JSON.parse(userAsync);
-  console.log(user);
-  if (userAsync) {
+  const auth = JSON.parse(user.auth);
+
+  if (auth.user.id) {
+    console.log(auth.user);
     const data = yield call(api.get, '/user/get-data', {
       params: {},
-      headers: { Client: user.id },
+      headers: { Client: auth.user.id },
     });
     console.log(data);
     yield put(AuthActions.signInSuccess(data.user));
@@ -170,7 +172,6 @@ export function* signIn({ email, password, dataSocial }) {
 
 export function* requestAddress({ data }) {
   try {
-    console.log(data);
     yield call(api.post, '/user/add-address', data);
 
     const datares = yield call(api.get, '/user/get-data');

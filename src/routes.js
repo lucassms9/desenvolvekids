@@ -29,6 +29,7 @@ import Movies from '~/screens/Movies';
 import Podcasts from '~/screens/Podcasts';
 import Tips from '~/screens/Tips';
 import Store from '~/screens/Store';
+import Forum from '~/screens/Forum';
 
 /**
  * Stacks
@@ -37,6 +38,7 @@ import Store from '~/screens/Store';
 import MovieDetail from '~/screens/Movies/detail';
 import PodcastDetail from '~/screens/Podcasts/detail';
 import TipDetail from '~/screens/Tips/detail';
+import ForumDetail from '~/screens/ForumDetail/';
 
 import Cart from '~/screens/Cart';
 import DeliveryInfo from '~/screens/DeliveryInfo';
@@ -155,6 +157,29 @@ function Routes() {
     );
   }
 
+  const ForumStack = createStackNavigator();
+
+  function ForumStackScreen() {
+    return (
+      <ForumStack.Navigator>
+        <TipStack.Screen
+          name="Forum"
+          component={Forum}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ForumStack.Screen
+          name="ForumDetail"
+          component={ForumDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </ForumStack.Navigator>
+    );
+  }
+
   const TipStack = createStackNavigator();
 
   function TipStackScreen() {
@@ -207,6 +232,50 @@ function Routes() {
           },
         }}>
         <Tab.Screen
+          name="Tips"
+          component={TipStackScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <MaterialCommunityIcons
+                  name="lightbulb-on-outline"
+                  size={25}
+                  color={color}
+                />
+              );
+            },
+            tabBarLabel: ({ focused }) => {
+              const color = focused ? colors.primary : '#000';
+              return (
+                <Text style={{ fontSize: 14, color: color }}> Dicas </Text>
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Forum"
+          component={ForumStackScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <MaterialCommunityIcons
+                  name="forum-outline"
+                  size={25}
+                  color={color}
+                />
+              );
+            },
+            tabBarLabel: ({ focused }) => {
+              const color = focused ? colors.primary : '#000';
+              return (
+                <Text style={{ fontSize: 14, color: color }}> Forum </Text>
+              );
+            },
+          }}
+        />
+        <Tab.Screen
           name="Movies"
           component={MovieStackScreen}
           options={{
@@ -240,28 +309,7 @@ function Routes() {
             },
           }}
         />
-        <Tab.Screen
-          name="Tips"
-          component={TipStackScreen}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <MaterialCommunityIcons
-                  name="lightbulb-on-outline"
-                  size={25}
-                  color={color}
-                />
-              );
-            },
-            tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.primary : '#000';
-              return (
-                <Text style={{ fontSize: 14, color: color }}> Dicas </Text>
-              );
-            },
-          }}
-        />
+
         <Tab.Screen
           name="Store"
           component={StoreStackScreen}

@@ -5,47 +5,81 @@ import { useIsFocused } from '@react-navigation/native';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
-import { Image, Button } from 'react-native-elements';
-import {
-  Card,
-  CardContent,
-  CardAction,
-  CardButton,
-  CardImage,
-} from 'react-native-material-cards';
+import SliderEntry from '~/components/SliderEntry';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import Header from '~/components/Header';
-import { commons } from '~/styles';
+import { commons, colors } from '~/styles';
+import { itemWidth, sliderWidth } from './styles';
 
-function Detail({}) {
+import styles from './styles';
+
+function Detail({ navigation, route }) {
+  const { tip } = route.params;
+
+  const [status, setStatus] = useState('');
+  const [sliderRef, setSliderRef] = useState(null);
+  const [sliderActiveSlide, setSliderActiveSlide] = useState();
+
+  const renderItemWithParallax = ({ item, index }, parallaxProps) => {
+    return (
+      <SliderEntry
+        data={item}
+        even={(index + 1) % 2 === 0}
+        parallax={true}
+        parallaxProps={parallaxProps}
+      />
+    );
+  };
+
   return (
     <View style={commons.body}>
-      <Header title="Dica Título" hasBack />
+      <Header title="Dicas" hasBack />
       <SafeAreaView>
-        <View style={[commons.container, { paddingBottom: 70 }]}>
-          <ScrollView>
-            <View
-              style={{
-                backgroundColor: '#fff',
-                height: 250,
-                marginBottom: 15,
-              }}>
-              <Card>
-                <CardImage
-                  source={{ uri: 'http://placehold.it/480x270' }}
-                  title="Above all i am here"
-                />
-                <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
-                <CardAction separator={true} inColumn={false}>
-                  <CardButton
-                    onPress={() => {
-                      navigation.navigate('MovieDetail');
-                    }}
-                    title="ASSISTIR"
-                    color="blue"
-                  />
-                </CardAction>
-              </Card>
+        <View style={[commons.container, { paddingBottom: 100 }]}>
+          <ScrollView style={{ flex: 0 }}>
+            <Carousel
+              ref={(c) => setSliderRef(c)}
+              data={tip.imagens}
+              renderItem={renderItemWithParallax}
+              sliderWidth={sliderWidth}
+              itemWidth={itemWidth}
+              hasParallaxImages={true}
+              firstItem={sliderActiveSlide}
+              inactiveSlideScale={0.94}
+              inactiveSlideOpacity={0.7}
+              // inactiveSlideShift={20}
+              containerCustomStyle={styles.slider}
+              contentContainerCustomStyle={styles.sliderContentContainer}
+              enableMomentum={true}
+              onSnapToItem={(index) => setSliderActiveSlide(index)}
+            />
+            <Pagination
+              dotsLength={tip.imagens.length}
+              activeDotIndex={sliderActiveSlide}
+              containerStyle={styles.paginationContainer}
+              dotColor={'rgba(255, 255, 255, 0.92)'}
+              dotStyle={styles.paginationDot}
+              inactiveDotColor={colors.white}
+              inactiveDotOpacity={0.4}
+              inactiveDotScale={0.6}
+              carouselRef={sliderRef}
+              tappableDots={!!sliderRef}
+            />
+            <View style={{ marginHorizontal: 8 }}>
+              <Text
+                style={{
+                  color: '#fff',
+                  textAlign: 'left',
+                  fontSize: 18,
+                  fontWeight: '700',
+                  marginBottom: 10,
+                }}>
+                {tip.titulo}
+              </Text>
+              <Text style={{ color: '#fff', textAlign: 'justify' }}>
+                {tip.descricao_completa}
+              </Text>
             </View>
           </ScrollView>
         </View>
