@@ -1,13 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-  Animated,
-} from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Creators as PlanActions } from '~/store/ducks/plan';
 import { Creators as AuthActions } from '~/store/ducks/auth';
@@ -20,16 +13,15 @@ import ModalDelivery from '~/components/ModalDelivery';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import ButtonSecondary from '~/components/ButtonSecondary';
 import { Modalize } from 'react-native-modalize';
-import { commons } from '~/styles';
+import { commons, colors } from '~/styles';
 
-import { colors } from '~/styles/index';
+import styles from './styles';
 
 function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
   const { origem } = route.params;
 
   const modalizeRef = useRef(null);
 
-  const [visible, setVisible] = useState(false);
   const [checkedAddress, setCheckedAddress] = useState(null);
   const [addressEdit, setAddressEdit] = useState({});
 
@@ -78,67 +70,51 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
   return (
     <View style={commons.body}>
       <Header title="Endereço de Entrega" hasBack />
-      <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
-        <View style={[commons.container, { flex: 1 }]}>
-          <View style={{ padding: 15 }}>
-            <Text style={{ color: '#fff', fontSize: 18, fontWeight: '700' }}>
-              Meus Enderecos
-            </Text>
+      <SafeAreaView style={styles.safe}>
+        <View style={[commons.container, styles.container]}>
+          <View style={styles.pd15}>
+            <Text style={styles.title}>Meus Enderecos</Text>
             {auth.user.enderecos.map((endereco) => {
               return (
                 <View key={endereco.id}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      paddingVertical: 10,
-                      alignItems: 'center',
-                    }}>
+                  <View style={styles.deliveryItem}>
                     {origem !== 'options' ? (
                       <CheckBox
                         title={endereco.nome_endereco}
-                        textStyle={{ color: '#fff' }}
+                        textStyle={styles.colorItem}
                         checkedColor={colors.primary}
                         uncheckedColor={colors.primary}
-                        containerStyle={{
-                          backgroundColor: 'transparent',
-                          borderColor: 'transparent',
-                        }}
+                        containerStyle={styles.checkBox}
                         onPress={() => {
                           setCheckedAddress(endereco.id);
                         }}
                         checked={checkedAddress === endereco.id}
                       />
                     ) : (
-                      <View style={{ padding: 10 }}>
-                        <Text
-                          style={{
-                            color: '#fff',
-                            fontSize: 16,
-                            fontWeight: '500',
-                          }}>
+                      <View style={styles.pd10}>
+                        <Text style={styles.addressName}>
                           {endereco.nome_endereco}
                         </Text>
                       </View>
                     )}
 
                     <TouchableOpacity onPress={() => editAddress(endereco)}>
-                      <Icon color="#fff" name="edit" type="feather" />
+                      <Icon color={colors.white} name="edit" type="feather" />
                     </TouchableOpacity>
                   </View>
-                  <View style={{ flex: 1 }}>
-                    <Divider style={{ backgroundColor: '#fff' }} />
+                  <View style={styles.container}>
+                    <Divider style={styles.divider} />
                   </View>
                 </View>
               );
             })}
           </View>
-          <View style={{ margin: 15 }}>
+          <View style={styles.mg15}>
             <ButtonSecondary
               icon={
                 <Icon
-                  style={{ marginRight: 5, marginTop: 3 }}
-                  color="#fff"
+                  style={styles.icon}
+                  color={colors.white}
                   size={18}
                   name="plus-circle"
                   type="feather"
@@ -150,7 +126,7 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
           </View>
         </View>
         {origem !== 'options' && (
-          <View style={{ margin: 15 }}>
+          <View style={styles.mg15}>
             <ButtonPrimary onPress={confirmAddres} text="CONFIMAR ENDEREÇO" />
           </View>
         )}

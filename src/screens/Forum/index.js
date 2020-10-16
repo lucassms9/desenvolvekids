@@ -10,6 +10,7 @@ import Loader from '~/components/Loader';
 import { commons, colors } from '~/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider, Input, Button, Icon } from 'react-native-elements';
+import styles from './styles';
 
 class Forum extends Component {
   state = {
@@ -85,72 +86,39 @@ class Forum extends Component {
             {loading && <Loader />}
             {!loading && (
               <ScrollView>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                    marginBottom: 10,
-                  }}>
+                <View style={styles.options}>
                   <TouchableOpacity
                     onPress={() => navigation.navigate('ForumCreate')}>
-                    <Text style={{ color: '#fff', fontWeight: '700' }}>
-                      CRIAR PERGUNTA
-                    </Text>
+                    <Text style={styles.optionsItem}>CRIAR PERGUNTA</Text>
                   </TouchableOpacity>
                 </View>
                 {forums.map((forum, index) => {
                   return (
-                    <View
-                      style={{
-                        backgroundColor: '#fff',
-                        marginBottom: 20,
-                        maxHeight: 620,
-                        padding: 10,
-                        borderRadius: 10,
-                      }}
-                      key={forum.id}>
-                      <View style={{ marginBottom: 5 }}>
-                        <Text style={{ fontSize: 18 }}>
+                    <View style={styles.forumItem} key={forum.id}>
+                      <View style={styles.mb5}>
+                        <Text style={styles.ft18}>
                           {forum.questao_resumida}
                         </Text>
                       </View>
-                      <View
-                        style={{
-                          backgroundColor: '#eee',
-                          borderRadius: 10,
-                          padding: 10,
-                          maxHeight: 350,
-                        }}>
+                      <View style={styles.forumBody}>
                         <ScrollView
-                          contentContainerStyle={{ paddingBottom: 40 }}
+                          contentContainerStyle={styles.pd40}
                           ref={`myscroll${forum.id}`}>
                           {forum.respostas.length === 0 ? (
                             <Text>Aguradando respostas.</Text>
                           ) : (
                             forum.respostas.map((resp, index) => {
                               return (
-                                <View
-                                  style={{
-                                    marginBottom: 10,
-                                  }}>
-                                  <View style={{ flexDirection: 'row' }}>
-                                    <Text
-                                      style={{
-                                        fontWeight: '700',
-                                        marginRight: 5,
-                                      }}>
+                                <View style={styles.mb10}>
+                                  <View style={styles.fdr}>
+                                    <Text style={styles.labelName}>
                                       {resp.cliente}
                                     </Text>
                                     <Text>{`respondeu em: ${resp.data_cadastro}`}</Text>
                                   </View>
 
                                   <Text>{resp.resposta}</Text>
-                                  <Divider
-                                    style={{
-                                      backgroundColor: colors.blue,
-                                      marginTop: 5,
-                                    }}
-                                  />
+                                  <Divider style={styles.divider} />
                                 </View>
                               );
                             })
@@ -158,21 +126,17 @@ class Forum extends Component {
                         </ScrollView>
                       </View>
 
-                      <View style={{ flexDirection: 'row' }}>
+                      <View style={styles.fdr}>
                         <Input
                           placeholder="Digite sua Resposta"
-                          containerStyle={{ width: '90%' }}
+                          containerStyle={styles.wd90}
                           onChangeText={(value) =>
                             this.setState({ answer: value })
                           }
                         />
                         <Button
                           onPress={() => this.addAnswer(forum.id)}
-                          buttonStyle={{
-                            backgroundColor: colors.primary,
-                            marginTop: 8,
-                            borderRadius: 25,
-                          }}
+                          buttonStyle={styles.btn}
                           icon={
                             <Icon
                               name="navigation"

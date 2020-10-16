@@ -1,13 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-  Animated,
-} from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Creators as PlanActions } from '~/store/ducks/plan';
 import { Creators as AuthActions } from '~/store/ducks/auth';
@@ -17,17 +10,18 @@ import { Icon, Divider } from 'react-native-elements';
 
 import Header from '~/components/Header';
 import ModalChildren from '~/components/ModalChildren';
-import ButtonPrimary from '~/components/ButtonPrimary';
+
 import ButtonSecondary from '~/components/ButtonSecondary';
 import { Modalize } from 'react-native-modalize';
 import { commons } from '~/styles';
 
 import { maskOnlyPhone } from '~/helpers';
+import styles from './styles';
+import { colors } from '~/styles/index';
 
-function Childrens({ navigation, auth, addChildrenRequest }) {
+function Childrens({ anavigation, auth, addChildrenRequest }) {
   const modalizeRef = useRef(null);
 
-  const [visible, setVisible] = useState(false);
   const [childrenEdit, setChildrenEdit] = useState({});
 
   const createChildren = () => {
@@ -68,49 +62,34 @@ function Childrens({ navigation, auth, addChildrenRequest }) {
   return (
     <View style={commons.body}>
       <Header title="Filhos" hasBack />
-      <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
-        <View style={[commons.container, { flex: 1 }]}>
-          <View style={{ padding: 15 }}>
-            <Text style={{ color: '#fff', fontSize: 18, fontWeight: '700' }}>
-              Meus Filhos
-            </Text>
+      <SafeAreaView style={styles.safe}>
+        <View style={[commons.container, styles.container]}>
+          <View style={styles.pd15}>
+            <Text style={styles.title}>Meus Filhos</Text>
             {auth.user.filhos.map((filho) => {
               return (
                 <View key={filho.id}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      paddingVertical: 10,
-                      alignItems: 'center',
-                    }}>
-                    <View style={{ padding: 10 }}>
-                      <Text
-                        style={{
-                          color: '#fff',
-                          fontSize: 16,
-                          fontWeight: '600',
-                        }}>
-                        {filho.nome}
-                      </Text>
+                  <View style={styles.childrenItem}>
+                    <View style={styles.pd10}>
+                      <Text style={styles.subTitle}>{filho.nome}</Text>
                     </View>
                     <TouchableOpacity onPress={() => editChildren(filho)}>
-                      <Icon color="#fff" name="edit" type="feather" />
+                      <Icon color={colors.white} name="edit" type="feather" />
                     </TouchableOpacity>
                   </View>
-                  <View style={{ flex: 1 }}>
-                    <Divider style={{ backgroundColor: '#fff' }} />
+                  <View style={styles.container}>
+                    <Divider style={styles.dividir} />
                   </View>
                 </View>
               );
             })}
           </View>
-          <View style={{ margin: 15 }}>
+          <View style={styles.mg15}>
             <ButtonSecondary
               icon={
                 <Icon
-                  style={{ marginRight: 5, marginTop: 3 }}
-                  color="#fff"
+                  style={styles.icone}
+                  color={colors.white}
                   size={18}
                   name="plus-circle"
                   type="feather"
