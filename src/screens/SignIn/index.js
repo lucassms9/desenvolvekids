@@ -53,15 +53,24 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
     signInRequest(email, password);
   };
 
-  const profile = async () => {
-    try {
-      const result = await facebookService.fetchProfile();
+  const handlCallBack = (error, result) => {
+    if (result) {
+      console.log(result);
+      const profile = result;
+      profile.avatar = `https://graph.facebook.com/${result.id}/picture`;
+
       signInRequest(result.email, null, result);
-    } catch (error) {
+    } else {
+      console.log(error);
       dispatch(
         ToastActionsCreators.displayError('Erro ao logar. Tente novamente.'),
       );
     }
+  };
+
+  const profile = async () => {
+    const result = await facebookService.fetchProfile(handlCallBack);
+    // signInRequest(result.email, null, result);
   };
 
   const loginFacebook = () => {
