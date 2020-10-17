@@ -4,7 +4,13 @@ import { bindActionCreators } from 'redux';
 import { useIsFocused } from '@react-navigation/native';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 
-import { SafeAreaView, ScrollView, View, Text } from 'react-native';
+import {
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
+  View,
+  Text,
+} from 'react-native';
 
 import {
   Card,
@@ -17,15 +23,23 @@ import {
 import Header from '~/components/Header';
 import { commons } from '~/styles';
 import Loader from '~/components/Loader';
+import ItemsFilter from '~/components/ItemsFilter';
 import Pagination from '~/components/Pagination';
+import NotFound from '~/components/NotFound';
 
 import api from '~/services/api';
 
 function Movies({ setNavigation, navigation }) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [hasFilter, setHasFilter] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const [categories, setCategories] = useState([]);
+
+  const filterMovies = async (id) => {
+    getMovies(id);
+  };
 
   const moreMovies = async () => {
     if (page < totalPage) {
@@ -38,10 +52,10 @@ function Movies({ setNavigation, navigation }) {
     setMovies(allMovies);
   };
 
-  const getMovies = async () => {
+  const getMovies = async (filter = '') => {
     setLoading(true);
     try {
-      const res = await getMoviesSync();
+      const res = await getMoviesSync(1, filter);
 
       setMovies(res.videos);
       setTotalPage(res.total_pages);
@@ -51,17 +65,37 @@ function Movies({ setNavigation, navigation }) {
     setLoading(false);
   };
 
-  const getMoviesSync = async (pageGet = 1) => {
+  const getMoviesSync = async (pageGet = 1, filter = '') => {
+    if (filter) {
+      setHasFilter(true);
+    }
     const res = await api.post('/multimidias', {
       multimidias_tipos: 1,
       page: pageGet,
+      categoria: filter,
     });
 
     return res;
   };
 
+  const getCategories = async () => {
+    const res = await api.post('multimidias/categorias-list');
+    const handle = res.categorias.map((cat) => ({
+      label: cat.nome,
+      id: cat.id,
+    }));
+
+    setCategories(handle);
+  };
+
+  const resetFilter = () => {
+    getMovies();
+    setHasFilter(false);
+  };
+
   useEffect(() => {
     setNavigation(navigation);
+    getCategories();
     getMovies();
   }, []);
 
@@ -83,6 +117,24 @@ function Movies({ setNavigation, navigation }) {
           {loading && <Loader />}
           {!loading && (
             <ScrollView>
+              {hasFilter && (
+                <TouchableOpacity onPress={resetFilter}>
+                  <View style={{ alignItems: 'center', marginBottom: 10 }}>
+                    <Text
+                      style={{
+                        color: '#fff',
+                        fontSize: 17,
+                        fontWeight: '700',
+                      }}>
+                      Remover Filtro
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+              <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+                <ItemsFilter filterFunc={filterMovies} items={categories} />
+              </View>
+              {movies.length === 0 && <NotFound type="vídeo" />}
               {movies.map((movie, index) => {
                 return (
                   <View

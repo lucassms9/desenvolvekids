@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 
-import { SafeAreaView, ScrollView, View, Text } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  Text,
+} from 'react-native';
 import { Image, Button } from 'react-native-elements';
 import {
   Card,
@@ -17,6 +23,8 @@ import {
 import Loader from '~/components/Loader';
 import Header from '~/components/Header';
 import Pagination from '~/components/Pagination';
+import ItemsFilter from '~/components/ItemsFilter';
+import NotFound from '~/components/NotFound';
 
 import { commons } from '~/styles';
 
@@ -25,8 +33,14 @@ import api from '~/services/api';
 function Podcasts({ navigation }) {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [hasFilter, setHasFilter] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const [categories, setCategories] = useState([]);
+
+  const filterPodcasts = async (id) => {
+    getPodcasts(id);
+  };
 
   const morePodcasts = async () => {
     if (page < totalPage) {
@@ -39,10 +53,10 @@ function Podcasts({ navigation }) {
     setPodcasts(allMovies);
   };
 
-  const getPodcasts = async () => {
+  const getPodcasts = async (filter = '') => {
     setLoading(true);
     try {
-      const res = await getPodcastsSync();
+      const res = await getPodcastsSync(1, filter);
       setPodcasts(res.podcasts);
       setTotalPage(res.total_pages);
     } catch (error) {
@@ -51,21 +65,42 @@ function Podcasts({ navigation }) {
     setLoading(false);
   };
 
-  const getPodcastsSync = async (pageGet = 1) => {
+  const getPodcastsSync = async (pageGet = 1, filter = '') => {
+    if (filter) {
+      setHasFilter(true);
+    }
     const res = await api.post('/multimidias', {
       multimidias_tipos: 2,
       page: pageGet,
+      categoria: filter,
     });
     return res;
   };
 
+  const resetFilter = () => {
+    getPodcasts();
+    setHasFilter(false);
+  };
+
+  const getCategories = async () => {
+    const res = await api.post('multimidias/categorias-list');
+    const handle = res.categorias.map((cat) => ({
+      label: cat.nome,
+      id: cat.id,
+    }));
+
+    setCategories(handle);
+  };
+
   useEffect(() => {
+    getCategories();
     getPodcasts();
   }, []);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       console.log('focado na screen podcast');
+      setPage(1);
       getPodcasts();
     });
 
@@ -80,6 +115,24 @@ function Podcasts({ navigation }) {
           {loading && <Loader />}
           {!loading && (
             <ScrollView>
+              {hasFilter && (
+                <TouchableOpacity onPress={resetFilter}>
+                  <View style={{ alignItems: 'center', marginBottom: 10 }}>
+                    <Text
+                      style={{
+                        color: '#fff',
+                        fontSize: 17,
+                        fontWeight: '700',
+                      }}>
+                      Remover Filtro
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+              <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+                <ItemsFilter filterFunc={filterPodcasts} items={categories} />
+              </View>
+              {podcasts.length === 0 && <NotFound type="podcast" />}
               {podcasts.map((podcast, i) => {
                 return (
                   <View

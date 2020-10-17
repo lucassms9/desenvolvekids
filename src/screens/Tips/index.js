@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
-import { Image, Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import {
   Card,
   CardTitle,
@@ -17,16 +17,20 @@ import {
 import Loader from '~/components/Loader';
 import Header from '~/components/Header';
 import Pagination from '~/components/Pagination';
+import InputText from '~/components/InputText';
+import NotFound from '~/components/NotFound';
 
 import { commons } from '~/styles';
 
 import api from '~/services/api';
+import styles from './styles';
 
 function Tips({ navigation }) {
   const [tips, setTips] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState('');
 
   const moreTips = async () => {
     if (page < totalPage) {
@@ -49,8 +53,12 @@ function Tips({ navigation }) {
   };
 
   const getTipsSync = async (pageGet = 1) => {
-    const res = await api.post('dicas/list', { page: pageGet });
+    const res = await api.post('dicas/list', { page: pageGet, busca: filter });
     return res;
+  };
+
+  const filterTips = async () => {
+    getTips();
   };
 
   useEffect(() => {
@@ -75,6 +83,27 @@ function Tips({ navigation }) {
           {loading && <Loader />}
           {!loading && (
             <ScrollView>
+              <View style={styles.fdr}>
+                <InputText
+                  value={filter}
+                  placeholder="Faça sua busca"
+                  containerStyle={styles.wd90}
+                  onChangeText={(value) => setFilter(value)}
+                />
+                <Button
+                  onPress={filterTips}
+                  buttonStyle={styles.btn}
+                  icon={
+                    <Icon
+                      name="navigation"
+                      size={17}
+                      type="feather"
+                      color="white"
+                    />
+                  }
+                />
+              </View>
+              {tips.length === 0 && <NotFound type="díca" />}
               {tips.map((tip, index) => {
                 return (
                   <View

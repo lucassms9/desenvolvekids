@@ -7,6 +7,8 @@ import api from '~/services/api';
 import Header from '~/components/Header';
 import Loader from '~/components/Loader';
 import Pagination from '~/components/Pagination';
+import ItemsFilter from '~/components/ItemsFilter';
+import NotFound from '~/components/NotFound';
 
 import { commons, colors } from '~/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -20,11 +22,27 @@ class Forum extends Component {
     answer: null,
     totalPage: 1,
     page: 1,
+    hasFilter: false,
+    categories: [],
   };
 
   componentDidMount() {
     this.getForums();
+    this.getCategories();
   }
+
+  getCategories = async () => {
+    const res = await api.post('forums/categories-list');
+    const handle = res.categorias.map((cat) => ({
+      label: cat.nome,
+      id: cat.id,
+    }));
+
+    this.setState({
+      categories: handle,
+    });
+  };
+
   addAnswer = async (id) => {
     const { answer } = this.state;
     if (!answer) {
@@ -56,6 +74,10 @@ class Forum extends Component {
     this.refs[`myscroll${id}`].scrollToEnd();
   };
 
+  filterForum = (id) => {
+    this.getForums(id);
+  };
+
   moreForums = async () => {
     if (this.state.page < this.state.totalPage) {
       this.setState({
@@ -71,11 +93,11 @@ class Forum extends Component {
     });
   };
 
-  getForums = async () => {
+  getForums = async (filterItem = '') => {
     this.setState({ loading: true });
 
-    const res = await this.getForumsSync();
-    console.log(res);
+    const res = await this.getForumsSync(1, filterItem);
+
     this.setState({
       forums: res.forums,
       loading: false,
@@ -83,9 +105,20 @@ class Forum extends Component {
     });
   };
 
-  getForumsSync = async (pageGet = 1) => {
-    const res = await api.post('forums/list', { page: pageGet });
+  getForumsSync = async (pageGet = 1, filterItem = '') => {
+    const res = await api.post('forums/list', {
+      page: pageGet,
+      categoria: filterItem,
+    });
+    if (filterItem) {
+      this.setState({ hasFilter: true });
+    }
     return res;
+  };
+
+  resetFilter = () => {
+    this.getForums();
+    this.setState({ hasFilter: false });
   };
 
   componentDidUpdate(prevProps) {
@@ -101,7 +134,7 @@ class Forum extends Component {
   render() {
     const { loading, forums } = this.state;
     const { navigation } = this.props;
-    console.log(forums);
+
     return (
       <View style={commons.body}>
         <Header title="Forum" />
@@ -110,12 +143,32 @@ class Forum extends Component {
             {loading && <Loader />}
             {!loading && (
               <ScrollView>
+                {this.state.hasFilter && (
+                  <TouchableOpacity onPress={this.resetFilter}>
+                    <View style={{ alignItems: 'center', marginBottom: 10 }}>
+                      <Text
+                        style={{
+                          color: '#fff',
+                          fontSize: 17,
+                          fontWeight: '700',
+                        }}>
+                        Remover Filtro
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
                 <View style={styles.options}>
+                  <ItemsFilter
+                    filterFunc={this.filterForum}
+                    items={this.state.categories}
+                  />
                   <TouchableOpacity
+                    style={{ marginTop: 10 }}
                     onPress={() => navigation.navigate('ForumCreate')}>
                     <Text style={styles.optionsItem}>CRIAR PERGUNTA</Text>
                   </TouchableOpacity>
                 </View>
+                {forums.length === 0 && <NotFound type="forum" />}
                 {forums.map((forum, index) => {
                   return (
                     <View style={styles.forumItem} key={forum.id}>

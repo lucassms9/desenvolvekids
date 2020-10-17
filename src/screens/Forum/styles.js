@@ -5,7 +5,7 @@ import { metrics, colors } from '~/styles';
 const styles = StyleSheet.create({
   options: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     marginBottom: 10,
   },
   optionsItem: { color: '#fff', fontWeight: '700' },

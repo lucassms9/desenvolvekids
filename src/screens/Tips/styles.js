@@ -98,4 +98,11 @@ export default StyleSheet.create({
   subtitleEven: {
     color: 'rgba(255, 255, 255, 0.7)',
   },
+  btn: {
+    backgroundColor: colors.primary,
+    marginTop: 8,
+    borderRadius: 25,
+  },
+  fdr: { flexDirection: 'row' },
+  wd90: { width: '90%' },
 });
