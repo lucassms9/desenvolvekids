@@ -1,6 +1,7 @@
 import React from 'react';
 import FBSDK from 'react-native-fbsdk';
-const { LoginButton, GraphRequest, GraphRequestManager, LoginManager } = FBSDK;
+
+const { GraphRequest, GraphRequestManager } = FBSDK;
 
 class FacebookService {
   fetchProfile(callback) {
