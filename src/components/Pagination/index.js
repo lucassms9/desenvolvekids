@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
 import Loader from '../Loader';
+import styles from './styes';
 
 function Pagination({ totalPage, page, getMoreItem }) {
   const [loadingPaginate, setLoadingPaginate] = useState(false);
@@ -13,23 +14,11 @@ function Pagination({ totalPage, page, getMoreItem }) {
   };
 
   return (
-    <View
-      style={{
-        paddingBottom: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+    <View style={styles.container}>
       {loadingPaginate && <Loader />}
       {page < totalPage && (
         <TouchableOpacity onPress={moreItems}>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 17,
-              fontWeight: '700',
-            }}>
-            Ver mais
-          </Text>
+          <Text style={styles.item}>Ver mais</Text>
         </TouchableOpacity>
       )}
     </View>

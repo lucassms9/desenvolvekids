@@ -16,6 +16,8 @@ import {
 
 import Loader from '~/components/Loader';
 import Header from '~/components/Header';
+import Pagination from '~/components/Pagination';
+
 import { commons } from '~/styles';
 
 import api from '~/services/api';
@@ -23,21 +25,38 @@ import api from '~/services/api';
 function Podcasts({ navigation }) {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+
+  const morePodcasts = async () => {
+    if (page < totalPage) {
+      setPage(page + 1);
+    }
+
+    const res = await getPodcastsSync(page + 1);
+    const allMovies = [...podcasts, ...res.podcasts];
+
+    setPodcasts(allMovies);
+  };
 
   const getPodcasts = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/multimidias', {
-        params: {
-          multimidias_tipos: 2,
-        },
-      });
+      const res = await getPodcastsSync();
       setPodcasts(res.podcasts);
-      console.log(res);
+      setTotalPage(res.total_pages);
     } catch (error) {
       setLoading(false);
     }
     setLoading(false);
+  };
+
+  const getPodcastsSync = async (pageGet = 1) => {
+    const res = await api.post('/multimidias', {
+      multimidias_tipos: 2,
+      page: pageGet,
+    });
+    return res;
   };
 
   useEffect(() => {
@@ -93,6 +112,11 @@ function Podcasts({ navigation }) {
                   </View>
                 );
               })}
+              <Pagination
+                totalPage={totalPage}
+                page={page}
+                getMoreItem={morePodcasts}
+              />
             </ScrollView>
           )}
         </View>

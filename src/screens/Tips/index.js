@@ -54,7 +54,6 @@ function Tips({ navigation }) {
   };
 
   useEffect(() => {
-    setPage(1);
     getTips();
   }, []);
 

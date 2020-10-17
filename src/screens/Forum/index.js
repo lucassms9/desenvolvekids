@@ -6,6 +6,7 @@ import api from '~/services/api';
 
 import Header from '~/components/Header';
 import Loader from '~/components/Loader';
+import Pagination from '~/components/Pagination';
 
 import { commons, colors } from '~/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -17,11 +18,12 @@ class Forum extends Component {
     forums: [],
     loading: false,
     answer: null,
+    totalPage: 1,
+    page: 1,
   };
 
   componentDidMount() {
     this.getForums();
-    console.log('1');
   }
   addAnswer = async (id) => {
     const { answer } = this.state;
@@ -54,23 +56,44 @@ class Forum extends Component {
     this.refs[`myscroll${id}`].scrollToEnd();
   };
 
-  getForums = async () => {
+  moreForums = async () => {
+    if (this.state.page < this.state.totalPage) {
+      this.setState({
+        page: this.state.page + 1,
+      });
+    }
+
+    const res = await this.getForumsSync(this.state.page + 1);
+    const allForums = [...this.state.forums, ...res.forums];
+
     this.setState({
-      loading: true,
+      forums: allForums,
     });
+  };
 
-    const res = await api.post('forums/list');
+  getForums = async () => {
+    this.setState({ loading: true });
 
+    const res = await this.getForumsSync();
+    console.log(res);
     this.setState({
       forums: res.forums,
       loading: false,
+      totalPage: res.total_pages,
     });
   };
+
+  getForumsSync = async (pageGet = 1) => {
+    const res = await api.post('forums/list', { page: pageGet });
+    return res;
+  };
+
   componentDidUpdate(prevProps) {
     const { isFocused } = this.props;
     if (isFocused !== prevProps.isFocused) {
       if (isFocused) {
         this.getForums();
+        this.setState({ page: 1 });
       }
     }
   }
@@ -78,6 +101,7 @@ class Forum extends Component {
   render() {
     const { loading, forums } = this.state;
     const { navigation } = this.props;
+    console.log(forums);
     return (
       <View style={commons.body}>
         <Header title="Forum" />
@@ -150,6 +174,11 @@ class Forum extends Component {
                     </View>
                   );
                 })}
+                <Pagination
+                  totalPage={this.state.totalPage}
+                  page={this.state.page}
+                  getMoreItem={this.moreForums}
+                />
               </ScrollView>
             )}
           </View>

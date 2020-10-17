@@ -5,7 +5,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
-import { Image, Button } from 'react-native-elements';
+
 import {
   Card,
   CardContent,
@@ -17,26 +17,47 @@ import {
 import Header from '~/components/Header';
 import { commons } from '~/styles';
 import Loader from '~/components/Loader';
+import Pagination from '~/components/Pagination';
+
 import api from '~/services/api';
 
 function Movies({ setNavigation, navigation }) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+
+  const moreMovies = async () => {
+    if (page < totalPage) {
+      setPage(page + 1);
+    }
+
+    const res = await getMoviesSync(page + 1);
+    const allMovies = [...movies, ...res.videos];
+
+    setMovies(allMovies);
+  };
 
   const getMovies = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/multimidias', {
-        params: {
-          multimidias_tipos: 1,
-        },
-      });
+      const res = await getMoviesSync();
+
       setMovies(res.videos);
-      console.log(res);
+      setTotalPage(res.total_pages);
     } catch (error) {
       setLoading(false);
     }
     setLoading(false);
+  };
+
+  const getMoviesSync = async (pageGet = 1) => {
+    const res = await api.post('/multimidias', {
+      multimidias_tipos: 1,
+      page: pageGet,
+    });
+
+    return res;
   };
 
   useEffect(() => {
@@ -47,6 +68,7 @@ function Movies({ setNavigation, navigation }) {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       console.log('focado na screen videos');
+      setPage(1);
       getMovies();
     });
 
@@ -93,6 +115,11 @@ function Movies({ setNavigation, navigation }) {
                   </View>
                 );
               })}
+              <Pagination
+                totalPage={totalPage}
+                page={page}
+                getMoreItem={moreMovies}
+              />
             </ScrollView>
           )}
         </View>
