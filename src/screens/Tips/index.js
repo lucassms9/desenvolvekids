@@ -16,28 +16,53 @@ import {
 
 import Loader from '~/components/Loader';
 import Header from '~/components/Header';
+import Pagination from '~/components/Pagination';
+
 import { commons } from '~/styles';
 
 import api from '~/services/api';
 
 function Tips({ navigation }) {
   const [tips, setTips] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  const moreTips = async () => {
+    if (page < totalPage) {
+      setPage(page + 1);
+    }
+
+    const res = await getTipsSync(page + 1);
+    const allTips = [...tips, ...res.dicas];
+
+    setTips(allTips);
+  };
 
   const getTips = async () => {
     setLoading(true);
-    const res = await api.post('dicas/list');
+    const res = await getTipsSync();
+
     setTips(res.dicas);
+    setTotalPage(res.total_pages);
     setLoading(false);
   };
 
+  const getTipsSync = async (pageGet = 1) => {
+    const res = await api.post('dicas/list', { page: pageGet });
+    return res;
+  };
+
   useEffect(() => {
+    setPage(1);
     getTips();
   }, []);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       console.log('focado na screen dicas');
+      setPage(1);
+      getTips();
     });
 
     return unsubscribe;
@@ -97,6 +122,11 @@ function Tips({ navigation }) {
                   </View>
                 );
               })}
+              <Pagination
+                totalPage={totalPage}
+                page={page}
+                getMoreItem={moreTips}
+              />
             </ScrollView>
           )}
         </View>
