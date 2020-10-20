@@ -12,11 +12,11 @@ function wp(percentage) {
 }
 
 const slideHeight = viewportHeight * 0.36;
-const slideWidth = wp(75);
+const slideWidth = wp(150);
 const itemHorizontalMargin = wp(2);
 
 export const sliderWidth = viewportWidth;
-export const itemWidth = slideWidth + itemHorizontalMargin * 2;
+export const itemWidth = slideWidth + itemHorizontalMargin * 4;
 
 const entryBorderRadius = 8;
 
@@ -50,8 +50,8 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
   },
   image: {
-    ...StyleSheet.absoluteFillObject,
-    resizeMode: 'cover',
+    // ...StyleSheet.absoluteFillObject,
+    resizeMode: 'center',
     borderRadius: IS_IOS ? entryBorderRadius : 0,
     borderTopLeftRadius: entryBorderRadius,
     borderTopRightRadius: entryBorderRadius,

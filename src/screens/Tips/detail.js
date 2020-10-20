@@ -19,7 +19,13 @@ function Detail({ navigation, route }) {
 
   const [status, setStatus] = useState('');
   const [sliderRef, setSliderRef] = useState(null);
-  const [sliderActiveSlide, setSliderActiveSlide] = useState();
+  const [sliderActiveSlide, setSliderActiveSlide] = useState(1);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSliderActiveSlide(0);
+    }, 300);
+  }, []);
 
   const renderItemWithParallax = ({ item, index }, parallaxProps) => {
     return (
@@ -37,7 +43,7 @@ function Detail({ navigation, route }) {
       <Header title="Dicas" hasBack />
       <SafeAreaView>
         <View style={[commons.container, { paddingBottom: 100 }]}>
-          <ScrollView style={{ flex: 0 }}>
+          <ScrollView>
             <Carousel
               ref={(c) => setSliderRef(c)}
               data={tip.imagens}
@@ -48,10 +54,11 @@ function Detail({ navigation, route }) {
               firstItem={sliderActiveSlide}
               inactiveSlideScale={0.94}
               inactiveSlideOpacity={0.7}
-              // inactiveSlideShift={20}
+              inactiveSlideShift={20}
               containerCustomStyle={styles.slider}
               contentContainerCustomStyle={styles.sliderContentContainer}
               enableMomentum={true}
+              // autoplay={true}
               onSnapToItem={(index) => setSliderActiveSlide(index)}
             />
             <Pagination

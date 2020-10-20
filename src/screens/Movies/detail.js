@@ -82,7 +82,7 @@ const Detail = ({ route }) => {
 
   return (
     <View style={commons.body}>
-      <Header title="Tútulo Vídeo" hasBack />
+      <Header title={movie.titulo} hasBack />
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
           <Video
