@@ -3,6 +3,7 @@ import { all, takeLatest } from 'redux-saga/effects';
 import { Types as AuthTypes } from '../ducks/auth';
 import { Types as ProductTypes } from '../ducks/product';
 import { Types as PlanTypes } from '../ducks/plan';
+import { Types as OrderTypes } from '../ducks/order';
 
 import {
   init,
@@ -16,6 +17,7 @@ import {
 } from './auth';
 import { fetchAll } from './product';
 import { requestPayment } from './plan';
+import { requestPaymentOrder } from './order';
 
 export default function* rootSaga() {
   return yield all([
@@ -29,5 +31,6 @@ export default function* rootSaga() {
     takeLatest(AuthTypes.ADD_ADDRESS_REQUEST, requestAddress),
     takeLatest(AuthTypes.UPDATE_USER_REQUEST, requestUpdate),
     takeLatest(AuthTypes.ADD_CHILDREN_REQUEST, requestChildren),
+    takeLatest(OrderTypes.REQUEST_PAYMENT_ORDER, requestPaymentOrder),
   ]);
 }

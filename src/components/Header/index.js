@@ -9,8 +9,10 @@ import { colors, commons } from '~/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
+  const cart = useSelector((state) => state.cart);
+  console.log(cart);
   const navigation = useNavigation();
-  const counter = useSelector((state) => state.cart.products.length);
+  const counter = useSelector((state) => state.product.cart.products.length);
   let leftComp = hasBack ? (
     <TouchableOpacity
       onPress={() => {

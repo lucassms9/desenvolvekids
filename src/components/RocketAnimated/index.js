@@ -43,7 +43,7 @@ function RocketAnimated(props) {
       console.log(authCheck);
       if (authCheck) {
         console.log(user);
-        if (user.plano.length === 0) {
+        if (user && user.plano && user.plano.length === 0) {
           return navigation.dispatch(StackActions.replace('Plans'));
         }
         return navigation.dispatch(StackActions.replace('Main'));

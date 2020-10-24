@@ -6,9 +6,8 @@ const Root = (props) => {
   return <Routes />;
 };
 
-const mapStateToProps = ({ auth: { authCheck, user } }) => ({
+const mapStateToProps = ({ auth: { authCheck } }) => ({
   authCheck,
-  user,
 });
 
 const mapDispatchToProps = () => ({});

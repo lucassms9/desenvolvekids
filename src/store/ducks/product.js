@@ -6,7 +6,7 @@ const { Types, Creators } = createActions({
   productsRequest: null,
   productsRequestSuccess: ['products'],
 
-  addProduct: ['id'],
+  addProduct: ['id', 'countItem'],
   removeProduct: ['id'],
   decreaseProduct: ['id'],
 });
@@ -36,14 +36,15 @@ const request = (state = INITIAL_STATE) => {
   return state.merge({ status: 'loading' });
 };
 
-const add = (state = INITIAL_STATE, { id }) => {
+const add = (state = INITIAL_STATE, { id, countItem = 1 }) => {
   const newProducts = [...state.cart.products];
   const productExist = state.cart.products.find((product) => product.id === id);
+
   if (!productExist) {
     const findP = state.products.find((product) => product.id === id);
     newProducts.push({
       ...findP,
-      count: 1,
+      count: countItem,
     });
     return state.merge({
       cart: { products: newProducts },
@@ -66,7 +67,8 @@ const decrease = (state = INITIAL_STATE, { id }) => {
   const productFinded = state.cart.products.find(
     (product) => product.id === id,
   );
-  if (productFinded.count > 1) {
+
+  if (productFinded && productFinded.count > 1) {
     const productExist = state.cart.products.filter(
       (product) => product.id !== id,
     );

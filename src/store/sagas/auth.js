@@ -171,13 +171,16 @@ export function* signIn({ email, password, dataSocial }) {
 }
 
 export function* requestAddress({ data }) {
+  console.log('aqui');
   try {
-    yield call(api.post, '/user/add-address', data);
+    console.log(data);
+    const resAddress = yield call(api.post, '/user/add-address', data);
 
+    console.log(resAddress);
     const datares = yield call(api.get, '/user/get-data');
     console.log(datares);
 
-    yield put(AuthActions.signInSuccess(datares.user));
+    yield put(AuthActions.addAddressRequestSuccess(datares.user));
   } catch (error) {
     yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
     yield put(AuthActions.signInError(error));

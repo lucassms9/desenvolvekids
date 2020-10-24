@@ -33,6 +33,7 @@ const { Types, Creators } = createActions({
   setNavigation: ['nav'],
 
   addAddressRequest: ['data'],
+  addAddressRequestSuccess: ['user'],
 });
 
 const INITIAL_STATE = Immutable({
@@ -78,6 +79,9 @@ const updateUserSuccess = (state = INITIAL_STATE, { user }) =>
 const addChildrenSuccess = (state = INITIAL_STATE, { user }) =>
   state.merge({ status: 'success', user });
 
+const addAddressRequestSuccess = (state = INITIAL_STATE, { user }) =>
+  state.merge({ user });
+
 export default createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_ERROR]: error,
   [Types.SIGN_IN_SUCCESS]: signInSignUpSuccess,
@@ -102,6 +106,7 @@ export default createReducer(INITIAL_STATE, {
   [Types.ADD_CHILDREN_ERROR]: error,
   [Types.ADD_CHILDREN_REQUEST]: request,
   [Types.ADD_CHILDREN_SUCCESS]: addChildrenSuccess,
+  [Types.ADD_ADDRESS_REQUEST_SUCCESS]: addAddressRequestSuccess,
 });
 
 export { Types, Creators };

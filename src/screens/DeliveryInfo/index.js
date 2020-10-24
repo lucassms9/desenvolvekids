@@ -1,10 +1,20 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import { connect, useDispatch } from 'react-redux';
+
 import { Creators as PlanActions } from '~/store/ducks/plan';
 import { Creators as AuthActions } from '~/store/ducks/auth';
+import { Creators as OrderActions } from '~/store/ducks/order';
+
 import { bindActionCreators } from 'redux';
+import { ToastActionsCreators } from 'react-native-redux-toast';
 
 import { CheckBox, Divider, Icon } from 'react-native-elements';
 
@@ -17,9 +27,15 @@ import { commons, colors } from '~/styles';
 
 import styles from './styles';
 
-function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
+function DeliveryInfo({
+  route,
+  navigation,
+  auth,
+  addAddressRequest,
+  addDeliveryMethod,
+}) {
   const { origem } = route.params;
-
+  const dispatch = useDispatch();
   const modalizeRef = useRef(null);
 
   const [checkedAddress, setCheckedAddress] = useState(null);
@@ -34,12 +50,16 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
   };
 
   const handleAddress = (address) => {
-    if (addressEdit) {
-      address.id = addressEdit.id;
-    }
+    try {
+      if (addressEdit) {
+        address.id = addressEdit.id;
+      }
 
-    addAddressRequest(address);
-    onOClose();
+      addAddressRequest(address);
+      onOClose();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onOClose = () => {
@@ -65,6 +85,18 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
   };
 
   const confirmAddres = () => {
+    if (origem === 'store') {
+      if (!checkedAddress) {
+        return dispatch(
+          ToastActionsCreators.displayError(
+            'Cadastre e escolha um endereço para continuar',
+            5000,
+          ),
+        );
+      }
+
+      addDeliveryMethod(checkedAddress);
+    }
     return navigation.navigate('PaymentMethod', { origem });
   };
   return (
@@ -72,43 +104,45 @@ function DeliveryInfo({ route, navigation, auth, addAddressRequest }) {
       <Header title="Endereço de Entrega" hasBack />
       <SafeAreaView style={styles.safe}>
         <View style={[commons.container, styles.container]}>
-          <View style={styles.pd15}>
-            <Text style={styles.title}>Meus Enderecos</Text>
-            {auth.user.enderecos.map((endereco) => {
-              return (
-                <View key={endereco.id}>
-                  <View style={styles.deliveryItem}>
-                    {origem !== 'options' ? (
-                      <CheckBox
-                        title={endereco.nome_endereco}
-                        textStyle={styles.colorItem}
-                        checkedColor={colors.primary}
-                        uncheckedColor={colors.primary}
-                        containerStyle={styles.checkBox}
-                        onPress={() => {
-                          setCheckedAddress(endereco.id);
-                        }}
-                        checked={checkedAddress === endereco.id}
-                      />
-                    ) : (
-                      <View style={styles.pd10}>
-                        <Text style={styles.addressName}>
-                          {endereco.nome_endereco}
-                        </Text>
-                      </View>
-                    )}
-
-                    <TouchableOpacity onPress={() => editAddress(endereco)}>
-                      <Icon color={colors.white} name="edit" type="feather" />
-                    </TouchableOpacity>
+          <View style={[styles.pd15, { maxHeight: 500 }]}>
+            <ScrollView>
+              <Text style={styles.title}>Meus Endereços</Text>
+              {auth.user.enderecos.map((endereco) => {
+                return (
+                  <View key={endereco.id}>
+                    <View style={styles.deliveryItem}>
+                      {origem !== 'options' ? (
+                        <CheckBox
+                          title={endereco.nome_endereco}
+                          textStyle={styles.colorItem}
+                          checkedColor={colors.primary}
+                          uncheckedColor={colors.primary}
+                          containerStyle={styles.checkBox}
+                          onPress={() => {
+                            setCheckedAddress(endereco.id);
+                          }}
+                          checked={checkedAddress === endereco.id}
+                        />
+                      ) : (
+                        <View style={styles.pd10}>
+                          <Text style={styles.addressName}>
+                            {endereco.nome_endereco}
+                          </Text>
+                        </View>
+                      )}
+                      <TouchableOpacity onPress={() => editAddress(endereco)}>
+                        <Icon color={colors.white} name="edit" type="feather" />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={styles.container}>
+                      <Divider style={styles.divider} />
+                    </View>
                   </View>
-                  <View style={styles.container}>
-                    <Divider style={styles.divider} />
-                  </View>
-                </View>
-              );
-            })}
+                );
+              })}
+            </ScrollView>
           </View>
+
           <View style={styles.mg15}>
             <ButtonSecondary
               icon={
@@ -152,6 +186,7 @@ const mapDispatchToProps = (dispatch) =>
     {
       ...PlanActions,
       ...AuthActions,
+      ...OrderActions,
     },
     dispatch,
   );

@@ -19,6 +19,8 @@ import TitleCard from '~/components/TitleCard';
 import { commons } from '~/styles';
 
 function FinishedOrder() {
+  const orderParam = useSelector((state) => state.order);
+  console.log(orderParam);
   const productsCart = useSelector((state) => state.product.cart.products);
   const total = productsCart.reduce((soma, prod) => {
     return prod.count * prod.preco + soma;
@@ -46,7 +48,13 @@ function FinishedOrder() {
               </View>
             </View>
             <View style={{ padding: 15 }}>
-              <Text style={{ color: '#fff', fontSize: 18, fontWeight: '700' }}>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 18,
+                  fontWeight: '700',
+                  marginBottom: 15,
+                }}>
                 Forma de Entrega
               </Text>
               <View>

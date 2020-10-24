@@ -4,7 +4,7 @@ import { View, Text, ActivityIndicator } from 'react-native';
 import { Image } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { Card, CardContent } from 'react-native-material-cards';
+import { maskMoney } from '~/helpers';
 import styles from './styles';
 
 function ProductCard({ product, navigation }) {
@@ -13,7 +13,6 @@ function ProductCard({ product, navigation }) {
       productId,
     });
   };
-  console.log(product);
   if (product.empty) {
     return <View style={[styles.item, styles.itemEmpty]} />;
   }
@@ -30,14 +29,30 @@ function ProductCard({ product, navigation }) {
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Image
               resizeMode="contain"
-              source={{ uri: product.imagem }}
-              style={{ width: 100, height: 130 }}
+              source={{ uri: product.miniatura }}
+              style={{ width: 130, height: 110 }}
               PlaceholderContent={<ActivityIndicator />}
             />
           </View>
-          <View style={{ marginHorizontal: 5 }}>
-            <Text numberOfLines={1}>{product.nome}</Text>
-            <Text>R$ {product.preco}</Text>
+          <View style={{ marginHorizontal: 10 }}>
+            <Text numberOfLines={1} style={{ marginBottom: 5 }}>
+              {product.nome}
+            </Text>
+            {product.hasDiscount ? (
+              <View>
+                <Text
+                  style={{
+                    textDecorationLine: 'line-through',
+                    textDecorationStyle: 'solid',
+                    fontSize: 13,
+                  }}>
+                  {maskMoney(product.preco_original)}
+                </Text>
+                <Text style={{ fontSize: 15 }}>{maskMoney(product.preco)}</Text>
+              </View>
+            ) : (
+              <Text style={{ fontSize: 15 }}>{maskMoney(product.preco)}</Text>
+            )}
           </View>
         </View>
       </TouchableOpacity>

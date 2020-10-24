@@ -10,7 +10,10 @@ import {
 } from 'react-native';
 import { CheckBox, Divider } from 'react-native-elements';
 import { connect, useDispatch } from 'react-redux';
+
 import { Creators as PlanActions } from '~/store/ducks/plan';
+import { Creators as OrderActions } from '~/store/ducks/order';
+
 import { bindActionCreators } from 'redux';
 import { ToastActionsCreators } from 'react-native-redux-toast';
 
@@ -25,7 +28,13 @@ import { commons } from '~/styles';
 import styles from './styles';
 import { colors } from '~/styles/index';
 
-function PaymentMethod({ navigation, route, addMethodPayment, plan }) {
+function PaymentMethod({
+  navigation,
+  route,
+  addMethodPayment,
+  plan,
+  addPaymentMethod,
+}) {
   const { origem } = route.params;
   const modalizeRef = useRef(null);
   const dispatch = useDispatch();
@@ -47,6 +56,7 @@ function PaymentMethod({ navigation, route, addMethodPayment, plan }) {
     console.log(data);
     onOClose();
   };
+
   const confirmPayment = () => {
     if (!cardChecked) {
       return dispatch(
@@ -57,15 +67,17 @@ function PaymentMethod({ navigation, route, addMethodPayment, plan }) {
       );
     }
 
+    const methodFilter = cards.find((card) => card.cardNumber === cardChecked);
+
     if (origem === 'plans') {
-      const methodFilter = cards.find(
-        (card) => card.cardNumber === cardChecked,
-      );
-      console.log(methodFilter);
       addMethodPayment(methodFilter);
       return navigation.navigate('PlanConfirm');
     }
-    return navigation.navigate('FinishedOrder');
+
+    if (origem === 'store') {
+      addPaymentMethod(cardChecked !== 'boleto' ? methodFilter : cardChecked);
+      return navigation.navigate('FinishedOrder');
+    }
   };
 
   return (
@@ -77,6 +89,36 @@ function PaymentMethod({ navigation, route, addMethodPayment, plan }) {
             <Text style={{ color: '#fff', fontSize: 18, fontWeight: '700' }}>
               Forma de pagamento
             </Text>
+          </View>
+          <View>
+            {origem === 'store' && (
+              <>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <CheckBox
+                    title="Boleto"
+                    textStyle={{ color: '#fff', fontSize: 16 }}
+                    checkedColor={colors.primary}
+                    uncheckedColor={colors.primary}
+                    containerStyle={{
+                      backgroundColor: 'transparent',
+                      borderColor: 'transparent',
+                    }}
+                    checked={cardChecked === 'boleto'}
+                    onPress={() => {
+                      setCardChecked('boleto');
+                    }}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Divider style={{ backgroundColor: '#fff' }} />
+                </View>
+              </>
+            )}
           </View>
           {cards.map((card) => {
             return (
@@ -141,6 +183,7 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       ...PlanActions,
+      ...OrderActions,
     },
     dispatch,
   );

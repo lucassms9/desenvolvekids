@@ -16,6 +16,7 @@ import styles from './styles';
 function Store(props) {
   const { navigation, productsRequest, status, products } = props;
   const productList = [...products];
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       console.log('focado na screen store');
@@ -46,7 +47,7 @@ function Store(props) {
     }
     return data; // [F]
   };
-
+  console.log(status);
   return (
     <View style={commons.body}>
       <Header title="Loja" showIconCart />
@@ -60,7 +61,6 @@ function Store(props) {
             keyExtractor={(product) => product.id}
             numColumns={2} // Número de colunas
             renderItem={(product) => {
-              console.log(product);
               if (product.empty) {
                 return <View style={[styles.item, styles.itemEmpty]} />;
               }
@@ -83,7 +83,7 @@ const mapStateToProps = ({ product }) => ({
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
-      ...AuthActions,
+      // ...AuthActions,
       ...ProductActions,
     },
     dispatch,

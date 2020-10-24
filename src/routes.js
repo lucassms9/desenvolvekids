@@ -132,27 +132,6 @@ function Routes() {
             headerShown: false,
           }}
         />
-        <StoreStack.Screen
-          name="DeliveryInfo"
-          component={DeliveryInfo}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <StoreStack.Screen
-          name="FinishedOrder"
-          component={FinishedOrder}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <StoreStack.Screen
-          name="PaymentMethod"
-          component={PaymentMethod}
-          options={{
-            headerShown: false,
-          }}
-        />
       </StoreStack.Navigator>
     );
   }
@@ -414,6 +393,27 @@ function Routes() {
         <MovieStack.Screen
           name="MovieDetail"
           component={MovieDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StoreStack.Screen
+          name="DeliveryInfo"
+          component={DeliveryInfo}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StoreStack.Screen
+          name="PaymentMethod"
+          component={PaymentMethod}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StoreStack.Screen
+          name="FinishedOrder"
+          component={FinishedOrder}
           options={{
             headerShown: false,
           }}

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   containerPlus: { paddingBottom: 70, flexDirection: 'column' },
-  cartTxt: { color: '#fff', fontSize: 16 },
+  cartTxt: { color: '#fff', fontSize: 19 },
   cartItem: {
     flexDirection: 'row',
     justifyContent: 'flex-end',

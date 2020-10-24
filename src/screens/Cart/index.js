@@ -13,7 +13,9 @@ import styles from './styles';
 
 function Cart({ navigation }) {
   const confirmOrder = () => {
-    navigation.navigate('DeliveryInfo');
+    navigation.navigate('DeliveryInfo', {
+      origem: 'store',
+    });
   };
 
   const productsCart = useSelector((state) => state.product.cart.products);
@@ -28,6 +30,17 @@ function Cart({ navigation }) {
       <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
         <View style={[commons.container, styles.containerPlus]}>
           <View style={{ height: '92%' }}>
+            {productsCart.length === 0 && (
+              <View style={{ alignItems: 'center' }}>
+                <Text
+                  style={{
+                    color: '#fff',
+                    fontSize: 15,
+                  }}>
+                  Nenhum produto no carrinho.
+                </Text>
+              </View>
+            )}
             <FlatList
               data={productsCart}
               keyExtractor={(product) => product.id}
@@ -38,12 +51,14 @@ function Cart({ navigation }) {
               }}
             />
           </View>
-          <View>
-            <View style={styles.cartItem}>
-              <Text style={styles.cartTxt}>Total: {maskMoney(total)}</Text>
+          {productsCart.length > 0 && (
+            <View>
+              <View style={styles.cartItem}>
+                <Text style={styles.cartTxt}>Total: {maskMoney(total)}</Text>
+              </View>
+              <ButtonPrimary onPress={confirmOrder} text="COMPRAR" />
             </View>
-            <ButtonPrimary onPress={confirmOrder} text="COMPRAR" />
-          </View>
+          )}
         </View>
       </SafeAreaView>
     </View>

@@ -41,6 +41,9 @@ function MyPlan({ route, navigation, auth: { user } }) {
               price={maskMoney(user.plano.valor)}
               info={[user.plano.subtitulo, user.plano.descricao]}
               button={footerPlan(user.plano)}
+              containerStyle={{
+                borderRadius: 10,
+              }}
               // onButtonPress={() => payPlan(plan)}
             />
           </View>

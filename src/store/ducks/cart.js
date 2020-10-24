@@ -2,9 +2,9 @@ import Immutable from 'seamless-immutable';
 import { createReducer, createActions } from 'reduxsauce';
 
 const { Types, Creators } = createActions({
-  addProduct: ['id'],
-  removeProduct: ['id'],
-  decreaseProduct: ['id'],
+  _addProduct: ['id'],
+  _removeProduct: ['id'],
+  _decreaseProduct: ['id'],
 });
 
 const INITIAL_STATE = Immutable({
@@ -13,6 +13,7 @@ const INITIAL_STATE = Immutable({
 });
 
 const add = (state = INITIAL_STATE, { id }) => {
+  return;
   const newProducts = [...state.products];
   const productExist = state.products.find((product) => product.id === id);
   if (!productExist) {
@@ -36,6 +37,7 @@ const add = (state = INITIAL_STATE, { id }) => {
 };
 
 const decrease = (state = INITIAL_STATE, { id }) => {
+  return;
   const productFinded = state.products.find((product) => product.id === id);
   if (productFinded.count > 1) {
     const productExist = state.products.filter((product) => product.id !== id);
@@ -71,9 +73,9 @@ const remove = (state = INITIAL_STATE, { id }) => {
 };
 
 export default createReducer(INITIAL_STATE, {
-  [Types.ADD_PRODUCT]: add,
-  [Types.REMOVE_PRODUCT]: remove,
-  [Types.DECREASE_PRODUCT]: decrease,
+  [Types._ADD_PRODUCT]: add,
+  [Types._REMOVE_PRODUCT]: remove,
+  [Types._DECREASE_PRODUCT]: decrease,
 });
 
 export { Types, Creators };

@@ -71,6 +71,9 @@ function Plans(props) {
                     title={plan.titulo}
                     price={maskMoney(plan.valor)}
                     info={[plan.subtitulo, plan.descricao]}
+                    containerStyle={{
+                      borderRadius: 10,
+                    }}
                     button={{ title: 'COMPRAR' }}
                     onButtonPress={() => payPlan(plan)}
                   />
