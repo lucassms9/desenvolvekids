@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   View,
@@ -8,25 +8,95 @@ import {
   Text,
   ScrollView,
 } from 'react-native';
-import { useSelector } from 'react-redux';
-import { Divider } from 'react-native-elements';
+import { useSelector, useDispatch } from 'react-redux';
+import { Divider, CheckBox } from 'react-native-elements';
+import { ToastActionsCreators } from 'react-native-redux-toast';
+import { CommonActions } from '@react-navigation/native';
+
+import { Creators as OrderActions } from '~/store/ducks/order';
+import { Creators as ProductActions } from '~/store/ducks/product';
 
 import Header from '~/components/Header';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import CartItemsConfim from '~/components/CartItemsConfim';
 import TitleCard from '~/components/TitleCard';
+import TitleWay from '~/components/TitleWay';
 
-import { commons } from '~/styles';
+import api from '~/services/api';
 
-function FinishedOrder() {
+import { commons, colors } from '~/styles';
+import { maskMoney } from '~/helpers/index';
+
+function FinishedOrder({ navigation }) {
+  const [loading, setLoading] = useState(false);
+  const [wayChecked, setWayChecked] = useState(false);
+  const [wayCheckedValue, setWayCheckedValue] = useState(false);
   const orderParam = useSelector((state) => state.order);
   console.log(orderParam);
+  const dispatch = useDispatch();
+
+  const handleWayCheck = (way) => {
+    setWayChecked(way.entregas_id);
+    setWayCheckedValue(way.valor);
+  };
+
   const productsCart = useSelector((state) => state.product.cart.products);
+  console.log(productsCart);
   const total = productsCart.reduce((soma, prod) => {
     return prod.count * prod.preco + soma;
   }, 0);
 
-  const confirmAddres = () => {};
+  const confirmAddres = async () => {
+    try {
+      if (!wayChecked) {
+        return dispatch(
+          ToastActionsCreators.displayError(
+            'Selecione uma forma de entrega',
+            5000,
+          ),
+        );
+      }
+      setLoading(true);
+      const handleProdutc = productsCart.map((p) => ({
+        produtos_id: p.id,
+        quantidade: p.count,
+        valor: p.count * p.preco,
+      }));
+      const wayFilter = orderParam.deliveryWays.find(
+        (way) => way.entregas_id === wayChecked,
+      );
+
+      const res = await api.post('pedidos/pagamento', {
+        products: handleProdutc,
+        enderecoId: orderParam.deliveryMethod.id,
+        entregaId: wayFilter.entregas_id,
+        valor_frete: wayFilter.valor,
+        forma_pagmento: orderParam.paymentMethod,
+        promocode: '',
+      });
+
+      dispatch(
+        ToastActionsCreators.displayInfo('Pedido realizado com sucesso'),
+      );
+
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [{ name: 'Store' }],
+        }),
+      );
+      navigation.navigate('Store');
+
+      dispatch(ProductActions.resetCart());
+      dispatch(OrderActions.resetOrder());
+
+      setLoading(false);
+      //fazendo pagamento
+    } catch (error) {
+      setLoading(false);
+      return dispatch(ToastActionsCreators.displayError(error.message, 5000));
+    }
+  };
 
   return (
     <View style={commons.body}>
@@ -57,10 +127,49 @@ function FinishedOrder() {
                 }}>
                 Forma de Entrega
               </Text>
-              <View>
-                <Text style={{ color: '#fff' }}>
-                  estrada municpal bairro pinhal,2551 Boituva - SP
-                </Text>
+              <View style={{}}>
+                <View>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontWeight: '500',
+                    }}>
+                    Endereço Selecionado:{' '}
+                    {orderParam.deliveryMethod.nome_endereco}
+                  </Text>
+                </View>
+                {orderParam.deliveryWays.map((way) => {
+                  console.log(way);
+                  return (
+                    <>
+                      <View style={{}}>
+                        <CheckBox
+                          title={
+                            <TitleWay
+                              wayName={way.nome}
+                              wayValue={way.valor}
+                              wayDeadline={way.prazo}
+                            />
+                          }
+                          textStyle={{ color: '#fff' }}
+                          checkedColor={colors.primary}
+                          uncheckedColor={colors.primary}
+                          containerStyle={{
+                            backgroundColor: 'transparent',
+                            borderColor: 'transparent',
+                          }}
+                          checked={wayChecked === way.entregas_id}
+                          onPress={() => {
+                            handleWayCheck(way);
+                          }}
+                        />
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Divider style={{ backgroundColor: '#fff' }} />
+                      </View>
+                    </>
+                  );
+                })}
               </View>
               <View style={{ flex: 1 }}>
                 <Divider style={{ backgroundColor: '#fff' }} />
@@ -71,29 +180,55 @@ function FinishedOrder() {
                 Forma de Pagamento
               </Text>
               <View>
-                <TitleCard />
+                {orderParam.paymentMethod === 'boleto' ? (
+                  <Text
+                    style={{
+                      color: '#fff',
+                      marginVertical: 10,
+                      fontWeight: '500',
+                    }}>
+                    Boleto Bancário
+                  </Text>
+                ) : (
+                  <TitleCard
+                    cardValid={orderParam.paymentMethod.cardValid}
+                    cardName={orderParam.paymentMethod.cardName}
+                    cardNumber={orderParam.paymentMethod.cardNumber}
+                  />
+                )}
               </View>
               <View style={{ flex: 1 }}>
                 <Divider style={{ backgroundColor: '#fff' }} />
               </View>
             </View>
-            <View style={{ margin: 15 }}>
+            <View style={{ marginHorizontal: 15 }}>
               <View
                 style={{
-                  flexDirection: 'row',
+                  flexDirection: 'column',
                   justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
                   paddingBottom: 10,
                   marginHorizontal: 10,
                 }}>
-                <Text style={{ color: '#fff', fontSize: 16 }}>
-                  Total:{' '}
-                  {total.toLocaleString('pt-br', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  })}
-                </Text>
+                <View>
+                  <Text
+                    style={{ color: '#fff', fontSize: 16, marginVertical: 5 }}>
+                    Frete:
+                    {maskMoney(wayCheckedValue)}
+                  </Text>
+                </View>
+                <View>
+                  <Text style={{ color: '#fff', fontSize: 16 }}>
+                    Total:
+                    {maskMoney(total + wayCheckedValue)}
+                  </Text>
+                </View>
               </View>
-              <ButtonPrimary onPress={confirmAddres} text="CONCLUIR PEDIDO" />
+              <ButtonPrimary
+                loading={loading}
+                onPress={confirmAddres}
+                text="CONCLUIR PEDIDO"
+              />
             </View>
           </View>
         </ScrollView>

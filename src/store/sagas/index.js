@@ -17,7 +17,7 @@ import {
 } from './auth';
 import { fetchAll } from './product';
 import { requestPayment } from './plan';
-import { requestPaymentOrder } from './order';
+import { requestPaymentOrder, fetchDeliveryway } from './order';
 
 export default function* rootSaga() {
   return yield all([
@@ -32,5 +32,6 @@ export default function* rootSaga() {
     takeLatest(AuthTypes.UPDATE_USER_REQUEST, requestUpdate),
     takeLatest(AuthTypes.ADD_CHILDREN_REQUEST, requestChildren),
     takeLatest(OrderTypes.REQUEST_PAYMENT_ORDER, requestPaymentOrder),
+    takeLatest(OrderTypes.ADD_DELIVERY_METHOD, fetchDeliveryway),
   ]);
 }

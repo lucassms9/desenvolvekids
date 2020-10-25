@@ -31,6 +31,7 @@ function DeliveryInfo({
   route,
   navigation,
   auth,
+  cart,
   addAddressRequest,
   addDeliveryMethod,
 }) {
@@ -94,11 +95,14 @@ function DeliveryInfo({
           ),
         );
       }
-
-      addDeliveryMethod(checkedAddress);
+      const deliveryFilter = auth.user.enderecos.find(
+        (end) => end.id === checkedAddress,
+      );
+      addDeliveryMethod(deliveryFilter, cart.products);
     }
     return navigation.navigate('PaymentMethod', { origem });
   };
+
   return (
     <View style={commons.body}>
       <Header title="Endereço de Entrega" hasBack />
@@ -176,9 +180,10 @@ function DeliveryInfo({
   );
 }
 
-const mapStateToProps = ({ plan, auth }) => ({
+const mapStateToProps = ({ plan, auth, product: { cart } }) => ({
   plan,
   auth,
+  cart,
 });
 
 const mapDispatchToProps = (dispatch) =>
