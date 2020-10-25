@@ -43,6 +43,7 @@ const resetOrder = (state = INITIAL_STATE, { products }) => {
     deliveryWays: [],
   });
 };
+
 const addProducts = (state = INITIAL_STATE, { products }) => {
   return state.merge({
     products,

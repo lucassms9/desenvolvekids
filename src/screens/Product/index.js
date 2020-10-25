@@ -78,7 +78,7 @@ function Product(props) {
 
   return (
     <View style={commons.body}>
-      <Header title="Produto name" hasBack />
+      <Header title={product.nome} hasBack />
       <SafeAreaView style={{ flex: 1 }}>
         <View style={[commons.container, { paddingBottom: 70, flex: 1 }]}>
           {status === 'loading' && <Loader />}

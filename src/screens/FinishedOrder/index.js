@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   View,
@@ -12,6 +12,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Divider, CheckBox } from 'react-native-elements';
 import { ToastActionsCreators } from 'react-native-redux-toast';
 import { CommonActions } from '@react-navigation/native';
+import RNPickerSelect from 'react-native-picker-select';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { Creators as OrderActions } from '~/store/ducks/order';
 import { Creators as ProductActions } from '~/store/ducks/product';
@@ -21,6 +23,8 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import CartItemsConfim from '~/components/CartItemsConfim';
 import TitleCard from '~/components/TitleCard';
 import TitleWay from '~/components/TitleWay';
+import generateCardHash from 'react-native-pagarme-card-hash';
+import { ENCRYPTION_KEY } from '~/config/constantes';
 
 import api from '~/services/api';
 
@@ -28,11 +32,13 @@ import { commons, colors } from '~/styles';
 import { maskMoney } from '~/helpers/index';
 
 function FinishedOrder({ navigation }) {
+  const [installment, setInstallment] = useState(null);
+  const [installments, setInstallments] = useState([{ label: '', value: '' }]);
   const [loading, setLoading] = useState(false);
   const [wayChecked, setWayChecked] = useState(false);
   const [wayCheckedValue, setWayCheckedValue] = useState(false);
   const orderParam = useSelector((state) => state.order);
-  console.log(orderParam);
+
   const dispatch = useDispatch();
 
   const handleWayCheck = (way) => {
@@ -41,12 +47,11 @@ function FinishedOrder({ navigation }) {
   };
 
   const productsCart = useSelector((state) => state.product.cart.products);
-  console.log(productsCart);
   const total = productsCart.reduce((soma, prod) => {
     return prod.count * prod.preco + soma;
   }, 0);
 
-  const confirmAddres = async () => {
+  const confirmOrder = async () => {
     try {
       if (!wayChecked) {
         return dispatch(
@@ -66,14 +71,28 @@ function FinishedOrder({ navigation }) {
         (way) => way.entregas_id === wayChecked,
       );
 
-      const res = await api.post('pedidos/pagamento', {
+      const hash = await generateCardHash(
+        {
+          number: orderParam.paymentMethod.cardNumber,
+          holderName: orderParam.paymentMethod.cardName,
+          expirationDate: orderParam.paymentMethod.cardValid,
+          cvv: orderParam.paymentMethod.cardCode,
+        },
+        ENCRYPTION_KEY,
+      );
+
+      const dataSend = {
         products: handleProdutc,
         enderecoId: orderParam.deliveryMethod.id,
         entregaId: wayFilter.entregas_id,
         valor_frete: wayFilter.valor,
         forma_pagmento: orderParam.paymentMethod,
         promocode: '',
-      });
+        hash: hash,
+        parcela: installment,
+      };
+
+      const res = await api.post('pedidos/pagamento', dataSend);
 
       dispatch(
         ToastActionsCreators.displayInfo('Pedido realizado com sucesso'),
@@ -97,6 +116,27 @@ function FinishedOrder({ navigation }) {
       return dispatch(ToastActionsCreators.displayError(error.message, 5000));
     }
   };
+
+  const fetchInstallments = async () => {
+    try {
+      const res = await api.post('pedidos/calc-parcelas', {
+        orderValue: total + wayCheckedValue,
+      });
+
+      const install = res.parcelas.map((ins) => ({
+        label: `${maskMoney(ins.valor)} - ${ins.qtd}x`,
+        value: String(ins.qtd),
+      }));
+
+      setInstallments(install);
+    } catch (error) {
+      return dispatch(ToastActionsCreators.displayError(error.message, 5000));
+    }
+  };
+
+  useEffect(() => {
+    fetchInstallments();
+  }, []);
 
   return (
     <View style={commons.body}>
@@ -200,6 +240,43 @@ function FinishedOrder({ navigation }) {
               <View style={{ flex: 1 }}>
                 <Divider style={{ backgroundColor: '#fff' }} />
               </View>
+              {orderParam.paymentMethod !== 'boleto' && (
+                <View style={{ padding: 15 }}>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontSize: 18,
+                      fontWeight: '700',
+                      marginBottom: 15,
+                    }}>
+                    Parcelas
+                  </Text>
+                  <RNPickerSelect
+                    onValueChange={(text) => setInstallment(text)}
+                    value={installment}
+                    items={installments}
+                    placeholder={{
+                      label: 'Escolha',
+                      value: null,
+                      color: '#9EA0A4',
+                    }}
+                    style={{
+                      ...pickerSelectStyles,
+                      iconContainer: {
+                        top: 10,
+                        right: 10,
+                      },
+                    }}
+                    useNativeAndroidPickerStyle={false}
+                    textInputProps={{ underlineColor: 'yellow' }}
+                    Icon={() => {
+                      return (
+                        <Ionicons name="md-arrow-down" size={24} color="gray" />
+                      );
+                    }}
+                  />
+                </View>
+              )}
             </View>
             <View style={{ marginHorizontal: 15 }}>
               <View
@@ -226,7 +303,7 @@ function FinishedOrder({ navigation }) {
               </View>
               <ButtonPrimary
                 loading={loading}
-                onPress={confirmAddres}
+                onPress={confirmOrder}
                 text="CONCLUIR PEDIDO"
               />
             </View>
@@ -236,5 +313,30 @@ function FinishedOrder({ navigation }) {
     </View>
   );
 }
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    marginBottom: 20,
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: '#fff',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+    fontSize: 16,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'purple',
+    borderRadius: 8,
+    color: '#fff',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+});
 
 export default FinishedOrder;
