@@ -67,18 +67,9 @@ function FinishedOrder({ navigation }) {
         quantidade: p.count,
         valor: p.count * p.preco,
       }));
+      console.log(orderParam);
       const wayFilter = orderParam.deliveryWays.find(
         (way) => way.entregas_id === wayChecked,
-      );
-
-      const hash = await generateCardHash(
-        {
-          number: orderParam.paymentMethod.cardNumber,
-          holderName: orderParam.paymentMethod.cardName,
-          expirationDate: orderParam.paymentMethod.cardValid,
-          cvv: orderParam.paymentMethod.cardCode,
-        },
-        ENCRYPTION_KEY,
       );
 
       const dataSend = {
@@ -88,9 +79,22 @@ function FinishedOrder({ navigation }) {
         valor_frete: wayFilter.valor,
         forma_pagmento: orderParam.paymentMethod,
         promocode: '',
-        hash: hash,
         parcela: installment,
       };
+
+      if (orderParam.paymentMethod !== 'boleto') {
+        const hash = await generateCardHash(
+          {
+            number: orderParam.paymentMethod.cardNumber,
+            holderName: orderParam.paymentMethod.cardName,
+            expirationDate: orderParam.paymentMethod.cardValid,
+            cvv: orderParam.paymentMethod.cardCode,
+          },
+          ENCRYPTION_KEY,
+        );
+
+        dataSend.hash = hash;
+      }
 
       const res = await api.post('pedidos/pagamento', dataSend);
 

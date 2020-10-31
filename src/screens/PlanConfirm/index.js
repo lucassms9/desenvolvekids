@@ -68,6 +68,9 @@ function PlanConfirm({ plan: planState, requestPaymentPlan }) {
                 color={colors.primary}
                 title={plan.titulo}
                 price={maskMoney(plan.valor)}
+                containerStyle={{
+                  borderRadius: 10,
+                }}
                 info={[plan.subtitulo, plan.descricao]}
                 button={<View />}
               />

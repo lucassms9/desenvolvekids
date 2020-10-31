@@ -9,7 +9,6 @@ import { colors } from '~/styles';
 import rocketImage from '~/assets/images/rocket.png';
 
 function RocketAnimated(props) {
-  console.log(props);
   const {
     auth: { authCheck, user },
     navigation,

@@ -201,7 +201,7 @@ function Routes() {
   const MainTabBottom = () => {
     return (
       <Tab.Navigator
-        initialRouteName="Forum"
+        initialRouteName="Tips"
         tabBarOptions={{
           activeTintColor: colors.primary,
           inactiveTintColor: 'gray',

@@ -8,6 +8,8 @@ import api from '../../services/api';
 import storageKeys from '~/helpers/storageKeys';
 
 import { Creators as AuthActions } from '../ducks/auth';
+import { Creators as OrderActions } from '../ducks/order';
+import { Creators as ProductActions } from '../ducks/product';
 
 export function* init() {
   console.log('init');
@@ -15,7 +17,7 @@ export function* init() {
   const userAsync = yield call([AsyncStorage, 'getItem'], storageKeys.root);
   const user = JSON.parse(userAsync);
   const auth = JSON.parse(user.auth);
-
+  console.log(auth);
   if (auth.user.id) {
     console.log(auth.user);
     const data = yield call(api.get, '/user/get-data', {
@@ -92,12 +94,11 @@ export function* signUp({ data: signUpData }) {
       throw data;
     }
 
-    const user = {};
     const {
       auth: { navigationGlobal },
     } = yield select();
 
-    yield put(AuthActions.signUpSuccess(user));
+    yield put(AuthActions.signUpSuccess(data.user));
 
     yield call([navigationGlobal, 'dispatch'], StackActions.replace('Plans'));
   } catch (error) {
@@ -107,6 +108,7 @@ export function* signUp({ data: signUpData }) {
 }
 
 export function* signOut() {
+  console.log('signOut');
   try {
     yield call([AsyncStorage, 'removeItem'], 'persist:root');
 
@@ -117,6 +119,8 @@ export function* signOut() {
     yield call([navigationGlobal, 'dispatch'], StackActions.replace('Auth'));
 
     yield put(AuthActions.signOutSuccess());
+    yield put(OrderActions.resetOrder());
+    yield put(ProductActions.resetCart());
   } catch (error) {
     console.log(error);
     yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
@@ -139,7 +143,7 @@ export function* signIn({ email, password, dataSocial }) {
     //faz request login
     if (dataSocial) {
       data = yield call(api.post, '/login/social', dataSocial);
-
+      console.log(data);
       if (typeof data.user === 'undefined') {
         yield call([navigationGlobal, 'navigate'], 'SignUp', dataSocial);
         yield put(AuthActions.signInError('not auth'));

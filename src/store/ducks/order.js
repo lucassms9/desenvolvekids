@@ -20,7 +20,7 @@ const { Types, Creators } = createActions({
   requestPaymentOrderResult: null,
 
   fetchDeliveryWayResult: ['deliveryWays'],
-  fetchDeliveryWayErro: null,
+  fetchDeliveryWayError: null,
   resetOrder: null,
 });
 
@@ -80,6 +80,11 @@ const fetchDeliveryWayResult = (state = INITIAL_STATE, { deliveryWays }) => {
     deliveryWays,
   });
 };
+const fetchDeliveryWayError = (state = INITIAL_STATE, { deliveryWays }) => {
+  return state.merge({
+    status: 'error',
+  });
+};
 
 export default createReducer(INITIAL_STATE, {
   [Types.ADD_PRODUCTS]: addProducts,
@@ -88,6 +93,7 @@ export default createReducer(INITIAL_STATE, {
   [Types.REQUEST_PAYMENT_ORDER]: requestPaymentOrder,
   [Types.REQUEST_PAYMENT_ORDER_RESULT]: paymentOrderResult,
   [Types.FETCH_DELIVERY_WAY_RESULT]: fetchDeliveryWayResult,
+  [Types.FETCH_DELIVERY_WAY_ERROR]: fetchDeliveryWayError,
   [Types.RESET_ORDER]: resetOrder,
 });
 

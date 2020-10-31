@@ -13,7 +13,8 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
 
-function Options({ signOutRequest, navigation }) {
+function Options({ signOutRequest, navigation, setNavigation }) {
+  console.log(signOutRequest);
   const openProfile = () => {
     navigation.navigate('Profile');
   };
@@ -29,6 +30,10 @@ function Options({ signOutRequest, navigation }) {
   const openChildrens = () => {
     navigation.navigate('Childrens');
   };
+  useEffect(() => {
+    setNavigation(navigation);
+  }, []);
+
   return (
     <View style={commons.body}>
       <Header title="Opções" hasBack />

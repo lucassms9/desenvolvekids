@@ -207,6 +207,7 @@ class Forum extends Component {
                         <Input
                           placeholder="Digite sua Resposta"
                           containerStyle={styles.wd90}
+                          value={this.state.answer}
                           onChangeText={(value) =>
                             this.setState({ answer: value })
                           }

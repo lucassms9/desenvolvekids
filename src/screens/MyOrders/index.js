@@ -75,7 +75,7 @@ function MyOrders({ navigation, auth }) {
 
   return (
     <View style={commons.body}>
-      <Header title="Pedidos" />
+      <Header hasBack title="Pedidos" />
       <SafeAreaView>
         <View style={[commons.container, { paddingBottom: 70 }]}>
           {loading && <Loader />}
