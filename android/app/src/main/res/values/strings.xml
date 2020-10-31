@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Desenvolvekids</string>
     <string name="facebook_app_id">2768933896760688</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+     <string moduleConfig="true" name="CodePushDeploymentKey">G-KA7BAoTDHqC3N4AMxlEB9fdkey367rxCklk</string>
 </resources>
