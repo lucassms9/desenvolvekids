@@ -101,6 +101,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
       };
       signInRequest(user.email, null, data);
     } catch (error) {
+      console.log(error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
         alert('Cancel');
