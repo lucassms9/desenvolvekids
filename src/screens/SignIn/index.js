@@ -92,11 +92,11 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
   const loginGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      // await GoogleSignin.configure({
-      //   webClientId:
-      //     '863121690538-9o1le0h7pkqrcvhmmrh5tthdcv4jrsth.apps.googleusercontent.com',
-      //   offlineAccess: true,
-      // });
+      await GoogleSignin.configure({
+        webClientId:
+          '863121690538-o9ka9hnbgtvfrh2qv4e6td8btb3c8vc6.apps.googleusercontent.com',
+        offlineAccess: true,
+      });
 
       const { user } = await GoogleSignin.signIn();
       const data = {
