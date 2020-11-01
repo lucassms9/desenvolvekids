@@ -4,13 +4,8 @@ import { Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-MaterialIcons.loadFont();
-FontAwesome.loadFont();
-MaterialCommunityIcons.loadFont();
+import { Icon } from 'react-native-elements';
 
 import colors from '~/styles/colors';
 /**
@@ -217,10 +212,11 @@ function Routes() {
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
               return (
-                <MaterialCommunityIcons
+                <Icon
                   name="lightbulb-on-outline"
-                  size={25}
+                  type="material-community"
                   color={color}
+                  size={25}
                 />
               );
             },
@@ -239,10 +235,11 @@ function Routes() {
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
               return (
-                <MaterialCommunityIcons
+                <Icon
                   name="forum-outline"
-                  size={25}
+                  type="material-community"
                   color={color}
+                  size={25}
                 />
               );
             },
@@ -261,7 +258,7 @@ function Routes() {
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
               return (
-                <MaterialIcons name="ondemand-video" size={25} color={color} />
+                <Icon name="video" type="feather" color={color} size={25} />
               );
             },
             tabBarLabel: ({ focused }) => {
@@ -278,7 +275,14 @@ function Routes() {
           options={{
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
-              return <FontAwesome name="podcast" size={25} color={color} />;
+              return (
+                <Icon
+                  name="podcast"
+                  type="font-awesome"
+                  color={color}
+                  size={25}
+                />
+              );
             },
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.primary : '#000';
@@ -295,7 +299,14 @@ function Routes() {
           options={{
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
-              return <MaterialIcons name="shop" size={25} color={color} />;
+              return (
+                <Icon
+                  name="shopping-bag"
+                  type="feather"
+                  color={color}
+                  size={25}
+                />
+              );
             },
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.primary : '#000';

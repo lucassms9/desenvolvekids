@@ -10,6 +10,7 @@ import validationSchema from './validation';
 import ButtonPrimary from '../ButtonPrimary';
 import { commons, colors } from '~/styles';
 import axios from 'axios';
+import { maskCPF, maskDate, maskCEP } from '~/helpers';
 
 function ModalDelivery({
   visible,
@@ -96,7 +97,7 @@ function ModalDelivery({
                   onEndEditing={handleBlurCep}
                   autoCapitalize="none"
                   placeholder={'CEP'}
-                  onChangeText={(text) => setFieldValue('zipCode', text)}
+                  onChangeText={maskCEP(setFieldValue, 'zipCode')}
                 />
                 {errors.zipCode && (
                   <Text style={commons.error}>{errors.zipCode}</Text>

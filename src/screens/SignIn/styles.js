@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     flex: 5,
   },
   containerFooter: {
-    flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
   },

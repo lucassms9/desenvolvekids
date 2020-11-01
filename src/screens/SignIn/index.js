@@ -92,6 +92,11 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
   const loginGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
+      // await GoogleSignin.configure({
+      //   webClientId:
+      //     '863121690538-9o1le0h7pkqrcvhmmrh5tthdcv4jrsth.apps.googleusercontent.com',
+      //   offlineAccess: true,
+      // });
 
       const { user } = await GoogleSignin.signIn();
       const data = {
@@ -119,13 +124,14 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
   return (
     <View style={styles.bodyLogin}>
       <SafeAreaView style={styles.container}>
-        <View style={styles.containerLogin}>
-          <View style={styles.containerLogo}>
-            <Image source={logo} />
-          </View>
-          <View style={styles.containerForm}>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : null}>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.OS === 'ios' ? 'padding' : null}>
+          <View style={styles.containerLogin}>
+            <View style={styles.containerLogo}>
+              <Image source={logo} />
+            </View>
+            <View style={styles.containerForm}>
               <Formik
                 initialValues={{ email: '', password: '' }}
                 validationSchema={validationSchema}
@@ -183,30 +189,41 @@ function SignIn({ status, navigation, setNavigation, signInRequest }) {
                         onPress={handleSubmit}
                       />
                     </View>
+
+                    <View style={styles.containerFooter}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.push('SignUp');
+                        }}>
+                        <Text
+                          style={[
+                            commons.textWhite,
+                            commons.fs17,
+                            styles.mp30,
+                          ]}>
+                          Registre-se!
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.push('Recover');
+                        }}>
+                        <Text
+                          style={[
+                            commons.textWhite,
+                            commons.fs17,
+                            styles.mp30,
+                          ]}>
+                          Esqueci Minha Senha
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 )}
               </Formik>
-            </KeyboardAvoidingView>
+            </View>
           </View>
-          <View style={styles.containerFooter}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.push('SignUp');
-              }}>
-              <Text style={[commons.textWhite, commons.fs17]}>
-                Registre-se!
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.push('Recover');
-              }}>
-              <Text style={[commons.textWhite, commons.fs17]}>
-                Esqueci Minha Senha
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );

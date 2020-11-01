@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Header, Badge } from 'react-native-elements';
+import { View } from 'react-native';
 import { colors, commons } from '~/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -26,21 +27,23 @@ function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
 
   if (!hasBack && showIconCart) {
     leftComp = (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Cart');
-        }}>
-        <MaterialCommunityIcons
-          name="cart-outline"
-          size={30}
-          color={colors.white}
-        />
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Cart');
+          }}>
+          <MaterialCommunityIcons
+            name="cart-outline"
+            size={30}
+            color={colors.white}
+          />
+        </TouchableOpacity>
         <Badge
           badgeStyle={{ backgroundColor: colors.primary }}
           value={counter}
           containerStyle={{ position: 'absolute', top: -4, right: -4 }}
         />
-      </TouchableOpacity>
+      </View>
     );
   }
 

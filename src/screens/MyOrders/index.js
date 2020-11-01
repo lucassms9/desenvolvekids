@@ -44,7 +44,7 @@ function MyOrders({ navigation, auth }) {
   const getOrders = async () => {
     setLoading(true);
     const res = await getOrdersAsync();
-
+    console.log(res);
     setOrders(res.pedidos);
     setTotalPage(res.total_pages);
     setLoading(false);
@@ -67,7 +67,6 @@ function MyOrders({ navigation, auth }) {
   }, []);
 
   const openDetail = (order) => {
-    return;
     navigation.navigate('OrderDetail', {
       order,
     });
@@ -82,7 +81,7 @@ function MyOrders({ navigation, auth }) {
           {!loading && (
             <ScrollView>
               <View style={styles.fdr}>{/* filtrod ficam aqui */}</View>
-              {orders.length === 0 && <NotFound type="pedido" />}
+              {orders && <NotFound type="pedido" />}
               {orders.map((order, index) => {
                 console.log(order);
                 return (

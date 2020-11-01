@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "863121690538-7k79khumapk7mn3vu86k83qfhpo85p9l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.desenvolvekids",
+            "certificate_hash": "d15a26b8baee3c33c3338f36c1323f9f21c333c5"
+          }
+        },
+        {
           "client_id": "863121690538-o9ka9hnbgtvfrh2qv4e6td8btb3c8vc6.apps.googleusercontent.com",
           "client_type": 3
         }

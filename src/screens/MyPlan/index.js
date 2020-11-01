@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 
 import { PricingCard } from 'react-native-elements';
 import Header from '~/components/Header';
+import NotFound from '~/components/NotFound';
 import moment from 'moment';
 
 import { maskMoney } from '~/helpers';
@@ -28,24 +29,29 @@ function MyPlan({ route, navigation, auth: { user } }) {
       </View>
     );
   };
+  console.log();
   return (
     <View style={commons.body}>
       <Header title="Meu Plano" hasBack />
       <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
         <View style={[commons.container, { flex: 1 }]}>
           <View style={{ padding: 15 }}>
-            <PricingCard
-              key={user.plano.id}
-              color={colors.primary}
-              title={user.plano.titulo}
-              price={maskMoney(user.plano.valor)}
-              info={[user.plano.subtitulo, user.plano.descricao]}
-              button={footerPlan(user.plano)}
-              containerStyle={{
-                borderRadius: 10,
-              }}
-              // onButtonPress={() => payPlan(plan)}
-            />
+            {user.plano.id ? (
+              <PricingCard
+                key={user.plano.id}
+                color={colors.primary}
+                title={user.plano.titulo}
+                price={maskMoney(user.plano.valor)}
+                info={[user.plano.subtitulo, user.plano.descricao]}
+                button={footerPlan(user.plano)}
+                containerStyle={{
+                  borderRadius: 10,
+                }}
+                // onButtonPress={() => payPlan(plan)}
+              />
+            ) : (
+              <NotFound type="plano" />
+            )}
           </View>
         </View>
       </SafeAreaView>

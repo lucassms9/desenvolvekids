@@ -15,9 +15,12 @@ export function* init() {
   console.log('init');
 
   const userAsync = yield call([AsyncStorage, 'getItem'], storageKeys.root);
+  if (!userAsync) {
+    return yield put(AuthActions.authCheck(false));
+  }
   const user = JSON.parse(userAsync);
   const auth = JSON.parse(user.auth);
-  console.log(auth);
+
   if (auth.user.id) {
     console.log(auth.user);
     const data = yield call(api.get, '/user/get-data', {
