@@ -180,7 +180,7 @@ function Product(props) {
 
               <View
                 style={{
-                  flex: 0.1,
+                  flex: 0.12,
                   flexDirection: 'column',
                   top: 17,
                 }}>

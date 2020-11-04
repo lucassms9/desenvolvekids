@@ -47,7 +47,7 @@ function Store(props) {
     }
     return data; // [F]
   };
-  console.log(status);
+
   return (
     <View style={commons.body}>
       <Header title="Loja" showIconCart />

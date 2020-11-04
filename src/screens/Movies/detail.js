@@ -14,11 +14,11 @@ const Detail = ({ route }) => {
   const [uriComplete, setUriComplete] = useState('');
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [paused, setPaused] = useState(false);
-  const [playerState, setPlayerState] = useState(PLAYER_STATES.PLAYING);
-  const [screenType, setScreenType] = useState('content');
+  const [paused, setPaused] = useState(true);
+  const [playerState, setPlayerState] = useState(PLAYER_STATES.PAUSED);
+  const [screenType, setScreenType] = useState('stretch');
 
   const movie = route.params.movie;
 
@@ -74,7 +74,7 @@ const Detail = ({ route }) => {
 
   const renderToolbar = () => (
     <View>
-      <Text> toolbar </Text>
+      <Text> DevKids </Text>
     </View>
   );
 
@@ -98,13 +98,13 @@ const Detail = ({ route }) => {
               uri: movie.uri_vmeo,
             }}
             style={styles.mediaPlayer}
-            volume={10}
+            volume={5}
           />
           <MediaControls
             duration={duration}
             isLoading={isLoading}
             mainColor={colors.primary}
-            onFullScreen={onFullScreen}
+            // onFullScreen={onFullScreen}
             onPaused={onPaused}
             onReplay={onReplay}
             onSeek={onSeek}

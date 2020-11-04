@@ -14,11 +14,10 @@ const styles = StyleSheet.create({
     right: 0,
   },
   containerPlus: { paddingBottom: 70, flexDirection: 'column' },
-  cartTxt: { color: '#fff', fontSize: 19 },
+  cartTxt: { color: '#fff', fontSize: 19, top: -5 },
   cartItem: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    paddingBottom: 10,
     marginHorizontal: 10,
   },
 });
