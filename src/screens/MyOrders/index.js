@@ -67,9 +67,9 @@ function MyOrders({ navigation, auth }) {
   }, []);
 
   const openDetail = (order) => {
-    navigation.navigate('OrderDetail', {
-      order,
-    });
+    // navigation.navigate('OrderDetail', {
+    //   order,
+    // });
   };
 
   return (
@@ -81,7 +81,7 @@ function MyOrders({ navigation, auth }) {
           {!loading && (
             <ScrollView>
               <View style={styles.fdr}>{/* filtrod ficam aqui */}</View>
-              {orders && <NotFound type="pedido" />}
+              {!orders && <NotFound type="pedido" />}
               {orders.map((order, index) => {
                 console.log(order);
                 return (

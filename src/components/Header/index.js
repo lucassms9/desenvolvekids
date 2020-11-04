@@ -69,7 +69,7 @@ function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
       leftComponent={leftComp}
       centerComponent={{
         text: title,
-        style: { color: colors.white, ...commons.pageTitle },
+        style: { color: colors.white, ...commons.pageTitle, fontSize: 20 },
       }}
       containerStyle={{ borderBottomWidth: 0 }}
       rightComponent={rightComp}
