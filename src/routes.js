@@ -50,7 +50,82 @@ import MyPlan from '~/screens/MyPlan';
 import MyOrders from '~/screens/MyOrders';
 import Childrens from '~/screens/Childrens';
 
+import Activities from '~/screens/Activities';
+import ActivityDetail from '~/screens/ActivityDetail';
+
+import Extras from '~/screens/Extras';
+import ExtraDetail from '~/screens/ExtraDetail';
+
+import Health from '~/screens/Health';
+import HealthDetail from '~/screens/HealthDetail';
+
 function Routes() {
+  const ActivitiesStack = createStackNavigator();
+  function ActivitiesStackScreen() {
+    return (
+      <ActivitiesStack.Navigator>
+        <ActivitiesStack.Screen
+          name="Activities"
+          component={Activities}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ActivitiesStack.Screen
+          name="ActivityDetail"
+          component={ActivityDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </ActivitiesStack.Navigator>
+    );
+  }
+
+  const ExtrasStack = createStackNavigator();
+  function ExtrasStackScreen() {
+    return (
+      <ExtrasStack.Navigator>
+        <ExtrasStack.Screen
+          name="Extras"
+          component={Extras}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ExtrasStack.Screen
+          name="ExtraDetail"
+          component={ExtraDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </ExtrasStack.Navigator>
+    );
+  }
+
+  const HealthStack = createStackNavigator();
+  function HealthStackScreen() {
+    return (
+      <HealthStack.Navigator>
+        <HealthStack.Screen
+          name="Health"
+          component={Health}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <HealthStack.Screen
+          name="HealthDetail"
+          component={HealthDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </HealthStack.Navigator>
+    );
+  }
+
   const OptionsStack = createStackNavigator();
   function OptionsStackScreen() {
     return (
@@ -206,6 +281,31 @@ function Routes() {
           },
         }}>
         <Tab.Screen
+          name="Activities"
+          component={ActivitiesStackScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <Icon
+                  // name="check-square"
+                  name="edit"
+                  type="feather"
+                  color={color}
+                  size={25}
+                />
+              );
+            },
+            tabBarLabel: ({ focused }) => {
+              const color = focused ? colors.primary : '#000';
+              return (
+                <Text style={{ fontSize: 14, color: color }}> Atividades </Text>
+              );
+            },
+          }}
+        />
+
+        <Tab.Screen
           name="Tips"
           component={TipStackScreen}
           options={{
@@ -228,80 +328,34 @@ function Routes() {
             },
           }}
         />
-        <Tab.Screen
-          name="Forum"
-          component={ForumStackScreen}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <Icon
-                  name="forum-outline"
-                  type="material-community"
-                  color={color}
-                  size={25}
-                />
-              );
-            },
-            tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.primary : '#000';
-              return (
-                <Text style={{ fontSize: 14, color: color }}> Forum </Text>
-              );
-            },
-          }}
-        />
-        <Tab.Screen
-          name="Movies"
-          component={MovieStackScreen}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <Icon name="video" type="feather" color={color} size={25} />
-              );
-            },
-            tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.primary : '#000';
-              return (
-                <Text style={{ fontSize: 14, color: color }}> Vídeos </Text>
-              );
-            },
-          }}
-        />
-        <Tab.Screen
-          name="Podcasts"
-          component={Podcasts}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => {
-              return (
-                <Icon
-                  name="podcast"
-                  type="font-awesome"
-                  color={color}
-                  size={25}
-                />
-              );
-            },
-            tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.primary : '#000';
-              return (
-                <Text style={{ fontSize: 14, color: color }}> Podcasts </Text>
-              );
-            },
-          }}
-        />
 
         <Tab.Screen
-          name="Store"
-          component={StoreStackScreen}
+          name="Health"
+          component={HealthStackScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <Icon name="heart" type="feather" color={color} size={25} />
+              );
+            },
+            tabBarLabel: ({ focused }) => {
+              const color = focused ? colors.primary : '#000';
+              return (
+                <Text style={{ fontSize: 14, color: color }}> Saúde </Text>
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Extras"
+          component={ExtrasStackScreen}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
               return (
                 <Icon
-                  name="shopping-bag"
+                  name="folder-plus"
                   type="feather"
                   color={color}
                   size={25}
@@ -310,7 +364,31 @@ function Routes() {
             },
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.primary : '#000';
-              return <Text style={{ fontSize: 14, color: color }}> Loja </Text>;
+              return (
+                <Text style={{ fontSize: 14, color: color }}> Extras </Text>
+              );
+            },
+          }}
+        />
+
+        <Tab.Screen
+          name="Options"
+          component={Options}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              return (
+                <Icon
+                  name="navicon"
+                  type="font-awesome"
+                  color={color}
+                  size={25}
+                />
+              );
+            },
+            tabBarLabel: ({ focused }) => {
+              const color = focused ? colors.primary : '#000';
+              return <Text style={{ fontSize: 14, color: color }}> Mais </Text>;
             },
           }}
         />
