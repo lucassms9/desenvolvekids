@@ -34,6 +34,7 @@
 		A01B4622250DC9B2002D23B9 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4612250DC9B2002D23B9 /* Foundation.ttf */; };
 		A01B4623250DC9B2002D23B9 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4613250DC9B2002D23B9 /* SimpleLineIcons.ttf */; };
 		A01B4624250DC9B2002D23B9 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4614250DC9B2002D23B9 /* FontAwesome5_Regular.ttf */; };
+		A05A42C02560903700351775 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05A42BF2560903700351775 /* file.swift */; };
 		A096A6322520231E00D9D623 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A096A6312520231E00D9D623 /* GoogleService-Info.plist */; };
 		A368DB8100D735B5F6431AEB /* libPods-desenvolvekids.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D4386C1BBC2B0A7F26CEC3 /* libPods-desenvolvekids.a */; };
 		F42111EC1DA3ABD0B249F5FC /* libPods-desenvolvekids-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 052D5D748232A508CF1B8904 /* libPods-desenvolvekids-tvOS.a */; };
@@ -96,6 +97,8 @@
 		A01B4612250DC9B2002D23B9 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Foundation.ttf; path = Fonts/Foundation.ttf; sourceTree = "<group>"; };
 		A01B4613250DC9B2002D23B9 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SimpleLineIcons.ttf; path = Fonts/SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		A01B4614250DC9B2002D23B9 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Regular.ttf; path = Fonts/FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		A05A42BE2560903600351775 /* desenvolvekids-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "desenvolvekids-Bridging-Header.h"; sourceTree = "<group>"; };
+		A05A42BF2560903700351775 /* file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = file.swift; sourceTree = "<group>"; };
 		A096A6312520231E00D9D623 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "desenvolvekids/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A90714A8EF6A4C02AB1D8B63 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		AB404DCC677F40B28EBF0515 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -215,6 +218,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A05A42BF2560903700351775 /* file.swift */,
 				A01B460F250DC9B1002D23B9 /* AntDesign.ttf */,
 				A01B4606250DC9B0002D23B9 /* Entypo.ttf */,
 				A01B460C250DC9B1002D23B9 /* EvilIcons.ttf */,
@@ -238,6 +242,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				4C351FCB69F8E553E244D826 /* Pods */,
 				AEFFA708358A4DFD867A085C /* Resources */,
+				A05A42BE2560903600351775 /* desenvolvekids-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -364,7 +369,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1210;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -724,6 +729,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				A05A42C02560903700351775 /* file.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -777,6 +783,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 05D673745537625331D4AC5B /* Pods-desenvolvekids-desenvolvekidsTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -800,6 +807,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E13369FC7DF974A9FFEC5B67 /* Pods-desenvolvekids-desenvolvekidsTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = desenvolvekidsTests/Info.plist;
@@ -837,6 +845,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = desenvolvekids.com.br;
 				PRODUCT_NAME = "Desenvolve Kids";
+				SWIFT_OBJC_BRIDGING_HEADER = "desenvolvekids-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -859,6 +868,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = desenvolvekids.com.br;
 				PRODUCT_NAME = "Desenvolve Kids";
+				SWIFT_OBJC_BRIDGING_HEADER = "desenvolvekids-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -977,7 +987,7 @@
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\n$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
