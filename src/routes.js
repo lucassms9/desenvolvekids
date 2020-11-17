@@ -52,6 +52,7 @@ import Childrens from '~/screens/Childrens';
 
 import Activities from '~/screens/Activities';
 import ActivityDetail from '~/screens/ActivityDetail';
+import ActivityComplete from '~/screens/ActivityComplete';
 
 import Extras from '~/screens/Extras';
 import ExtraDetail from '~/screens/ExtraDetail';
@@ -74,6 +75,13 @@ function Routes() {
         <ActivitiesStack.Screen
           name="ActivityDetail"
           component={ActivityDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ActivitiesStack.Screen
+          name="ActivityComplete"
+          component={ActivityComplete}
           options={{
             headerShown: false,
           }}
@@ -292,14 +300,14 @@ function Routes() {
                   name="edit"
                   type="feather"
                   color={color}
-                  size={25}
+                  size={20}
                 />
               );
             },
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.primary : '#000';
               return (
-                <Text style={{ fontSize: 14, color: color }}> Atividades </Text>
+                <Text style={{ fontSize: 13, color: color }}> Atividades </Text>
               );
             },
           }}
@@ -336,13 +344,13 @@ function Routes() {
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
               return (
-                <Icon name="heart" type="feather" color={color} size={25} />
+                <Icon name="heart" type="feather" color={color} size={20} />
               );
             },
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.primary : '#000';
               return (
-                <Text style={{ fontSize: 14, color: color }}> Saúde </Text>
+                <Text style={{ fontSize: 13, color: color }}> Saúde </Text>
               );
             },
           }}
@@ -358,14 +366,14 @@ function Routes() {
                   name="folder-plus"
                   type="feather"
                   color={color}
-                  size={25}
+                  size={20}
                 />
               );
             },
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.primary : '#000';
               return (
-                <Text style={{ fontSize: 14, color: color }}> Extras </Text>
+                <Text style={{ fontSize: 13, color: color }}> Extras </Text>
               );
             },
           }}
@@ -382,13 +390,13 @@ function Routes() {
                   name="navicon"
                   type="font-awesome"
                   color={color}
-                  size={25}
+                  size={20}
                 />
               );
             },
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.primary : '#000';
-              return <Text style={{ fontSize: 14, color: color }}> Mais </Text>;
+              return <Text style={{ fontSize: 13, color: color }}> Mais </Text>;
             },
           }}
         />
