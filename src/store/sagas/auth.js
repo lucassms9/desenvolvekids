@@ -21,13 +21,11 @@ export function* init() {
   const user = JSON.parse(userAsync);
   const auth = JSON.parse(user.auth);
 
-  if (auth.user.id) {
-    console.log(auth.user);
+  if (auth.user && auth.user.id) {
     const data = yield call(api.get, '/user/get-data', {
       params: {},
-      headers: { Client: auth.user.id },
+      headers: { token: auth.user.token },
     });
-    console.log(data);
     yield put(AuthActions.signInSuccess(data.user));
     yield put(AuthActions.authCheck(true));
   } else {
@@ -110,7 +108,7 @@ export function* signUp({ data: signUpData }) {
   }
 }
 
-export function* signOut() {
+export function* signOut({ message }) {
   console.log('signOut');
   try {
     yield call([AsyncStorage, 'removeItem'], 'persist:root');
@@ -119,11 +117,15 @@ export function* signOut() {
       auth: { navigationGlobal },
     } = yield select();
 
-    yield call([navigationGlobal, 'dispatch'], StackActions.replace('Auth'));
-
     yield put(AuthActions.signOutSuccess());
     yield put(OrderActions.resetOrder());
     yield put(ProductActions.resetCart());
+    if (navigationGlobal.name !== 'SignIn') {
+      yield call([navigationGlobal, 'dispatch'], StackActions.replace('Auth'));
+      if (message) {
+        yield put(ToastActionsCreators.displayError(`Erro: ${message}`));
+      }
+    }
   } catch (error) {
     console.log(error);
     yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));

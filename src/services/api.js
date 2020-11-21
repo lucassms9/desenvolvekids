@@ -12,12 +12,11 @@ const api = axios.create({
 
 api.interceptors.request.use(async (config) => {
   const state = await store.getState();
-
+  console.log(state);
   const headers = { ...config.headers };
   if (state.auth.user && state.auth.user.id) {
-    headers.Client = `${state.auth.user.id}`;
+    headers.token = `${state.auth.user.token}`;
   }
-
   return {
     ...config,
     headers,
@@ -25,13 +24,17 @@ api.interceptors.request.use(async (config) => {
 });
 
 const errorHandler = ({ response }) => {
-  console.log(response.data);
+  console.log(response);
   if (!response && response.status >= 500) {
     // timeout, internal server error...
     return Promise.reject(Error('Verifique sua conexão com a internet'));
   }
   if (response.status === 401) {
     return store.dispatch(Creators.signOutRequest());
+  }
+  if (response.status === 406) {
+    // Promise.reject(Error(response.data.message));
+    return store.dispatch(Creators.signOutRequest(response.data.message));
   }
   const { data } = response;
   if (data && 'message' in data) {

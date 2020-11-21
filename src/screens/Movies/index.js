@@ -29,7 +29,7 @@ import NotFound from '~/components/NotFound';
 
 import api from '~/services/api';
 
-function Movies({ setNavigation, navigation }) {
+function Movies({ setNavigation, navigation, route }) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasFilter, setHasFilter] = useState(false);
@@ -94,7 +94,7 @@ function Movies({ setNavigation, navigation }) {
   };
 
   useEffect(() => {
-    setNavigation(navigation);
+    setNavigation({ ...navigation, ...route });
     getCategories();
     getMovies();
   }, []);

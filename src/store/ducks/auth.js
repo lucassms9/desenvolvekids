@@ -10,7 +10,7 @@ const { Types, Creators } = createActions({
   signInSuccess: ['user'],
 
   signOutError: ['error'],
-  signOutRequest: null,
+  signOutRequest: ['message'],
   signOutSuccess: null,
 
   signUpError: ['error'],

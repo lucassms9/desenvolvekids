@@ -44,16 +44,25 @@ function Tips({ navigation }) {
   };
 
   const getTips = async () => {
-    setLoading(true);
-    const res = await getTipsSync();
+    try {
+      setLoading(true);
+      const res = await getTipsSync();
 
-    setTips(res.dicas);
-    setTotalPage(res.total_pages);
-    setLoading(false);
+      setTips(res.dicas);
+      setTotalPage(res.total_pages);
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getTipsSync = async (pageGet = 1) => {
     const res = await api.post('dicas/list', { page: pageGet, busca: filter });
+
+    if (!res.dicas) {
+      throw 'error';
+    }
+
     return res;
   };
 

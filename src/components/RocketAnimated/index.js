@@ -13,6 +13,7 @@ function RocketAnimated(props) {
     auth: { authCheck, user },
     navigation,
     setNavigation,
+    route,
   } = props;
   const [endAnimate, setEndAnimate] = useState(false);
   const [bottomPosition, setBottomPosition] = useState(
@@ -33,7 +34,8 @@ function RocketAnimated(props) {
   };
 
   useEffect(() => {
-    setNavigation(navigation);
+    console.log(navigation);
+    setNavigation({ ...navigation, ...route });
     mooveLR();
   }, []);
 

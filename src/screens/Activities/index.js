@@ -29,7 +29,7 @@ import {
 
 import api from '~/services/api';
 
-function Activities({ setNavigation, navigation }) {
+function Activities({ setNavigation, navigation, route }) {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasFilter, setHasFilter] = useState(false);
@@ -89,7 +89,7 @@ function Activities({ setNavigation, navigation }) {
   };
 
   useEffect(() => {
-    setNavigation(navigation);
+    setNavigation({ ...navigation, ...route });
     getCategories();
     getActivities();
   }, []);

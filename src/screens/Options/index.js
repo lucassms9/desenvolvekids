@@ -13,7 +13,7 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
 
-function Options({ signOutRequest, navigation, setNavigation }) {
+function Options({ signOutRequest, navigation, setNavigation, route }) {
   console.log(signOutRequest);
   const openProfile = () => {
     navigation.navigate('Profile');
@@ -31,7 +31,7 @@ function Options({ signOutRequest, navigation, setNavigation }) {
     navigation.navigate('Childrens');
   };
   useEffect(() => {
-    setNavigation(navigation);
+    setNavigation({ ...navigation, ...route });
   }, []);
 
   return (

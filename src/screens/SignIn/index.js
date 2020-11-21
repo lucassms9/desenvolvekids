@@ -34,13 +34,13 @@ import { LoginManager } from 'react-native-fbsdk';
 import styles from './styles';
 import Profile from '../Profile/index';
 
-function SignIn({ status, navigation, setNavigation, signInRequest }) {
+function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
   const emailRef = useRef();
   const passRef = useRef();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setNavigation(navigation);
+    setNavigation({ ...navigation, ...route });
     GoogleSignin.configure({
       scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
       webClientId:
