@@ -25,7 +25,7 @@ function MainCard({
       <View style={style.fx1}>
         <Image
           source={{ uri: banner }}
-          resizeMode="stretch"
+          resizeMode="cover"
           style={style.image}
         />
       </View>

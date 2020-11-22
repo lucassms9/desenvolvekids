@@ -10,7 +10,11 @@ function ButtonSecondary({ loading, onPress, text, icon }) {
       icon={icon}
       loading={loading}
       onPress={onPress}
-      buttonStyle={{ backgroundColor: colors.header, height: 55 }}
+      buttonStyle={{
+        backgroundColor: colors.header,
+        height: 55,
+        borderRadius: 10,
+      }}
     />
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Icon } from 'react-native-elements';
+import { CheckBox, Divider, Icon } from 'react-native-elements';
 import {
   SafeAreaView,
   Image,
@@ -16,13 +16,17 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import { commons, colors } from '~/styles';
 
 import styles from './styles';
+import api from '~/services/api';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function ActivityComplete({ navigation, route }) {
   const { activity } = route.params;
 
   const [status, setStatus] = useState('');
   const [imageTake, setImageTake] = useState(false);
-  const [dificul, setDificul] = useState(null);
+  const [difficulty, setDifficulty] = useState(null);
+  const [questions, setQuestions] = useState([]);
+  const [answer, setAnswer] = useState({});
 
   const activityComplete = () => {
     navigation.navigate('ActivityComplete');
@@ -39,18 +43,40 @@ function ActivityComplete({ navigation, route }) {
       alert(error);
     }
   };
-  console.log(imageTake);
+
+  const getQuestions = async () => {
+    const res = await api.post('/postagens/perguntas');
+    setQuestions(res.questionarios);
+  };
+
+  useEffect(() => {
+    getQuestions();
+  }, []);
+
+  const handleCheck = (id, res) => {
+    const save = {
+      ...answer,
+      [id]: res,
+    };
+    setAnswer(save);
+  };
+  const sendData = async () => {
+    console.log(answer);
+    console.log(imageTake);
+    console.log(difficulty);
+  };
+
   return (
     <View style={commons.body}>
       <Header title="Atividade" hasBack />
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={[commons.container, { flex: 1 }]}>
-          <View style={{ flex: 0.2 }}>
-            <Text style={{ color: '#fff', fontSize: 20, fontWeight: '700' }}>
+      <SafeAreaView style={styles.container}>
+        <View style={[commons.container, styles.container]}>
+          <View style={styles.fx02}>
+            <Text style={styles.title}>
               Parabéns! atividade concluída com sucesso!
             </Text>
           </View>
-          <View style={{ flex: 0.2 }}>
+          <View style={styles.fx02}>
             <ButtonPrimary
               text={!imageTake ? 'Enviar Comprovação' : 'Reenviar Comprovação'}
               onPress={takePhoto}
@@ -75,12 +101,45 @@ function ActivityComplete({ navigation, route }) {
             </View>
           </View>
 
-          <View style={{ flex: 1 }}>
+          <View style={styles.container}>
+            {questions.length > 0 && (
+              <View>
+                <Text style={styles.title}>Questionário:</Text>
+                <View style={styles.containerQuestions}>
+                  <ScrollView>
+                    {questions.map((quest) => {
+                      return (
+                        <View key={quest.id}>
+                          <Text style={styles.questionItem}>
+                            {quest.pergunta}
+                          </Text>
+                          {quest.possiveis_respostas.map((res, index) => {
+                            return (
+                              <View>
+                                <CheckBox
+                                  title={res}
+                                  textStyle={styles.colorItem}
+                                  checkedColor={colors.primary}
+                                  uncheckedColor={colors.primary}
+                                  containerStyle={styles.checkBox}
+                                  onPress={() => {
+                                    handleCheck(quest.id, res);
+                                  }}
+                                  checked={answer[quest.id] === res}
+                                />
+                              </View>
+                            );
+                          })}
+                        </View>
+                      );
+                    })}
+                  </ScrollView>
+                </View>
+              </View>
+            )}
+
             <View>
-              <Text style={{ color: '#fff' }}>Questionário:</Text>
-            </View>
-            <View>
-              <Text style={{ color: '#fff', fontSize: 15, marginBottom: 10 }}>
+              <Text style={[styles.title, { marginBottom: 10 }]}>
                 Dificuldade:
               </Text>
               <View
@@ -88,37 +147,32 @@ function ActivityComplete({ navigation, route }) {
                   flexDirection: 'row',
                   justifyContent: 'space-evenly',
                 }}>
-                <TouchableOpacity onPress={() => setDificul('Vermelho')}>
+                <TouchableOpacity onPress={() => setDifficulty('Vermelho')}>
                   <View
-                    style={{
-                      width: 70,
-                      height: 70,
-                      borderRadius: 15,
-                      backgroundColor: '#f00',
-                      opacity: dificul === 'Vermelho' ? 0.5 : 1,
-                    }}
+                    style={[
+                      styles.itemDifficultyRed,
+                      { opacity: difficulty === 'Vermelho' ? 0.4 : 1 },
+                    ]}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setDificul('Amarelo')}>
+                <TouchableOpacity onPress={() => setDifficulty('Amarelo')}>
                   <View
-                    style={{
-                      width: 70,
-                      height: 70,
-                      borderRadius: 15,
-                      backgroundColor: '#ff0',
-                      opacity: dificul === 'Amarelo' ? 0.5 : 1,
-                    }}
+                    style={[
+                      styles.itemDifficultyYellow,
+                      {
+                        opacity: difficulty === 'Amarelo' ? 0.4 : 1,
+                      },
+                    ]}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setDificul('Verde')}>
+                <TouchableOpacity onPress={() => setDifficulty('Verde')}>
                   <View
-                    style={{
-                      width: 70,
-                      height: 70,
-                      borderRadius: 15,
-                      backgroundColor: '#0f0',
-                      opacity: dificul === 'Verde' ? 0.5 : 1,
-                    }}
+                    style={[
+                      styles.itemDifficultyGreen,
+                      {
+                        opacity: difficulty === 'Verde' ? 0.4 : 1,
+                      },
+                    ]}
                   />
                 </TouchableOpacity>
               </View>
@@ -132,7 +186,7 @@ function ActivityComplete({ navigation, route }) {
               justifyContent: 'flex-end',
               alignContent: 'flex-end',
             }}>
-            <ButtonPrimary text="Enviar Dados" onPress={() => {}} />
+            <ButtonPrimary text="Enviar Dados" onPress={sendData} />
           </View>
         </View>
       </SafeAreaView>
