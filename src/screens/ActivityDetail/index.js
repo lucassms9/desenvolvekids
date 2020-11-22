@@ -21,7 +21,9 @@ function ActivityDetail({ navigation, route }) {
   const [imagesCarousel, setImagesCarousel] = useState([]);
 
   const activityComplete = () => {
-    navigation.navigate('ActivityComplete');
+    navigation.navigate('ActivityComplete', {
+      activity,
+    });
   };
   //responsavel por renderizar as imagens
   const renderImages = (image) => {
@@ -71,10 +73,10 @@ function ActivityDetail({ navigation, route }) {
       return setCurrentPage(currentPage - 1);
     }
   };
-  console.log(imagesCarousel);
+
   return (
     <View style={commons.body}>
-      <Header title="Dicas" hasBack />
+      <Header title="Atividade" hasBack />
       <SafeAreaView>
         <View style={[commons.container, { paddingBottom: 100 }]}>
           <ScrollView>
@@ -90,14 +92,23 @@ function ActivityDetail({ navigation, route }) {
                   <ItemPage item={item} />
                 ))}
               </View>
-              <View>
-                {currentPage > 0 && (
-                  <ButtonPrimary text="Voltar" onPress={backPage} />
-                )}
-                <ButtonPrimary
-                  text={isLastPage ? 'Concluir Atividade' : 'Avançar'}
-                  onPress={nextPage}
-                />
+              <View
+                style={{
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{ width: '45%' }}>
+                  {currentPage > 0 && (
+                    <ButtonPrimary text="Voltar" onPress={backPage} />
+                  )}
+                </View>
+                <View style={{ width: '45%' }}>
+                  <ButtonPrimary
+                    text={isLastPage ? 'Concluir Atividade' : 'Avançar'}
+                    onPress={nextPage}
+                  />
+                </View>
               </View>
             </View>
           </ScrollView>

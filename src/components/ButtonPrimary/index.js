@@ -10,7 +10,11 @@ function ButtonPrimary({ loading, onPress, text, icon }) {
       icon={icon}
       loading={loading}
       onPress={onPress}
-      buttonStyle={{ backgroundColor: colors.primary, height: 55 }}
+      buttonStyle={{
+        backgroundColor: colors.primary,
+        height: 55,
+        borderRadius: 10,
+      }}
     />
   );
 }

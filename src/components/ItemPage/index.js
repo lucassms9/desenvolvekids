@@ -2,11 +2,13 @@ import React, { memo } from 'react';
 
 import { View, Text } from 'react-native';
 
+import PlayerCustom from '~/components/PlayerCustom';
+
 function ItemPage({ item }) {
   const renderMovies = (movie) => {
     return (
-      <View>
-        <Text>movies</Text>
+      <View style={{ marginVertical: 15 }}>
+        <PlayerCustom uriVideo={item.conteudo} />
       </View>
     );
   };
@@ -14,7 +16,9 @@ function ItemPage({ item }) {
   const renderText = (text) => {
     return (
       <View>
-        <Text>text</Text>
+        <Text style={{ fontSize: 14, color: '#fff', textAlign: 'justify' }}>
+          {text.conteudo}
+        </Text>
       </View>
     );
   };
