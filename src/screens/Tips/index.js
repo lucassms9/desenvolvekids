@@ -5,14 +5,8 @@ import { Creators as AuthActions } from '~/store/ducks/auth';
 
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
-import {
-  Card,
-  CardTitle,
-  CardContent,
-  CardAction,
-  CardButton,
-  CardImage,
-} from 'react-native-material-cards';
+
+import MainCard from '~/components/MainCard';
 
 import Loader from '~/components/Loader';
 import Header from '~/components/Header';
@@ -25,7 +19,7 @@ import { commons } from '~/styles';
 import api from '~/services/api';
 import styles from './styles';
 
-function Tips({ navigation }) {
+function Tips({ navigation, route }) {
   const [tips, setTips] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
@@ -58,11 +52,9 @@ function Tips({ navigation }) {
 
   const getTipsSync = async (pageGet = 1) => {
     const res = await api.post('dicas/list', { page: pageGet, busca: filter });
-
     if (!res.dicas) {
       throw 'error';
     }
-
     return res;
   };
 
@@ -115,48 +107,16 @@ function Tips({ navigation }) {
               {tips.length === 0 && <NotFound type="díca" />}
               {tips.map((tip, index) => {
                 return (
-                  <View
-                    key={tip.id}
-                    style={{
-                      backgroundColor: '#fff',
-                      height: 380,
-                      marginBottom: 15,
-                    }}>
-                    <Card>
-                      <CardImage
-                        source={{ uri: tip.imagens[0] }}
-                        // title={`${tip.titulo.substring(0, 100)} ...`}
-                      />
-                      <CardContent
-                        style={{ flex: 0 }}
-                        text={
-                          <>
-                            <Text
-                              style={{
-                                fontSize: 18,
-                                fontWeight: '700',
-                              }}>
-                              {tip.titulo} {'\n\n'}
-                            </Text>
-                            <Text
-                              style={{}}>{`${tip.descricao_resumida.substring(
-                              0,
-                              150,
-                            )} ...`}</Text>
-                          </>
-                        }
-                      />
-                      <CardAction separator={true} inColumn={false}>
-                        <CardButton
-                          onPress={() => {
-                            navigation.navigate('TipDetail', { tip });
-                          }}
-                          title="LER MAIS"
-                          color="blue"
-                        />
-                      </CardAction>
-                    </Card>
-                  </View>
+                  <MainCard
+                    id={tip.id}
+                    banner={tip.imagens[0]}
+                    title={tip.titulo}
+                    desc={tip.descricao_resumida}
+                    goDetail={() => {
+                      navigation.navigate('TipDetail', { tip });
+                    }}
+                    titleButton={'LER MAIS'}
+                  />
                 );
               })}
               <Pagination

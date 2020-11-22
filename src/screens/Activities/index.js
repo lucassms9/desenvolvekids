@@ -10,6 +10,8 @@ import {
   Text,
 } from 'react-native';
 
+import MainCard from '~/components/MainCard';
+
 import { Creators as AuthActions } from '~/store/ducks/auth';
 
 import Header from '~/components/Header';
@@ -18,14 +20,6 @@ import Loader from '~/components/Loader';
 import ItemsFilter from '~/components/ItemsFilter';
 import Pagination from '~/components/Pagination';
 import NotFound from '~/components/NotFound';
-
-import {
-  Card,
-  CardContent,
-  CardAction,
-  CardButton,
-  CardImage,
-} from 'react-native-material-cards';
 
 import api from '~/services/api';
 
@@ -47,7 +41,7 @@ function Activities({ setNavigation, navigation, route }) {
     }
 
     const res = await getActivitiesSync(page + 1);
-    const allActivities = [...activities, ...res.videos];
+    const allActivities = [...activities, ...res.postagens];
 
     setActivities(allActivities);
   };
@@ -57,30 +51,36 @@ function Activities({ setNavigation, navigation, route }) {
     try {
       const res = await getActivitiesSync(1, filter);
 
-      setActivities(res.dicas);
+      setActivities(res.postagens);
       setTotalPage(res.total_pages);
     } catch (error) {
+    } finally {
       setLoading(false);
     }
-    setLoading(false);
   };
 
   const getActivitiesSync = async (pageGet = 1, filter = '') => {
     if (filter) {
       setHasFilter(true);
     }
-    const res = await api.post('dicas/list', { page: pageGet, busca: filter });
+    const res = await api.post('postagens', {
+      page: pageGet,
+      busca: filter,
+      categoria: 1,
+    });
+    if (!res.postagens) {
+      throw 'error';
+    }
     return res;
   };
 
   const getCategories = async () => {
-    const res = await api.post('multimidias/categorias-list');
-    const handle = res.categorias.map((cat) => ({
-      label: cat.nome,
-      id: cat.id,
-    }));
-
-    setCategories(handle);
+    // const res = await api.post('multimidias/categorias-list');
+    // const handle = res.categorias.map((cat) => ({
+    //   label: cat.nome,
+    //   id: cat.id,
+    // }));
+    // setCategories(handle);
   };
 
   const resetFilter = () => {
@@ -130,50 +130,16 @@ function Activities({ setNavigation, navigation, route }) {
                 <ItemsFilter filterFunc={filterActivities} items={categories} />
               </View>
               {activities.length === 0 && <NotFound type="Atividades" />}
-              {activities.map((tip, index) => {
+              {activities.map((act, index) => {
                 return (
-                  <View
-                    key={tip.id}
-                    style={{
-                      backgroundColor: '#fff',
-                      height: 380,
-                      marginBottom: 15,
-                    }}>
-                    <Card>
-                      <CardImage
-                        source={{ uri: tip.imagens[0] }}
-                        // title={`${tip.titulo.substring(0, 100)} ...`}
-                      />
-                      <CardContent
-                        style={{ flex: 0 }}
-                        text={
-                          <>
-                            <Text
-                              style={{
-                                fontSize: 18,
-                                fontWeight: '700',
-                              }}>
-                              {tip.titulo} {'\n\n'}
-                            </Text>
-                            <Text
-                              style={{}}>{`${tip.descricao_resumida.substring(
-                              0,
-                              150,
-                            )} ...`}</Text>
-                          </>
-                        }
-                      />
-                      <CardAction separator={true} inColumn={false}>
-                        <CardButton
-                          onPress={() => {
-                            navigation.navigate('ActivityDetail', { tip });
-                          }}
-                          title="LER MAIS"
-                          color="blue"
-                        />
-                      </CardAction>
-                    </Card>
-                  </View>
+                  <MainCard
+                    id={act.id}
+                    banner={act.banner}
+                    title={act.titulo}
+                    goDetail={() => {
+                      navigation.navigate('ActivityDetail', { activity: act });
+                    }}
+                  />
                 );
               })}
               <Pagination
