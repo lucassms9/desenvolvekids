@@ -5,98 +5,98 @@ import { useIsFocused } from '@react-navigation/native';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
-import SliderEntry from '~/components/SliderEntry';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import Header from '~/components/Header';
 import ButtonPrimary from '~/components/ButtonPrimary';
+import MainCarousel from '~/components/MainCarousel';
+import ItemPage from '~/components/ItemPage';
 import { commons, colors } from '~/styles';
-import { itemWidth, sliderWidth } from './styles';
-
-import styles from './styles';
 
 function ActivityDetail({ navigation, route }) {
-  const { tip } = route.params;
+  const { activity } = route.params;
 
   const [status, setStatus] = useState('');
-  const [sliderRef, setSliderRef] = useState(null);
-  const [sliderActiveSlide, setSliderActiveSlide] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [imagesCarousel, setImagesCarousel] = useState([]);
 
   const activityComplete = () => {
     navigation.navigate('ActivityComplete');
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      setSliderActiveSlide(0);
-    }, 300);
-  }, []);
-
-  const renderItemWithParallax = ({ item, index }, parallaxProps) => {
-    return (
-      <SliderEntry
-        data={item}
-        even={(index + 1) % 2 === 0}
-        parallax={true}
-        parallaxProps={parallaxProps}
-      />
-    );
+  //responsavel por renderizar as imagens
+  const renderImages = (image) => {
+    console.log(image);
+    imagesCarousel.push([image.conteudo]);
   };
 
+  const nextPage = () => {
+    if (isLastPage) {
+      return activityComplete();
+    }
+    return setCurrentPage(currentPage + 1);
+  };
+
+  useEffect(() => {
+    setCurrentPage(0);
+    setIsLastPage(false);
+  }, []);
+  //definir se e a ultima page ou nao
+  useEffect(() => {
+    //seta as imagens
+    const imagens = activity.conteudos[currentPage].conteudos_itens
+      .filter((item) => {
+        if (item.tipo === 'imagem') {
+          return item;
+        }
+      })
+      .map((img) => img.conteudo);
+    if (imagens.length > 0) {
+      setImagesCarousel(imagens);
+    } else {
+      setImagesCarousel([]);
+    }
+    if (activity.conteudos.length === 0) {
+      return setIsLastPage(true);
+    }
+
+    if (activity.conteudos.length - 1 === currentPage) {
+      return setIsLastPage(true);
+    }
+
+    return setIsLastPage(false);
+  }, [currentPage]);
+
+  const backPage = () => {
+    if (currentPage > 0) {
+      return setCurrentPage(currentPage - 1);
+    }
+  };
+  console.log(imagesCarousel);
   return (
     <View style={commons.body}>
       <Header title="Dicas" hasBack />
       <SafeAreaView>
         <View style={[commons.container, { paddingBottom: 100 }]}>
           <ScrollView>
-            <Carousel
-              ref={(c) => setSliderRef(c)}
-              data={tip.imagens}
-              renderItem={renderItemWithParallax}
-              sliderWidth={sliderWidth}
-              itemWidth={itemWidth}
-              hasParallaxImages={true}
-              firstItem={sliderActiveSlide}
-              inactiveSlideScale={0.94}
-              inactiveSlideOpacity={0.7}
-              inactiveSlideShift={20}
-              containerCustomStyle={styles.slider}
-              contentContainerCustomStyle={styles.sliderContentContainer}
-              enableMomentum={true}
-              // autoplay={true}
-              onSnapToItem={(index) => setSliderActiveSlide(index)}
-            />
-            <Pagination
-              dotsLength={tip.imagens.length}
-              activeDotIndex={sliderActiveSlide}
-              containerStyle={styles.paginationContainer}
-              dotColor={'rgba(255, 255, 255, 0.92)'}
-              dotStyle={styles.paginationDot}
-              inactiveDotColor={colors.white}
-              inactiveDotOpacity={0.4}
-              inactiveDotScale={0.6}
-              carouselRef={sliderRef}
-              tappableDots={!!sliderRef}
-            />
-            <View style={{ marginHorizontal: 8 }}>
-              <Text
-                style={{
-                  color: '#fff',
-                  textAlign: 'left',
-                  fontSize: 18,
-                  fontWeight: '700',
-                  marginBottom: 10,
-                }}>
-                {tip.titulo}
-              </Text>
-              <Text style={{ color: '#fff', textAlign: 'justify' }}>
-                {tip.descricao_completa}
-              </Text>
+            <View>
+              {imagesCarousel.length > 0 && (
+                <MainCarousel imagens={imagesCarousel} />
+              )}
+            </View>
 
-              <View style={{ marginTop: 10 }}>
+            <View style={{ marginTop: 10, marginHorizontal: 8 }}>
+              <View>
+                {activity.conteudos[currentPage].conteudos_itens.map((item) => (
+                  <ItemPage item={item} />
+                ))}
+              </View>
+              <View>
+                {currentPage > 0 && (
+                  <ButtonPrimary text="Voltar" onPress={backPage} />
+                )}
                 <ButtonPrimary
-                  text="Marcar como finalizado"
-                  onPress={activityComplete}
+                  text={isLastPage ? 'Concluir Atividade' : 'Avançar'}
+                  onPress={nextPage}
                 />
               </View>
             </View>
