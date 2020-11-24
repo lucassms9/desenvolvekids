@@ -65,7 +65,7 @@ function Activities({ setNavigation, navigation, route }) {
     }
     const res = await api.post('postagens', {
       page: pageGet,
-      busca: filter,
+      tipo: filter,
       categoria: 1,
     });
     if (!res.postagens) {
@@ -75,12 +75,14 @@ function Activities({ setNavigation, navigation, route }) {
   };
 
   const getCategories = async () => {
-    // const res = await api.post('multimidias/categorias-list');
-    // const handle = res.categorias.map((cat) => ({
-    //   label: cat.nome,
-    //   id: cat.id,
-    // }));
-    // setCategories(handle);
+    const res = await api.post('postagens/categorias', {
+      tipo: 1,
+    });
+    const handle = res.categorias.map((cat) => ({
+      label: cat.nome,
+      id: cat.id,
+    }));
+    setCategories(handle);
   };
 
   const resetFilter = () => {

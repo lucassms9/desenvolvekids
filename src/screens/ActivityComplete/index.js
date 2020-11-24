@@ -10,7 +10,10 @@ import {
 } from 'react-native';
 import { permissionCamera } from '~/services/permissions';
 import cameraService from '~/services/cameraService';
+import { useSelector, useDispatch } from 'react-redux';
+import { CommonActions } from '@react-navigation/native';
 
+import { ToastActionsCreators } from 'react-native-redux-toast';
 import Header from '~/components/Header';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import { commons, colors } from '~/styles';
@@ -27,6 +30,8 @@ function ActivityComplete({ navigation, route }) {
   const [difficulty, setDifficulty] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [answer, setAnswer] = useState({});
+
+  const dispatch = useDispatch();
 
   const activityComplete = () => {
     navigation.navigate('ActivityComplete');
@@ -61,9 +66,35 @@ function ActivityComplete({ navigation, route }) {
     setAnswer(save);
   };
   const sendData = async () => {
-    console.log(answer);
-    console.log(imageTake);
-    console.log(difficulty);
+    setStatus('loading');
+    try {
+      const ansHandle = Object.entries(answer).map(([key, value]) => ({
+        perguntaId: key,
+        reposta: value,
+      }));
+
+      const data = {
+        postagens_id: activity.id,
+        resposta: ansHandle,
+        imgBase64: imageTake,
+        dificuldade: difficulty,
+      };
+      const res = await api.post('/postagens/finalizando-postagem', data);
+      dispatch(
+        ToastActionsCreators.displayInfo('Atividade finalizado com sucesso'),
+      );
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [{ name: 'Activities' }],
+        }),
+      );
+      navigation.navigate('Activities');
+    } catch (error) {
+      return dispatch(ToastActionsCreators.displayError(error.message, 5000));
+    } finally {
+      setStatus('');
+    }
   };
 
   return (
@@ -186,7 +217,11 @@ function ActivityComplete({ navigation, route }) {
               justifyContent: 'flex-end',
               alignContent: 'flex-end',
             }}>
-            <ButtonPrimary text="Enviar Dados" onPress={sendData} />
+            <ButtonPrimary
+              text="Enviar Dados"
+              loading={status === 'loading'}
+              onPress={sendData}
+            />
           </View>
         </View>
       </SafeAreaView>
