@@ -10,6 +10,8 @@ import {
   Text,
 } from 'react-native';
 
+import moment from 'moment';
+
 import MainCard from '~/components/MainCard';
 
 import { Creators as AuthActions } from '~/store/ducks/auth';
@@ -41,6 +43,7 @@ function Activities({ setNavigation, navigation, route }) {
     }
 
     const res = await getActivitiesSync(page + 1);
+
     const allActivities = [...activities, ...res.postagens];
 
     setActivities(allActivities);
@@ -68,9 +71,15 @@ function Activities({ setNavigation, navigation, route }) {
       tipo: filter,
       categoria: 1,
     });
+
     if (!res.postagens) {
       throw 'error';
     }
+
+    res.postagens.sort(function (a, b) {
+      return new Date(b.data_agenda) - new Date(a.data_agenda);
+    });
+
     return res;
   };
 
@@ -106,6 +115,20 @@ function Activities({ setNavigation, navigation, route }) {
     return unsubscribe;
   }, [navigation]);
 
+  const toggleFavorite = async (id) => {
+    const actHandleNew = activities.filter((act) => act.id !== id);
+    const actHandle = activities.find((act) => act.id === id);
+    actHandle.isFavorite = !actHandle.isFavorite;
+
+    const newAct = [...actHandleNew, actHandle];
+    newAct.sort(function (a, b) {
+      return new Date(b.data_agenda) - new Date(a.data_agenda);
+    });
+
+    await api.post('postagens/favoritar', { postagens_id: id });
+    setActivities(newAct);
+  };
+
   return (
     <View style={commons.body}>
       <Header title="Atividades" />
@@ -138,6 +161,16 @@ function Activities({ setNavigation, navigation, route }) {
                     id={act.id}
                     banner={act.banner}
                     title={act.titulo}
+                    isFavorite={act.isFavorite}
+                    isSchecule={
+                      act.data_agenda &&
+                      moment(act.data_agenda).isSame(moment(), 'day')
+                        ? true
+                        : false
+                    }
+                    showFavorite
+                    progress={`${act.progresso}/${act.conteudos.length}`}
+                    toggleFavorite={toggleFavorite}
                     goDetail={() => {
                       navigation.navigate('ActivityDetail', { activity: act });
                     }}

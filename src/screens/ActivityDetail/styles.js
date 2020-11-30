@@ -100,9 +100,9 @@ export default StyleSheet.create({
   },
   btn: {
     backgroundColor: colors.primary,
-    marginTop: 8,
+    marginLeft: 10,
     borderRadius: 25,
   },
-  fdr: { flexDirection: 'row' },
-  wd90: { width: '90%' },
+  fdr: { flexDirection: 'row', marginBottom: 10, justifyContent: 'center' },
+  wd90: { width: '75%' },
 });

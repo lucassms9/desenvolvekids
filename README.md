@@ -18,3 +18,8 @@ keytool -list -v \
 
 keytool -list -v -keystore android/app/desenvolvekids-key.keystore -alias desenvolvekids-alias
 
+#TAREFAS
+
+faltando verificar se conteudo esta finalizado - ok
+gerar agendamentos
+favoritar atividades - ok

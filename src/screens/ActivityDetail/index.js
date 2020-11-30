@@ -3,8 +3,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useIsFocused } from '@react-navigation/native';
 import { Creators as AuthActions } from '~/store/ducks/auth';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { SafeAreaView, ScrollView, View, Text } from 'react-native';
+import DatePicker from 'react-native-datepicker';
+import moment from 'moment';
+import {
+  SafeAreaView,
+  ScrollView,
+  View,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
+
+import { ToastActionsCreators } from 'react-native-redux-toast';
+
+import { Button } from 'react-native-elements';
+
+import api from '~/services/api';
 
 import Header from '~/components/Header';
 import ButtonPrimary from '~/components/ButtonPrimary';
@@ -12,35 +27,53 @@ import MainCarousel from '~/components/MainCarousel';
 import ItemPage from '~/components/ItemPage';
 import { commons, colors } from '~/styles';
 
+import styles from './styles';
+
 function ActivityDetail({ navigation, route }) {
   const { activity } = route.params;
 
-  const [status, setStatus] = useState('');
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [date, setDate] = useState(moment());
   const [currentPage, setCurrentPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
   const [imagesCarousel, setImagesCarousel] = useState([]);
+  const [schedule, setSchedule] = useState(null);
+
+  const dispatch = useDispatch();
 
   const activityComplete = () => {
     navigation.navigate('ActivityComplete', {
       activity,
     });
   };
+
   //responsavel por renderizar as imagens
   const renderImages = (image) => {
-    console.log(image);
     imagesCarousel.push([image.conteudo]);
   };
 
   const nextPage = () => {
+    api.post('postagens/completar', {
+      conteudos_id: activity.conteudos[currentPage].id,
+      postagens_id: activity.id,
+    });
+
     if (isLastPage) {
       return activityComplete();
     }
+
     return setCurrentPage(currentPage + 1);
   };
 
   useEffect(() => {
     setCurrentPage(0);
     setIsLastPage(false);
+
+    if (activity.data_agenda) {
+      setDate(moment(activity.data_agenda, 'YYYY-MM-DD'));
+    } else {
+      setDate('');
+    }
   }, []);
   //definir se e a ultima page ou nao
   useEffect(() => {
@@ -74,13 +107,62 @@ function ActivityDetail({ navigation, route }) {
     }
   };
 
+  const sendSchedule = async () => {
+    console.log(date);
+    api.post('postagens/agendar', {
+      postagens_id: activity.id,
+      data_agendamento: moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+    });
+
+    return dispatch(
+      ToastActionsCreators.displayInfo('Atividade Agendada com sucesso.'),
+    );
+  };
+
+  const handleConfirm = (date) => {
+    console.warn('A date has been picked: ', date);
+    setDate(date);
+  };
+
   return (
     <View style={commons.body}>
       <Header title="Atividade" hasBack />
       <SafeAreaView>
         <View style={[commons.container, { paddingBottom: 100 }]}>
           <ScrollView>
-            <View>
+            <View style={styles.fdr}>
+              <DatePicker
+                style={{ width: 200 }}
+                date={date}
+                mode="date"
+                placeholder="Selecione a Data"
+                format="DD/MM/YYYY"
+                confirmBtnText="Confirmar"
+                cancelBtnText="Cancelar"
+                onDateChange={handleConfirm}
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0,
+                    color: '#fff',
+                  },
+                  dateText: {
+                    color: '#fff',
+                  },
+                  dateInput: {
+                    marginLeft: 36,
+                  },
+                }}
+              />
+              <Button
+                onPress={sendSchedule}
+                buttonStyle={styles.btn}
+                title="Agendar"
+              />
+            </View>
+            <View style={{}}>
               {imagesCarousel.length > 0 && (
                 <MainCarousel imagens={imagesCarousel} />
               )}
