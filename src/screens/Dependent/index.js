@@ -91,35 +91,43 @@ function Dependent({
         <View style={[commons.container, styles.container]}>
           <View style={styles.pd15}>
             <Text style={styles.title}>Meus Dependentes</Text>
-            {auth.user.dependentes.map((dependent) => {
-              return (
-                <View key={dependent.id}>
-                  <View style={styles.childrenItem}>
-                    <View style={styles.pd10}>
-                      <Text style={styles.subTitle}>{dependent.nome}</Text>
+            {auth && auth.user && auth.user.dependentes && (
+              <View>
+                {auth.user.dependentes.map((dependent) => {
+                  return (
+                    <View key={dependent.id}>
+                      <View style={styles.childrenItem}>
+                        <View style={styles.pd10}>
+                          <Text style={styles.subTitle}>{dependent.nome}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                          <TouchableOpacity
+                            style={{ marginHorizontal: 10 }}
+                            onPress={() => rmDependentRequest(dependent.id)}>
+                            <Icon
+                              color={colors.white}
+                              name="divide-circle"
+                              type="feather"
+                            />
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            onPress={() => editDependent(dependent)}>
+                            <Icon
+                              color={colors.white}
+                              name="edit"
+                              type="feather"
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                      <View style={styles.container}>
+                        <Divider style={styles.dividir} />
+                      </View>
                     </View>
-                    <View style={{ flexDirection: 'row' }}>
-                      <TouchableOpacity
-                        style={{ marginHorizontal: 10 }}
-                        onPress={() => rmDependentRequest(dependent.id)}>
-                        <Icon
-                          color={colors.white}
-                          name="divide-circle"
-                          type="feather"
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() => editDependent(dependent)}>
-                        <Icon color={colors.white} name="edit" type="feather" />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                  <View style={styles.container}>
-                    <Divider style={styles.dividir} />
-                  </View>
-                </View>
-              );
-            })}
+                  );
+                })}
+              </View>
+            )}
           </View>
           <View style={styles.mg15}>
             <ButtonSecondary
