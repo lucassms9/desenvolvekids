@@ -8,6 +8,8 @@ set | egrep -e $ENV_WHITELIST | sed 's/^RN_//g' > .env
 printf "\n.env created with contents:\n\n"
 cat .env
 
+npx react-native-fix-image
+
 #run Pod
 if [ -z ${APPCENTER_ANDROID_VARIANT+x}];
     then cd ios && pod install --repo-update && cd ..

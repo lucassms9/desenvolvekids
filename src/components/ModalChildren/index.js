@@ -79,17 +79,6 @@ function ModalChildren({
                 {errors.phone && (
                   <Text style={commons.error}>{errors.phone}</Text>
                 )}
-                <Input
-                  value={values.password}
-                  label={'Senha'}
-                  autoCapitalize="none"
-                  placeholder={'Senha'}
-                  secureTextEntry={true}
-                  onChangeText={(text) => setFieldValue('password', text)}
-                />
-                {errors.password && (
-                  <Text style={commons.error}>{errors.password}</Text>
-                )}
 
                 <View style={{ marginTop: 30 }}>
                   <ButtonPrimary

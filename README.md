@@ -18,8 +18,24 @@ keytool -list -v \
 
 keytool -list -v -keystore android/app/desenvolvekids-key.keystore -alias desenvolvekids-alias
 
-#TAREFAS
 
-faltando verificar se conteudo esta finalizado - ok
-gerar agendamentos
-favoritar atividades - ok
+Modulo dependente 
+
+detalhamento: 
+
+- No menu secundário no app, criar modulo de dependentes; 
+
+Criar flag na tabela de usuarios (bool dependente 1/0) 
+
+- O perfil dependente deve vir de uma API (pai,mae,tio,tia,etc); 
+
+- A regra inicial e o usuário só poder criar 1 dependente; 
+
+
+Modulo galeria 
+
+detalhamento: 
+
+exibir todas imagens de comprovações realizadas nas atividades,  
+
+com opções de compartilhamento nas redes sociais 

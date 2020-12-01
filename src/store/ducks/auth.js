@@ -25,6 +25,14 @@ const { Types, Creators } = createActions({
   addChildrenRequest: ['data'],
   addChildrenSuccess: ['user'],
 
+  addDependentError: ['error'],
+  addDependentRequest: ['data'],
+  addDependentSuccess: ['user'],
+
+  rmDependentError: ['error'],
+  rmDependentRequest: ['id'],
+  rmDependentSuccess: ['user'],
+
   recoverPasswordRequest: ['email'],
   recoverPasswordSuccess: ['message'],
   recoverPasswordError: ['error'],
@@ -79,6 +87,12 @@ const updateUserSuccess = (state = INITIAL_STATE, { user }) =>
 const addChildrenSuccess = (state = INITIAL_STATE, { user }) =>
   state.merge({ status: 'success', user });
 
+const addDependentSuccess = (state = INITIAL_STATE, { user }) =>
+  state.merge({ status: 'success', user });
+
+const rmDependentSuccess = (state = INITIAL_STATE, { user }) =>
+  state.merge({ status: 'success', user });
+
 const addAddressRequestSuccess = (state = INITIAL_STATE, { user }) =>
   state.merge({ user });
 
@@ -107,6 +121,14 @@ export default createReducer(INITIAL_STATE, {
   [Types.ADD_CHILDREN_REQUEST]: request,
   [Types.ADD_CHILDREN_SUCCESS]: addChildrenSuccess,
   [Types.ADD_ADDRESS_REQUEST_SUCCESS]: addAddressRequestSuccess,
+
+  [Types.ADD_DEPENDENT_ERROR]: error,
+  [Types.ADD_DEPENDENT_REQUEST]: request,
+  [Types.ADD_DEPENDENT_SUCCESS]: addDependentSuccess,
+
+  [Types.RM_DEPENDENT_ERROR]: error,
+  [Types.RM_DEPENDENT_REQUEST]: request,
+  [Types.RM_DEPENDENT_SUCCESS]: rmDependentSuccess,
 });
 
 export { Types, Creators };

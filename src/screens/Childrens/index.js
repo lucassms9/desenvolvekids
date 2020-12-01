@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Creators as PlanActions } from '~/store/ducks/plan';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 import { bindActionCreators } from 'redux';
-import momento from 'moment';
+import moment from 'moment';
 import { Icon, Divider } from 'react-native-elements';
 
 import Header from '~/components/Header';
@@ -50,7 +50,7 @@ function Childrens({ anavigation, auth, addChildrenRequest }) {
       id: children.id,
       name: children.nome,
       email: children.email,
-      birthDate: momento(children.data_nascimento).format('DD/MM/YYYYY'),
+      birthDate: moment(children.data_nascimento).format('DD/MM/YYYYY'),
       nickName: children.apelido,
       phone: maskOnlyPhone(children.celular),
     };

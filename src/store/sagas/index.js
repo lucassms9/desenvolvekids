@@ -14,6 +14,8 @@ import {
   requestAddress,
   requestUpdate,
   requestChildren,
+  requestDependent,
+  requestRmDependent,
 } from './auth';
 import { fetchAll } from './product';
 import { requestPayment } from './plan';
@@ -31,6 +33,8 @@ export default function* rootSaga() {
     takeLatest(AuthTypes.ADD_ADDRESS_REQUEST, requestAddress),
     takeLatest(AuthTypes.UPDATE_USER_REQUEST, requestUpdate),
     takeLatest(AuthTypes.ADD_CHILDREN_REQUEST, requestChildren),
+    takeLatest(AuthTypes.ADD_DEPENDENT_REQUEST, requestDependent),
+    takeLatest(AuthTypes.RM_DEPENDENT_REQUEST, requestRmDependent),
     takeLatest(OrderTypes.REQUEST_PAYMENT_ORDER, requestPaymentOrder),
     takeLatest(OrderTypes.ADD_DELIVERY_METHOD, fetchDeliveryway),
   ]);

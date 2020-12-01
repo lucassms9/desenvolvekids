@@ -30,6 +30,9 @@ function Options({ signOutRequest, navigation, setNavigation, route }) {
   const openChildrens = () => {
     navigation.navigate('Childrens');
   };
+  const openForum = () => {
+    navigation.navigate('Forum');
+  };
   useEffect(() => {
     setNavigation({ ...navigation, ...route });
   }, []);
@@ -39,7 +42,7 @@ function Options({ signOutRequest, navigation, setNavigation, route }) {
       <Header title="Opções" hasBack />
       <SafeAreaView style={{ flex: 1 }}>
         <View style={[commons.container, { flex: 1 }]}>
-          <View style={{ flex: 1 }}>
+          <ScrollView style={{ flex: 1 }}>
             <TouchableOpacity onPress={openProfile} style={styles.items}>
               <View style={{ flexDirection: 'row' }}>
                 <Icon color="#fff" name="user" type="feather" />
@@ -47,9 +50,29 @@ function Options({ signOutRequest, navigation, setNavigation, route }) {
               </View>
               <Icon color="#fff" name="arrow-right" type="feather" />
             </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Dependent')}
+              style={styles.items}>
+              <View style={{ flexDirection: 'row' }}>
+                <Icon color="#fff" name="users" type="feather" />
+                <Text style={styles.itemLabel}>Dependentes</Text>
+              </View>
+              <Icon color="#fff" name="arrow-right" type="feather" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={openForum} style={styles.items}>
+              <View style={{ flexDirection: 'row' }}>
+                <Icon
+                  color="#fff"
+                  name="forum-outline"
+                  type="material-community"
+                />
+                <Text style={styles.itemLabel}>Pergunte ao Doutor</Text>
+              </View>
+              <Icon color="#fff" name="arrow-right" type="feather" />
+            </TouchableOpacity>
             <TouchableOpacity onPress={openChildrens} style={styles.items}>
               <View style={{ flexDirection: 'row' }}>
-                <Icon color="#fff" name="child-care" type="material" />
+                <Icon color="#fff" name="child" type="font-awesome" />
                 <Text style={styles.itemLabel}>Meus Filhos</Text>
               </View>
               <Icon color="#fff" name="arrow-right" type="feather" />
@@ -76,7 +99,7 @@ function Options({ signOutRequest, navigation, setNavigation, route }) {
               </View>
               <Icon color="#fff" name="arrow-right" type="feather" />
             </TouchableOpacity>
-          </View>
+          </ScrollView>
           <View style={{ marginTop: 15, backgroundColor: '#f00' }}>
             <ButtonPrimary
               icon={

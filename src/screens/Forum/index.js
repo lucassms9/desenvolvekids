@@ -137,7 +137,7 @@ class Forum extends Component {
 
     return (
       <View style={commons.body}>
-        <Header title="Forum" />
+        <Header hasBack title="Forum" />
         <SafeAreaView>
           <View style={[commons.container, { paddingBottom: 90 }]}>
             {loading && <Loader />}
@@ -201,29 +201,6 @@ class Forum extends Component {
                             })
                           )}
                         </ScrollView>
-                      </View>
-
-                      <View style={styles.fdr}>
-                        <Input
-                          placeholder="Digite sua Resposta"
-                          containerStyle={styles.wd90}
-                          value={this.state.answer}
-                          onChangeText={(value) =>
-                            this.setState({ answer: value })
-                          }
-                        />
-                        <Button
-                          onPress={() => this.addAnswer(forum.id)}
-                          buttonStyle={styles.btn}
-                          icon={
-                            <Icon
-                              name="navigation"
-                              size={17}
-                              type="feather"
-                              color="white"
-                            />
-                          }
-                        />
                       </View>
                     </View>
                   );

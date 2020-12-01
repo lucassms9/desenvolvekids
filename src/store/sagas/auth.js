@@ -209,6 +209,50 @@ export function* requestChildren({ data }) {
   }
 }
 
+export function* requestRmDependent({ id }) {
+  try {
+    const req = {
+      id: id,
+    };
+
+    yield call(api.post, '/user/rm-dependent', req);
+
+    const datares = yield call(api.get, '/user/get-data');
+
+    yield put(AuthActions.signInSuccess(datares.user));
+  } catch (error) {
+    yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
+    yield put(AuthActions.signInError(error));
+  }
+}
+
+export function* requestDependent({ data }) {
+  try {
+    const req = {
+      nome: data.name,
+      email: data.email,
+      parentesco: data.parent,
+      celular: data.phone,
+      senha: data.password,
+      cpf: data.fiscalNumber,
+      data_nascimento: data.birthDate,
+    };
+
+    if (data.id) {
+      req.id = data.id;
+    }
+
+    yield call(api.post, '/user/add-dependent', req);
+
+    const datares = yield call(api.get, '/user/get-data');
+
+    yield put(AuthActions.signInSuccess(datares.user));
+  } catch (error) {
+    yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
+    yield put(AuthActions.signInError(error));
+  }
+}
+
 export function* recover() {
   try {
   } catch (error) {

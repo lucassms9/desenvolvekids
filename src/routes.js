@@ -22,6 +22,7 @@ import Recover from '~/screens/Recover';
 
 import Movies from '~/screens/Movies';
 import Podcasts from '~/screens/Podcasts';
+import Dependent from '~/screens/Dependent';
 import Tips from '~/screens/Tips';
 import Store from '~/screens/Store';
 import Forum from '~/screens/Forum';
@@ -145,13 +146,7 @@ function Routes() {
             headerShown: false,
           }}
         />
-        <OptionsStack.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            headerShown: false,
-          }}
-        />
+
         <OptionsStack.Screen
           name="DeliveryInfo"
           component={DeliveryInfo}
@@ -523,6 +518,27 @@ function Routes() {
           }}
         />
         <ContentStack.Screen
+          name="Childrens"
+          component={Childrens}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ContentStack.Screen
+          name="Dependent"
+          component={Dependent}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ContentStack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ContentStack.Screen
           name="Rocket"
           component={RocketAnimated}
           options={{
@@ -532,6 +548,13 @@ function Routes() {
         <ContentStack.Screen
           name="Plans"
           component={PlansStackScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ContentStack.Screen
+          name="Forum"
+          component={ForumStackScreen}
           options={{
             headerShown: false,
           }}
