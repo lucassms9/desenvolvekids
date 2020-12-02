@@ -1,32 +1,81 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
-import axios from 'axios';
+import { SafeAreaView, Text, View } from 'react-native';
 
+import { commons, colors } from '~/styles';
+import Header from '~/components/Header';
+import Loader from '~/components/Loader';
+import api from '~/services/api';
+import { Input } from 'react-native-elements';
+import ButtonPrimary from '~/components/ButtonPrimary';
+
+import { validateEmail } from '~/helpers/validateFunctions';
+import styles from './styles';
 function Recover() {
-  const [res, setRes] = useState('');
-  const getDatas = async () => {
+  const [status, setStatus] = useState('');
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState(false);
+
+  useEffect(() => {});
+
+  const checkEmail = () => {
+    const result = {
+      status: 1,
+      message: '',
+    };
+
+    if (!email) {
+      result.status = 0;
+      result.message = 'Preencher o campo E-mail';
+      return result;
+    }
+    if (!validateEmail(email)) {
+      result.status = 0;
+      result.message = 'E-mail Inválido';
+      return result;
+    }
+
+    return result;
+  };
+
+  const handleSubmit = async () => {
     try {
-      const res = await axios.get(
-        'http://homolog.desenvolvekids.com.br/api/forums/categories-list',
-      );
+      const check = checkEmail();
+      setError(false);
 
-      setRes(JSON.stringify(res));
+      if (!check.status) {
+        return setError(check.message);
+      }
+      const res = await api.post('login/recuperar-senha', { email });
+      setError(res.message);
     } catch (error) {
-      const res = await axios.get(
-        'http://homolog.desenvolvekids.com.br/api/forums/categories-list',
-      );
-
-      setRes(JSON.stringify(error));
+      return setError(error.message);
     }
   };
 
-  useEffect(() => {
-    getDatas();
-  });
-
   return (
-    <View>
-      <Text>{res}</Text>
+    <View style={commons.body}>
+      <Header hasBack title="Recuperar Senha" hasntProfile />
+      <SafeAreaView style={styles.container}>
+        <View>
+          <Input
+            inputStyle={commons.textWhite}
+            labelStyle={commons.textWhite}
+            value={email}
+            label={'E-mail'}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            placeholder={'E-mail'}
+            onChangeText={setEmail}
+            onSubmitEditing={() => {}}
+          />
+          {error && <Text style={commons.error}>{error}</Text>}
+          <ButtonPrimary
+            loading={status === 'loading'}
+            text="RECUPERAR SENHA"
+            onPress={handleSubmit}
+          />
+        </View>
+      </SafeAreaView>
     </View>
   );
 }
