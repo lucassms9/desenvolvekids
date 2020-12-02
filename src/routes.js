@@ -21,7 +21,7 @@ import Recover from '~/screens/Recover';
  */
 
 import Movies from '~/screens/Movies';
-import Podcasts from '~/screens/Podcasts';
+import Gallery from '~/screens/Gallery';
 import Dependent from '~/screens/Dependent';
 import Tips from '~/screens/Tips';
 import Store from '~/screens/Store';
@@ -548,6 +548,13 @@ function Routes() {
         <ContentStack.Screen
           name="Plans"
           component={PlansStackScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ContentStack.Screen
+          name="Gallery"
+          component={Gallery}
           options={{
             headerShown: false,
           }}

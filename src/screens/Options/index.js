@@ -77,6 +77,17 @@ function Options({ signOutRequest, navigation, setNavigation, route }) {
               </View>
               <Icon color="#fff" name="arrow-right" type="feather" />
             </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Gallery')}
+              style={styles.items}>
+              <View style={{ flexDirection: 'row' }}>
+                <Icon color="#fff" name="photo" type="font-awesome" />
+                <Text style={styles.itemLabel}>Galeria de Fotos</Text>
+              </View>
+
+              <Icon color="#fff" name="arrow-right" type="feather" />
+            </TouchableOpacity>
+
             <TouchableOpacity onPress={openDelivery} style={styles.items}>
               <View style={{ flexDirection: 'row' }}>
                 <Icon color="#fff" name="map-pin" type="feather" />
