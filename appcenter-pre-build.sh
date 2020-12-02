@@ -9,8 +9,6 @@ printf "\n.env created with contents:\n\n"
 cat .env
 
 #run Pod
-if [ -z ${APPCENTER_ANDROID_VARIANT+x}];
-    then cd ios && pod install --repo-update && cd ..
-fi
+cd ios && pod install --repo-update && cd ..
 
 
