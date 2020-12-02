@@ -102,9 +102,9 @@ function Routes() {
             headerShown: false,
           }}
         />
-        <ExtrasStack.Screen
-          name="ExtraDetail"
-          component={ExtraDetail}
+        <ActivitiesStack.Screen
+          name="ActivityDetail"
+          component={ActivityDetail}
           options={{
             headerShown: false,
           }}
@@ -124,9 +124,9 @@ function Routes() {
             headerShown: false,
           }}
         />
-        <HealthStack.Screen
-          name="HealthDetail"
-          component={HealthDetail}
+        <ActivitiesStack.Screen
+          name="ActivityDetail"
+          component={ActivityDetail}
           options={{
             headerShown: false,
           }}

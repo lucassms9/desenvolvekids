@@ -30,7 +30,7 @@ const errorHandler = ({ response }) => {
     return Promise.reject(Error('Verifique sua conexão com a internet'));
   }
   if (response.status === 401) {
-    return store.dispatch(Creators.signOutRequest());
+    return store.dispatch(Creators.signOutRequest(response.data.message));
   }
   if (response.status === 406) {
     // Promise.reject(Error(response.data.message));
@@ -38,7 +38,6 @@ const errorHandler = ({ response }) => {
   }
   const { data } = response;
   if (data && 'message' in data) {
-    console.log('aqui');
     return Promise.reject(Error(data.message));
   }
   return Promise.reject(Error('Erro inesperado'));

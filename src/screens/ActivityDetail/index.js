@@ -30,7 +30,7 @@ import { commons, colors } from '~/styles';
 import styles from './styles';
 
 function ActivityDetail({ navigation, route }) {
-  const { activity } = route.params;
+  const { activity, origem } = route.params;
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [date, setDate] = useState(moment());
@@ -126,42 +126,45 @@ function ActivityDetail({ navigation, route }) {
 
   return (
     <View style={commons.body}>
-      <Header title="Atividade" hasBack />
+      <Header title={origem} hasBack />
       <SafeAreaView>
         <View style={[commons.container, { paddingBottom: 100 }]}>
           <ScrollView>
-            <View style={styles.fdr}>
-              <DatePicker
-                style={{ width: 200 }}
-                date={date}
-                mode="date"
-                placeholder="Selecione a Data"
-                format="DD/MM/YYYY"
-                confirmBtnText="Confirmar"
-                cancelBtnText="Cancelar"
-                onDateChange={handleConfirm}
-                customStyles={{
-                  dateIcon: {
-                    position: 'absolute',
-                    left: 0,
-                    top: 4,
-                    marginLeft: 0,
-                    color: '#fff',
-                  },
-                  dateText: {
-                    color: '#fff',
-                  },
-                  dateInput: {
-                    marginLeft: 36,
-                  },
-                }}
-              />
-              <Button
-                onPress={sendSchedule}
-                buttonStyle={styles.btn}
-                title="Agendar"
-              />
-            </View>
+            {origem === 'Atividades' && (
+              <View style={styles.fdr}>
+                <DatePicker
+                  style={{ width: 200 }}
+                  date={date}
+                  mode="date"
+                  placeholder="Selecione a Data"
+                  format="DD/MM/YYYY"
+                  confirmBtnText="Confirmar"
+                  cancelBtnText="Cancelar"
+                  onDateChange={handleConfirm}
+                  customStyles={{
+                    dateIcon: {
+                      position: 'absolute',
+                      left: 0,
+                      top: 4,
+                      marginLeft: 0,
+                      color: '#fff',
+                    },
+                    dateText: {
+                      color: '#fff',
+                    },
+                    dateInput: {
+                      marginLeft: 36,
+                    },
+                  }}
+                />
+                <Button
+                  onPress={sendSchedule}
+                  buttonStyle={styles.btn}
+                  title="Agendar"
+                />
+              </View>
+            )}
+
             <View style={{}}>
               {imagesCarousel.length > 0 && (
                 <MainCarousel imagens={imagesCarousel} />
@@ -185,12 +188,14 @@ function ActivityDetail({ navigation, route }) {
                     <ButtonPrimary text="Voltar" onPress={backPage} />
                   )}
                 </View>
-                <View style={{ width: '45%' }}>
-                  <ButtonPrimary
-                    text={isLastPage ? 'Concluir Atividade' : 'Avançar'}
-                    onPress={nextPage}
-                  />
-                </View>
+                {origem === 'Atividades' && (
+                  <View style={{ width: '45%' }}>
+                    <ButtonPrimary
+                      text={isLastPage ? 'Concluir Atividade' : 'Avançar'}
+                      onPress={nextPage}
+                    />
+                  </View>
+                )}
               </View>
             </View>
           </ScrollView>

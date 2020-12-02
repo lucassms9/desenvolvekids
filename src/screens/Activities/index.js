@@ -172,7 +172,10 @@ function Activities({ setNavigation, navigation, route }) {
                     progress={`${act.progresso}/${act.conteudos.length}`}
                     toggleFavorite={toggleFavorite}
                     goDetail={() => {
-                      navigation.navigate('ActivityDetail', { activity: act });
+                      navigation.navigate('ActivityDetail', {
+                        activity: act,
+                        origem: 'Atividades',
+                      });
                     }}
                   />
                 );
