@@ -20,9 +20,9 @@ export function* init() {
   }
   const user = JSON.parse(userAsync);
   const auth = JSON.parse(user.auth);
-
+  console.log(auth.user);
   if (auth.user && auth.user.id) {
-    const data = yield call(api.get, '/user/get-data', {
+    const data = yield call(api.post, '/user/get-data', {
       params: {},
       headers: { token: auth.user.token },
     });
@@ -90,11 +90,11 @@ export function* signUp({ data: signUpData }) {
     };
 
     //faz request signUp
-    const data = yield call(api.post, '/user/post', request);
+    const data = yield call(api.post, '/login/cadastrar-user', request);
     if (typeof data.user === 'undefined') {
       throw data;
     }
-
+    console.log(data);
     const {
       auth: { navigationGlobal },
     } = yield select();

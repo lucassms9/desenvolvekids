@@ -23,7 +23,6 @@ function ModalChildren({
   onOClose,
   kinShips,
 }) {
-  console.log(initData);
   return (
     <SafeAreaView>
       <View style={{ padding: 10 }}>

@@ -16,7 +16,7 @@ import { commons } from '~/styles';
 import validationSchema from './validation';
 import validationUpdateSchema from './validationUpdate';
 
-function Form({ submitForm, status, textButton, initData, mode }) {
+function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
   const { email } = initData;
   const input = useRef();
   const fiscalNumberRef = useRef();
@@ -98,11 +98,7 @@ function Form({ submitForm, status, textButton, initData, mode }) {
               onSubmitEditing={() => phoneRef.current.focus()}
               onValueChange={(text) => setFieldValue('parent', text)}
               value={values.parent}
-              items={[
-                { label: 'Mãe', value: 'Mãe' },
-                { label: 'Pai', value: 'Pai' },
-                { label: 'Tutor', value: 'Tutor' },
-              ]}
+              items={kinShips}
               placeholder={{
                 label: 'Escolha',
                 value: null,

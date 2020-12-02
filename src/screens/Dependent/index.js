@@ -34,7 +34,7 @@ function Dependent({
   const [kinShips, setKinShips] = useState([]);
 
   const getKinShips = async () => {
-    const res = await api.post('user/get-parentescos');
+    const res = await api.post('login/get-parentescos');
 
     const hadleItem = res.items.map((item) => ({
       label: item.nome,

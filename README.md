@@ -35,7 +35,9 @@ Criar flag na tabela de usuarios (bool dependente 1/0)
 Modulo galeria 
 
 detalhamento: 
-
 exibir todas imagens de comprovações realizadas nas atividades,  
-
 com opções de compartilhamento nas redes sociais 
+
+melhorias
+- colocar validador de data nos forms
+- 
