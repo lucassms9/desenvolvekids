@@ -42,7 +42,7 @@ function Profile({ auth: { user, status }, updateUserRequest }) {
     parent: user.parentesco,
     phone: maskOnlyPhone(user.celular),
   };
-  console.log(status);
+
   return (
     <View style={commons.bodyGlobal}>
       <Header title="Meus Dados" hasBack />

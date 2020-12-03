@@ -12,7 +12,7 @@ const api = axios.create({
 
 api.interceptors.request.use(async (config) => {
   const state = await store.getState();
-  console.log(state);
+
   const headers = { ...config.headers };
   if (state.auth.user && state.auth.user.id) {
     headers.token = `${state.auth.user.token}`;

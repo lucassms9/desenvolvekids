@@ -22,10 +22,14 @@ export function* init() {
   const auth = JSON.parse(user.auth);
   console.log(auth.user);
   if (auth.user && auth.user.id) {
-    const data = yield call(api.post, '/user/get-data', {
-      params: {},
-      headers: { token: auth.user.token },
-    });
+    const data = yield call(
+      api.post,
+      '/user/get-data',
+      {},
+      {
+        headers: { token: auth.user.token },
+      },
+    );
     yield put(AuthActions.signInSuccess(data.user));
     yield put(AuthActions.authCheck(true));
   } else {
