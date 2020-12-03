@@ -158,6 +158,7 @@ function Activities({ setNavigation, navigation, route }) {
               {activities.map((act, index) => {
                 return (
                   <MainCard
+                    key={act.id}
                     id={act.id}
                     banner={act.banner}
                     title={act.titulo}

@@ -66,23 +66,31 @@ function Childrens({ anavigation, auth, addChildrenRequest }) {
         <View style={[commons.container, styles.container]}>
           <View style={styles.pd15}>
             <Text style={styles.title}>Meus Filhos</Text>
-            {auth.user.filhos.map((filho) => {
-              return (
-                <View key={filho.id}>
-                  <View style={styles.childrenItem}>
-                    <View style={styles.pd10}>
-                      <Text style={styles.subTitle}>{filho.nome}</Text>
+            {auth && auth.user && auth.user.filhos && (
+              <View>
+                {auth.user.filhos.map((filho) => {
+                  return (
+                    <View key={filho.id}>
+                      <View style={styles.childrenItem}>
+                        <View style={styles.pd10}>
+                          <Text style={styles.subTitle}>{filho.nome}</Text>
+                        </View>
+                        <TouchableOpacity onPress={() => editChildren(filho)}>
+                          <Icon
+                            color={colors.white}
+                            name="edit"
+                            type="feather"
+                          />
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.container}>
+                        <Divider style={styles.dividir} />
+                      </View>
                     </View>
-                    <TouchableOpacity onPress={() => editChildren(filho)}>
-                      <Icon color={colors.white} name="edit" type="feather" />
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.container}>
-                    <Divider style={styles.dividir} />
-                  </View>
-                </View>
-              );
-            })}
+                  );
+                })}
+              </View>
+            )}
           </View>
           <View style={styles.mg15}>
             <ButtonSecondary

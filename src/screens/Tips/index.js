@@ -108,6 +108,7 @@ function Tips({ navigation, route }) {
               {tips.map((tip, index) => {
                 return (
                   <MainCard
+                    key={tip.id}
                     id={tip.id}
                     banner={tip.imagens[0]}
                     title={tip.titulo}

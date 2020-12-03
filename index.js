@@ -10,7 +10,7 @@ if (__DEV__) {
   );
 }
 
-// console.disableYellowBox = true;
+console.disableYellowBox = true;
 import App from './App';
 import { name as appName } from './app.json';
 

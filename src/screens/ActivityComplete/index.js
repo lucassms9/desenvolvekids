@@ -4,6 +4,7 @@ import { CheckBox, Divider, Icon } from 'react-native-elements';
 import {
   SafeAreaView,
   Image,
+  ScrollView,
   TouchableOpacity,
   View,
   Text,
@@ -20,7 +21,6 @@ import { commons, colors } from '~/styles';
 
 import styles from './styles';
 import api from '~/services/api';
-import { ScrollView } from 'react-native-gesture-handler';
 
 function ActivityComplete({ navigation, route }) {
   const { activity } = route.params;
@@ -41,8 +41,7 @@ function ActivityComplete({ navigation, route }) {
     try {
       await permissionCamera();
       const res = await cameraService();
-      console.log(res);
-      setImageTake(`data:image/jpeg;base64,${res.data}`);
+      setImageTake(res.data);
     } catch (error) {
       console.log(error);
       alert(error);
@@ -80,6 +79,7 @@ function ActivityComplete({ navigation, route }) {
         dificuldade: difficulty,
       };
       const res = await api.post('/postagens/finalizando-postagem', data);
+      console.log(res);
       dispatch(
         ToastActionsCreators.displayInfo('Atividade finalizado com sucesso'),
       );
@@ -101,13 +101,13 @@ function ActivityComplete({ navigation, route }) {
     <View style={commons.body}>
       <Header title="Atividade" hasBack />
       <SafeAreaView style={styles.container}>
-        <View style={[commons.container, styles.container]}>
+        <ScrollView style={[commons.container, styles.container]}>
           <View style={styles.fx02}>
             <Text style={styles.title}>
               Parabéns! atividade concluída com sucesso!
             </Text>
           </View>
-          <View style={styles.fx02}>
+          <View style={[styles.fx02, { marginVertical: 10 }]}>
             <ButtonPrimary
               text={!imageTake ? 'Enviar Comprovação' : 'Reenviar Comprovação'}
               onPress={takePhoto}
@@ -177,6 +177,7 @@ function ActivityComplete({ navigation, route }) {
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-evenly',
+                  marginBottom: 10,
                 }}>
                 <TouchableOpacity onPress={() => setDifficulty('Vermelho')}>
                   <View
@@ -223,7 +224,7 @@ function ActivityComplete({ navigation, route }) {
               onPress={sendData}
             />
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </View>
   );

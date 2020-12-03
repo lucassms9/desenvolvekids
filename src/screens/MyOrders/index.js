@@ -71,7 +71,7 @@ function MyOrders({ navigation, auth }) {
     //   order,
     // });
   };
-
+  console.log(orders);
   return (
     <View style={commons.body}>
       <Header hasBack title="Pedidos" />
@@ -81,7 +81,7 @@ function MyOrders({ navigation, auth }) {
           {!loading && (
             <ScrollView>
               <View style={styles.fdr}>{/* filtrod ficam aqui */}</View>
-              {!orders && <NotFound type="pedido" />}
+              {orders.length === 0 && <NotFound type="pedido" />}
               {orders.map((order, index) => {
                 console.log(order);
                 return (

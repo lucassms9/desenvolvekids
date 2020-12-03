@@ -137,7 +137,7 @@ class Forum extends Component {
 
     return (
       <View style={commons.body}>
-        <Header hasBack title="Forum" />
+        <Header hasBack title="Perguntas" />
         <SafeAreaView>
           <View style={[commons.container, { paddingBottom: 90 }]}>
             {loading && <Loader />}

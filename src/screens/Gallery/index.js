@@ -5,6 +5,7 @@ import { PricingCard } from 'react-native-elements';
 import { commons, colors } from '~/styles';
 import Header from '~/components/Header';
 import Loader from '~/components/Loader';
+import NotFound from '~/components/NotFound';
 import api from '~/services/api';
 
 import ImageLayout from 'react-native-image-layout-wrapper';
@@ -34,10 +35,11 @@ function Gallery({ navigation }) {
 
   return (
     <View style={commons.body}>
-      <Header title="Planos" />
+      <Header hasBack title="Galeria" />
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: '#1a4c65' }}>
           {loading && <Loader />}
+          {images.length === 0 && <NotFound type="fotos" />}
           {!loading && (
             <ImageLayout
               sorted

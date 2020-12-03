@@ -7,6 +7,8 @@ import { Creators as AuthActions } from '~/store/ducks/auth';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { Icon, Divider } from 'react-native-elements';
+import { useSelector, useDispatch } from 'react-redux';
+import { ToastActionsCreators } from 'react-native-redux-toast';
 
 import Header from '~/components/Header';
 import ModalDependent from '~/components/ModalDependent';
@@ -28,6 +30,7 @@ function Dependent({
   rmDependentRequest,
 }) {
   const modalizeRef = useRef(null);
+  const dispatch = useDispatch();
 
   const [dependentEdit, setDependentEdit] = useState({});
 
@@ -49,6 +52,19 @@ function Dependent({
   }, []);
 
   const createDependent = () => {
+    if (
+      auth &&
+      auth.user &&
+      auth.user.dependentes &&
+      auth.user.dependentes.length > 0
+    ) {
+      return dispatch(
+        ToastActionsCreators.displayError(
+          'Você pode cadastrar até 1 dependente',
+          5000,
+        ),
+      );
+    }
     setDependentEdit({});
     onOpen();
   };

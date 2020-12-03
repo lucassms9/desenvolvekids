@@ -47,7 +47,7 @@ function Profile({ auth: { user, status }, updateUserRequest }) {
     <View style={commons.bodyGlobal}>
       <Header title="Meus Dados" hasBack />
       <SafeAreaView style={commons.container}>
-        <ScrollView style={{ marginBottom: 70 }}>
+        <ScrollView style={{ marginBottom: 100 }}>
           <FormUser
             initData={initData}
             status={status}

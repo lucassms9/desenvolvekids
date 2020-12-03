@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 
@@ -40,7 +40,7 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
       }
       onSubmit={(values) => submitForm(values)}>
       {({ handleSubmit, values, setFieldValue, errors }) => (
-        <View>
+        <ScrollView>
           <Input
             inputStyle={commons.textWhite}
             labelStyle={commons.textWhite}
@@ -177,7 +177,7 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
             onPress={handleSubmit}
             text={textButton ? textButton : 'Enviar'}
           />
-        </View>
+        </ScrollView>
       )}
     </Formik>
   );

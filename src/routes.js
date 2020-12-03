@@ -274,7 +274,7 @@ function Routes() {
   const MainTabBottom = () => {
     return (
       <Tab.Navigator
-        initialRouteName="Tips"
+        initialRouteName="Activities"
         tabBarOptions={{
           activeTintColor: colors.primary,
           inactiveTintColor: 'gray',
@@ -513,6 +513,20 @@ function Routes() {
         <ContentStack.Screen
           name="Options"
           component={OptionsStackScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ContentStack.Screen
+          name="MyPlan"
+          component={MyPlan}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ContentStack.Screen
+          name="MyOrders"
+          component={MyOrders}
           options={{
             headerShown: false,
           }}
