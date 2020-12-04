@@ -7,7 +7,7 @@ import { Creators as AuthActions } from '~/store/ducks/auth';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { Icon, Divider } from 'react-native-elements';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ToastActionsCreators } from 'react-native-redux-toast';
 
 import Header from '~/components/Header';

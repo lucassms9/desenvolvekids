@@ -165,7 +165,7 @@ function Activities({ setNavigation, navigation, route }) {
                     isFavorite={act.isFavorite}
                     isSchecule={
                       act.data_agenda &&
-                      moment(act.data_agenda).isSame(moment(), 'day')
+                      moment(act.data_agenda).isSameOrAfter(moment(), 'day')
                         ? true
                         : false
                     }
