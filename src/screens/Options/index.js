@@ -13,8 +13,22 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
 
-function Options({ signOutRequest, navigation, setNavigation, route }) {
+function Options({
+  signOutRequest,
+  navigation,
+  setNavigation,
+  route,
+  userEntity: user,
+}) {
   console.log(signOutRequest);
+  const [hasPlan, setHasPlan] = useState(false);
+
+  useEffect(() => {
+    if (user && user.plano && user.plano.length > 0) {
+      setHasPlan(true);
+    }
+  }, []);
+
   const openProfile = () => {
     navigation.navigate('Profile');
   };
@@ -50,66 +64,70 @@ function Options({ signOutRequest, navigation, setNavigation, route }) {
               </View>
               <Icon color="#fff" name="arrow-right" type="feather" />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Dependent')}
-              style={styles.items}>
-              <View style={{ flexDirection: 'row' }}>
-                <Icon color="#fff" name="users" type="feather" />
-                <Text style={styles.itemLabel}>Dependentes</Text>
-              </View>
-              <Icon color="#fff" name="arrow-right" type="feather" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={openForum} style={styles.items}>
-              <View style={{ flexDirection: 'row' }}>
-                <Icon
-                  color="#fff"
-                  name="forum-outline"
-                  type="material-community"
-                />
-                <Text style={styles.itemLabel}>Pergunte ao Doutor</Text>
-              </View>
-              <Icon color="#fff" name="arrow-right" type="feather" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={openChildrens} style={styles.items}>
-              <View style={{ flexDirection: 'row' }}>
-                <Icon color="#fff" name="child" type="font-awesome" />
-                <Text style={styles.itemLabel}>Meus Filhos</Text>
-              </View>
-              <Icon color="#fff" name="arrow-right" type="feather" />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Gallery')}
-              style={styles.items}>
-              <View style={{ flexDirection: 'row' }}>
-                <Icon color="#fff" name="photo" type="font-awesome" />
-                <Text style={styles.itemLabel}>Galeria de Fotos</Text>
-              </View>
+            {hasPlan && (
+              <>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Dependent')}
+                  style={styles.items}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Icon color="#fff" name="users" type="feather" />
+                    <Text style={styles.itemLabel}>Dependentes</Text>
+                  </View>
+                  <Icon color="#fff" name="arrow-right" type="feather" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openForum} style={styles.items}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Icon
+                      color="#fff"
+                      name="forum-outline"
+                      type="material-community"
+                    />
+                    <Text style={styles.itemLabel}>Pergunte ao Doutor</Text>
+                  </View>
+                  <Icon color="#fff" name="arrow-right" type="feather" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openChildrens} style={styles.items}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Icon color="#fff" name="child" type="font-awesome" />
+                    <Text style={styles.itemLabel}>Meus Filhos</Text>
+                  </View>
+                  <Icon color="#fff" name="arrow-right" type="feather" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Gallery')}
+                  style={styles.items}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Icon color="#fff" name="photo" type="font-awesome" />
+                    <Text style={styles.itemLabel}>Galeria de Fotos</Text>
+                  </View>
 
-              <Icon color="#fff" name="arrow-right" type="feather" />
-            </TouchableOpacity>
+                  <Icon color="#fff" name="arrow-right" type="feather" />
+                </TouchableOpacity>
 
-            <TouchableOpacity onPress={openDelivery} style={styles.items}>
-              <View style={{ flexDirection: 'row' }}>
-                <Icon color="#fff" name="map-pin" type="feather" />
-                <Text style={styles.itemLabel}>Meus Endereços</Text>
-              </View>
+                <TouchableOpacity onPress={openDelivery} style={styles.items}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Icon color="#fff" name="map-pin" type="feather" />
+                    <Text style={styles.itemLabel}>Meus Endereços</Text>
+                  </View>
 
-              <Icon color="#fff" name="arrow-right" type="feather" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={openMyPlan} style={styles.items}>
-              <View style={{ flexDirection: 'row' }}>
-                <Icon color="#fff" name="clipboard" type="feather" />
-                <Text style={styles.itemLabel}>Meu Plano</Text>
-              </View>
-              <Icon color="#fff" name="arrow-right" type="feather" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={openMyOrder} style={styles.items}>
-              <View style={{ flexDirection: 'row' }}>
-                <Icon color="#fff" name="shopping-bag" type="feather" />
-                <Text style={styles.itemLabel}>Meus Pedidos</Text>
-              </View>
-              <Icon color="#fff" name="arrow-right" type="feather" />
-            </TouchableOpacity>
+                  <Icon color="#fff" name="arrow-right" type="feather" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openMyPlan} style={styles.items}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Icon color="#fff" name="clipboard" type="feather" />
+                    <Text style={styles.itemLabel}>Meu Plano</Text>
+                  </View>
+                  <Icon color="#fff" name="arrow-right" type="feather" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openMyOrder} style={styles.items}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Icon color="#fff" name="shopping-bag" type="feather" />
+                    <Text style={styles.itemLabel}>Meus Pedidos</Text>
+                  </View>
+                  <Icon color="#fff" name="arrow-right" type="feather" />
+                </TouchableOpacity>
+              </>
+            )}
           </ScrollView>
           <View style={{ marginTop: 15, backgroundColor: '#f00' }}>
             <ButtonPrimary

@@ -40,6 +40,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(navigation);
     setNavigation({ ...navigation, ...route });
     GoogleSignin.configure({
       scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
@@ -70,7 +71,6 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
 
   const profile = async () => {
     const result = await facebookService.fetchProfile(handlCallBack);
-    // signInRequest(result.email, null, result);
   };
 
   const loginFacebook = () => {
