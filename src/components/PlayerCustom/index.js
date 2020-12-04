@@ -16,7 +16,7 @@ function PlayerCustom({ uriVideo }) {
   const [isLoading, setIsLoading] = useState(true);
   const [paused, setPaused] = useState(true);
   const [playerState, setPlayerState] = useState(PLAYER_STATES.PAUSED);
-  const [screenType, setScreenType] = useState('cover');
+  const [screenType, setScreenType] = useState('contain');
 
   const onSeek = (seek) => {
     //Handler for change in seekbar

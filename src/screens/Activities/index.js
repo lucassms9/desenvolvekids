@@ -116,17 +116,14 @@ function Activities({ setNavigation, navigation, route }) {
   }, [navigation]);
 
   const toggleFavorite = async (id) => {
-    const actHandleNew = activities.filter((act) => act.id !== id);
-    const actHandle = activities.find((act) => act.id === id);
-    actHandle.isFavorite = !actHandle.isFavorite;
-
-    const newAct = [...actHandleNew, actHandle];
-    newAct.sort(function (a, b) {
-      return new Date(b.data_agenda) - new Date(a.data_agenda);
+    activities.forEach(function (act) {
+      if (act.id === id) {
+        act.isFavorite = !act.isFavorite;
+      }
     });
 
     await api.post('postagens/favoritar', { postagens_id: id });
-    setActivities(newAct);
+    setActivities([...activities]);
   };
 
   return (
