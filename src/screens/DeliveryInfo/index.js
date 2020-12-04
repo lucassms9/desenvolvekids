@@ -111,39 +111,48 @@ function DeliveryInfo({
           <View style={[styles.pd15, { maxHeight: 500 }]}>
             <ScrollView>
               <Text style={styles.title}>Meus Endereços</Text>
-              {auth.user.enderecos.map((endereco) => {
-                return (
-                  <View key={endereco.id}>
-                    <View style={styles.deliveryItem}>
-                      {origem !== 'options' ? (
-                        <CheckBox
-                          title={endereco.nome_endereco}
-                          textStyle={styles.colorItem}
-                          checkedColor={colors.primary}
-                          uncheckedColor={colors.primary}
-                          containerStyle={styles.checkBox}
-                          onPress={() => {
-                            setCheckedAddress(endereco.id);
-                          }}
-                          checked={checkedAddress === endereco.id}
-                        />
-                      ) : (
-                        <View style={styles.pd10}>
-                          <Text style={styles.addressName}>
-                            {endereco.nome_endereco}
-                          </Text>
+              {auth && auth.user && auth.user.enderecos && (
+                <View>
+                  {auth.user.enderecos.map((endereco) => {
+                    return (
+                      <View key={endereco.id}>
+                        <View style={styles.deliveryItem}>
+                          {origem !== 'options' ? (
+                            <CheckBox
+                              title={endereco.nome_endereco}
+                              textStyle={styles.colorItem}
+                              checkedColor={colors.primary}
+                              uncheckedColor={colors.primary}
+                              containerStyle={styles.checkBox}
+                              onPress={() => {
+                                setCheckedAddress(endereco.id);
+                              }}
+                              checked={checkedAddress === endereco.id}
+                            />
+                          ) : (
+                            <View style={styles.pd10}>
+                              <Text style={styles.addressName}>
+                                {endereco.nome_endereco}
+                              </Text>
+                            </View>
+                          )}
+                          <TouchableOpacity
+                            onPress={() => editAddress(endereco)}>
+                            <Icon
+                              color={colors.white}
+                              name="edit"
+                              type="feather"
+                            />
+                          </TouchableOpacity>
                         </View>
-                      )}
-                      <TouchableOpacity onPress={() => editAddress(endereco)}>
-                        <Icon color={colors.white} name="edit" type="feather" />
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.container}>
-                      <Divider style={styles.divider} />
-                    </View>
-                  </View>
-                );
-              })}
+                        <View style={styles.container}>
+                          <Divider style={styles.divider} />
+                        </View>
+                      </View>
+                    );
+                  })}
+                </View>
+              )}
             </ScrollView>
           </View>
 
