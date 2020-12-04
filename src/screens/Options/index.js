@@ -20,11 +20,10 @@ function Options({
   route,
   userEntity: user,
 }) {
-  console.log(signOutRequest);
   const [hasPlan, setHasPlan] = useState(false);
 
   useEffect(() => {
-    if (user && user.plano && user.plano.length > 0) {
+    if (user && user.plano && user.plano.id) {
       setHasPlan(true);
     }
   }, []);

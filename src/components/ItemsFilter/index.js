@@ -8,7 +8,7 @@ function ItemsFilter({ items, filterFunc }) {
     <ScrollView horizontal>
       {items.map((item) => {
         return (
-          <TouchableOpacity onPress={() => filterFunc(item.id)}>
+          <TouchableOpacity key={item.id} onPress={() => filterFunc(item.id)}>
             <View style={styles.container}>
               <Text style={{ color: '#fff' }}>{item.label}</Text>
             </View>
