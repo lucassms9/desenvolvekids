@@ -177,11 +177,13 @@ export function* signIn({ email, password, dataSocial }) {
           StackActions.replace('Plans'),
         );
       }
-      yield put(initNotification());
+      yield call([initNotification]);
     } else {
       throw data;
     }
   } catch (error) {
+    console.log('erro login');
+    console.log(error);
     yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
     yield put(AuthActions.signInError(error));
   }
