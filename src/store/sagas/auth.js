@@ -2,6 +2,7 @@ import { call, put, select } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
 import { StackActions } from '@react-navigation/native';
 import { ToastActionsCreators } from 'react-native-redux-toast';
+import { initNotification } from '~/services/notificationService';
 
 import api from '../../services/api';
 
@@ -176,6 +177,7 @@ export function* signIn({ email, password, dataSocial }) {
           StackActions.replace('Plans'),
         );
       }
+      yield put(initNotification());
     } else {
       throw data;
     }
