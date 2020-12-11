@@ -45,6 +45,8 @@ function ActivityComplete({ navigation, route }) {
     } catch (error) {
       console.log(error);
       alert(error);
+      alert(error.message);
+      alert(error.stack);
     }
   };
 

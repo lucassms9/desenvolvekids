@@ -9,6 +9,6 @@ printf "\n.env created with contents:\n\n"
 cat .env
 
 #run Pod
-cd ios && pod install --repo-update && cd ..
+#cd ios && pod install --repo-update && cd ..
 
 
