@@ -10,6 +10,10 @@ def add_flipper_pods!
   pod 'FlipperKit/FlipperKitReactPlugin', version, :configuration => 'Debug'
 end
 
+target 'OneSignalNotificationServiceExtension' do
+  pod 'OneSignal', '>= 2.9.3', '< 3.0'
+end
+
 # Post Install processing for Flipper
 def flipper_post_install(installer)
   installer.pods_project.targets.each do |target|

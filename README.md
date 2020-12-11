@@ -40,4 +40,11 @@ com opções de compartilhamento nas redes sociais
 
 melhorias
 - colocar validador de data nos forms
-- 
+
+'@types/jest/package.json'
+'@types/react-navigation/package.json'
+'@types/react-redux/package.json'
+'@types/react-test-renderer/package.json'
+'react-native-typescript-transformer/package.json'
+'ts-jest/package.json'
+'typescript/package.json'

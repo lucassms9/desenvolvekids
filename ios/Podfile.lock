@@ -126,6 +126,7 @@ PODS:
     - GTMSessionFetcher/Core (= 1.4.0)
   - JWT (3.0.0-beta.12):
     - Base64 (~> 1.1.2)
+  - OneSignal (2.16.1)
   - OpenSSL-Universal (1.0.2.19):
     - OpenSSL-Universal/Static (= 1.0.2.19)
   - OpenSSL-Universal/Static (1.0.2.19)
@@ -420,6 +421,7 @@ DEPENDENCIES:
   - FlipperKit/SKIOSNetworkPlugin (~> 0.33.1)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - OneSignal (< 3.0, >= 2.9.3)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -483,6 +485,7 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - JWT
+    - OneSignal
     - OpenSSL-Universal
     - SSZipArchive
     - YogaKit
@@ -613,6 +616,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
+  OneSignal: 5f6514ec2b931306eb067acb124afbb2e49970af
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
   RCTRequired: 0873f5bdb1762d2b9b1ae16a01c4f91d6ee3b6dd
   RCTTypeSafety: a605e0cc0e4220f6e65896bd9e675073c2978f35
@@ -653,6 +657,6 @@ SPEC CHECKSUMS:
   Yoga: 9db9ff2025ad21d1ac0a8b3c85d5ac4e7c29d525
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 872aebe327bda884420d278793fd32655d3aa657
+PODFILE CHECKSUM: 601075d21647c31afa68490f699d5569240d396e
 
 COCOAPODS: 1.8.4

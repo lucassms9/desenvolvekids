@@ -8,6 +8,10 @@ module.exports = {
       'babel-plugin-root-import',
       {
         rootPathSuffix: 'src',
+        extensions: ['.ts', '.tsx', '.js', '.ios.js', '.android.js'],
+        alias: {
+              '@home': './src'
+            }
       },
     ],
   ],
@@ -18,6 +22,10 @@ module.exports = {
           'babel-plugin-root-import',
           {
             rootPathSuffix: 'src',
+            extensions: ['.ts', '.tsx', '.js', '.ios.js', '.android.js'],
+            alias: {
+              '@home': './src'
+            }
           },
         ],
       ],
