@@ -309,6 +309,9 @@ PODS:
     - React
   - react-native-image-picker (2.3.4):
     - React-Core
+  - react-native-onesignal (3.9.3):
+    - OneSignal (= 2.16.1)
+    - React (< 1.0.0, >= 0.13.0)
   - react-native-rsa-native (2.0.3):
     - React
   - react-native-safe-area-context (3.1.9):
@@ -435,6 +438,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-rsa-native (from `../node_modules/react-native-rsa-native`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
@@ -533,6 +537,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fbsdk"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-onesignal:
+    :path: "../node_modules/react-native-onesignal"
   react-native-rsa-native:
     :path: "../node_modules/react-native-rsa-native"
   react-native-safe-area-context:
@@ -629,6 +635,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 8e5913c4c6c54f0d3f9c9fc630c465a89cded65d
   react-native-fbsdk: 00c15d138bba6d4efa628670886fc58cec858c19
   react-native-image-picker: 32d1ad2c0024ca36161ae0d5c2117e2d6c441f11
+  react-native-onesignal: dd08d2ba301e1cb7ad4773a53d8e49d4e43ba6fd
   react-native-rsa-native: ec31d1a3ef07c070ad034797f0a40bb72ea0b2b3
   react-native-safe-area-context: 86612d2c9a9e94e288319262d10b5f93f0b395f5
   react-native-video: 8d97379f3c2322a569f1e27542ad1a646cad9444

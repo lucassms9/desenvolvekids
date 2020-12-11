@@ -2,6 +2,7 @@ import { call, put, select } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
 import { StackActions } from '@react-navigation/native';
 import { ToastActionsCreators } from 'react-native-redux-toast';
+import { initNotification } from '~/services/notificationService';
 
 import api from '../../services/api';
 
@@ -176,10 +177,13 @@ export function* signIn({ email, password, dataSocial }) {
           StackActions.replace('Plans'),
         );
       }
+      yield call([initNotification]);
     } else {
       throw data;
     }
   } catch (error) {
+    console.log('erro login');
+    console.log(error);
     yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
     yield put(AuthActions.signInError(error));
   }
