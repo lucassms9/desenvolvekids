@@ -44,7 +44,7 @@ function SignUp({ signUpRequest, status, route }) {
       behavior={Platform.OS === 'ios' ? 'padding' : null}
       style={{ flex: 1 }}>
       <View style={styles.bodyLogin}>
-        <Header title="Cadastre-se" hasBack />
+        <Header title="Cadastre-se" hasBack hasntProfile/>
         <SafeAreaView style={styles.container}>
           <View style={styles.containerLogin}>
             <ScrollView>

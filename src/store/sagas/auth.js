@@ -117,6 +117,7 @@ export function* signUp({ data: signUpData }) {
 
 export function* signOut({ message }) {
   console.log('signOut');
+  // return;
   try {
     yield call([AsyncStorage, 'removeItem'], 'persist:root');
 
@@ -177,7 +178,10 @@ export function* signIn({ email, password, dataSocial }) {
           StackActions.replace('Plans'),
         );
       }
-      yield call([initNotification]);
+      setTimeout(function (){
+        call(initNotification);
+      },2000);
+
     } else {
       throw data;
     }

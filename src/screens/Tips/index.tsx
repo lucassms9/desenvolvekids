@@ -19,8 +19,12 @@ import { commons } from '~/styles';
 import api from '~/services/api';
 import styles from './styles';
 
-function Tips({ navigation, route }) {
-  const [tips, setTips] = useState([]);
+import { iProps, iTip, iResponseTip } from './index';
+import { AxiosResponse } from 'axios';
+
+
+function Tips({ navigation }:iProps) {
+  const [tips, setTips] = useState<iTip[]>([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -38,10 +42,12 @@ function Tips({ navigation, route }) {
   };
 
   const getTips = async () => {
+ 
     try {
+      console.log('getTips')
       setLoading(true);
       const res = await getTipsSync();
-
+     
       setTips(res.dicas);
       setTotalPage(res.total_pages);
     } catch (error) {
@@ -50,8 +56,8 @@ function Tips({ navigation, route }) {
     }
   };
 
-  const getTipsSync = async (pageGet = 1) => {
-    const res = await api.post('dicas/list', { page: pageGet, busca: filter });
+  const getTipsSync = async (pageGet = 1): Promise<any> => {
+    const res = await api.post<any>('dicas/list', { page: pageGet, busca: filter });
     if (!res.dicas) {
       throw 'error';
     }
@@ -89,7 +95,7 @@ function Tips({ navigation, route }) {
                   value={filter}
                   placeholder="Faça sua busca"
                   containerStyle={styles.wd90}
-                  onChangeText={(value) => setFilter(value)}
+                  onChangeText={( value : string) => setFilter(value)}
                 />
                 <Button
                   onPress={filterTips}
