@@ -19,12 +19,12 @@ import { commons } from '~/styles';
 import api from '~/services/api';
 import styles from './styles';
 
-import { iProps, iTip } from './tips';
-import { AxiosResponse } from 'axios';
+// import { iProps, iTip } from './index';
+// import { AxiosResponse } from 'axios';
 
-
-const Tips: React.FC<iProps> = ({ navigation }:iProps) => {
-  const [tips, setTips] = useState<iTip[]>([]);
+// const Tips = ({ navigation }:iProps)
+const Tips = () => {
+  const [tips, setTips] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -44,7 +44,6 @@ const Tips: React.FC<iProps> = ({ navigation }:iProps) => {
   const getTips = async () => {
  
     try {
-      console.log('getTips')
       setLoading(true);
       const res = await getTipsSync();
      
@@ -56,8 +55,8 @@ const Tips: React.FC<iProps> = ({ navigation }:iProps) => {
     }
   };
 
-  const getTipsSync = async (pageGet = 1): Promise<any> => {
-    const res = await api.post<any>('dicas/list', { page: pageGet, busca: filter });
+  const getTipsSync = async (pageGet = 1) => {
+    const res = await api.post('dicas/list', { page: pageGet, busca: filter });
     if (!res.dicas) {
       throw 'error';
     }
@@ -95,7 +94,7 @@ const Tips: React.FC<iProps> = ({ navigation }:iProps) => {
                   value={filter}
                   placeholder="Faça sua busca"
                   containerStyle={styles.wd90}
-                  onChangeText={( value : string) => setFilter(value)}
+                  onChangeText={(value) => setFilter(value)}
                 />
                 <Button
                   onPress={filterTips}

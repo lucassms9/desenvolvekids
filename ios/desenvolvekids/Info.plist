@@ -105,6 +105,8 @@
 	<string>O app faz uso da galeria para o usuário enviar fotos relacionado as atividades concluídas no app.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>O app faz uso da camera para o usuário enviar fotos relacionado as atividades concluídas no app.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>O app faz uso da camera para o usuário enviar fotos relacionado as atividades concluídas no app.</string>
 
 </dict>
 </plist>
