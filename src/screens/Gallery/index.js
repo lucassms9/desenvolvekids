@@ -18,11 +18,22 @@ function Gallery({ navigation }) {
     setLoading(true);
     try {
       const res = await api.post('user/get-galeria');
-      console.log(res);
+      
+      // { source: 
+      //   { 
+      //     uri: "https://luehangs.site/pic-chat-app-images/beautiful-beautiful-women-beauty-40901.jpg", 
+      //     dimensions: { width: 1080, height: 1920 } , 
+      //   }, 
+      // },
+
       const handle = res.galerias.map((gal) => ({
-        uri: gal.imagem,
-        id: gal.id,
+        source:{
+          uri: gal.imagem,
+          id: gal.id,
+          dimensions: { width: 1080, height: 1920 } , 
+        }
       }));
+      console.log(handle);
       setImages(handle);
     } catch (error) {
     } finally {

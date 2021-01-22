@@ -10,12 +10,13 @@ import {
   Text,
 } from 'react-native';
 import { permissionCamera } from '~/services/permissions';
-import cameraService from '~/services/cameraService';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { CommonActions } from '@react-navigation/native';
 
 import { ToastActionsCreators } from 'react-native-redux-toast';
 import Header from '~/components/Header';
+import CameraModal from '~/components/CameraModal';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import { commons, colors } from '~/styles';
 
@@ -27,6 +28,7 @@ function ActivityComplete({ navigation, route }) {
 
   const [status, setStatus] = useState('');
   const [imageTake, setImageTake] = useState(false);
+  const [showCameraModal, setShowCameraModal] = useState(false);
   const [difficulty, setDifficulty] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [answer, setAnswer] = useState({});
@@ -37,13 +39,12 @@ function ActivityComplete({ navigation, route }) {
     navigation.navigate('ActivityComplete');
   };
 
-  const takePhoto = async () => {
+  const takePhoto = async (base64) => {
     try {
-      await permissionCamera();
-      const res = await cameraService();
-      setImageTake(res.data);
+      console.log(imageTake)
+      setImageTake(`${base64}`);
     } catch (error) {
-      console.log(error);
+
       alert(error);
       alert(error.message);
       alert(error.stack);
@@ -99,6 +100,15 @@ function ActivityComplete({ navigation, route }) {
     }
   };
 
+  const showCameraHandleModal = () => {
+    setShowCameraModal(true);
+  }
+  const closeCameraHandleModal = () => {
+    setShowCameraModal(false);
+  }
+
+
+
   return (
     <View style={commons.body}>
       <Header title="Atividade" hasBack />
@@ -112,7 +122,7 @@ function ActivityComplete({ navigation, route }) {
           <View style={[styles.fx02, { marginVertical: 10 }]}>
             <ButtonPrimary
               text={!imageTake ? 'Enviar Comprovação' : 'Reenviar Comprovação'}
-              onPress={takePhoto}
+              onPress={showCameraHandleModal}
               icon={
                 imageTake ? (
                   <Icon name="check" type="feather" color="#fff" />
@@ -120,8 +130,8 @@ function ActivityComplete({ navigation, route }) {
               }
             />
 
-            <View>
-              {/* {imageTake && (
+            {/* <View>
+              {imageTake && (
                 <Image
                   style={{ marginTop: 10 }}
                   width={200}
@@ -130,8 +140,8 @@ function ActivityComplete({ navigation, route }) {
                     uri: imageTake,
                   }}
                 />
-              )} */}
-            </View>
+              )}
+            </View> */}
           </View>
 
           <View style={styles.container}>
@@ -226,6 +236,12 @@ function ActivityComplete({ navigation, route }) {
               onPress={sendData}
             />
           </View>
+          <CameraModal
+          navigation={navigation}
+          visible={showCameraModal}
+          handleSavePhoto={takePhoto}
+          handleCloseModal={closeCameraHandleModal}
+        />
         </ScrollView>
       </SafeAreaView>
     </View>

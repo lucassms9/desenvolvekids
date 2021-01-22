@@ -1,4 +1,4 @@
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker ';
 
 export default function cameraService() {
   const options = {
