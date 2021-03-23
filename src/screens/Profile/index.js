@@ -39,7 +39,7 @@ function Profile({ auth: { user, status }, updateUserRequest }) {
     fiscalNumber: maskOnlyCPF(user.cpf),
     birthDate: moment(user.data_nascimento).format('DD/MM/YYYY'),
     email: user.email,
-    parent: user.parentesco,
+    parent: user.clientes_parentescos_id,
     phone: maskOnlyPhone(user.celular),
   };
 

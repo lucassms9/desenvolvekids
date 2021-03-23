@@ -100,7 +100,7 @@ function ModalDelivery({
                   onChangeText={maskCEP(setFieldValue, 'zipCode')}
                 />
                 {errors.zipCode && (
-                  <Text style={commons.error}>{errors.zipCode}</Text>
+                  <Text style={commons.errorWhite}>{errors.zipCode}</Text>
                 )}
                 <Input
                   value={values.nameAddress}
@@ -110,7 +110,7 @@ function ModalDelivery({
                   onChangeText={(text) => setFieldValue('nameAddress', text)}
                 />
                 {errors.nameAddress && (
-                  <Text style={commons.error}>{errors.nameAddress}</Text>
+                  <Text style={commons.errorWhite}>{errors.nameAddress}</Text>
                 )}
                 <Input
                   value={values.address}
@@ -120,7 +120,7 @@ function ModalDelivery({
                   onChangeText={(text) => setFieldValue('address', text)}
                 />
                 {errors.address && (
-                  <Text style={commons.error}>{errors.address}</Text>
+                  <Text style={commons.errorWhite}>{errors.address}</Text>
                 )}
                 <Input
                   value={values.number}
@@ -130,7 +130,7 @@ function ModalDelivery({
                   onChangeText={(text) => setFieldValue('number', text)}
                 />
                 {errors.number && (
-                  <Text style={commons.error}>{errors.number}</Text>
+                  <Text style={commons.errorWhite}>{errors.number}</Text>
                 )}
                 <Input
                   value={values.neighborhood}
@@ -140,7 +140,7 @@ function ModalDelivery({
                   onChangeText={(text) => setFieldValue('neighborhood', text)}
                 />
                 {errors.neighborhood && (
-                  <Text style={commons.error}>{errors.neighborhood}</Text>
+                  <Text style={commons.errorWhite}>{errors.neighborhood}</Text>
                 )}
                 <Input
                   value={values.complement}
@@ -150,7 +150,7 @@ function ModalDelivery({
                   onChangeText={(text) => setFieldValue('complement', text)}
                 />
                 {errors.complement && (
-                  <Text style={commons.error}>{errors.complement}</Text>
+                  <Text style={commons.errorWhite}>{errors.complement}</Text>
                 )}
 
                 <Input
@@ -161,7 +161,7 @@ function ModalDelivery({
                   onChangeText={(text) => setFieldValue('city', text)}
                 />
                 {errors.city && (
-                  <Text style={commons.error}>{errors.city}</Text>
+                  <Text style={commons.errorWhite}>{errors.city}</Text>
                 )}
                 <Input
                   value={values.state}
@@ -171,7 +171,7 @@ function ModalDelivery({
                   onChangeText={(text) => setFieldValue('state', text)}
                 />
                 {errors.state && (
-                  <Text style={commons.error}>{errors.state}</Text>
+                  <Text style={commons.errorWhite}>{errors.state}</Text>
                 )}
                 <Input
                   value={values.recipient}
@@ -181,7 +181,7 @@ function ModalDelivery({
                   onChangeText={(text) => setFieldValue('recipient', text)}
                 />
                 {errors.recipient && (
-                  <Text style={commons.error}>{errors.recipient}</Text>
+                  <Text style={commons.errorWhite}>{errors.recipient}</Text>
                 )}
                 <View style={{ marginTop: 30 }}>
                   <ButtonPrimary

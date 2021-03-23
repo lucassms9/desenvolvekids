@@ -131,8 +131,8 @@ function Health({ setNavigation, navigation, route }) {
 
   return (
     <View style={commons.body}>
-      <Header title="Saúde" />
       <SafeAreaView>
+      <Header title="Saúde" />
         <View style={[commons.container, { paddingBottom: 70 }]}>
           {loading && <Loader />}
           {!loading && (

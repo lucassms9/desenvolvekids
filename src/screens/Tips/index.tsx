@@ -84,8 +84,8 @@ const Tips: React.FC<iProps> = ({ navigation }:iProps) => {
 
   return (
     <View style={commons.body}>
-      <Header title="Dicas" />
       <SafeAreaView>
+      <Header title="Dicas" />
         <View style={[commons.container, { paddingBottom: 70 }]}>
           {loading && <Loader />}
           {!loading && (

@@ -5,6 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import {enableScreens} from 'react-native-screens';
+
+enableScreens(true);
+
 import { Icon } from 'react-native-elements';
 
 import colors from '~/styles/colors';
@@ -375,23 +379,27 @@ function Routes() {
         />
 
         <Tab.Screen
-          name="Options"
-          component={Options}
+          name="Forum"
+          component={Forum}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
               return (
                 <Icon
-                  name="navicon"
-                  type="font-awesome"
                   color={color}
+                  name="forum-outline"
+                  type="material-community"
                   size={20}
                 />
               );
             },
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.primary : '#000';
-              return <Text style={{ fontSize: 13, color: color }}> Mais </Text>;
+              return (
+                <Text style={{ fontSize: 13, color: color }}>
+                  Dúvidas
+                </Text>
+              );
             },
           }}
         />

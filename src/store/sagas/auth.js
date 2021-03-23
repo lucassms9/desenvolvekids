@@ -40,6 +40,33 @@ export function* init() {
   }
 }
 
+
+export function* getDataUser() {
+  const userAsync = yield call([AsyncStorage, 'getItem'], storageKeys.root);
+  console.log(userAsync);
+
+  if (!userAsync) {
+    return yield put(AuthActions.authCheck(false));
+  }
+  const user = JSON.parse(userAsync);
+  const auth = JSON.parse(user.auth);
+  console.log(auth.user);
+  if (auth.user && auth.user.id && auth.user.token) {
+    const data = yield call(
+      api.post,
+      '/user/get-data',
+      {},
+      {
+        headers: { token: auth.user.token },
+      },
+    );
+    yield put(AuthActions.signInSuccess(data.user));
+    yield put(AuthActions.authCheck(true));
+  } else {
+    yield put(AuthActions.authCheck(false));
+  }
+}
+
 export function* requestUpdate({ data: userData }) {
   try {
     const {

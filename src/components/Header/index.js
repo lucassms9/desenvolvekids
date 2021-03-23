@@ -17,7 +17,7 @@ function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
   let leftComp = hasBack ? (
     <TouchableOpacity
       onPress={() => {
-        navigation.goBack();
+        navigation.pop();
       }}>
       <Feather name="arrow-left" size={30} color={colors.white} />
     </TouchableOpacity>

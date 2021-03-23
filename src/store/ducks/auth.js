@@ -42,6 +42,8 @@ const { Types, Creators } = createActions({
 
   addAddressRequest: ['data'],
   addAddressRequestSuccess: ['user'],
+
+  requestUserData: ['message'],
 });
 
 const INITIAL_STATE = Immutable({
@@ -129,6 +131,7 @@ export default createReducer(INITIAL_STATE, {
   [Types.RM_DEPENDENT_ERROR]: error,
   [Types.RM_DEPENDENT_REQUEST]: request,
   [Types.RM_DEPENDENT_SUCCESS]: rmDependentSuccess,
+
 });
 
 export { Types, Creators };

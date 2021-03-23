@@ -8,6 +8,7 @@ import { Types as OrderTypes } from '../ducks/order';
 import {
   init,
   signIn,
+  getDataUser,
   signUp,
   signOut,
   recover,
@@ -37,5 +38,6 @@ export default function* rootSaga() {
     takeLatest(AuthTypes.RM_DEPENDENT_REQUEST, requestRmDependent),
     takeLatest(OrderTypes.REQUEST_PAYMENT_ORDER, requestPaymentOrder),
     takeLatest(OrderTypes.ADD_DELIVERY_METHOD, fetchDeliveryway),
+    takeLatest(AuthTypes.REQUEST_USER_DATA, getDataUser),
   ]);
 }

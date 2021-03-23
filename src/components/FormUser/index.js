@@ -141,7 +141,7 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
             secureTextEntry={true}
             autoCapitalize="none"
             onChangeText={(text) => setFieldValue('password', text)}
-            onSubmitEditing={() => passwordConfirmRef.current.focus()}
+            onSubmitEditing={() => passwordConfirmRef.current ? passwordConfirmRef.current.focus() : {}}
           />
           {errors.password && (
             <Text style={styles.error}>{errors.password}</Text>

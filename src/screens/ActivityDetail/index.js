@@ -157,10 +157,10 @@ function ActivityDetail({ navigation, route }) {
                     },
                   }}
                 />
-                <Button
+                <ButtonPrimary
                   onPress={sendSchedule}
                   buttonStyle={styles.btn}
-                  title="Agendar"
+                  text="Agendar"
                 />
               </View>
             )}

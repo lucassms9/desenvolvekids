@@ -57,7 +57,8 @@ function MainCard({
           <View style={{ flexDirection: 'row' }}>
             {isSchecule && (
               <View style={{ marginRight: 15 }}>
-                <Icon name={'clock'} type="feather" color={'#f00'} size={20} />
+                {/* <Icon name={'clock'} type="feather" color={'#f00'} size={20} /> */}
+               <Text> {isSchecule}</Text>
               </View>
             )}
 

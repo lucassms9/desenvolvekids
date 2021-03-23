@@ -52,8 +52,8 @@ function Options({
 
   return (
     <View style={commons.body}>
-      <Header title="Opções" hasBack />
       <SafeAreaView style={{ flex: 1 }}>
+      <Header title="Opções" hasBack />
         <View style={[commons.container, { flex: 1 }]}>
           <ScrollView style={{ flex: 1 }}>
             <TouchableOpacity onPress={openProfile} style={styles.items}>

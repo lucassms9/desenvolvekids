@@ -131,8 +131,9 @@ function Extras({ setNavigation, navigation, route }) {
 
   return (
     <View style={commons.body}>
-      <Header title="Extra" />
+     
       <SafeAreaView>
+      <Header title="Extra" />
         <View style={[commons.container, { paddingBottom: 70 }]}>
           {loading && <Loader />}
           {!loading && (

@@ -25,7 +25,7 @@ import NotFound from '~/components/NotFound';
 
 import api from '~/services/api';
 
-function Activities({ setNavigation, navigation, route }) {
+function Activities({ setNavigation, navigation, route, requestUserData }) {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasFilter, setHasFilter] = useState(false);
@@ -103,6 +103,7 @@ function Activities({ setNavigation, navigation, route }) {
     setNavigation({ ...navigation, ...route });
     getCategories();
     getActivities();
+    requestUserData('');
   }, []);
 
   useEffect(() => {
@@ -163,7 +164,7 @@ function Activities({ setNavigation, navigation, route }) {
                     isSchecule={
                       act.data_agenda &&
                       moment(act.data_agenda).isSameOrAfter(moment(), 'day')
-                        ? true
+                        ? moment(act.data_agenda).format('DD/MM')
                         : false
                     }
                     showFavorite
