@@ -60,6 +60,8 @@ export function* getDataUser() {
         headers: { token: auth.user.token },
       },
     );
+    console.log('data.user')
+    console.log(data.user)
     yield put(AuthActions.signInSuccess(data.user));
     yield put(AuthActions.authCheck(true));
   } else {
@@ -69,6 +71,7 @@ export function* getDataUser() {
 
 export function* requestUpdate({ data: userData }) {
   try {
+    console.log(userData)
     const {
       birthDate,
       email,
@@ -77,6 +80,15 @@ export function* requestUpdate({ data: userData }) {
       parent,
       password,
       phone,
+      address,
+      city,
+      complement,
+      nameAddress,
+      neighborhood,
+      number,
+      zipCode,
+      state,
+      recipient
     } = userData;
 
     const request = {
@@ -87,6 +99,16 @@ export function* requestUpdate({ data: userData }) {
       celular: phone,
       cpf: fiscalNumber,
       senha: password,
+      
+      zipCode: zipCode,
+      nameAddress: nameAddress,
+      address: address,
+      city: city,
+      complement: complement,
+      neighborhood: neighborhood,
+      number: number,
+      recipient: recipient,
+      state: state,
     };
     //faz request signUp
     const data = yield call(api.post, '/user/update', request);
@@ -111,6 +133,17 @@ export function* signUp({ data: signUpData }) {
       parent,
       password,
       phone,
+      parentLabel,
+      parentOther,
+      zipCode,
+      nameAddress,
+      address,
+      city,
+      complement,
+      neighborhood,
+      number,
+      recipient,
+      state,
     } = signUpData;
 
     const request = {
@@ -121,6 +154,17 @@ export function* signUp({ data: signUpData }) {
       celular: phone,
       cpf: fiscalNumber,
       senha: password,
+      parentLabel,
+      parentOther,
+      zipCode: zipCode,
+      nameAddress: nameAddress,
+      address: address,
+      city: city,
+      complement: complement,
+      neighborhood: neighborhood,
+      number: number,
+      recipient: recipient,
+      state: state,
     };
 
     //faz request signUp
@@ -277,6 +321,8 @@ export function* requestDependent({ data }) {
       senha: data.password,
       cpf: data.fiscalNumber,
       data_nascimento: data.birthDate,
+      parentLabel: data.parentLabel,
+      parentOther: data.parentOther,
     };
 
     if (data.id) {

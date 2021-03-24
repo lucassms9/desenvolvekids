@@ -35,6 +35,7 @@ import Forum from '~/screens/Forum';
  * Stacks
  */
 
+import Contact from '~/screens/Contact';
 import MovieDetail from '~/screens/Movies/detail';
 import PodcastDetail from '~/screens/Podcasts/detail';
 import TipDetail from '~/screens/Tips/detail';
@@ -175,6 +176,13 @@ function Routes() {
         <OptionsStack.Screen
           name="Childrens"
           component={Childrens}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <OptionsStack.Screen
+          name="Contact"
+          component={Contact}
           options={{
             headerShown: false,
           }}

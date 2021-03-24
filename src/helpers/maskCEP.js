@@ -7,3 +7,12 @@ export const maskCEP = (setFieldValueCallback, field) => (text) => {
 
   return setFieldValueCallback(field, cep);
 };
+
+export const maskOnlyCEP = (text) => {
+  const cep = MaskService.toMask('custom', text, {
+    mask: '99999-999',
+  });
+
+  return cep
+};
+

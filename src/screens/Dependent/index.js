@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
@@ -33,6 +33,7 @@ function Dependent({
   const dispatch = useDispatch();
 
   const [dependentEdit, setDependentEdit] = useState({});
+  const [canAddDependent, setCanAddDependent] = useState(false);
 
   const [kinShips, setKinShips] = useState([]);
 
@@ -72,12 +73,28 @@ function Dependent({
     modalizeRef.current?.open();
   };
 
+  useEffect(() => {
+    if(
+      auth &&
+      auth.user &&
+      auth.user.dependentes &&
+      auth.user.dependentes.length > 0
+    ){
+      setCanAddDependent(false);
+    }else{
+      setCanAddDependent(true);
+    }
+   
+  },[auth]);
+
   const handleDependent = (dependent) => {
     if (dependentEdit) {
       dependent.id = dependent.id;
     }
 
+    console.log(dependent)
     addDependentRequest(dependent);
+    getKinShips();
     onOClose();
   };
 
@@ -89,7 +106,7 @@ function Dependent({
     const dataDependent = {
       id: dependent.id,
       name: dependent.nome,
-      parent: dependent.parentesco_id,
+      parent: dependent.clientes_parentescos_id,
       fiscalNumber: maskOnlyCPF(dependent.cpf),
       email: dependent.email,
       birthDate: moment(dependent.data_nascimento).format('DD/MM/YYYYY'),
@@ -106,7 +123,7 @@ function Dependent({
       <SafeAreaView style={styles.safe}>
         <View style={[commons.container, styles.container]}>
           <View style={styles.pd15}>
-            <Text style={styles.title}>Meus Dependentes</Text>
+            <Text style={styles.title}>Compartilhado com</Text>
             {auth && auth.user && auth.user.dependentes && (
               <View>
                 {auth.user.dependentes.map((dependent) => {
@@ -146,7 +163,8 @@ function Dependent({
             )}
           </View>
           <View style={styles.mg15}>
-            <ButtonSecondary
+            {canAddDependent && (
+              <ButtonSecondary
               icon={
                 <Icon
                   style={styles.icone}
@@ -159,10 +177,12 @@ function Dependent({
               onPress={createDependent}
               text="NOVO DEPENDENTE"
             />
+            )}
+            
           </View>
         </View>
       </SafeAreaView>
-      <Modalize modalHeight={700} ref={modalizeRef}>
+      <Modalize modalHeight={600} ref={modalizeRef}>
         <ModalDependent
           initData={dependentEdit}
           handleAddress={handleDependent}

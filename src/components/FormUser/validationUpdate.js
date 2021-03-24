@@ -17,6 +17,20 @@ const validationSchema = yup.object().shape({
     }),
   phone: yup.string().required('Campo obrigatório'),
   birthDate: yup.string().required('Campo obrigatório'),
+  parent: yup.string().required('Campo obrigatório'),
+  parentOther: yup.string().notRequired()
+  .when('parentLabel', {
+  is: (val) => String(val).toLowerCase() === 'outros',
+    then: yup.string().required('Campo obrigatório'),
+    otherwise: yup.string().notRequired()
+  }),
+  zipCode: yup.string().required('Campo obrigatório'),
+  nameAddress: yup.string().required('Campo obrigatório'),
+  address: yup.string().required('Campo obrigatório'),
+  number: yup.string().required('Campo obrigatório'),
+  neighborhood: yup.string().required('Campo obrigatório'),
+  city: yup.string().required('Campo obrigatório'),
+  state: yup.string().required('Campo obrigatório'),
 });
 
 export default validationSchema;

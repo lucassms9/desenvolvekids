@@ -49,16 +49,7 @@ function ModalChildren({
                 {errors.nickName && (
                   <Text style={commons.error}>{errors.nickName}</Text>
                 )}
-                <Input
-                  value={values.email}
-                  label={'E-mail'}
-                  autoCapitalize="none"
-                  placeholder={'E-mail'}
-                  onChangeText={(text) => setFieldValue('email', text)}
-                />
-                {errors.email && (
-                  <Text style={commons.error}>{errors.email}</Text>
-                )}
+               
                 <Input
                   value={values.birthDate}
                   label={'Data de Nascimento'}
@@ -69,17 +60,6 @@ function ModalChildren({
                 {errors.birthDate && (
                   <Text style={commons.error}>{errors.birthDate}</Text>
                 )}
-                <Input
-                  value={values.phone}
-                  label={'Celular'}
-                  autoCapitalize="none"
-                  placeholder={'Celular'}
-                  onChangeText={maskPhone(setFieldValue, 'phone')}
-                />
-                {errors.phone && (
-                  <Text style={commons.error}>{errors.phone}</Text>
-                )}
-
                 <View style={{ marginTop: 30 }}>
                   <ButtonPrimary
                     loading={status === 'loading'}

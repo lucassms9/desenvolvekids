@@ -114,35 +114,27 @@ function ActivityComplete({ navigation, route }) {
       <Header title="Atividade" hasBack />
       <SafeAreaView style={styles.container}>
         <ScrollView style={[commons.container, styles.container]}>
-          <View style={styles.fx02}>
-            <Text style={styles.title}>
-              Parabéns! atividade concluída com sucesso!
-            </Text>
-          </View>
-          <View style={[styles.fx02, { marginVertical: 10 }]}>
+
+        <View style={[styles.fx02, { marginVertical: 10 }]}>
             <ButtonPrimary
-              text={!imageTake ? 'Enviar Comprovação' : 'Reenviar Comprovação'}
+              text={!imageTake ? 'Registre este momento' : 'Reenviar Comprovação'}
               onPress={showCameraHandleModal}
               icon={
                 imageTake ? (
                   <Icon name="check" type="feather" color="#fff" />
-                ) : null
+                ) : (<Icon name="camera" type="feather" color="#fff" />)
               }
             />
-
-            {/* <View>
-              {imageTake && (
-                <Image
-                  style={{ marginTop: 10 }}
-                  width={200}
-                  height={200}
-                  source={{
-                    uri: imageTake,
-                  }}
-                />
-              )}
-            </View> */}
           </View>
+
+          <View style={[styles.fx02,{flexDirection:'column', marginBottom:10}]}>
+          <Icon name="check" type="feather" color="#0f0" size={25} />
+            <Text style={[styles.title, {color:'#0f0'}]}>
+              Parabéns! atividade concluída com sucesso! 
+            </Text>
+           
+          </View>
+          
 
           <View style={styles.container}>
             {questions.length > 0 && (

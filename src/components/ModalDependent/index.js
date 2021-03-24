@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
@@ -23,6 +23,15 @@ function ModalChildren({
   onOClose,
   kinShips,
 }) {
+  const [parent, setParent] = useState('');
+
+    const parantHandle = useMemo(() => {
+      if(kinShips){
+          const getParent = kinShips.find(kin => kin.value === parent)
+          return String(getParent?.label).toLowerCase();
+      }
+    },[parent]);
+
   return (
     <SafeAreaView>
       <View style={{ padding: 10 }}>
@@ -31,6 +40,7 @@ function ModalChildren({
           validationSchema={validationSchema}
           onSubmit={(values) => handleAddress(values)}>
           {({ handleSubmit, values, setFieldValue, errors }) => {
+            
             return (
               <View>
                 <Input
@@ -41,7 +51,7 @@ function ModalChildren({
                   onChangeText={(text) => setFieldValue('name', text)}
                 />
                 {errors.name && (
-                  <Text style={commons.error}>{errors.name}</Text>
+                  <Text style={commons.errorWhite}>{errors.name}</Text>
                 )}
                 <Input
                   value={values.fiscalNumber}
@@ -51,7 +61,7 @@ function ModalChildren({
                   onChangeText={maskCPF(setFieldValue, 'fiscalNumber')}
                 />
                 {errors.fiscalNumber && (
-                  <Text style={commons.error}>{errors.fiscalNumber}</Text>
+                  <Text style={commons.errorWhite}>{errors.fiscalNumber}</Text>
                 )}
 
                 <Input
@@ -62,7 +72,7 @@ function ModalChildren({
                   onChangeText={maskDate(setFieldValue, 'birthDate')}
                 />
                 {errors.birthDate && (
-                  <Text style={commons.error}>{errors.birthDate}</Text>
+                  <Text style={commons.errorWhite}>{errors.birthDate}</Text>
                 )}
                 <Input
                   value={values.email}
@@ -72,12 +82,18 @@ function ModalChildren({
                   onChangeText={(text) => setFieldValue('email', text)}
                 />
                 {errors.email && (
-                  <Text style={commons.error}>{errors.email}</Text>
+                  <Text style={commons.errorWhite}>{errors.email}</Text>
                 )}
                 <View style={styles.mh5}>
                   <Text style={styles.labelPicker}>Grau de Parentesco</Text>
                   <RNPickerSelect
-                    onValueChange={(text) => setFieldValue('parent', text)}
+                    onValueChange={(text) => {
+                      const getParent = kinShips.find(kin => kin.value === text)
+                      setFieldValue('parentLabel',String(getParent?.label).toLowerCase());
+
+                      setParent(text);
+                      setFieldValue('parent', text)
+                    }}
                     value={values.parent}
                     items={kinShips}
                     placeholder={{
@@ -101,10 +117,22 @@ function ModalChildren({
                     }}
                   />
                   {errors.parent && (
-                    <Text style={styles.error}>{errors.parent}</Text>
+                    <Text style={commons.errorWhite}>{errors.parent}</Text>
                   )}
                 </View>
-
+                  {parantHandle === 'outros' && (
+                   <>
+                    <Input
+                      value={values.parentOther}
+                      label={'Detalhar Parentesco:'}
+                      placeholder={'Detalhar Parentesco'}
+                      onChangeText={(text) => setFieldValue('parentOther', text)}
+                    />
+                    {errors.parentOther && (
+                      <Text style={commons.errorWhite}>{errors.parentOther}</Text>
+                    )}
+                   </>
+                  )}
                 <Input
                   value={values.phone}
                   label={'Celular'}
@@ -113,7 +141,7 @@ function ModalChildren({
                   onChangeText={maskPhone(setFieldValue, 'phone')}
                 />
                 {errors.phone && (
-                  <Text style={commons.error}>{errors.phone}</Text>
+                  <Text style={commons.errorWhite}>{errors.phone}</Text>
                 )}
 
                 <Input
@@ -125,7 +153,7 @@ function ModalChildren({
                   onChangeText={(text) => setFieldValue('password', text)}
                 />
                 {errors.password && (
-                  <Text style={styles.error}>{errors.password}</Text>
+                  <Text style={commons.errorWhite}>{errors.password}</Text>
                 )}
                 <View style={{ marginTop: 30 }}>
                   <ButtonPrimary

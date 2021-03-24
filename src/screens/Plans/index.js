@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { useDispatch, connect } from 'react-redux';
 import { Creators as PlanActions } from '~/store/ducks/plan';
+import { Creators as AuthActions } from '~/store/ducks/auth';
 import { bindActionCreators } from 'redux';
 import { PricingCard } from 'react-native-elements';
 import { ToastActionsCreators } from 'react-native-redux-toast';
@@ -15,7 +16,7 @@ import api from '~/services/api';
 import { maskMoney } from '~/helpers';
 
 function Plans(props) {
-  const { navigation, addPlan } = props;
+  const { navigation, addPlan, signInSuccess } = props;
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -34,10 +35,19 @@ function Plans(props) {
 
   const getPlanFree = async (planFree) => {
     try {
-      const data = await api.post('planos/free-assinar', {
+      const data = await api.post('/planos/free-assinar', {
         plano_id: planFree.id,
       });
-      return navigation.dispatch(StackActions.replace('Main'));
+
+      const {user} = await api.post('/user/get-data');
+      console.log('data.user plan')
+      console.log(user);
+      signInSuccess(user);
+      setTimeout(() => {
+        return navigation.dispatch(StackActions.replace('Main'));
+      },50)
+      
+
     } catch (error) {
       dispatch(ToastActionsCreators.displayError(error.message));
     }
@@ -95,6 +105,7 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       ...PlanActions,
+      ...AuthActions,
     },
     dispatch,
   );

@@ -109,7 +109,7 @@ function Childrens({ anavigation, auth, addChildrenRequest }) {
           </View>
         </View>
       </SafeAreaView>
-      <Modalize modalHeight={700} ref={modalizeRef}>
+      <Modalize modalHeight={600} ref={modalizeRef}>
         <ModalChildren
           initData={childrenEdit}
           handleAddress={handleChildren}

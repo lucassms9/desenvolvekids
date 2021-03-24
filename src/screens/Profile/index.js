@@ -8,7 +8,7 @@ import api from '~/services/api';
 import Header from '~/components/Header';
 import FormUser from '~/components/FormUser';
 
-import { maskOnlyCPF, maskOnlyPhone } from '~/helpers';
+import { maskOnlyCPF, maskOnlyPhone, maskOnlyCEP } from '~/helpers';
 
 import { commons } from '~/styles';
 
@@ -34,6 +34,7 @@ function Profile({ auth: { user, status }, updateUserRequest }) {
     getKinShips();
   }, []);
 
+  const endreco = user?.enderecos[0];
   const initData = {
     name: user.nome,
     fiscalNumber: maskOnlyCPF(user.cpf),
@@ -41,6 +42,16 @@ function Profile({ auth: { user, status }, updateUserRequest }) {
     email: user.email,
     parent: user.clientes_parentescos_id,
     phone: maskOnlyPhone(user.celular),
+
+    zipCode: maskOnlyCEP(endreco?.cep),
+    nameAddress: endreco?.nome_endereco,
+    address: endreco?.endereco,
+    city: endreco?.cidade,
+    complement: endreco?.complemento,
+    neighborhood: endreco?.bairro,
+    number: endreco?.numero,
+    recipient: endreco?.nome_destinatario,
+    state: endreco?.estado,
   };
 
   return (

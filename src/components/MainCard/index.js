@@ -23,17 +23,37 @@ function MainCard({
   isSchecule,
   toggleFavorite,
   progress,
+  completed,
   showFavorite = false,
   titleButton = 'VER MAIS',
 }) {
   return (
     <View key={id} style={style.container}>
-      <View style={style.fx1}>
+      {completed && (
+        <View style={{ zIndex: 1, elevation: 1}}>
+          <View
+            style={{
+              position: 'absolute',
+              top: 2,
+              flex:1,
+              justifyContent:'center',
+              alignItems:'center',
+              right: 2,
+              borderColor: '#0f0',
+              borderWidth: 2,
+              borderRadius: 20,
+              width: 30,
+              height: 30,
+            }}>
+            <Icon name="check" type="feather" color="#0f0" />
+          </View>
+        </View>
+      )}
+      <View style={[style.fx1, { zIndex: 0 }]}>
         <Image
           source={{ uri: banner }}
           resizeMode="cover"
-          style={style.image}
-        />
+          style={style.image}></Image>
       </View>
 
       <CardContent
@@ -58,7 +78,7 @@ function MainCard({
             {isSchecule && (
               <View style={{ marginRight: 15 }}>
                 {/* <Icon name={'clock'} type="feather" color={'#f00'} size={20} /> */}
-               <Text> {isSchecule}</Text>
+                <Text> {isSchecule}</Text>
               </View>
             )}
 

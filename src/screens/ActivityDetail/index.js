@@ -165,11 +165,11 @@ function ActivityDetail({ navigation, route }) {
               </View>
             )}
 
-            <View style={{}}>
+            {/* <View style={{}}>
               {imagesCarousel.length > 0 && (
                 <MainCarousel imagens={imagesCarousel} />
               )}
-            </View>
+            </View> */}
 
             <View style={{ marginTop: 10, marginHorizontal: 8 }}>
               <View>

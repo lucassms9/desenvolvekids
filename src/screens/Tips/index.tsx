@@ -20,10 +20,10 @@ import api from '~/services/api';
 import styles from './styles';
 
 import { iProps, iTip } from './tips';
-import { AxiosResponse } from 'axios';
 
+import { CommonActions } from '@react-navigation/native';
 
-const Tips: React.FC<iProps> = ({ navigation }:iProps) => {
+const Tips: React.FC<iProps> = ({ navigation, userEntity: user }:iProps) => {
   const [tips, setTips] = useState<iTip[]>([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
@@ -81,6 +81,17 @@ const Tips: React.FC<iProps> = ({ navigation }:iProps) => {
 
     return unsubscribe;
   }, [navigation]);
+
+  useEffect(() => {
+    if (user && (!user.plano || !user.plano.id)) {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [{ name: 'Plans' }],
+        }),
+      );
+    }
+  }, [user]);
 
   return (
     <View style={commons.body}>

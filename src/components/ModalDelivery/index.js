@@ -50,7 +50,7 @@ function ModalDelivery({
               } = response;
               if (!erro) {
                 setFieldValue('complement', complemento);
-                setFieldValue('neighnorhood', bairro);
+                setFieldValue('neighborhood', bairro);
                 setFieldValue('address', logradouro);
                 setFieldValue('state', uf);
                 setFieldValue('city', localidade);

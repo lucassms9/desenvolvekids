@@ -9,7 +9,7 @@ import {
   View,
   Text,
 } from 'react-native';
-
+import { CommonActions } from '@react-navigation/native';
 import moment from 'moment';
 
 import MainCard from '~/components/MainCard';
@@ -25,7 +25,7 @@ import NotFound from '~/components/NotFound';
 
 import api from '~/services/api';
 
-function Activities({ setNavigation, navigation, route, requestUserData }) {
+function Activities({ setNavigation, navigation, route, requestUserData, userEntity:user }) {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasFilter, setHasFilter] = useState(false);
@@ -104,7 +104,20 @@ function Activities({ setNavigation, navigation, route, requestUserData }) {
     getCategories();
     getActivities();
     requestUserData('');
+
   }, []);
+
+  useEffect(() => {
+    if (user && (!user.plano || !user.plano.id)) {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [{ name: 'Plans' }],
+        }),
+      );
+    }
+  }, [user]);
+
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -168,6 +181,7 @@ function Activities({ setNavigation, navigation, route, requestUserData }) {
                         : false
                     }
                     showFavorite
+                    completed={act.progresso === act.conteudos.length}
                     progress={`${act.progresso}/${act.conteudos.length}`}
                     toggleFavorite={toggleFavorite}
                     goDetail={() => {

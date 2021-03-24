@@ -1,10 +1,17 @@
 import React, { memo } from 'react';
 
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 
 import PlayerCustom from '~/components/PlayerCustom';
 
 function ItemPage({ item }) {
+  const renderImage = (image) => {
+    return (
+      <View style={{ marginVertical: 15 }}>
+        <Image resizeMode='cover' source={{ uri: image.conteudo }} style={{ width: '100%', minHeight:250}} />
+      </View>
+    );
+  };
   const renderMovies = (movie) => {
     return (
       <View style={{ marginVertical: 15 }}>
@@ -28,6 +35,9 @@ function ItemPage({ item }) {
   }
   if (item.tipo === 'video') {
     return renderMovies(item);
+  }
+  if (item.tipo === 'imagem') {
+    return renderImage(item);
   }
   return <View />;
 }
