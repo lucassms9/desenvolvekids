@@ -136,85 +136,81 @@ class Forum extends Component {
     const { navigation } = this.props;
 
     return (
-      <View style={commons.body}>
+      <SafeAreaView style={commons.body}>
         <Header hasBack title="Perguntas" />
-        <SafeAreaView>
-          <View style={[commons.container, { paddingBottom: 90 }]}>
-            {loading && <Loader />}
-            {!loading && (
-              <ScrollView>
-                {this.state.hasFilter && (
-                  <TouchableOpacity onPress={this.resetFilter}>
-                    <View style={{ alignItems: 'center', marginBottom: 10 }}>
-                      <Text
-                        style={{
-                          color: '#fff',
-                          fontSize: 17,
-                          fontWeight: '700',
-                        }}>
-                        Remover Filtro
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                )}
-                <View style={styles.options}>
-                  <ItemsFilter
-                    filterFunc={this.filterForum}
-                    items={this.state.categories}
-                  />
-                  <TouchableOpacity
-                    style={{ marginTop: 10 }}
-                    onPress={() => navigation.navigate('ForumCreate')}>
-                    <Text style={styles.optionsItem}>CRIAR PERGUNTA</Text>
-                  </TouchableOpacity>
-                </View>
-                {forums.length === 0 && <NotFound type="forum" />}
-                {forums.map((forum, index) => {
-                  return (
-                    <View style={styles.forumItem} key={forum.id}>
-                      <View style={styles.mb5}>
-                        <Text style={styles.ft18}>
-                          {forum.questao_resumida}
-                        </Text>
-                      </View>
-                      <View style={styles.forumBody}>
-                        <ScrollView
-                          contentContainerStyle={styles.pd40}
-                          ref={`myscroll${forum.id}`}>
-                          {forum.respostas.length === 0 ? (
-                            <Text>Aguradando respostas.</Text>
-                          ) : (
-                            forum.respostas.map((resp, index) => {
-                              return (
-                                <View style={styles.mb10}>
-                                  <View style={styles.fdr}>
-                                    <Text style={styles.labelName}>
-                                      {resp.cliente}
-                                    </Text>
-                                    <Text>{`respondeu em: ${resp.data_cadastro}`}</Text>
-                                  </View>
-
-                                  <Text>{resp.resposta}</Text>
-                                  <Divider style={styles.divider} />
-                                </View>
-                              );
-                            })
-                          )}
-                        </ScrollView>
-                      </View>
-                    </View>
-                  );
-                })}
-                <Pagination
-                  totalPage={this.state.totalPage}
-                  page={this.state.page}
-                  getMoreItem={this.moreForums}
+        <View style={[commons.container, { paddingBottom: 90 }]}>
+          {loading && <Loader />}
+          {!loading && (
+            <ScrollView>
+              {this.state.hasFilter && (
+                <TouchableOpacity onPress={this.resetFilter}>
+                  <View style={{ alignItems: 'center', marginBottom: 10 }}>
+                    <Text
+                      style={{
+                        color: '#fff',
+                        fontSize: 17,
+                        fontWeight: '700',
+                      }}>
+                      Remover Filtro
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+              <View style={styles.options}>
+                <ItemsFilter
+                  filterFunc={this.filterForum}
+                  items={this.state.categories}
                 />
-              </ScrollView>
-            )}
-          </View>
-        </SafeAreaView>
-      </View>
+                <TouchableOpacity
+                  style={{ marginTop: 10 }}
+                  onPress={() => navigation.navigate('ForumCreate')}>
+                  <Text style={styles.optionsItem}>CRIAR PERGUNTA</Text>
+                </TouchableOpacity>
+              </View>
+              {forums.length === 0 && <NotFound type="forum" />}
+              {forums.map((forum, index) => {
+                return (
+                  <View style={styles.forumItem} key={forum.id}>
+                    <View style={styles.mb5}>
+                      <Text style={styles.ft18}>{forum.questao_resumida}</Text>
+                    </View>
+                    <View style={styles.forumBody}>
+                      <ScrollView
+                        contentContainerStyle={styles.pd40}
+                        ref={`myscroll${forum.id}`}>
+                        {forum.respostas.length === 0 ? (
+                          <Text>Aguradando respostas.</Text>
+                        ) : (
+                          forum.respostas.map((resp, index) => {
+                            return (
+                              <View style={styles.mb10}>
+                                <View style={styles.fdr}>
+                                  <Text style={styles.labelName}>
+                                    {resp.cliente}
+                                  </Text>
+                                  <Text>{`respondeu em: ${resp.data_cadastro}`}</Text>
+                                </View>
+
+                                <Text>{resp.resposta}</Text>
+                                <Divider style={styles.divider} />
+                              </View>
+                            );
+                          })
+                        )}
+                      </ScrollView>
+                    </View>
+                  </View>
+                );
+              })}
+              <Pagination
+                totalPage={this.state.totalPage}
+                page={this.state.page}
+                getMoreItem={this.moreForums}
+              />
+            </ScrollView>
+          )}
+        </View>
+      </SafeAreaView>
     );
   }
 }

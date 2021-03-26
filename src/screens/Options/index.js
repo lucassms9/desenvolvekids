@@ -18,6 +18,7 @@ function Options({
   navigation,
   setNavigation,
   route,
+  requestUserData,
   userEntity: user,
 }) {
   const [hasPlan, setHasPlan] = useState(false);
@@ -53,6 +54,7 @@ function Options({
   };
   useEffect(() => {
     setNavigation({ ...navigation, ...route });
+    requestUserData('');
   }, []);
 
   return (

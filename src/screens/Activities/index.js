@@ -203,76 +203,74 @@ function Activities({
   };
 
   return (
-    <View style={commons.body}>
-      <SafeAreaView>
-        <Header
-          title="Atividades"
-          completeList={completeList}
-          stateMaterial={stateMaterial}
-          initList={initList}
-        />
-        <View style={[commons.container, { paddingBottom: 70 }]}>
-          {loading && <Loader />}
-          {!loading && (
-            <ScrollView>
-              {hasFilter && (
-                <TouchableOpacity onPress={resetFilter}>
-                  <View style={{ alignItems: 'center', marginBottom: 10 }}>
-                    <Text
-                      style={{
-                        color: '#fff',
-                        fontSize: 17,
-                        fontWeight: '700',
-                      }}>
-                      Remover Filtro
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              )}
-              <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                <ItemsFilter filterFunc={filterActivities} items={categories} />
-              </View>
-              {activities.length === 0 && <NotFound type="Atividades" />}
-              {activities.map((act) => {
-                return (
-                  <MainCard
-                    stateMaterial={stateMaterial}
-                    setCheckedAcitivity={setCheckedAcitivity}
-                    checkedAcitivity={checkedAcitivity}
-                    key={act.id}
-                    id={act.id}
-                    banner={act.banner}
-                    title={act.titulo}
-                    isFavorite={act.isFavorite}
-                    isSchecule={
-                      act.data_agenda &&
-                      moment(act.data_agenda).isSameOrAfter(moment(), 'day')
-                        ? moment(act.data_agenda).format('DD/MM')
-                        : false
-                    }
-                    showFavorite
-                    completed={act.progresso === act.conteudos.length}
-                    progress={`${act.progresso}/${act.conteudos.length}`}
-                    toggleFavorite={toggleFavorite}
-                    goDetail={() => {
-                      navigation.navigate('ActivityDetail', {
-                        activity: act,
-                        origem: 'Atividades',
-                      });
-                    }}
-                  />
-                );
-              })}
-              <Pagination
-                totalPage={totalPage}
-                page={page}
-                getMoreItem={moreActivities}
-              />
-            </ScrollView>
-          )}
-        </View>
-      </SafeAreaView>
-    </View>
+    <SafeAreaView style={commons.body}>
+      <Header
+        title="Atividades"
+        completeList={completeList}
+        stateMaterial={stateMaterial}
+        initList={initList}
+      />
+      <View style={[commons.container, { paddingBottom: 70 }]}>
+        {loading && <Loader />}
+        {!loading && (
+          <ScrollView>
+            {hasFilter && (
+              <TouchableOpacity onPress={resetFilter}>
+                <View style={{ alignItems: 'center', marginBottom: 10 }}>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontSize: 17,
+                      fontWeight: '700',
+                    }}>
+                    Remover Filtro
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+              <ItemsFilter filterFunc={filterActivities} items={categories} />
+            </View>
+            {activities.length === 0 && <NotFound type="Atividades" />}
+            {activities.map((act) => {
+              return (
+                <MainCard
+                  stateMaterial={stateMaterial}
+                  setCheckedAcitivity={setCheckedAcitivity}
+                  checkedAcitivity={checkedAcitivity}
+                  key={act.id}
+                  id={act.id}
+                  banner={act.banner}
+                  title={act.titulo}
+                  isFavorite={act.isFavorite}
+                  isSchecule={
+                    act.data_agenda &&
+                    moment(act.data_agenda).isSameOrAfter(moment(), 'day')
+                      ? moment(act.data_agenda).format('DD/MM')
+                      : false
+                  }
+                  showFavorite
+                  completed={act.progresso === act.conteudos.length}
+                  progress={`${act.progresso}/${act.conteudos.length}`}
+                  toggleFavorite={toggleFavorite}
+                  goDetail={() => {
+                    navigation.navigate('ActivityDetail', {
+                      activity: act,
+                      origem: 'Atividades',
+                    });
+                  }}
+                />
+              );
+            })}
+            <Pagination
+              totalPage={totalPage}
+              page={page}
+              getMoreItem={moreActivities}
+            />
+          </ScrollView>
+        )}
+      </View>
+    </SafeAreaView>
   );
 }
 

@@ -130,63 +130,61 @@ function Health({ setNavigation, navigation, route }) {
   };
 
   return (
-    <View style={commons.body}>
-      <SafeAreaView>
+    <SafeAreaView style={commons.body}>
       <Header title="Saúde" />
-        <View style={[commons.container, { paddingBottom: 70 }]}>
-          {loading && <Loader />}
-          {!loading && (
-            <ScrollView>
-              {hasFilter && (
-                <TouchableOpacity onPress={resetFilter}>
-                  <View style={{ alignItems: 'center', marginBottom: 10 }}>
-                    <Text
-                      style={{
-                        color: '#fff',
-                        fontSize: 17,
-                        fontWeight: '700',
-                      }}>
-                      Remover Filtro
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              )}
-              <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                <ItemsFilter filterFunc={filterActivities} items={categories} />
-              </View>
-              {activities.length === 0 && <NotFound type="Atividades" />}
-              {activities.map((act, index) => {
-                return (
-                  <MainCard
-                    id={act.id}
-                    banner={act.banner}
-                    title={act.titulo}
-                    isFavorite={act.isFavorite}
-                    isSchecule={
-                      act.data_agenda &&
-                      moment(act.data_agenda).isSame(moment(), 'day')
-                        ? true
-                        : false
-                    }
-                    goDetail={() => {
-                      navigation.navigate('ActivityDetail', {
-                        activity: act,
-                        origem: 'Saúde',
-                      });
-                    }}
-                  />
-                );
-              })}
-              <Pagination
-                totalPage={totalPage}
-                page={page}
-                getMoreItem={moreActivities}
-              />
-            </ScrollView>
-          )}
-        </View>
-      </SafeAreaView>
-    </View>
+      <View style={[commons.container, { paddingBottom: 70 }]}>
+        {loading && <Loader />}
+        {!loading && (
+          <ScrollView>
+            {hasFilter && (
+              <TouchableOpacity onPress={resetFilter}>
+                <View style={{ alignItems: 'center', marginBottom: 10 }}>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontSize: 17,
+                      fontWeight: '700',
+                    }}>
+                    Remover Filtro
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+              <ItemsFilter filterFunc={filterActivities} items={categories} />
+            </View>
+            {activities.length === 0 && <NotFound type="Atividades" />}
+            {activities.map((act, index) => {
+              return (
+                <MainCard
+                  id={act.id}
+                  banner={act.banner}
+                  title={act.titulo}
+                  isFavorite={act.isFavorite}
+                  isSchecule={
+                    act.data_agenda &&
+                    moment(act.data_agenda).isSame(moment(), 'day')
+                      ? true
+                      : false
+                  }
+                  goDetail={() => {
+                    navigation.navigate('ActivityDetail', {
+                      activity: act,
+                      origem: 'Saúde',
+                    });
+                  }}
+                />
+              );
+            })}
+            <Pagination
+              totalPage={totalPage}
+              page={page}
+              getMoreItem={moreActivities}
+            />
+          </ScrollView>
+        )}
+      </View>
+    </SafeAreaView>
   );
 }
 

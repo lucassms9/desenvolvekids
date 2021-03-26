@@ -196,15 +196,18 @@ export function* signOut({ message }) {
       auth: { navigationGlobal },
     } = yield select();
 
-    yield put(AuthActions.signOutSuccess());
-    yield put(OrderActions.resetOrder());
-    yield put(ProductActions.resetCart());
+
+    console.log('AQUI')
+    console.log(navigationGlobal)
     if (navigationGlobal.name !== 'SignIn') {
       yield call([navigationGlobal, 'dispatch'], StackActions.replace('Auth'));
       if (message) {
         yield put(ToastActionsCreators.displayError(`Erro: ${message}`));
       }
     }
+    yield put(AuthActions.signOutSuccess());
+    yield put(OrderActions.resetOrder());
+    yield put(ProductActions.resetCart());
   } catch (error) {
     console.log(error);
     yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
@@ -213,11 +216,11 @@ export function* signOut({ message }) {
 }
 
 export function* signIn({ email, password, dataSocial }) {
-  try {
-    const {
-      auth: { navigationGlobal },
-    } = yield select();
+  const {
+    auth: { navigationGlobal },
+  } = yield select();
 
+  try {
     const req = {
       email,
       senha: password,
@@ -259,8 +262,14 @@ export function* signIn({ email, password, dataSocial }) {
   } catch (error) {
     console.log('erro login');
     console.log(error);
-    yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
-    yield put(AuthActions.signInError(error));
+    if(error.message === 'Complete seu cadastro!'){
+      yield call([navigationGlobal, 'navigate'], 'SignUp', dataSocial);
+      yield put(AuthActions.signInError('not auth'));
+    }else{
+      yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
+      yield put(AuthActions.signInError(error));
+    }
+    
   }
 }
 

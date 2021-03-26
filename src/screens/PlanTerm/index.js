@@ -10,11 +10,11 @@ import { commons, colors } from '~/styles';
 
 function PlanTerm({ navigation, plan, auth }) {
   const goPayment = () => {
-    if (auth.user.enderecos.length > 0) {
+    // if (auth.user.enderecos.length > 0) {
       return navigation.navigate('PaymentMethod', { origem: 'plans' });
-    } else {
-      return navigation.navigate('DeliveryInfo', { origem: 'plans' });
-    }
+    // } else {
+    //   return navigation.navigate('DeliveryInfo', { origem: 'plans' });
+    // }
   };
 
   return (

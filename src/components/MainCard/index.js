@@ -58,7 +58,7 @@ function MainCard({
           </View>
         </View>
       )}
-      {(stateMaterial && stateMaterial === 'completeList') && (
+      {stateMaterial && stateMaterial === 'completeList' && (
         <View style={{ zIndex: 1, elevation: 1 }}>
           <View
             style={{
@@ -67,24 +67,29 @@ function MainCard({
               flex: 1,
               left: 2,
             }}>
-            <CheckBox
-              title={''}
-              textStyle={style.colorItem}
-              checkedColor={colors.primary}
-              uncheckedColor={colors.primary}
-              containerStyle={style.checkBox}
+            <TouchableOpacity
               onPress={() => {
                 let handleItem = [];
-                if (!checkedAcitivity.includes(id)) {
-                  handleItem = [...checkedAcitivity, id];
-                } else {
-                  handleItem = checkedAcitivity.filter((item) => item !== id);
-                }
-
-                setCheckedAcitivity(handleItem);
-              }}
-              checked={checkedAcitivity.includes(id)}
-            />
+                  if (!checkedAcitivity.includes(id)) {
+                    handleItem = [...checkedAcitivity, id];
+                  } else {
+                    handleItem = checkedAcitivity.filter((item) => item !== id);
+                  }
+                  console.log(handleItem);
+                  setCheckedAcitivity(handleItem);
+              }}>
+              <CheckBox
+                title={''}
+                textStyle={style.colorItem}
+                checkedColor={colors.primary}
+                uncheckedColor={colors.primary}
+                containerStyle={style.checkBox}
+                onPress={() => {
+                  
+                }}
+                checked={checkedAcitivity.includes(id)}
+              />
+            </TouchableOpacity>
           </View>
         </View>
       )}

@@ -23,7 +23,7 @@ import { iProps, iTip } from './tips';
 
 import { CommonActions } from '@react-navigation/native';
 
-const Tips: React.FC<iProps> = ({ navigation, userEntity: user }:iProps) => {
+const Tips: React.FC<iProps> = ({ navigation, userEntity: user }: iProps) => {
   const [tips, setTips] = useState<iTip[]>([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
@@ -42,12 +42,12 @@ const Tips: React.FC<iProps> = ({ navigation, userEntity: user }:iProps) => {
   };
 
   const getTips = async () => {
- 
+
     try {
       console.log('getTips')
       setLoading(true);
       const res = await getTipsSync();
-     
+
       setTips(res.dicas);
       setTotalPage(res.total_pages);
     } catch (error) {
@@ -94,59 +94,57 @@ const Tips: React.FC<iProps> = ({ navigation, userEntity: user }:iProps) => {
   }, [user]);
 
   return (
-    <View style={commons.body}>
-      <SafeAreaView>
+    <SafeAreaView style={commons.body}>
       <Header title="Dicas" />
-        <View style={[commons.container, { paddingBottom: 70 }]}>
-          {loading && <Loader />}
-          {!loading && (
-            <ScrollView>
-              <View style={styles.fdr}>
-                <InputText
-                  value={filter}
-                  placeholder="Faça sua busca"
-                  containerStyle={styles.wd90}
-                  onChangeText={( value : string) => setFilter(value)}
-                />
-                <Button
-                  onPress={filterTips}
-                  buttonStyle={styles.btn}
-                  icon={
-                    <Icon
-                      name="navigation"
-                      size={17}
-                      type="feather"
-                      color="white"
-                    />
-                  }
-                />
-              </View>
-              {tips.length === 0 && <NotFound type="díca" />}
-              {tips.map((tip, index) => {
-                return (
-                  <MainCard
-                    key={tip.id}
-                    id={tip.id}
-                    banner={tip.imagens[0]}
-                    title={tip.titulo}
-                    desc={tip.descricao_resumida}
-                    goDetail={() => {
-                      navigation.navigate('TipDetail', { tip });
-                    }}
-                    titleButton={'LER MAIS'}
-                  />
-                );
-              })}
-              <Pagination
-                totalPage={totalPage}
-                page={page}
-                getMoreItem={moreTips}
+      <View style={[commons.container, { paddingBottom: 70 }]}>
+        {loading && <Loader />}
+        {!loading && (
+          <ScrollView>
+            <View style={styles.fdr}>
+              <InputText
+                value={filter}
+                placeholder="Faça sua busca"
+                containerStyle={styles.wd90}
+                onChangeText={(value: string) => setFilter(value)}
               />
-            </ScrollView>
-          )}
-        </View>
-      </SafeAreaView>
-    </View>
+              <Button
+                onPress={filterTips}
+                buttonStyle={styles.btn}
+                icon={
+                  <Icon
+                    name="navigation"
+                    size={17}
+                    type="feather"
+                    color="white"
+                  />
+                }
+              />
+            </View>
+            {tips.length === 0 && <NotFound type="díca" />}
+            {tips.map((tip, index) => {
+              return (
+                <MainCard
+                  key={tip.id}
+                  id={tip.id}
+                  banner={tip.imagens[0]}
+                  title={tip.titulo}
+                  desc={tip.descricao_resumida}
+                  goDetail={() => {
+                    navigation.navigate('TipDetail', { tip });
+                  }}
+                  titleButton={'LER MAIS'}
+                />
+              );
+            })}
+            <Pagination
+              totalPage={totalPage}
+              page={page}
+              getMoreItem={moreTips}
+            />
+          </ScrollView>
+        )}
+      </View>
+    </SafeAreaView>
   );
 }
 
