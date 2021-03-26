@@ -18,22 +18,6 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* desenvolvekidsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* desenvolvekidsTests.m */; };
-		A01B4615250DC9B2002D23B9 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4605250DC9B0002D23B9 /* Feather.ttf */; };
-		A01B4616250DC9B2002D23B9 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4606250DC9B0002D23B9 /* Entypo.ttf */; };
-		A01B4617250DC9B2002D23B9 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4607250DC9B0002D23B9 /* Fontisto.ttf */; };
-		A01B4618250DC9B2002D23B9 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4608250DC9B1002D23B9 /* Octicons.ttf */; };
-		A01B4619250DC9B2002D23B9 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4609250DC9B1002D23B9 /* MaterialIcons.ttf */; };
-		A01B461A250DC9B2002D23B9 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B460A250DC9B1002D23B9 /* Zocial.ttf */; };
-		A01B461B250DC9B2002D23B9 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B460B250DC9B1002D23B9 /* MaterialCommunityIcons.ttf */; };
-		A01B461C250DC9B2002D23B9 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B460C250DC9B1002D23B9 /* EvilIcons.ttf */; };
-		A01B461D250DC9B2002D23B9 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B460D250DC9B1002D23B9 /* FontAwesome.ttf */; };
-		A01B461E250DC9B2002D23B9 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B460E250DC9B1002D23B9 /* Ionicons.ttf */; };
-		A01B461F250DC9B2002D23B9 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B460F250DC9B1002D23B9 /* AntDesign.ttf */; };
-		A01B4620250DC9B2002D23B9 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4610250DC9B1002D23B9 /* FontAwesome5_Brands.ttf */; };
-		A01B4621250DC9B2002D23B9 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4611250DC9B1002D23B9 /* FontAwesome5_Solid.ttf */; };
-		A01B4622250DC9B2002D23B9 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4612250DC9B2002D23B9 /* Foundation.ttf */; };
-		A01B4623250DC9B2002D23B9 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4613250DC9B2002D23B9 /* SimpleLineIcons.ttf */; };
-		A01B4624250DC9B2002D23B9 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A01B4614250DC9B2002D23B9 /* FontAwesome5_Regular.ttf */; };
 		A05A42C02560903700351775 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05A42BF2560903700351775 /* file.swift */; };
 		A090942B2583B02000A472A5 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090942A2583B02000A472A5 /* NotificationService.swift */; };
 		A090942F2583B02000A472A5 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A09094282583B02000A472A5 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -499,23 +483,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A01B4615250DC9B2002D23B9 /* Feather.ttf in Resources */,
-				A01B4616250DC9B2002D23B9 /* Entypo.ttf in Resources */,
-				A01B4617250DC9B2002D23B9 /* Fontisto.ttf in Resources */,
-				A01B4618250DC9B2002D23B9 /* Octicons.ttf in Resources */,
-				A01B4619250DC9B2002D23B9 /* MaterialIcons.ttf in Resources */,
-				A01B461A250DC9B2002D23B9 /* Zocial.ttf in Resources */,
-				A01B461B250DC9B2002D23B9 /* MaterialCommunityIcons.ttf in Resources */,
-				A01B461C250DC9B2002D23B9 /* EvilIcons.ttf in Resources */,
-				A01B461D250DC9B2002D23B9 /* FontAwesome.ttf in Resources */,
-				A01B461E250DC9B2002D23B9 /* Ionicons.ttf in Resources */,
-				A01B461F250DC9B2002D23B9 /* AntDesign.ttf in Resources */,
 				A096A6322520231E00D9D623 /* GoogleService-Info.plist in Resources */,
-				A01B4620250DC9B2002D23B9 /* FontAwesome5_Brands.ttf in Resources */,
-				A01B4621250DC9B2002D23B9 /* FontAwesome5_Solid.ttf in Resources */,
-				A01B4622250DC9B2002D23B9 /* Foundation.ttf in Resources */,
-				A01B4623250DC9B2002D23B9 /* SimpleLineIcons.ttf in Resources */,
-				A01B4624250DC9B2002D23B9 /* FontAwesome5_Regular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
