@@ -21,3 +21,5 @@ keytool -list -v -keystore android/app/desenvolvekids-key.keystore -alias desenv
 One Signal
 smtp.username = noreply@desenvolvekids.com.br
 smtp.password = 'JuNGbKDt'
+
+IOS Your App ID: 1f90ae75-f4f6-4763-b4b8-e348f719586e
