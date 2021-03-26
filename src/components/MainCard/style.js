@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-
+import { commons, colors } from '~/styles';
 const styles = StyleSheet.create({
   container: {
     padding: 0,
@@ -23,6 +23,12 @@ const styles = StyleSheet.create({
   },
   fx1: {
     flex: 1,
+  },
+  colorItem: { color: colors.white },
+  checkBox: {
+    backgroundColor: '#fff',
+    borderColor: '#fff',
+    borderRadius: 10
   },
 });
 

@@ -8,6 +8,7 @@ import {
   ScrollView,
   View,
   Text,
+  Share,
 } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import moment from 'moment';
@@ -25,13 +26,21 @@ import NotFound from '~/components/NotFound';
 
 import api from '~/services/api';
 
-function Activities({ setNavigation, navigation, route, requestUserData, userEntity:user }) {
+function Activities({
+  setNavigation,
+  navigation,
+  route,
+  requestUserData,
+  userEntity: user,
+}) {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasFilter, setHasFilter] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [categories, setCategories] = useState([]);
+  const [checkedAcitivity, setCheckedAcitivity] = useState([]);
+  const [stateMaterial, setStateMaterial] = useState('generateList');
 
   const filterActivities = async (id) => {
     getActivities(id);
@@ -104,7 +113,6 @@ function Activities({ setNavigation, navigation, route, requestUserData, userEnt
     getCategories();
     getActivities();
     requestUserData('');
-
   }, []);
 
   useEffect(() => {
@@ -117,7 +125,6 @@ function Activities({ setNavigation, navigation, route, requestUserData, userEnt
       );
     }
   }, [user]);
-
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -140,10 +147,70 @@ function Activities({ setNavigation, navigation, route, requestUserData, userEnt
     setActivities([...activities]);
   };
 
+  const completeList = async () => {
+    try {
+      console.log(checkedAcitivity);
+
+      const getActivities = [];
+      checkedAcitivity.forEach((check) => {
+        const item = activities.find((act) => act.id === check);
+        getActivities.push(item);
+      });
+
+      let textWhats = '';
+      console.log(getActivities);
+      console.log(getActivities.materiais);
+
+      getActivities.forEach((act) => {
+        textWhats += `${act.titulo} \n\n`;
+
+        if (act.materiais && act.materiais.length > 0) {
+          act.materiais.forEach((mat) => {
+            textWhats += `${mat.nome_material} \n${mat.descricao}  \n`;
+          });
+        } else {
+          textWhats += `Sem materiais cadastrados.`;
+        }
+
+        textWhats += `\n\n`;
+      });
+
+      console.log(textWhats);
+      // Linking.openURL(`whatsapp://send?phone=${whatsappNo}&text=${whatsappMsg}`);
+      const result = await Share.share({
+        message: textWhats,
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+
+      setCheckedAcitivity([]);
+      setStateMaterial('generateList');
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const initList = () => {
+    setStateMaterial('completeList');
+  };
+
   return (
     <View style={commons.body}>
-      <Header title="Atividades" />
       <SafeAreaView>
+        <Header
+          title="Atividades"
+          completeList={completeList}
+          stateMaterial={stateMaterial}
+          initList={initList}
+        />
         <View style={[commons.container, { paddingBottom: 70 }]}>
           {loading && <Loader />}
           {!loading && (
@@ -166,9 +233,12 @@ function Activities({ setNavigation, navigation, route, requestUserData, userEnt
                 <ItemsFilter filterFunc={filterActivities} items={categories} />
               </View>
               {activities.length === 0 && <NotFound type="Atividades" />}
-              {activities.map((act, index) => {
+              {activities.map((act) => {
                 return (
                   <MainCard
+                    stateMaterial={stateMaterial}
+                    setCheckedAcitivity={setCheckedAcitivity}
+                    checkedAcitivity={checkedAcitivity}
                     key={act.id}
                     id={act.id}
                     banner={act.banner}

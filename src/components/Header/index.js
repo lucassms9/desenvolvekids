@@ -9,7 +9,15 @@ import { View } from 'react-native';
 import { colors, commons } from '~/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
+function HeaderComponent({
+  title,
+  hasBack,
+  hasntProfile,
+  showIconCart,
+  stateMaterial,
+  completeList,
+  initList
+}) {
   const cart = useSelector((state) => state.cart);
   console.log(cart);
   const navigation = useNavigation();
@@ -48,12 +56,46 @@ function HeaderComponent({ title, hasBack, hasntProfile, showIconCart }) {
   }
 
   const rightComp = !hasntProfile ? (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('Options');
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
-      <Feather name="user" size={30} color={colors.white} />
-    </TouchableOpacity>
+      {stateMaterial === 'generateList' && (
+        <TouchableOpacity
+          style={{ marginRight: 10 }}
+          onPress={initList}>
+          <Feather
+            style={{ marginTop: 5 }}
+            name="clipboard"
+            size={28}
+            color={colors.white}
+          />
+        </TouchableOpacity>
+      )}
+
+      {stateMaterial === 'completeList' && (
+        <TouchableOpacity
+          style={{ marginRight: 10 }}
+          onPress={completeList}>
+          <Feather
+            style={{ marginTop: 5 }}
+            name="check-square"
+            size={28}
+            color={colors.white}
+          />
+        </TouchableOpacity>
+      )}
+
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Options');
+        }}>
+        <Feather name="user" size={30} color={colors.white} />
+      </TouchableOpacity>
+    </View>
   ) : (
     {}
   );

@@ -2,7 +2,8 @@ import React from 'react';
 
 import { View, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Icon } from 'react-native-elements';
+import { Icon, CheckBox } from 'react-native-elements';
+
 import {
   Card,
   CardContent,
@@ -12,9 +13,11 @@ import {
 } from 'react-native-material-cards';
 
 import style from './style';
+import { commons, colors } from '~/styles';
 
 function MainCard({
   id,
+  activityId,
   banner,
   title,
   desc,
@@ -24,21 +27,27 @@ function MainCard({
   toggleFavorite,
   progress,
   completed,
+  checkedAcitivity,
+  setCheckedAcitivity,
   showFavorite = false,
+  stateMaterial,
   titleButton = 'VER MAIS',
 }) {
+  // console.log(checkedAcitivity)
+  // console.log(checkedAcitivity.includes(id))
+  console.log(id);
   return (
     <View key={id} style={style.container}>
       {completed && (
-        <View style={{ zIndex: 1, elevation: 1}}>
+        <View style={{ zIndex: 1, elevation: 1 }}>
           <View
             style={{
               position: 'absolute',
-              top: 2,
-              flex:1,
-              justifyContent:'center',
-              alignItems:'center',
-              right: 2,
+              top: 10,
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              right: 5,
               borderColor: '#0f0',
               borderWidth: 2,
               borderRadius: 20,
@@ -49,6 +58,37 @@ function MainCard({
           </View>
         </View>
       )}
+      {(stateMaterial && stateMaterial === 'completeList') && (
+        <View style={{ zIndex: 1, elevation: 1 }}>
+          <View
+            style={{
+              position: 'absolute',
+              top: 2,
+              flex: 1,
+              left: 2,
+            }}>
+            <CheckBox
+              title={''}
+              textStyle={style.colorItem}
+              checkedColor={colors.primary}
+              uncheckedColor={colors.primary}
+              containerStyle={style.checkBox}
+              onPress={() => {
+                let handleItem = [];
+                if (!checkedAcitivity.includes(id)) {
+                  handleItem = [...checkedAcitivity, id];
+                } else {
+                  handleItem = checkedAcitivity.filter((item) => item !== id);
+                }
+
+                setCheckedAcitivity(handleItem);
+              }}
+              checked={checkedAcitivity.includes(id)}
+            />
+          </View>
+        </View>
+      )}
+
       <View style={[style.fx1, { zIndex: 0 }]}>
         <Image
           source={{ uri: banner }}
