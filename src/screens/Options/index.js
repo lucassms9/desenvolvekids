@@ -37,6 +37,9 @@ function Options({
   const openMyPlan = () => {
     navigation.navigate('MyPlan');
   };
+  const openProgresso = () => {
+    navigation.navigate('Progress');
+  };
   const openMyOrder = () => {
     navigation.navigate('MyOrders');
   };
@@ -125,6 +128,15 @@ function Options({
                   </View>
                   <Icon color="#fff" name="arrow-right" type="feather" />
                 </TouchableOpacity>
+
+                <TouchableOpacity onPress={openProgresso} style={styles.items}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Icon color="#fff" name="activity" type="feather" />
+                    <Text style={styles.itemLabel}>Progresso</Text>
+                  </View>
+                  <Icon color="#fff" name="arrow-right" type="feather" />
+                </TouchableOpacity>
+
                 {/* <TouchableOpacity onPress={openMyOrder} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon color="#fff" name="shopping-bag" type="feather" />

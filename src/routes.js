@@ -36,6 +36,7 @@ import Forum from '~/screens/Forum';
  */
 
 import Contact from '~/screens/Contact';
+import Progress from '~/screens/Progress';
 import MovieDetail from '~/screens/Movies/detail';
 import PodcastDetail from '~/screens/Podcasts/detail';
 import TipDetail from '~/screens/Tips/detail';
@@ -183,6 +184,13 @@ function Routes() {
         <OptionsStack.Screen
           name="Contact"
           component={Contact}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <OptionsStack.Screen
+          name="Progress"
+          component={Progress}
           options={{
             headerShown: false,
           }}
