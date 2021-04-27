@@ -37,6 +37,7 @@ import Forum from '~/screens/Forum';
 
 import Contact from '~/screens/Contact';
 import Progress from '~/screens/Progress';
+import AvaliationQuestions from '~/screens/Progress/AvaliationQuestions';
 import MovieDetail from '~/screens/Movies/detail';
 import PodcastDetail from '~/screens/Podcasts/detail';
 import TipDetail from '~/screens/Tips/detail';
@@ -191,6 +192,13 @@ function Routes() {
         <OptionsStack.Screen
           name="Progress"
           component={Progress}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <OptionsStack.Screen
+          name="AvaliationQuestions"
+          component={AvaliationQuestions}
           options={{
             headerShown: false,
           }}
