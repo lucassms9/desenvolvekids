@@ -1,11 +1,8 @@
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
-import { Modal, ModalContent } from 'react-native-modals';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, Text, SafeAreaView, useWindowDimensions } from 'react-native';
 
-import RNPickerSelect from 'react-native-picker-select';
-import { PricingCard,Input,Tab } from 'react-native-elements';
+import { PricingCard, Input, Tab, Tabs } from 'react-native-elements';
 import Header from '~/components/Header';
 import NotFound from '~/components/NotFound';
 import moment from 'moment';
@@ -15,35 +12,51 @@ import { colors, commons } from '~/styles';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import { ToastActionsCreators } from 'react-native-redux-toast';
 
+import { TabView, SceneMap } from 'react-native-tab-view';
+
+import AvaliationScreen from './AvaliationScreen';
+import ProgressScreen from './ProgressScreen';
+
 function Progress() {
   const [progress, setProgress] = useState([
     {
-      category:'Aréa Fisica',
-      percent: 80
-    }
+      category: 'Aréa Fisica',
+      percent: 80,
+    },
   ]);
 
-  useEffect(() => {
+  const layout = useWindowDimensions();
+
  
-  },[])
+
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 0, title: 'Avaliação' },
+    { key: 1, title: 'Progresso' },
+  ]);
+
+  useEffect(() => {}, []);
+
+  const renderScene = SceneMap({
+    0: AvaliationScreen,
+    1: ProgressScreen,
+  });
 
   return (
     <View style={commons.body}>
       <Header title="Progresso" hasBack />
       <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
         <View style={[commons.container, { flex: 1 }]}>
-          <View style={{ padding: 15 }}>
-          <Tab>
-            <Tab.Item title="Recent" />
-            <Tab.Item title="favourite" />
-            <Tab.Item title="cart" />
-          </Tab>
-          </View>
+          <TabView
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{ width: layout.width }}
+          />
         </View>
       </SafeAreaView>
     </View>
   );
 }
-
 
 export default Progress;
