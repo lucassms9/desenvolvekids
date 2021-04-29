@@ -4,7 +4,7 @@ import { metrics, colors } from '~/styles';
 const styles = StyleSheet.create({
   container: {
     height: 30,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
     justifyContent: 'center',
     paddingHorizontal: 10,
     borderRadius: 15,

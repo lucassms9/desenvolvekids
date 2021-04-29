@@ -10,7 +10,7 @@ function ItemsFilter({ items, filterFunc }) {
         return (
           <TouchableOpacity key={item.id} onPress={() => filterFunc(item.id)}>
             <View style={styles.container}>
-              <Text style={{ color: '#fff' }}>{item.label}</Text>
+              <Text style={{ color: '#fff', fontSize:15, fontWeight:'bold' }}>{item.label}</Text>
             </View>
           </TouchableOpacity>
         );
