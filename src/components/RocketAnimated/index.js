@@ -53,11 +53,11 @@ function RocketAnimated(props) {
     }
   }, [endAnimate, navigation, authCheck, user]);
 
-  return (
+  return ( 
     <View
       style={{
         flex: 1,
-        backgroundColor: colors.backgroung,
+        backgroundColor: '#003048',
         justifyContent: 'flex-end',
         alignItems: 'center',
       }}>

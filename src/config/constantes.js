@@ -7,8 +7,8 @@ export const BUILD_NUMBER = DeviceInfo.getBuildNumber();
 export const ENVIRONMENT = ENVIRONMENT_CONFG;
 // export const SERVER_URL = SERVER_URL_CONFG;
 
-export const SERVER_URL = 'http://homolog.desenvolvekids.com.br/api';
-// export const SERVER_URL = 'http://desenvolvekids.com/api';
+// export const SERVER_URL = 'http://homolog.desenvolvekids.com.br/api';
+export const SERVER_URL = 'http://desenvolvekids.com/api';
 // export const SERVER_URL = 'http://localhost:3000';
 // export const SERVER_URL = 'http://desenvolvekids.com/api';
 export const ENCRYPTION_KEY = 'ek_test_2J8RLsBAsc5cAzXlCG4VawnhbwGdmU';
