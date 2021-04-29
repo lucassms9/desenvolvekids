@@ -18,16 +18,8 @@ import AvaliationScreen from './AvaliationScreen';
 import ProgressScreen from './ProgressScreen';
 
 function Progress() {
-  const [progress, setProgress] = useState([
-    {
-      category: 'Aréa Fisica',
-      percent: 80,
-    },
-  ]);
 
   const layout = useWindowDimensions();
-
- 
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([

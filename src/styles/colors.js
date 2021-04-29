@@ -1,6 +1,6 @@
 export default {
-  primary: '#D31D1D',
-  secondary: '#003048',
+  primary: '#E84B24',
+  secondary: '#24AAB6',
 
   white: '#fff',
   lightGray: '#dedede',
@@ -14,7 +14,7 @@ export default {
 
   orange: '#ff8500',
   blue: '#16709C',
-  backgroung: '#003048',
-  tabBarColor: '#f7f7f7',
+  backgroung: '#FFFFFF',
+  tabBarColor: '#24AAB6',
   header: '#01B0F1',
 };

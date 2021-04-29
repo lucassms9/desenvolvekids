@@ -304,8 +304,8 @@ function Routes() {
       <Tab.Navigator
         initialRouteName="Activities"
         tabBarOptions={{
-          activeTintColor: colors.primary,
-          inactiveTintColor: 'gray',
+          activeTintColor: colors.darkGray,
+          inactiveTintColor: '#fff',
           style: {
             backgroundColor: colors.tabBarColor,
             borderTopColor: 'transparent',
@@ -328,7 +328,7 @@ function Routes() {
               );
             },
             tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.primary : '#000';
+              const color = focused ? colors.darkGray : '#fff';
               return (
                 <Text style={{ fontSize: 13, color: color }}> Atividades </Text>
               );
@@ -352,7 +352,7 @@ function Routes() {
               );
             },
             tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.primary : '#000';
+              const color = focused ? colors.darkGray : '#fff';
               return (
                 <Text style={{ fontSize: 14, color: color }}> Dicas </Text>
               );
@@ -371,7 +371,7 @@ function Routes() {
               );
             },
             tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.primary : '#000';
+              const color = focused ? colors.darkGray : '#fff';
               return (
                 <Text style={{ fontSize: 13, color: color }}> Saúde </Text>
               );
@@ -394,7 +394,7 @@ function Routes() {
               );
             },
             tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.primary : '#000';
+              const color = focused ? colors.darkGray : '#fff';
               return (
                 <Text style={{ fontSize: 13, color: color }}> Extras </Text>
               );
@@ -418,7 +418,7 @@ function Routes() {
               );
             },
             tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.primary : '#000';
+              const color = focused ? colors.darkGray : '#fff';
               return (
                 <Text style={{ fontSize: 13, color: color }}>
                   Dúvidas

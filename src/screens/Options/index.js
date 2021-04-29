@@ -68,10 +68,10 @@ function Options({
           <ScrollView style={{ flex: 1 }}>
             <TouchableOpacity onPress={openProfile} style={styles.items}>
               <View style={{ flexDirection: 'row' }}>
-                <Icon color="#fff" name="user" type="feather" />
+                <Icon color="#000" name="user" type="feather" />
                 <Text style={styles.itemLabel}>Meus Dados</Text>
               </View>
-              <Icon color="#fff" name="arrow-right" type="feather" />
+              <Icon color="#000" name="arrow-right" type="feather" />
             </TouchableOpacity>
             {hasPlan && (
               <>
@@ -79,80 +79,80 @@ function Options({
                   onPress={() => navigation.navigate('Dependent')}
                   style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Icon color="#fff" name="users" type="feather" />
+                    <Icon color="#000" name="users" type="feather" />
                     <Text style={styles.itemLabel}>Dependentes</Text>
                   </View>
-                  <Icon color="#fff" name="arrow-right" type="feather" />
+                  <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={openForum} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon
-                      color="#fff"
+                      color="#000"
                       name="forum-outline"
                       type="material-community"
                     />
                     <Text style={styles.itemLabel}>Pergunte ao Doutor</Text>
                   </View>
-                  <Icon color="#fff" name="arrow-right" type="feather" />
+                  <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={openChildrens} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Icon color="#fff" name="child" type="font-awesome" />
+                    <Icon color="#000" name="child" type="font-awesome" />
                     <Text style={styles.itemLabel}>Crianças</Text>
                   </View>
-                  <Icon color="#fff" name="arrow-right" type="feather" />
+                  <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Gallery')}
                   style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Icon color="#fff" name="photo" type="font-awesome" />
+                    <Icon color="#000" name="photo" type="font-awesome" />
                     <Text style={styles.itemLabel}>Galeria de Fotos</Text>
                   </View>
 
-                  <Icon color="#fff" name="arrow-right" type="feather" />
+                  <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity>
 
                 {/* <TouchableOpacity onPress={openDelivery} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Icon color="#fff" name="map-pin" type="feather" />
+                    <Icon color="#000" name="map-pin" type="feather" />
                     <Text style={styles.itemLabel}>Meus Endereços</Text>
                   </View>
 
-                  <Icon color="#fff" name="arrow-right" type="feather" />
+                  <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity> */}
                 <TouchableOpacity onPress={openMyPlan} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Icon color="#fff" name="clipboard" type="feather" />
+                    <Icon color="#000" name="clipboard" type="feather" />
                     <Text style={styles.itemLabel}>Gerenciar Assinatura</Text>
                   </View>
-                  <Icon color="#fff" name="arrow-right" type="feather" />
+                  <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={openProgresso} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Icon color="#fff" name="activity" type="feather" />
+                    <Icon color="#000" name="activity" type="feather" />
                     <Text style={styles.itemLabel}>Progresso</Text>
                   </View>
-                  <Icon color="#fff" name="arrow-right" type="feather" />
+                  <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity>
 
                 {/* <TouchableOpacity onPress={openMyOrder} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Icon color="#fff" name="shopping-bag" type="feather" />
+                    <Icon color="#000" name="shopping-bag" type="feather" />
                     <Text style={styles.itemLabel}>Meus Pedidos</Text>
                   </View>
-                  <Icon color="#fff" name="arrow-right" type="feather" />
+                  <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity> */}
                 
               </>
             )}
             <TouchableOpacity onPress={openHelp} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Icon color="#fff" name="help-circle" type="feather" />
+                    <Icon color="#000" name="help-circle" type="feather" />
                     <Text style={styles.itemLabel}>Fale Consoco</Text>
                   </View>
-                  <Icon color="#fff" name="arrow-right" type="feather" />
+                  <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity>
           </ScrollView>
           <View style={{ marginTop: 15, backgroundColor: '#f00' }}>
@@ -160,7 +160,7 @@ function Options({
               icon={
                 <Icon
                   style={{ marginLeft: 5, marginTop: 3 }}
-                  color="#fff"
+                  color="#000"
                   size={18}
                   name="log-out"
                   type="feather"

@@ -103,7 +103,7 @@ function HeaderComponent({
     <Header
       ViewComponent={LinearGradient} // Don't forget this!
       linearGradientProps={{
-        colors: ['#060E21', '#003048'],
+        colors: ['#24AAB6', '#24AAB6'],
         start: { x: 0, y: 0 },
         end: { x: 1, y: 0 },
       }}
