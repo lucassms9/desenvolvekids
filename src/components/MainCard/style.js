@@ -3,7 +3,7 @@ import { commons, colors } from '~/styles';
 const styles = StyleSheet.create({
   container: {
     padding: 0,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     flex: 1,
     height: 380,
     marginBottom: 15,

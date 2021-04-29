@@ -6,8 +6,6 @@ import { Input } from 'react-native-elements';
 function InputText(props) {
   return (
     <Input
-      inputStyle={commons.textWhite}
-      labelStyle={commons.textWhite}
       {...props}
     />
   );

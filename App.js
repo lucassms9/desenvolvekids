@@ -18,7 +18,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Root />
-        <Toast messageStyle={{ color: 'black' }} />
+        <Toast messageStyle={{ color: 'white' }} />
         <ModalPortal />
       </PersistGate>
     </Provider>

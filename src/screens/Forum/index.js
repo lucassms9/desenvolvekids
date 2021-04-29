@@ -167,8 +167,8 @@ class Forum extends Component {
                   <Text style={styles.optionsItem}>CRIAR PERGUNTA</Text>
                 </TouchableOpacity>
               </View>
-              {forums.length === 0 && <NotFound type="forum" />}
-              {forums.map((forum, index) => {
+              {forums?.length === 0 && <NotFound type="forum" />}
+              {forums?.map((forum, index) => {
                 return (
                   <View style={styles.forumItem} key={forum.id}>
                     <View style={styles.mb5}>

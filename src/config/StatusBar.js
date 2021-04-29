@@ -4,4 +4,4 @@ import { colors } from '~/styles';
 if (Platform.OS === 'android') {
   StatusBar.setBackgroundColor(colors.backgroung);
 }
-StatusBar.setBarStyle('light-content');
+StatusBar.setBarStyle('dark-content');
