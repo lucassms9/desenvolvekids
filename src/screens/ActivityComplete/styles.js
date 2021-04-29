@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   fx02: { flex: 0.2 },
-  title: { color: '#fff', fontSize: 20, fontWeight: '700' },
-  colorItem: { color: colors.white },
+  title: { color: '#000', fontSize: 20, fontWeight: '700' },
+  colorItem: { color: '#000' },
   checkBox: {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   questionItem: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#fff',
+    color: '#000',
   },
   itemDifficultyRed: {
     width: 70,

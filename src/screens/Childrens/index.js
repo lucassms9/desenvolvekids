@@ -61,7 +61,7 @@ function Childrens({ anavigation, auth, addChildrenRequest }) {
 
   return (
     <View style={commons.body}>
-      <Header title="Filhos" hasBack />
+      <Header title="Crianças" hasBack />
       <SafeAreaView style={styles.safe}>
         <View style={[commons.container, styles.container]}>
           <View style={styles.pd15}>
@@ -77,7 +77,6 @@ function Childrens({ anavigation, auth, addChildrenRequest }) {
                         </View>
                         <TouchableOpacity onPress={() => editChildren(filho)}>
                           <Icon
-                            color={colors.white}
                             name="edit"
                             type="feather"
                           />

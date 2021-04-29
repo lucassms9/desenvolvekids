@@ -58,8 +58,7 @@ function Recover() {
       <SafeAreaView style={styles.container}>
         <View>
           <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
+          
             value={email}
             label={'E-mail'}
             autoCapitalize="none"

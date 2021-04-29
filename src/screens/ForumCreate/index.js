@@ -84,8 +84,7 @@ function ForumCreate({ navigation }) {
                   )}
                 </View>
                 <Input
-                  inputStyle={commons.textWhite}
-                  labelStyle={commons.textWhite}
+              
                   value={values.questionShort}
                   label={'Questão Resumida'}
                   placeholder={'Questão Resumida'}
@@ -100,8 +99,7 @@ function ForumCreate({ navigation }) {
                   <Text style={styles.error}>{errors.questionShort}</Text>
                 )}
                 <Input
-                  inputStyle={commons.textWhite}
-                  labelStyle={commons.textWhite}
+              
                   ref={questionLong}
                   value={values.questionLong}
                   label={'Detalhe sua dúvida'}
@@ -145,7 +143,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 4,
-    color: '#fff',
+    color: '#000',
     paddingRight: 30, // to ensure the text is never behind the icon
   },
   inputAndroid: {
@@ -156,7 +154,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: 'gray',
     borderRadius: 8,
-    color: '#fff',
+    color: '#000',
     paddingRight: 30, // to ensure the text is never behind the icon
   },
 });

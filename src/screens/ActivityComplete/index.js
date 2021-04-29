@@ -22,6 +22,7 @@ import { commons, colors } from '~/styles';
 
 import styles from './styles';
 import api from '~/services/api';
+import { color } from 'react-native-reanimated';
 
 function ActivityComplete({ navigation, route }) {
   const { activity } = route.params;
@@ -128,8 +129,8 @@ function ActivityComplete({ navigation, route }) {
           </View>
 
           <View style={[styles.fx02,{flexDirection:'column', marginBottom:10}]}>
-          <Icon name="check" type="feather" color="#0f0" size={25} />
-            <Text style={[styles.title, {color:'#0f0'}]}>
+          <Icon name="check" type="feather" color={colors.primary} size={25} />
+            <Text style={[styles.title, {color:colors.primary}]}>
               Parabéns! atividade concluída com sucesso! 
             </Text>
            

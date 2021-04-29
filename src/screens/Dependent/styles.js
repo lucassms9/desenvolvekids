@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  title: { color: '#fff', fontSize: 18, fontWeight: '700' },
+  title: { color: '#000', fontSize: 18, fontWeight: '700' },
   dividir: { backgroundColor: colors.white },
   subTitle: {
-    color: '#fff',
+    color: '#000',
     fontSize: 16,
     fontWeight: '600',
   },

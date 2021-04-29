@@ -139,8 +139,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
                 {({ handleSubmit, values, setFieldValue, errors }) => (
                   <View>
                     <Input
-                      inputStyle={commons.textWhite}
-                      labelStyle={commons.textWhite}
+                      
                       value={values.email}
                       label={'E-mail'}
                       autoCapitalize="none"
@@ -154,8 +153,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
                       <Text style={commons.error}>{errors.email}</Text>
                     )}
                     <Input
-                      inputStyle={commons.textWhite}
-                      labelStyle={commons.textWhite}
+                     
                       value={values.password}
                       label={'Senha'}
                       autoCapitalize="none"
@@ -168,7 +166,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
                       <Text style={commons.error}>{errors.password}</Text>
                     )}
                     <View style={styles.containerSocial}>
-                      <Text style={[commons.textWhite, commons.fs17]}>
+                      <Text style={[ commons.fs17]}>
                         Entrar com
                       </Text>
                     </View>
@@ -197,7 +195,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
                         }}>
                         <Text
                           style={[
-                            commons.textWhite,
+                           
                             commons.fs17,
                             styles.mp30,
                           ]}>
@@ -210,7 +208,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
                         }}>
                         <Text
                           style={[
-                            commons.textWhite,
+                           
                             commons.fs17,
                             styles.mp30,
                           ]}>

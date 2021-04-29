@@ -9,7 +9,7 @@ const ProgressScreen = () => {
 
   const getQProgress = async () => {
     const { progress } = await api.post('questionarios/progresso');
-    console.log(progress)
+    console.log(progress);
     if (progress) {
       setProgress(progress);
     }
@@ -22,14 +22,13 @@ const ProgressScreen = () => {
   return (
     <View>
       {progress.map((prog) => (
-        <View style={{ marginTop: 15 }}>
-          <View
-            style={{ backgroundColor: '#fff', borderRadius: 5, padding: 10 }}>
+        <View style={{ marginVertical: 15, borderBottomWidth:1 }}>
+          <View style={{ borderRadius: 5, padding: 10 }}>
             <View>
               <Text style={{ fontSize: 18 }}>{prog.categoria}</Text>
             </View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <ProgregressBar percent={prog.percent}/>
+              <ProgregressBar percent={prog.percent} />
             </View>
           </View>
         </View>

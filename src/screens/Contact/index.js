@@ -18,7 +18,7 @@ function Contact() {
       <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
         <Header title="Fale Conosco" hasBack />
         <View style={[commons.container, { flex: 1 }]}>
-          <View style={{ margin: 15, backgroundColor:'#fff', height:150, borderRadius:10, }}>
+          <View style={{ margin: 15, backgroundColor:'#eee', height:150, borderRadius:10, }}>
             <View style={{marginTop:15}}>
               <Text style={{textAlign:'center', fontSize:16, fontWeight:'bold'}}>Entre em contato com nosso time.</Text>
             </View>

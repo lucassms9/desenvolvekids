@@ -20,7 +20,6 @@ function Detail({ navigation, route }) {
             <View style={{ marginHorizontal: 8 }}>
               <Text
                 style={{
-                  color: '#fff',
                   textAlign: 'left',
                   fontSize: 18,
                   fontWeight: '700',
@@ -28,7 +27,7 @@ function Detail({ navigation, route }) {
                 }}>
                 {tip.titulo}
               </Text>
-              <Text style={{ color: '#fff', textAlign: 'justify' }}>
+              <Text style={{ textAlign: 'justify' }}>
                 {tip.descricao_completa}
               </Text>
             </View>

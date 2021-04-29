@@ -4,7 +4,6 @@ import { metrics, colors } from '~/styles';
 
 const styles = StyleSheet.create({
   error: {
-    color: colors.white,
     fontSize: 15,
     fontWeight: '500',
     marginLeft: 10,
@@ -12,7 +11,7 @@ const styles = StyleSheet.create({
   },
   mh5: { marginHorizontal: 5 },
   labelPicker: {
-    color: '#fff',
+    color: '#000',
     fontWeight: '600',
     fontSize: 16,
     marginBottom: 5,

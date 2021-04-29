@@ -67,9 +67,9 @@ function AvaliationQuestions() {
       <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
         <View style={[commons.container, { flex: 1 }]}>
           {subQuestion?.questions.map((quest) => (
-            <View style={{ marginHorizontal: 20 }}>
-              <View style={{ marginBottom: 20 }}>
-                <Text style={{ color: '#fff', fontSize: 20 }}>
+            <View style={{ marginHorizontal: 20, paddingBottom:20, borderBottomWidth:1 }}>
+              <View style={{ marginVertical: 20,  }}>
+                <Text style={{ fontSize: 20 }}>
                   {quest.pergunta}
                 </Text>
               </View>

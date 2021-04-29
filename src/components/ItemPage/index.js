@@ -23,7 +23,7 @@ function ItemPage({ item }) {
   const renderText = (text) => {
     return (
       <View>
-        <Text style={{ fontSize: 14, color: '#fff', textAlign: 'justify' }}>
+        <Text style={{ fontSize: 14,  textAlign: 'justify' }}>
           {text.conteudo}
         </Text>
       </View>

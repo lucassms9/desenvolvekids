@@ -119,7 +119,7 @@ function Dependent({
 
   return (
     <View style={commons.body}>
-      <Header title="Filhos" hasBack />
+      <Header title="Dependentes" hasBack />
       <SafeAreaView style={styles.safe}>
         <View style={[commons.container, styles.container]}>
           <View style={styles.pd15}>
@@ -138,7 +138,7 @@ function Dependent({
                             style={{ marginHorizontal: 10 }}
                             onPress={() => rmDependentRequest(dependent.id)}>
                             <Icon
-                              color={colors.white}
+                              
                               name="divide-circle"
                               type="feather"
                             />
@@ -146,7 +146,7 @@ function Dependent({
                           <TouchableOpacity
                             onPress={() => editDependent(dependent)}>
                             <Icon
-                              color={colors.white}
+                             
                               name="edit"
                               type="feather"
                             />

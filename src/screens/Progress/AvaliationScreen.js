@@ -16,7 +16,7 @@ const AvaliationScreen = () => {
 
   const getQuestions = async () => {
     const { questionarios } = await api.post('questionarios');
-    console.log(questionarios)
+    console.log(questionarios);
     if (questionarios) {
       const handle = questionarios.filter(
         (quest) => quest.sub_cat_content.length > 0,
@@ -32,11 +32,11 @@ const AvaliationScreen = () => {
   return (
     <ScrollView>
       {questions.map((quest) => (
-        <View key={quest.categoria.id} style={{ marginTop: 15 }}>
+        <View
+          key={quest.categoria.id}
+          style={{ marginTop: 15, borderBottomWidth: 1 }}>
           <View>
-            <Text style={{ color: colors.white, fontSize: 20 }}>
-              {quest.categoria.nome}
-            </Text>
+            <Text style={{ fontSize: 20 }}>{quest.categoria.nome}</Text>
           </View>
           <ScrollView
             style={{
@@ -51,7 +51,7 @@ const AvaliationScreen = () => {
                   style={{
                     justifyContent: 'space-between',
                     alignContent: 'center',
-                    backgroundColor: '#f00',
+                    backgroundColor: colors.secondary,
                     flexDirection: 'row',
                     marginBottom: 20,
                     padding: 10,

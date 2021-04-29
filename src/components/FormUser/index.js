@@ -9,14 +9,13 @@ import RNPickerSelect from 'react-native-picker-select';
 import ButtonPrimary from '~/components/ButtonPrimary';
 
 import styles from './styles';
-import { Input, Icon } from 'react-native-elements';
+import { Input, Icon, Label } from 'react-native-elements';
 
-import { maskCPF, maskDate, maskPhone,maskCEP } from '~/helpers';
+import { maskCPF, maskDate, maskPhone, maskCEP } from '~/helpers';
 import { commons } from '~/styles';
 
 import validationSchema from './validation';
 import validationUpdateSchema from './validationUpdate';
-
 
 function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
   const { email } = initData;
@@ -116,8 +115,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
         return (
           <ScrollView>
             <Input
-              inputStyle={commons.textWhite}
-              labelStyle={commons.textWhite}
               value={values.name}
               label={'Nome'}
               placeholder={'Nome'}
@@ -129,8 +126,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
             {errors.name && <Text style={styles.error}>{errors.name}</Text>}
 
             <Input
-              inputStyle={commons.textWhite}
-              labelStyle={commons.textWhite}
               value={values.fiscalNumber}
               label={'CPF'}
               ref={fiscalNumberRef}
@@ -142,8 +137,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
               <Text style={styles.error}>{errors.fiscalNumber}</Text>
             )}
             <Input
-              inputStyle={commons.textWhite}
-              labelStyle={commons.textWhite}
               ref={birthDateRef}
               value={values.birthDate}
               label={'Data de Nascimento'}
@@ -155,8 +148,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
               <Text style={styles.error}>{errors.birthDate}</Text>
             )}
             <Input
-              inputStyle={commons.textWhite}
-              labelStyle={commons.textWhite}
               value={values.email}
               label={'E-mail'}
               autoCapitalize="none"
@@ -167,6 +158,8 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
             />
             {errors.email && <Text style={styles.error}>{errors.email}</Text>}
             <View style={styles.mh5}>
+
+         
               <Text style={styles.labelPicker}>Grau de Parentesco</Text>
               <RNPickerSelect
                 onSubmitEditing={() => phoneRef.current.focus()}
@@ -210,8 +203,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
             {parantHandle === 'outros' && (
               <>
                 <Input
-                  inputStyle={commons.textWhite}
-                  labelStyle={commons.textWhite}
                   value={values.parentOther}
                   label={'Detalhar Parentesco:'}
                   placeholder={'Detalhar Parentesco'}
@@ -223,8 +214,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
               </>
             )}
             <Input
-              inputStyle={commons.textWhite}
-              labelStyle={commons.textWhite}
               ref={phoneRef}
               value={values.phone}
               label={'Celular'}
@@ -234,10 +223,7 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
             />
             {errors.phone && <Text style={styles.error}>{errors.phone}</Text>}
 
-           
             <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
               value={values.zipCode}
               label={'CEP'}
               onEndEditing={handleBlurCep}
@@ -249,8 +235,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
               <Text style={commons.error}>{errors.zipCode}</Text>
             )}
             <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
               value={values.nameAddress}
               label={'Nome do Endereço'}
               autoCapitalize="none"
@@ -261,8 +245,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
               <Text style={commons.error}>{errors.nameAddress}</Text>
             )}
             <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
               value={values.address}
               label={'Endereço'}
               autoCapitalize="none"
@@ -273,8 +255,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
               <Text style={commons.error}>{errors.address}</Text>
             )}
             <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
               value={values.number}
               label={'Número'}
               autoCapitalize="none"
@@ -285,8 +265,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
               <Text style={commons.error}>{errors.number}</Text>
             )}
             <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
               value={values.neighborhood}
               label={'Bairro'}
               autoCapitalize="none"
@@ -297,8 +275,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
               <Text style={commons.error}>{errors.neighborhood}</Text>
             )}
             <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
               value={values.complement}
               label={'Complemento'}
               autoCapitalize="none"
@@ -310,32 +286,22 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
             )}
 
             <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
               value={values.city}
               label={'Cidade'}
               autoCapitalize="none"
               placeholder={'Cidade'}
               onChangeText={(text) => setFieldValue('city', text)}
             />
-            {errors.city && (
-              <Text style={commons.error}>{errors.city}</Text>
-            )}
+            {errors.city && <Text style={commons.error}>{errors.city}</Text>}
             <Input
-            inputStyle={commons.textWhite}
-            labelStyle={commons.textWhite}
               value={values.state}
               label={'UF'}
               autoCapitalize="none"
               placeholder={'UF'}
               onChangeText={(text) => setFieldValue('state', text)}
             />
-            {errors.state && (
-              <Text style={commons.error}>{errors.state}</Text>
-            )}
-             <Input
-              inputStyle={commons.textWhite}
-              labelStyle={commons.textWhite}
+            {errors.state && <Text style={commons.error}>{errors.state}</Text>}
+            <Input
               ref={passwordRef}
               value={values.password}
               label={'Senha'}
@@ -355,8 +321,6 @@ function Form({ submitForm, status, textButton, initData, mode, kinShips }) {
 
             {mode !== 'update' && (
               <Input
-                inputStyle={commons.textWhite}
-                labelStyle={commons.textWhite}
                 value={values.passwordConfirm}
                 ref={passwordConfirmRef}
                 label={'Confirmar Senha'}
@@ -408,7 +372,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 4,
-    color: '#fff',
+    color: '#000',
     paddingRight: 30, // to ensure the text is never behind the icon
   },
   inputAndroid: {
@@ -419,7 +383,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: 'gray',
     borderRadius: 8,
-    color: '#fff',
+    color: '#000',
     paddingRight: 30, // to ensure the text is never behind the icon
   },
 });

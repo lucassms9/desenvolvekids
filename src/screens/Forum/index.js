@@ -147,7 +147,7 @@ class Forum extends Component {
                   <View style={{ alignItems: 'center', marginBottom: 10 }}>
                     <Text
                       style={{
-                        color: '#fff',
+                    
                         fontSize: 17,
                         fontWeight: '700',
                       }}>

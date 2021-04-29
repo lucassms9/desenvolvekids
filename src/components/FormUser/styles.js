@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   mh5: { marginHorizontal: 5 },
   labelPicker: {
-    color: '#fff',
+    color: colors.darkGray,
     fontWeight: '600',
     fontSize: 16,
     marginBottom: 5,

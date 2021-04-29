@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 10,
   },
-  optionsItem: { color: '#fff', fontWeight: '700' },
+  optionsItem: { color: '#000', fontWeight: '700' },
   forumItem: {
     backgroundColor: '#fff',
     marginBottom: 20,
