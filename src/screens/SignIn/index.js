@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   View,
   Text,
+  ScrollView,
   Image,
   Platform,
   KeyboardAvoidingView,
@@ -122,7 +123,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
     }
   };
   return (
-    <View style={styles.bodyLogin}>
+    <ScrollView style={styles.bodyLogin}>
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView
           style={styles.container}
@@ -223,7 +224,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </View>
+    </ScrollView>
   );
 }
 
