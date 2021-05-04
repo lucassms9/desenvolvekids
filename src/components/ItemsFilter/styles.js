@@ -10,6 +10,11 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginRight: 5,
   },
+  containerImage:{
+    height: 80,
+    marginRight: 10,
+    alignItems:'center'
+  }
 });
 
 export default styles;

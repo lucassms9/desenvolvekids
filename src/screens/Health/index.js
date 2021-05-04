@@ -152,7 +152,7 @@ function Health({ setNavigation, navigation, route }) {
             <View style={{ flexDirection: 'row', marginBottom: 10 }}>
               <ItemsFilter filterFunc={filterActivities} items={categories} />
             </View>
-            {activities.length === 0 && <NotFound type="Atividades" />}
+            {activities.length === 0 && <NotFound type="Saúde" />}
             {activities.map((act, index) => {
               return (
                 <MainCard

@@ -99,6 +99,7 @@ function Activities({
     const handle = res.categorias.map((cat) => ({
       label: cat.nome,
       id: cat.id,
+      icon: cat.banner
     }));
     setCategories(handle);
   };

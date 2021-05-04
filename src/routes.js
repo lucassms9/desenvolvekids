@@ -613,6 +613,13 @@ function Routes() {
           }}
         />
         <ContentStack.Screen
+          name="ForumCreate"
+          component={ForumCreate}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <ContentStack.Screen
           name="Auth"
           component={AuthStackScreen}
           options={{
