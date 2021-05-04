@@ -99,7 +99,7 @@ function Activities({
     const handle = res.categorias.map((cat) => ({
       label: cat.nome,
       id: cat.id,
-      icon: cat.banner
+      icon: cat.banner,
     }));
     setCategories(handle);
   };
@@ -211,10 +211,16 @@ function Activities({
         stateMaterial={stateMaterial}
         initList={initList}
       />
-      <View style={[commons.container, { paddingBottom: 70 }]}>
+      <View
+        style={{
+          paddingBottom: 70,
+          marginVertical: 10,
+          borderRadius: 10,
+          backgroundColor: '#fff'
+        }}>
         {loading && <Loader />}
         {!loading && (
-          <ScrollView>
+          <ScrollView >
             {hasFilter && (
               <TouchableOpacity onPress={resetFilter}>
                 <View style={{ alignItems: 'center', marginBottom: 10 }}>
@@ -228,7 +234,7 @@ function Activities({
                 </View>
               </TouchableOpacity>
             )}
-            <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+            <View style={{ flexDirection: 'row', marginBottom: 10,marginHorizontal: 10, }}>
               <ItemsFilter filterFunc={filterActivities} items={categories} />
             </View>
             {activities.length === 0 && <NotFound type="Atividades" />}
@@ -240,6 +246,7 @@ function Activities({
                   checkedAcitivity={checkedAcitivity}
                   key={act.id}
                   id={act.id}
+                  icon={act.icon}
                   banner={act.banner}
                   title={act.titulo}
                   isFavorite={act.isFavorite}
