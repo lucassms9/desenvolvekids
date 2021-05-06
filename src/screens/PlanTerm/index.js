@@ -24,7 +24,7 @@ function PlanTerm({ navigation, plan, auth }) {
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1, margin: 20 }}>
             <View>
-              <Text style={{ color: '#fff', fontSize: 15, fontWeight: '600' }}>
+              <Text style={{ color: '#000', fontSize: 15, fontWeight: '600' }}>
                 {plan.plan.termo_de_uso}
               </Text>
             </View>

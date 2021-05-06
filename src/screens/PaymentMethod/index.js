@@ -86,7 +86,7 @@ function PaymentMethod({
       <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
         <ScrollView style={[commons.container, { flex: 1 }]}>
           <View style={{ padding: 15 }}>
-            <Text style={{ color: '#fff', fontSize: 18, fontWeight: '700' }}>
+            <Text style={{ color: '#000', fontSize: 18, fontWeight: '700' }}>
               Forma de pagamento
             </Text>
           </View>
@@ -101,7 +101,7 @@ function PaymentMethod({
                   }}>
                   <CheckBox
                     title="Boleto"
-                    textStyle={{ color: '#fff', fontSize: 16 }}
+                    textStyle={{ color: '#000', fontSize: 16 }}
                     checkedColor={colors.primary}
                     uncheckedColor={colors.primary}
                     containerStyle={{
@@ -115,7 +115,7 @@ function PaymentMethod({
                   />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Divider style={{ backgroundColor: '#fff' }} />
+                  <Divider style={{ backgroundColor: '#000' }} />
                 </View>
               </>
             )}
@@ -137,7 +137,7 @@ function PaymentMethod({
                         cardNumber={card.cardNumber}
                       />
                     }
-                    textStyle={{ color: '#fff' }}
+                    textStyle={{ color: '#000' }}
                     checkedColor={colors.primary}
                     uncheckedColor={colors.primary}
                     containerStyle={{
@@ -151,7 +151,7 @@ function PaymentMethod({
                   />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Divider style={{ backgroundColor: '#fff' }} />
+                  <Divider style={{ backgroundColor: '#000' }} />
                 </View>
               </View>
             );

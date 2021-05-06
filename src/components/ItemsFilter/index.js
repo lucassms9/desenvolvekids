@@ -5,7 +5,7 @@ import styles from './styles';
 
 function ItemsFilter({ items, filterFunc }) {
   return (
-    <ScrollView horizontal>
+    <ScrollView horizontal >
       {items.map((item) => {
         console.log(item);
         if (item?.icon) {
@@ -26,7 +26,7 @@ function ItemsFilter({ items, filterFunc }) {
         return (
           <TouchableOpacity key={item.id} onPress={() => filterFunc(item.id)}>
             <View style={styles.container}>
-              <Text style={{ color: '#fff', fontSize: 15, fontWeight: 'bold' }}>
+              <Text style={{ color: '#000', fontSize: 15, fontWeight: 'bold' }}>
                 {item.label}
               </Text>
             </View>

@@ -133,11 +133,11 @@ class Forum extends Component {
 
   render() {
     const { loading, forums } = this.state;
-    const { navigation } = this.props;
-
-    return (
+    const { navigation, route } = this.props;
+   const {showBack} = route.params
+    return (  
       <SafeAreaView style={commons.body}>
-        <Header hasBack title="Perguntas" />
+        <Header title="Perguntas" />
         <View style={[commons.container, { paddingBottom: 90 }]}>
           {loading && <Loader />}
           {!loading && (

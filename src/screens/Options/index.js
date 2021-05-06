@@ -26,7 +26,7 @@ function Options({
   useEffect(() => {
     if (user && user.plano && user.plano.id) {
       setHasPlan(true);
-    }else{
+    } else {
       setHasPlan(false);
     }
   }, []);
@@ -50,7 +50,10 @@ function Options({
     navigation.navigate('Childrens');
   };
   const openForum = () => {
-    navigation.navigate('Forum');
+    navigation.navigate('Main', {
+      screen: 'Forum',
+      params: { showBack: true },
+    });
   };
   const openHelp = () => {
     navigation.navigate('Contact');
@@ -63,7 +66,7 @@ function Options({
   return (
     <View style={commons.body}>
       <SafeAreaView style={{ flex: 1 }}>
-      <Header title="Opções" hasBack />
+        <Header title="Opções" hasBack />
         <View style={[commons.container, { flex: 1 }]}>
           <ScrollView style={{ flex: 1 }}>
             <TouchableOpacity onPress={openProfile} style={styles.items}>
@@ -144,16 +147,15 @@ function Options({
                   </View>
                   <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity> */}
-                
               </>
             )}
             <TouchableOpacity onPress={openHelp} style={styles.items}>
-                  <View style={{ flexDirection: 'row' }}>
-                    <Icon color="#000" name="help-circle" type="feather" />
-                    <Text style={styles.itemLabel}>Fale Consoco</Text>
-                  </View>
-                  <Icon color="#000" name="arrow-right" type="feather" />
-                </TouchableOpacity>
+              <View style={{ flexDirection: 'row' }}>
+                <Icon color="#000" name="help-circle" type="feather" />
+                <Text style={styles.itemLabel}>Fale Consoco</Text>
+              </View>
+              <Icon color="#000" name="arrow-right" type="feather" />
+            </TouchableOpacity>
           </ScrollView>
           <View style={{ marginTop: 15, backgroundColor: '#f00' }}>
             <ButtonPrimary

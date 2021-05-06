@@ -4,7 +4,7 @@ import { metrics, colors } from '~/styles';
 
 const styles = StyleSheet.create({
   error: {
-    color: colors.white,
+    color: colors.black,
     fontSize: 15,
     fontWeight: '500',
     marginLeft: 10,

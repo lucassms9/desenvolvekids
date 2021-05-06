@@ -234,7 +234,7 @@ function Activities({
                 </View>
               </TouchableOpacity>
             )}
-            <View style={{ flexDirection: 'row', marginBottom: 10,marginHorizontal: 10, }}>
+            <View style={{ flexDirection: 'row', marginBottom: 20,marginHorizontal: 10, }}>
               <ItemsFilter filterFunc={filterActivities} items={categories} />
             </View>
             {activities.length === 0 && <NotFound type="Atividades" />}

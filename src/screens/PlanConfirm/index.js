@@ -60,7 +60,7 @@ function PlanConfirm({ plan: planState, requestPaymentPlan }) {
         <ScrollView>
           <View style={[commons.container, { flex: 1 }]}>
             <View style={{ padding: 15 }}>
-              <Text style={{ color: '#fff', fontSize: 18, fontWeight: '700' }}>
+              <Text style={{ color: '#000', fontSize: 18, fontWeight: '700' }}>
                 Plano Selecionado
               </Text>
 
@@ -76,12 +76,12 @@ function PlanConfirm({ plan: planState, requestPaymentPlan }) {
               />
 
               <View style={{ flex: 1 }}>
-                <Divider style={{ backgroundColor: '#fff' }} />
+                <Divider style={{ backgroundColor: '#000' }} />
               </View>
             </View>
 
             <View style={{ padding: 15 }}>
-              <Text style={{ color: '#fff', fontSize: 18, fontWeight: '700' }}>
+              <Text style={{ color: '#000', fontSize: 18, fontWeight: '700' }}>
                 Forma de Pagamento
               </Text>
               <View>
@@ -93,14 +93,14 @@ function PlanConfirm({ plan: planState, requestPaymentPlan }) {
                 />
               </View>
               <View style={{ flex: 1 }}>
-                <Divider style={{ backgroundColor: '#fff' }} />
+                <Divider style={{ backgroundColor: '#000' }} />
               </View>
             </View>
             {plan.parcelas.length > 0 && (
               <View style={{ padding: 15 }}>
                 <Text
                   style={{
-                    color: '#fff',
+                    color: '#000',
                     fontSize: 18,
                     fontWeight: '700',
                     marginBottom: 15,
@@ -165,7 +165,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 4,
-    color: '#fff',
+    color: '#000',
     paddingRight: 30, // to ensure the text is never behind the icon
   },
   inputAndroid: {
@@ -176,7 +176,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: 'gray',
     borderRadius: 8,
-    color: '#fff',
+    color: '#000',
     paddingRight: 30, // to ensure the text is never behind the icon
   },
 });

@@ -26,7 +26,8 @@ function Plans(props) {
     setLoading(true);
     try {
       const res = await api.post('/planos');
-      setPlans(res.planos.reverse());
+      console.log(res)
+      setPlans(res.planos);
     } catch (error) {
       setLoading(false);
     }

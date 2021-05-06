@@ -4,7 +4,7 @@ import { metrics, colors } from '~/styles';
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     height: 180,
     flex: 1,
     flexDirection: 'row',
