@@ -405,6 +405,7 @@ function Routes() {
         <Tab.Screen
           name="Forum"
           component={Forum}
+          initialParams={{ showBack: false }}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {

@@ -9,12 +9,12 @@ const Loader = ({ color }) => {
   console.log(color);
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color={color} />
+      <ActivityIndicator size="large" color={colors.secondary} />
     </View>
   );
 };
 Loader.defaultProps = {
-  color: colors.white,
+  color: colors.secondary,
 };
 
 Loader.propTypes = {

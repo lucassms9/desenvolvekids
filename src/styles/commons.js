@@ -18,7 +18,7 @@ export default {
     alignItems: 'center',
   },
   error: {
-    color: colors.white,
+    color: colors.black,
     fontSize: 15,
     fontWeight: '500',
     marginLeft: 10,
@@ -37,7 +37,10 @@ export default {
     flexDirection: 'column',
   },
   container: {
-    margin: 10,
+    // margin: 10,
+    marginVertical:10,
+    marginLeft:7,
+    marginRight:10,
     borderRadius: 10,
     backgroundColor: colors.backgroung,
   },

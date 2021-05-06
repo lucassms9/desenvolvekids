@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Routes from './routes';
-
+import '~/config/StatusBar';
 import { initNotification } from '~/services/notificationService';
 
 class Root extends Component {

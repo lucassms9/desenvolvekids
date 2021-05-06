@@ -11,6 +11,8 @@ Deploy usando codepsuh
 
 appcenter codepush release-react -a D-D-tech/Desenvolve-Kids -d Production
 
+keytool -exportcert -alias desenvolvekids-alias -keystore android/app/debug.keystore | openssl sha1 -binary | openssl base64
+
 keytool -exportcert -alias desenvolvekids-alias -keystore android/app/desenvolvekids-key.keystore | openssl sha1 -binary | openssl base64
 
 keytool -list -v \

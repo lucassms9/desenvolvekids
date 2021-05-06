@@ -17,7 +17,7 @@ import {
 import { SocialIcon } from 'react-native-elements';
 import { Formik } from 'formik';
 import { ToastActionsCreators } from 'react-native-redux-toast';
-import '~/config/StatusBar';
+
 import { commons } from '~/styles';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import { Input } from 'react-native-elements';
@@ -76,7 +76,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
 
   const loginFacebook = () => {
     // Attempt a login using the Facebook login dialog asking for default permissions.
-    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+    LoginManager.logInWithPermissions(['public_profile', 'email','user_friends']).then(
       function (result) {
         if (result.isCancelled) {
           console.log('Login cancelled');

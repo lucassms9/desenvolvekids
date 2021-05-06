@@ -39,7 +39,7 @@ function MainCard({
   console.log(id);
   var width = Dimensions.get('window').width; 
   return (
-    <View style={{ width: (width * 0.90) , height: 600, alignSelf:'center' }}>
+    <View style={{ width: (width * 0.90) , height: 400, alignSelf:'center' }}>
       <View key={id} style={[style.container, { position: 'absolute', width:'100%'}]}>
         <View style={{ zIndex: 999, elevation: 9999999999999 }}>
           <Image
@@ -116,7 +116,7 @@ function MainCard({
         <View style={[style.fx1, { zIndex: 0 }]}>
           <Image
             source={{ uri: banner }}
-            resizeMode="cover"
+            resizeMode="contain"
             style={style.image}></Image>
         </View>
 

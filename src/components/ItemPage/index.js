@@ -8,7 +8,7 @@ function ItemPage({ item }) {
   const renderImage = (image) => {
     return (
       <View style={{ marginVertical: 15 }}>
-        <Image resizeMode='cover' source={{ uri: image.conteudo }} style={{ width: '100%', minHeight:250}} />
+        <Image resizeMode='contain' source={{ uri: image.conteudo }} style={{ width: '100%', minHeight:250}} />
       </View>
     );
   };
