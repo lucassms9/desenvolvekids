@@ -49,10 +49,8 @@ function Childrens({ anavigation, auth, addChildrenRequest }) {
     const dataChildren = {
       id: children.id,
       name: children.nome,
-      email: children.email,
       birthDate: moment(children.data_nascimento).format('DD/MM/YYYYY'),
       nickName: children.apelido,
-      phone: maskOnlyPhone(children.celular),
     };
 
     setChildrenEdit(dataChildren);

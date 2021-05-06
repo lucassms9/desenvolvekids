@@ -34,7 +34,7 @@ function Profile({ auth: { user, status }, updateUserRequest }) {
     getKinShips();
   }, []);
 
-  const endreco = user?.enderecos[0];
+  const endreco = user?.enderecos ? user?.enderecos[0] : {};
   const initData = {
     name: user.nome,
     fiscalNumber: maskOnlyCPF(user.cpf),
