@@ -157,7 +157,7 @@ class Forum extends Component {
                     borderRadius: 4,
                     width: 200,
                     height: 40,
-                    backgroundColor: '#22AAB6',
+                    backgroundColor: '#fd9a00',
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}
