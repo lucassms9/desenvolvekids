@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity,Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Creators as PlanActions } from '~/store/ducks/plan';
 import { Creators as AuthActions } from '~/store/ducks/auth';
@@ -34,6 +34,7 @@ function Dependent({
 
   const [dependentEdit, setDependentEdit] = useState({});
   const [canAddDependent, setCanAddDependent] = useState(false);
+  const [heightModal, setHeightModal] = useState(0);
 
   const [kinShips, setKinShips] = useState([]);
 
@@ -117,6 +118,12 @@ function Dependent({
     onOpen();
   };
 
+  useEffect(() => {
+    const percent = Dimensions.get('window').height * 0.80;
+    console.log(percent);
+    setHeightModal(percent);
+  }, []);
+
   return (
     <View style={commons.body}>
       <Header title="Dependentes" hasBack />
@@ -182,7 +189,7 @@ function Dependent({
           </View>
         </View>
       </SafeAreaView>
-      <Modalize modalHeight={600} ref={modalizeRef}>
+      <Modalize modalHeight={heightModal} ref={modalizeRef}>
         <ModalDependent
           initData={dependentEdit}
           handleAddress={handleDependent}

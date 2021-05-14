@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity,Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Creators as PlanActions } from '~/store/ducks/plan';
 import { Creators as AuthActions } from '~/store/ducks/auth';
@@ -23,6 +23,7 @@ function Childrens({ anavigation, auth, addChildrenRequest }) {
   const modalizeRef = useRef(null);
 
   const [childrenEdit, setChildrenEdit] = useState({});
+  const [heightModal, setHeightModal] = useState(0);
 
   const createChildren = () => {
     setChildrenEdit({});
@@ -57,6 +58,11 @@ function Childrens({ anavigation, auth, addChildrenRequest }) {
     onOpen();
   };
 
+  useEffect(()=>{
+    const percent = Dimensions.get('window').height * 0.80;
+    console.log(percent);
+    setHeightModal(percent);
+  },[])
   return (
     <View style={commons.body}>
       <Header title="Crianças" hasBack />
@@ -106,7 +112,7 @@ function Childrens({ anavigation, auth, addChildrenRequest }) {
           </View>
         </View>
       </SafeAreaView>
-      <Modalize modalHeight={600} ref={modalizeRef}>
+      <Modalize modalHeight={heightModal} ref={modalizeRef}>
         <ModalChildren
           initData={childrenEdit}
           handleAddress={handleChildren}

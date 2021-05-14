@@ -144,7 +144,7 @@ function MainCard({
               <Text style={style.title}>{title}</Text>
             </View>
             <View style={{ marginTop: 10 }}>
-              {title && <Text>{getSubTitle(title, desc)}</Text>}
+              {title && <Text style={{textAlign:'center'}}>{getSubTitle(title, desc)}</Text>}
             </View>
           </View>
         </View>

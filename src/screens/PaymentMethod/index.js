@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import {
   View,
   Text,
   SafeAreaView,
   TouchableOpacity,
+  Dimensions,
   ScrollView,
   Animated,
 } from 'react-native';
@@ -39,6 +40,7 @@ function PaymentMethod({
   const modalizeRef = useRef(null);
   const dispatch = useDispatch();
 
+  const [heightModal, setHeightModal] = useState(0);
   const [visible, setVisible] = useState(false);
   const [cardChecked, setCardChecked] = useState(null);
   const [cards, setCards] = useState([]);
@@ -79,6 +81,12 @@ function PaymentMethod({
       return navigation.navigate('FinishedOrder');
     }
   };
+
+  useEffect(() => {
+    const percent = Dimensions.get('window').height * 0.80;
+    console.log(percent);
+    setHeightModal(percent);
+  }, []);
 
   return (
     <View style={commons.body}>
@@ -168,7 +176,7 @@ function PaymentMethod({
           />
         </View>
       </SafeAreaView>
-      <Modalize modalHeight={700} ref={modalizeRef}>
+      <Modalize modalHeight={heightModal} ref={modalizeRef}>
         <ModalPaymentMethod onSave={onSave} onOClose={onOClose} />
       </Modalize>
     </View>

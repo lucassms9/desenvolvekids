@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
+  Dimensions
 } from 'react-native';
 import { connect, useDispatch } from 'react-redux';
 
@@ -39,6 +40,7 @@ function DeliveryInfo({
   const dispatch = useDispatch();
   const modalizeRef = useRef(null);
 
+  const [heightModal, setHeightModal] = useState(0);
   const [checkedAddress, setCheckedAddress] = useState(null);
   const [addressEdit, setAddressEdit] = useState({});
 
@@ -102,6 +104,12 @@ function DeliveryInfo({
     }
     return navigation.navigate('PaymentMethod', { origem });
   };
+
+  useEffect(() => {
+    const percent = Dimensions.get('window').height * 0.80;
+    console.log(percent);
+    setHeightModal(percent);
+  }, []);
 
   return (
     <View style={commons.body}>
@@ -178,7 +186,7 @@ function DeliveryInfo({
           </View>
         )}
       </SafeAreaView>
-      <Modalize modalHeight={700} ref={modalizeRef}>
+      <Modalize modalHeight={heightModal} ref={modalizeRef}>
         <ModalDelivery
           initData={addressEdit}
           handleAddress={handleAddress}

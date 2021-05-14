@@ -142,10 +142,10 @@ function ActivityDetail({ navigation, route }) {
                       left: 0,
                       top: 4,
                       marginLeft: 0,
-                      color: '#fff',
+                      color: '#000',
                     },
                     dateText: {
-                      color: '#fff',
+                      color: '#000',
                     },
                     dateInput: {
                       marginLeft: 36,

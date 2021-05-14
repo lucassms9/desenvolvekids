@@ -258,6 +258,7 @@ function Activities({
                     checkedAcitivity={checkedAcitivity}
                     key={act.id}
                     id={act.id}
+                    desc={act?.desc}
                     icon={act.icon}
                     banner={act.banner}
                     title={act.titulo}

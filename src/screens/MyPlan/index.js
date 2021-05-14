@@ -4,12 +4,13 @@ import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import { Modal, ModalContent } from 'react-native-modals';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { connect,useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Creators as PlanActions } from '~/store/ducks/plan';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 import { bindActionCreators } from 'redux';
+import { CommonActions } from '@react-navigation/native';
 import RNPickerSelect from 'react-native-picker-select';
-import { PricingCard,Input } from 'react-native-elements';
+import { PricingCard, Input } from 'react-native-elements';
 import Header from '~/components/Header';
 import NotFound from '~/components/NotFound';
 import moment from 'moment';
@@ -26,31 +27,28 @@ function MyPlan({ requestUserData, route, navigation, auth: { user } }) {
   const [objectiveOther, setObjectiveOther] = useState('');
   const [errors, setErros] = useState({});
 
-  console.log(user)
+  console.log(user);
   const dispatch = useDispatch();
 
   useEffect(() => {
     requestUserData('');
-  },[])
+  }, []);
 
   const handleItem = useMemo(() => {
-    if(cancelItem.toLowerCase() === 'outros'){
-        return true
+    if (cancelItem.toLowerCase() === 'outros') {
+      return true;
     }
-    return false
-  },[cancelItem])
+    return false;
+  }, [cancelItem]);
 
   const cancelPlan = async (reason) => {
     try {
-      if(!plan?.id){
+      if (!plan?.id) {
         return dispatch(
-          ToastActionsCreators.displayError(
-            'Plano inválido',
-            5000,
-          ),
+          ToastActionsCreators.displayError('Plano inválido', 5000),
         );
       }
-      if(!cancelItem){
+      if (!cancelItem) {
         return dispatch(
           ToastActionsCreators.displayError(
             'Escolha um motivo para continuar',
@@ -58,9 +56,9 @@ function MyPlan({ requestUserData, route, navigation, auth: { user } }) {
           ),
         );
       }
-    
-      if(cancelItem.toLowerCase() === 'outros' && !objectiveOther){
-        console.log('foi')
+
+      if (cancelItem.toLowerCase() === 'outros' && !objectiveOther) {
+        console.log('foi');
         return dispatch(
           ToastActionsCreators.displayError(
             'Especifique o motivo do cancelamento',
@@ -72,16 +70,25 @@ function MyPlan({ requestUserData, route, navigation, auth: { user } }) {
       const result = await api.post('planos/cancel', {
         plan_id: plan.id,
         movito: cancelItem,
-        outro_motivo:objectiveOther
+        outro_motivo: objectiveOther,
       });
       requestUserData('');
-      setVisiable(false)
+      setVisiable(false);
       dispatch(
         ToastActionsCreators.displayInfo(
           'Cancelamento realizado com sucesso.',
           5000,
         ),
       );
+      setTimeout(() => {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [{ name: 'Plans' }],
+          }),
+        );
+        navigation.navigate('Plans');
+      }, 500);
     } catch (error) {}
   };
 
@@ -103,10 +110,10 @@ function MyPlan({ requestUserData, route, navigation, auth: { user } }) {
           <ButtonPrimary
             text="Cancelar Plano"
             onPress={() => {
-              setPlan(plan)
-              setVisiable(true)
-              setCancelItem('')
-              setErros({})
+              setPlan(plan);
+              setVisiable(true);
+              setCancelItem('');
+              setErros({});
             }}
           />
         </View>
@@ -138,7 +145,7 @@ function MyPlan({ requestUserData, route, navigation, auth: { user } }) {
           </View>
         </View>
         <Modal
-        width={300}
+          width={300}
           visible={visible}
           swipeDirection={['up', 'down']} // can be string or an array
           swipeThreshold={200} // default 100
@@ -149,57 +156,61 @@ function MyPlan({ requestUserData, route, navigation, auth: { user } }) {
             <View>
               <Text>Motivo:</Text>
               <RNPickerSelect
-              onValueChange={(text) => {
-                setCancelItem(text);
-              }}
-              // value={cancelItem}
-              items={[
-                {
-                  label: 'Não uso o app com frequência',
-                  value: 'Não uso o app com frequência',
-                },
-                {
-                  label: 'Questões financeiras',
-                  value: 'Questões financeiras',
-                },
-                {
-                  label: 'Outros',
-                  value: 'Outros',
-                }
-              ]}
-              placeholder={{
-                label: 'Escolha',
-                value: '',
-                color: '#9EA0A4',
-              }}
-              style={{
-                ...pickerSelectStyles,
-                iconContainer: {
-                  top: 10,
-                  right: 10,
-                },
-              }}
-              useNativeAndroidPickerStyle={false}
-              textInputProps={{ underlineColor: 'yellow' }}
-              Icon={() => {
-                return <Ionicons name="md-arrow-down" size={24} color="gray" />;
-              }}
-            />
-           {handleItem && (
-              <>
-                <Input
-               
-                  value={objectiveOther}
-                  label={'Detalhar Motivo:'}
-                  placeholder={'Detalhar Motivo'}
-                  onChangeText={(text) => setObjectiveOther(text)}
-                />
-                {errors.objectiveOther && (
-                  <Text style={commons.error}>{errors.objectiveOther}</Text>
-                )}
-              </>
-            )} 
-              <ButtonPrimary text="Confirmar Cancelamento" onPress={cancelPlan} />
+                onValueChange={(text) => {
+                  setCancelItem(text);
+                }}
+                // value={cancelItem}
+                items={[
+                  {
+                    label: 'Não uso o app com frequência',
+                    value: 'Não uso o app com frequência',
+                  },
+                  {
+                    label: 'Questões financeiras',
+                    value: 'Questões financeiras',
+                  },
+                  {
+                    label: 'Outros',
+                    value: 'Outros',
+                  },
+                ]}
+                placeholder={{
+                  label: 'Escolha',
+                  value: '',
+                  color: '#9EA0A4',
+                }}
+                style={{
+                  ...pickerSelectStyles,
+                  iconContainer: {
+                    top: 10,
+                    right: 10,
+                  },
+                }}
+                useNativeAndroidPickerStyle={false}
+                textInputProps={{ underlineColor: 'yellow' }}
+                Icon={() => {
+                  return (
+                    <Ionicons name="md-arrow-down" size={24} color="gray" />
+                  );
+                }}
+              />
+              {handleItem && (
+                <>
+                  <Input
+                    value={objectiveOther}
+                    label={'Detalhar Motivo:'}
+                    placeholder={'Detalhar Motivo'}
+                    onChangeText={(text) => setObjectiveOther(text)}
+                  />
+                  {errors.objectiveOther && (
+                    <Text style={commons.error}>{errors.objectiveOther}</Text>
+                  )}
+                </>
+              )}
+              <ButtonPrimary
+                text="Confirmar Cancelamento"
+                onPress={cancelPlan}
+              />
             </View>
           </ModalContent>
         </Modal>
@@ -212,7 +223,6 @@ const mapStateToProps = ({ plan, auth }) => ({
   plan,
   auth,
 });
-
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
