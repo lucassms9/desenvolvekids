@@ -4,16 +4,11 @@ import { bindActionCreators } from 'redux';
 import { useIsFocused } from '@react-navigation/native';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 import { useSelector, useDispatch } from 'react-redux';
+import { ScrollViewIndicator } from "react-native-scrollview-indicator";
 
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
-import {
-  SafeAreaView,
-  ScrollView,
-  View,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
+import { SafeAreaView, ScrollView, View, Platform, Text } from 'react-native';
 
 import { ToastActionsCreators } from 'react-native-redux-toast';
 
@@ -133,7 +128,7 @@ function ActivityDetail({ navigation, route }) {
             {origem === 'Atividades' && (
               <View style={styles.fdr}>
                 <DatePicker
-                  style={{ width: 200 }}
+                  style={{ width: 200, marginTop:15 }}
                   date={date}
                   mode="date"
                   placeholder="Selecione a Data"
@@ -165,13 +160,24 @@ function ActivityDetail({ navigation, route }) {
               </View>
             )}
 
+            <View style={{ marginHorizontal: 10, marginTop:5 }}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: '700',
+                  textAlign: 'center',
+                }}>
+                {activity.titulo}
+              </Text>
+            </View>
+
             {/* <View style={{}}>
               {imagesCarousel.length > 0 && (
                 <MainCarousel imagens={imagesCarousel} />
               )}
             </View> */}
 
-            <View style={{ marginTop: 10, marginHorizontal: 8 }}>
+            <View style={{ marginTop: 5, marginHorizontal: 8 }}>
               <View>
                 {activity.conteudos[currentPage].conteudos_itens.map((item) => (
                   <ItemPage item={item} />

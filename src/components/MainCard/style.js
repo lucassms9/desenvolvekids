@@ -9,20 +9,21 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 15,
   },
-  content: { flex: 0, paddingTop: 10 },
+  content: { flex: 0,marginVertical:10},
   title: {
     fontSize: 18,
     fontWeight: '700',
   },
   image: {
     flex: 1,
-    width: '101%',
+    width: '100%',
     overflow: 'hidden',
-    borderTopRightRadius: 15,
-    borderTopLeftRadius: 15,
+    borderTopRightRadius: 4,
+    borderTopLeftRadius: 4,
   },
   fx1: {
     flex: 1,
+    justifyContent:'flex-start'
   },
   colorItem: { color: colors.white },
   checkBox: {

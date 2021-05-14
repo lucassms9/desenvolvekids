@@ -6,12 +6,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  containerLogo: { flex: 1.5, alignItems: 'center', justifyContent: 'center' },
+  containerLogo: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 25,
+  },
   content: {
     paddingLeft: 15,
   },
   containerForm: {
-    flex: 5,
+    flex: 4,
   },
   containerFooter: {
     justifyContent: 'space-between',

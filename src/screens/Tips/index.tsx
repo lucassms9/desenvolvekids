@@ -96,7 +96,7 @@ const Tips: React.FC<iProps> = ({ navigation, userEntity: user }: iProps) => {
   return (
     <SafeAreaView style={commons.body}>
       <Header title="Dicas" />
-      <View style={[commons.container, { paddingBottom: 70 }]}>
+      <View style={[commons.container, { paddingBottom: 150 }]}>
         {loading && <Loader />}
         {!loading && (
           <ScrollView>

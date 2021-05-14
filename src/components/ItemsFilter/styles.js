@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     justifyContent: 'center',
     paddingHorizontal: 10,
-    borderRadius: 15,
+    borderRadius: 4,
     marginRight: 5,
   },
   containerImage:{

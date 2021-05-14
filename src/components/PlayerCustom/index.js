@@ -76,7 +76,7 @@ function PlayerCustom({ uriVideo }) {
   const onSeeking = (currentTime) => setCurrentTime(currentTime);
 
   return (
-    <View style={{ height: 380 }}>
+    <View style={{ minHeight: 250 }}>
       <Video
         onEnd={onEnd}
         onLoad={onLoad}

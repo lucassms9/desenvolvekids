@@ -7,14 +7,14 @@ import PlayerCustom from '~/components/PlayerCustom';
 function ItemPage({ item }) {
   const renderImage = (image) => {
     return (
-      <View style={{ marginVertical: 15 }}>
+      <View style={{ marginVertical: 15, marginBottom:20 }}>
         <Image resizeMode='contain' source={{ uri: image.conteudo }} style={{ width: '100%', minHeight:250}} />
       </View>
     );
   };
   const renderMovies = (movie) => {
     return (
-      <View style={{ marginVertical: 15 }}>
+      <View style={{ marginVertical: 15,marginBottom:20  }}>
         <PlayerCustom uriVideo={item.conteudo} />
       </View>
     );
@@ -22,7 +22,7 @@ function ItemPage({ item }) {
 
   const renderText = (text) => {
     return (
-      <View>
+      <View style={{marginBottom:20 }}>
         <Text style={{ fontSize: 14,  textAlign: 'justify' }}>
           {text.conteudo}
         </Text>

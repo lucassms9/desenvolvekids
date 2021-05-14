@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
+
   },
   optionsItem: { color: '#000', fontWeight: '700' },
   forumItem: {

@@ -12,8 +12,9 @@ export default {
   danger: '#d10915',
   lightDanger: '#fc222a',
 
-  orange: '#ff8500',
-  blue: '#16709C',
+  orange: '#e84b24',
+  yellow: '#FD9A00',
+  blue: '#003047',
   backgroung: '#FFFFFF',
   tabBarColor: '#24AAB6',
   header: '#01B0F1',

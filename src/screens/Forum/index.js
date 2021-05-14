@@ -23,6 +23,7 @@ class Forum extends Component {
     totalPage: 1,
     page: 1,
     hasFilter: false,
+    itemActive: null,
     categories: [],
   };
 
@@ -76,6 +77,7 @@ class Forum extends Component {
 
   filterForum = (id) => {
     this.getForums(id);
+    this.setState({ itemActive: id });
   };
 
   moreForums = async () => {
@@ -118,7 +120,7 @@ class Forum extends Component {
 
   resetFilter = () => {
     this.getForums();
-    this.setState({ hasFilter: false });
+    this.setState({ hasFilter: false, itemActive:null });
   };
 
   componentDidUpdate(prevProps) {
@@ -132,22 +134,51 @@ class Forum extends Component {
   }
 
   render() {
-    const { loading, forums } = this.state;
+    const { loading, forums, itemActive } = this.state;
     const { navigation, route } = this.props;
-   const {showBack} = route?.params
-    return (  
+    const { showBack } = route?.params;
+    return (
       <SafeAreaView style={commons.body}>
         <Header title="Perguntas" />
         <View style={[commons.container, { paddingBottom: 90 }]}>
           {loading && <Loader />}
           {!loading && (
             <ScrollView>
+              <View
+                style={{
+                  flex: 1,
+                  marginBottom: 15,
+                  marginTop: 5,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <TouchableOpacity
+                  style={{
+                    borderRadius: 4,
+                    width: 200,
+                    height: 40,
+                    backgroundColor: '#22AAB6',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  onPress={() => navigation.navigate('ForumCreate')}>
+                  <View>
+                    <Text
+                      style={{
+                        color: '#fff',
+                        fontWeight: '700',
+                        fontSize: 16,
+                      }}>
+                      CRIAR PERGUNTA
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
               {this.state.hasFilter && (
                 <TouchableOpacity onPress={this.resetFilter}>
                   <View style={{ alignItems: 'center', marginBottom: 10 }}>
                     <Text
                       style={{
-                    
                         fontSize: 17,
                         fontWeight: '700',
                       }}>
@@ -160,12 +191,8 @@ class Forum extends Component {
                 <ItemsFilter
                   filterFunc={this.filterForum}
                   items={this.state.categories}
+                  active={itemActive}
                 />
-                <TouchableOpacity
-                  style={{ marginTop: 10 }}
-                  onPress={() => navigation.navigate('ForumCreate')}>
-                  <Text style={styles.optionsItem}>CRIAR PERGUNTA</Text>
-                </TouchableOpacity>
               </View>
               {forums?.length === 0 && <NotFound type="forum" />}
               {forums?.map((forum, index) => {

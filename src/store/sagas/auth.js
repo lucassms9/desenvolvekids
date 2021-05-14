@@ -5,6 +5,11 @@ import { ToastActionsCreators } from 'react-native-redux-toast';
 import { initNotification } from '~/services/notificationService';
 
 import api from '../../services/api';
+import {
+  hasInternetKey,
+  dialogBiometric,
+  getInternetKey,
+} from '~/services/keyChain';
 
 import storageKeys from '~/helpers/storageKeys';
 
@@ -40,7 +45,6 @@ export function* init() {
   }
 }
 
-
 export function* getDataUser() {
   const userAsync = yield call([AsyncStorage, 'getItem'], storageKeys.root);
   console.log(userAsync);
@@ -60,8 +64,8 @@ export function* getDataUser() {
         headers: { token: auth.user.token },
       },
     );
-    console.log('data.user')
-    console.log(data.user)
+    console.log('data.user');
+    console.log(data.user);
     yield put(AuthActions.signInSuccess(data.user));
     yield put(AuthActions.authCheck(true));
   } else {
@@ -71,7 +75,7 @@ export function* getDataUser() {
 
 export function* requestUpdate({ data: userData }) {
   try {
-    console.log(userData)
+    console.log(userData);
     const {
       birthDate,
       email,
@@ -88,7 +92,7 @@ export function* requestUpdate({ data: userData }) {
       number,
       zipCode,
       state,
-      recipient
+      recipient,
     } = userData;
 
     const request = {
@@ -99,7 +103,7 @@ export function* requestUpdate({ data: userData }) {
       celular: phone,
       cpf: fiscalNumber,
       senha: password,
-      
+
       zipCode: zipCode,
       nameAddress: nameAddress,
       address: address,
@@ -180,6 +184,22 @@ export function* signUp({ data: signUpData }) {
     yield put(AuthActions.signUpSuccess(data.user));
 
     yield call([navigationGlobal, 'dispatch'], StackActions.replace('Plans'));
+    yield call([AsyncStorage, 'setItem'], storageKeys.userLogin, String(email));
+    const bioOptional = yield call(hasInternetKey);
+
+    if (bioOptional) {
+      const emailPhoneSto = yield call(
+        [AsyncStorage, 'getItem'],
+        storageKeys.userLogin,
+      );
+
+      if (emailPhoneSto !== email) {
+        dialogBiometric(email, password);
+      }
+    } else {
+      dialogBiometric(email, password);
+    }
+     yield call([AsyncStorage, 'setItem'], storageKeys.userLogin, String(email));
   } catch (error) {
     yield put(ToastActionsCreators.displayError(error.message));
     yield put(AuthActions.signUpError(error.message));
@@ -196,9 +216,8 @@ export function* signOut({ message }) {
       auth: { navigationGlobal },
     } = yield select();
 
-
-    console.log('AQUI')
-    console.log(navigationGlobal)
+    console.log('AQUI');
+    console.log(navigationGlobal);
     if (navigationGlobal.name !== 'SignIn') {
       yield call([navigationGlobal, 'dispatch'], StackActions.replace('Auth'));
       if (message) {
@@ -240,6 +259,9 @@ export function* signIn({ email, password, dataSocial }) {
     }
 
     if (typeof data.user !== 'undefined') {
+
+     
+
       yield put(AuthActions.signInSuccess(data.user));
       if (data && data.user && data.user.plano && data.user.plano.id) {
         yield call(
@@ -252,24 +274,40 @@ export function* signIn({ email, password, dataSocial }) {
           StackActions.replace('Plans'),
         );
       }
-      setTimeout(function (){
-        call(initNotification);
-      },2000);
 
+      yield call([AsyncStorage, 'setItem'], storageKeys.userLogin, String(email));
+      const bioOptional = yield call(hasInternetKey);
+
+      if (bioOptional) {
+        const emailPhoneSto = yield call(
+          [AsyncStorage, 'getItem'],
+          storageKeys.userLogin,
+        );
+
+        if (emailPhoneSto !== email) {
+          dialogBiometric(email, password);
+        }
+      } else {
+        dialogBiometric(email, password);
+      }
+
+
+      setTimeout(function () {
+        call(initNotification);
+      }, 2000);
     } else {
       throw data;
     }
   } catch (error) {
     console.log('erro login');
     console.log(error);
-    if(error.message === 'Complete seu cadastro!'){
+    if (error.message === 'Complete seu cadastro!') {
       yield call([navigationGlobal, 'navigate'], 'SignUp', dataSocial);
       yield put(AuthActions.signInError('not auth'));
-    }else{
+    } else {
       yield put(ToastActionsCreators.displayError(`Erro: ${error.message}`));
       yield put(AuthActions.signInError(error));
     }
-    
   }
 }
 

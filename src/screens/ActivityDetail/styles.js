@@ -102,6 +102,7 @@ export default StyleSheet.create({
     backgroundColor: colors.primary,
     marginLeft: 10,
     borderRadius: 10,
+    marginTop:15,
   },
   fdr: { flexDirection: 'row', marginBottom: 10, justifyContent: 'center' },
   wd90: { width: '75%' },

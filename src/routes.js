@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import {enableScreens} from 'react-native-screens';
+import { enableScreens } from 'react-native-screens';
 
 enableScreens(true);
 
@@ -304,11 +304,12 @@ function Routes() {
       <Tab.Navigator
         initialRouteName="Activities"
         tabBarOptions={{
-          activeTintColor: colors.darkGray,
+          activeTintColor: colors.blue,
           inactiveTintColor: '#fff',
           style: {
             backgroundColor: colors.tabBarColor,
             borderTopColor: 'transparent',
+            height: 60,
           },
         }}>
         <Tab.Screen
@@ -323,14 +324,23 @@ function Routes() {
                   name="edit"
                   type="feather"
                   color={color}
-                  size={20}
+                  size={24}
+                  style={{ marginTop: 5 }}
                 />
               );
             },
             tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.darkGray : '#fff';
+              const color = focused ? colors.blue : '#fff';
+
               return (
-                <Text style={{ fontSize: 13, color: color }}> Atividades </Text>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    color: color,
+                    marginBottom: 5,
+                  }}>
+                  Atividades
+                </Text>
               );
             },
           }}
@@ -348,13 +358,17 @@ function Routes() {
                   type="material-community"
                   color={color}
                   size={25}
+                  style={{ marginTop: 5 }}
                 />
               );
             },
             tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.darkGray : '#fff';
+              const color = focused ? colors.blue : '#fff';
               return (
-                <Text style={{ fontSize: 14, color: color }}> Dicas </Text>
+                <Text style={{ fontSize: 14, color: color, marginBottom: 5 }}>
+                  {' '}
+                  Dicas{' '}
+                </Text>
               );
             },
           }}
@@ -367,13 +381,22 @@ function Routes() {
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
               return (
-                <Icon name="heart" type="feather" color={color} size={20} />
+                <Icon
+                  name="heart"
+                  type="feather"
+                  style={{ marginTop: 5 }}
+                  color={color}
+                  size={20}
+                />
               );
             },
             tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.darkGray : '#fff';
+              const color = focused ? colors.blue : '#fff';
               return (
-                <Text style={{ fontSize: 13, color: color }}> Saúde </Text>
+                <Text style={{ fontSize: 13, color: color, marginBottom: 5 }}>
+                  {' '}
+                  Saúde{' '}
+                </Text>
               );
             },
           }}
@@ -394,9 +417,12 @@ function Routes() {
               );
             },
             tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.darkGray : '#fff';
+              const color = focused ? colors.blue : '#fff';
               return (
-                <Text style={{ fontSize: 13, color: color }}> Extras </Text>
+                <Text style={{ fontSize: 13, color: color, marginBottom: 5 }}>
+                  {' '}
+                  Extras{' '}
+                </Text>
               );
             },
           }}
@@ -415,13 +441,14 @@ function Routes() {
                   name="forum-outline"
                   type="material-community"
                   size={20}
+                  style={{ marginTop: 5 }}
                 />
               );
             },
             tabBarLabel: ({ focused }) => {
-              const color = focused ? colors.darkGray : '#fff';
+              const color = focused ? colors.blue : '#fff';
               return (
-                <Text style={{ fontSize: 13, color: color }}>
+                <Text style={{ fontSize: 13, color: color, marginBottom: 5 }}>
                   Dúvidas
                 </Text>
               );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Text, Image,Dimensions } from 'react-native';
+import { View, Text, Image, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon, CheckBox } from 'react-native-elements';
 
@@ -32,15 +32,28 @@ function MainCard({
   showFavorite = false,
   stateMaterial,
   icon,
+  minAge = '0 - 0',
   titleButton = 'VER MAIS',
 }) {
   // console.log(checkedAcitivity)
   // console.log(checkedAcitivity.includes(id))
-  console.log(id);
-  var width = Dimensions.get('window').width; 
+  const getSubTitle = (text, desc) => {
+    let textHandle = desc || text;
+
+    if (String(textHandle).length > 100) {
+      return `${textHandle.substring(0, 100)} ...`;
+    }
+
+    return textHandle;
+  };
+
+  var width = Dimensions.get('window').width;
   return (
-    <View style={{ width: (width * 0.90) , height: 400, alignSelf:'center' }}>
-      <View key={id} style={[style.container, { position: 'absolute', width:'100%'}]}>
+    <View
+      style={{ flex: 1, width: width * 0.9, height: 400, alignSelf: 'center' }}>
+      <View
+        key={id}
+        style={[style.container, { position: 'absolute', width: '100%' }]}>
         <View style={{ zIndex: 999, elevation: 9999999999999 }}>
           <Image
             style={{
@@ -116,52 +129,87 @@ function MainCard({
         <View style={[style.fx1, { zIndex: 0 }]}>
           <Image
             source={{ uri: banner }}
-            resizeMode="contain"
+            resizeMode="stretch"
             style={style.image}></Image>
         </View>
 
-        <CardContent
-          style={style.content}
-          text={
-            <>
-              <Text style={style.title}>
-                {title}
-                {desc && '\n\n'}
-              </Text>
-              {desc && <Text>{`${desc.substring(0, 120)} ...`}</Text>}
-            </>
-          }
-        />
-        <CardAction
-          separator={true}
-          inColumn={false}
-          style={{ flexDiferection: 'row', justifyContent: 'space-between' }}>
-          <CardButton onPress={goDetail} title={titleButton} color="blue" />
-          {showFavorite && (
-            <View style={{ flexDirection: 'row' }}>
-              {isSchecule && (
-                <View style={{ marginRight: 15 }}>
-                  {/* <Icon name={'clock'} type="feather" color={'#f00'} size={20} /> */}
-                  <Text> {isSchecule}</Text>
-                </View>
-              )}
-
-              <View>
-                <Text>{progress}</Text>
-              </View>
-              <TouchableOpacity
-                style={{ marginHorizontal: 15 }}
-                onPress={() => toggleFavorite(id)}>
-                <Icon
-                  name={isFavorite ? 'heart' : 'heart-o'}
-                  type="font-awesome"
-                  color={'#f00'}
-                  size={20}
-                />
-              </TouchableOpacity>
+        <View style={style.content}>
+          <View
+            style={{
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <View>
+              <Text style={style.title}>{title}</Text>
             </View>
-          )}
-        </CardAction>
+            <View style={{ marginTop: 10 }}>
+              {title && <Text>{getSubTitle(title, desc)}</Text>}
+            </View>
+          </View>
+        </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View>
+            <TouchableOpacity
+              style={{
+                borderRadius: 4,
+                width: 100,
+                height: 50,
+                backgroundColor: '#22AAB6',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={goDetail}>
+              <View>
+                <Text
+                  style={{ color: '#fff', fontWeight: '700', fontSize: 16 }}>
+                  Veja Mais
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{ marginTop: 15 }}>
+            {showFavorite && (
+              <View style={{ flexDirection: 'row' }}>
+                {isSchecule && (
+                  <View style={{ marginRight: 15 }}>
+                    {/* <Icon name={'clock'} type="feather" color={'#f00'} size={20} /> */}
+                    <Text> {isSchecule}</Text>
+                  </View>
+                )}
+
+                <View style={{ marginHorizontal: 15 }}>
+                  <View
+                    style={{
+                      backgroundColor: '#003047',
+                      borderRadius:4,
+                      width: 60,
+                      height: 30,
+                      justifyContent:'center',
+                      alignItems:'center'
+                    }}>
+                    <Text style={{ color: '#fff' }}>{minAge}</Text>
+                  </View>
+                </View>
+
+                <View style={{marginTop:5}}>
+                  <Text>{progress}</Text>
+                </View>
+                <TouchableOpacity
+                  style={{ marginHorizontal: 15,marginTop:5 }}
+                  onPress={() => toggleFavorite(id)}>
+                  <Icon
+                    name={isFavorite ? 'heart' : 'heart-o'}
+                    type="font-awesome"
+                    color={'#f00'}
+                    size={20}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+        </View>
       </View>
     </View>
   );

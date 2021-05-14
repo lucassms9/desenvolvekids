@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, SafeAreaView, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet
+} from 'react-native';
 import { Formik } from 'formik';
 import api from '~/services/api';
 import RNPickerSelect from 'react-native-picker-select';
@@ -7,16 +14,22 @@ import Header from '~/components/Header';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { commons, colors } from '~/styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Divider, Input, Button, Icon } from 'react-native-elements';
+
+import { Overlay, Input, Button, Icon } from 'react-native-elements';
 import validationSchema from './validationSchema';
 import styles from './styles';
+import IconSuccess from '~/assets/images/icon-success.png';
 
 function ForumCreate({ navigation }) {
   const questionLong = useRef();
 
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([{ label: '', value: '' }]);
+  const [visible, setVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
 
   const submitForm = async (values) => {
     setLoading(true);
@@ -27,7 +40,7 @@ function ForumCreate({ navigation }) {
     };
     const res = await api.post('forums/add-pergunta', data);
     setLoading(false);
-    navigation.goBack();
+    toggleOverlay();
   };
 
   const getCategories = async () => {
@@ -37,6 +50,10 @@ function ForumCreate({ navigation }) {
       value: cat.id,
     }));
     setCategories(handle);
+  };
+
+  const goForum = () => {
+    navigation.goBack();
   };
 
   useEffect(() => {
@@ -84,7 +101,6 @@ function ForumCreate({ navigation }) {
                   )}
                 </View>
                 <Input
-              
                   value={values.questionShort}
                   label={'Questão Resumida'}
                   placeholder={'Questão Resumida'}
@@ -99,7 +115,6 @@ function ForumCreate({ navigation }) {
                   <Text style={styles.error}>{errors.questionShort}</Text>
                 )}
                 <Input
-              
                   ref={questionLong}
                   value={values.questionLong}
                   label={'Detalhe sua dúvida'}
@@ -120,13 +135,48 @@ function ForumCreate({ navigation }) {
                     />
                   }
                   loading={loading}
-                  onPress={handleSubmit}
+                  onPress={toggleOverlay}
                   text={'SALVAR'}
                 />
               </View>
             )}
           </Formik>
         </View>
+        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingHorizontal: 40,
+            }}>
+            <Image source={IconSuccess} />
+            <Text
+              style={{
+                textAlign: 'center',
+                fontWeight: '800',
+                marginTop: 15,
+                fontSize: 18,
+              }}>
+              COMENTÁRIO ENVIADO!
+            </Text>
+            <Text style={{ textAlign: 'center', marginTop: 10, fontSize:14 }}>
+              Seu comentário foi enviado e passará por uma moderação antes de
+              ser publicado
+            </Text>
+            <TouchableOpacity onPress={goForum}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color: '#E84B24',
+                  marginTop: 10,
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                }}>
+                Voltar para Perguntas
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Overlay>
       </SafeAreaView>
     </View>
   );

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-
+import AsyncStorage from '@react-native-community/async-storage';
 import { bindActionCreators } from 'redux';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 import { facebookService } from '~/services/FacebookService';
@@ -33,12 +33,14 @@ import {
 import { LoginManager } from 'react-native-fbsdk';
 
 import styles from './styles';
-import Profile from '../Profile/index';
+import storageKeys from '~/helpers/storageKeys';
+import Form from './Form';
+import { getInternetKey, hasInternetKey } from '~/services/keyChain';
 
 function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
-  const emailRef = useRef();
-  const passRef = useRef();
   const dispatch = useDispatch();
+  const [userLogin, setUserLogin] = useState('');
+  const [biometricHandle, setBiometricHandle] = useState(false);
 
   useEffect(() => {
     console.log(navigation);
@@ -49,7 +51,27 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
         '863121690538-pqi8e98qc542kh64nds6qgv65gr84ao4.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
       offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
     });
+    getLoginStorage();
   }, []);
+
+  const getLoginStorage = async () => {
+    const biometricHandle = await hasInternetKey();
+    console.log('biometricHandle',biometricHandle)
+    const emailPhone = await AsyncStorage.getItem(storageKeys.userLogin);
+    setUserLogin(emailPhone);
+    setBiometricHandle(biometricHandle);
+  };
+
+  const handleKeyChain = async () => {
+    try {
+      const { username, password } = await getInternetKey();
+      if (username) {
+        signInRequest(username.trim(), password.trim());
+      }
+    } catch (error) {
+      console.log('error1', error);
+    }
+  };
 
   const handleLogin = async ({ email, password }) => {
     signInRequest(email, password);
@@ -76,7 +98,11 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
 
   const loginFacebook = () => {
     // Attempt a login using the Facebook login dialog asking for default permissions.
-    LoginManager.logInWithPermissions(['public_profile', 'email','user_friends']).then(
+    LoginManager.logInWithPermissions([
+      'public_profile',
+      'email',
+      'user_friends',
+    ]).then(
       function (result) {
         if (result.isCancelled) {
           console.log('Login cancelled');
@@ -122,6 +148,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
       }
     }
   };
+
   return (
     <ScrollView style={styles.bodyLogin}>
       <SafeAreaView style={styles.container}>
@@ -137,87 +164,17 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
                 initialValues={{ email: '', password: '' }}
                 validationSchema={validationSchema}
                 onSubmit={(values) => handleLogin(values)}>
-                {({ handleSubmit, values, setFieldValue, errors }) => (
-                  <View>
-                    <Input
-                      
-                      value={values.email}
-                      label={'E-mail'}
-                      autoCapitalize="none"
-                      keyboardType="email-address"
-                      placeholder={'E-mail'}
-                      onChangeText={(text) => setFieldValue('email', text)}
-                      ref={emailRef}
-                      onSubmitEditing={() => passRef.current.focus()}
-                    />
-                    {errors.email && (
-                      <Text style={commons.error}>{errors.email}</Text>
-                    )}
-                    <Input
-                     
-                      value={values.password}
-                      label={'Senha'}
-                      autoCapitalize="none"
-                      placeholder={'Senha'}
-                      onChangeText={(text) => setFieldValue('password', text)}
-                      secureTextEntry={true}
-                      ref={passRef}
-                    />
-                    {errors.password && (
-                      <Text style={commons.error}>{errors.password}</Text>
-                    )}
-                    <View style={styles.containerSocial}>
-                      <Text style={[ commons.fs17]}>
-                        Entrar com
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        marginTop: 20,
-                      }}>
-                      <SocialIcon onPress={loginFacebook} type="facebook" />
-                      <SocialIcon onPress={loginGoogle} type="google" />
-                    </View>
-
-                    <View style={styles.mp30}>
-                      <ButtonPrimary
-                        loading={status === 'loading'}
-                        text="ENTRAR"
-                        onPress={handleSubmit}
-                      />
-                    </View>
-
-                    <View style={styles.containerFooter}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.push('SignUp');
-                        }}>
-                        <Text
-                          style={[
-                           
-                            commons.fs17,
-                            styles.mp30,
-                          ]}>
-                          Registre-se!
-                        </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.push('Recover');
-                        }}>
-                        <Text
-                          style={[
-                           
-                            commons.fs17,
-                            styles.mp30,
-                          ]}>
-                          Esqueci Minha Senha
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
+                {(props) => (
+                  <Form
+                    {...props}
+                    navigation={navigation}
+                    userLogin={userLogin}
+                    status={status}
+                    loginGoogle={loginGoogle}
+                    loginFacebook={loginFacebook}
+                    biometricHandle={biometricHandle}
+                    handleKeyChain={handleKeyChain}
+                  />
                 )}
               </Formik>
             </View>

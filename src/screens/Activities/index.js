@@ -213,14 +213,15 @@ function Activities({
       />
       <View
         style={{
-          paddingBottom: 70,
+          paddingBottom: 150,
           marginVertical: 10,
           borderRadius: 10,
-          backgroundColor: '#fff'
+          backgroundColor: '#fff',
         }}>
         {loading && <Loader />}
+
         {!loading && (
-          <ScrollView >
+          <>
             {hasFilter && (
               <TouchableOpacity onPress={resetFilter}>
                 <View style={{ alignItems: 'center', marginBottom: 10 }}>
@@ -234,47 +235,60 @@ function Activities({
                 </View>
               </TouchableOpacity>
             )}
-            <View style={{ flexDirection: 'row', marginBottom: 20,marginHorizontal: 10, }}>
-              <ItemsFilter filterFunc={filterActivities} items={categories} />
+            <View
+              style={{
+                flexDirection: 'column',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginHorizontal: 10,
+                }}>
+                <ItemsFilter filterFunc={filterActivities} items={categories} />
+              </View>
+              <View style={{ borderBottomWidth: 0.5, marginBottom:15, marginTop:5 }}></View>
             </View>
-            {activities.length === 0 && <NotFound type="Atividades" />}
-            {activities.map((act) => {
-              return (
-                <MainCard
-                  stateMaterial={stateMaterial}
-                  setCheckedAcitivity={setCheckedAcitivity}
-                  checkedAcitivity={checkedAcitivity}
-                  key={act.id}
-                  id={act.id}
-                  icon={act.icon}
-                  banner={act.banner}
-                  title={act.titulo}
-                  isFavorite={act.isFavorite}
-                  isSchecule={
-                    act.data_agenda &&
-                    moment(act.data_agenda).isSameOrAfter(moment(), 'day')
-                      ? moment(act.data_agenda).format('DD/MM')
-                      : false
-                  }
-                  showFavorite
-                  completed={act.progresso === act.conteudos.length}
-                  progress={`${act.progresso}/${act.conteudos.length}`}
-                  toggleFavorite={toggleFavorite}
-                  goDetail={() => {
-                    navigation.navigate('ActivityDetail', {
-                      activity: act,
-                      origem: 'Atividades',
-                    });
-                  }}
-                />
-              );
-            })}
-            <Pagination
-              totalPage={totalPage}
-              page={page}
-              getMoreItem={moreActivities}
-            />
-          </ScrollView>
+            <ScrollView>
+              {activities.length === 0 && <NotFound type="Atividades" />}
+              {activities.map((act) => {
+                return (
+                  <MainCard
+                    stateMaterial={stateMaterial}
+                    setCheckedAcitivity={setCheckedAcitivity}
+                    checkedAcitivity={checkedAcitivity}
+                    key={act.id}
+                    id={act.id}
+                    icon={act.icon}
+                    banner={act.banner}
+                    title={act.titulo}
+                    isFavorite={act.isFavorite}
+                    minAge={act?.faixa_etaria || 'Livre'}
+                    isSchecule={
+                      act.data_agenda &&
+                      moment(act.data_agenda).isSameOrAfter(moment(), 'day')
+                        ? moment(act.data_agenda).format('DD/MM')
+                        : false
+                    }
+                    showFavorite
+                    completed={act.progresso === act.conteudos.length}
+                    progress={`${act.progresso}/${act.conteudos.length}`}
+                    toggleFavorite={toggleFavorite}
+                    goDetail={() => {
+                      navigation.navigate('ActivityDetail', {
+                        activity: act,
+                        origem: 'Atividades',
+                      });
+                    }}
+                  />
+                );
+              })}
+              <Pagination
+                totalPage={totalPage}
+                page={page}
+                getMoreItem={moreActivities}
+              />
+            </ScrollView>
+          </>
         )}
       </View>
     </SafeAreaView>
