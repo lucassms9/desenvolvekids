@@ -56,7 +56,7 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
 
   const getLoginStorage = async () => {
     const biometricHandle = await hasInternetKey();
-    console.log('biometricHandle',biometricHandle)
+    console.log('biometricHandle', biometricHandle);
     const emailPhone = await AsyncStorage.getItem(storageKeys.userLogin);
     setUserLogin(emailPhone);
     setBiometricHandle(biometricHandle);
@@ -150,38 +150,36 @@ function SignIn({ status, navigation, setNavigation, signInRequest, route }) {
   };
 
   return (
-    <ScrollView style={styles.bodyLogin}>
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
-          style={styles.container}
-          behavior={Platform.OS === 'ios' ? 'padding' : null}>
-          <View style={styles.containerLogin}>
-            <View style={styles.containerLogo}>
-              <Image source={logo} />
-            </View>
-            <View style={styles.containerForm}>
-              <Formik
-                initialValues={{ email: '', password: '' }}
-                validationSchema={validationSchema}
-                onSubmit={(values) => handleLogin(values)}>
-                {(props) => (
-                  <Form
-                    {...props}
-                    navigation={navigation}
-                    userLogin={userLogin}
-                    status={status}
-                    loginGoogle={loginGoogle}
-                    loginFacebook={loginFacebook}
-                    biometricHandle={biometricHandle}
-                    handleKeyChain={handleKeyChain}
-                  />
-                )}
-              </Formik>
-            </View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : null}>
+        <View style={styles.containerLogin}>
+          <View style={styles.containerLogo}>
+            <Image source={logo} />
           </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </ScrollView>
+          <View style={styles.containerForm}>
+            <Formik
+              initialValues={{ email: '', password: '' }}
+              validationSchema={validationSchema}
+              onSubmit={(values) => handleLogin(values)}>
+              {(props) => (
+                <Form
+                  {...props}
+                  navigation={navigation}
+                  userLogin={userLogin}
+                  status={status}
+                  loginGoogle={loginGoogle}
+                  loginFacebook={loginFacebook}
+                  biometricHandle={biometricHandle}
+                  handleKeyChain={handleKeyChain}
+                />
+              )}
+            </Formik>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 

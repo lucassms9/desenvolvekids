@@ -32,6 +32,7 @@ function MainCard({
   showFavorite = false,
   stateMaterial,
   icon,
+  origin,
   minAge = '0 - 0',
   titleButton = 'VER MAIS',
 }) {
@@ -50,7 +51,7 @@ function MainCard({
   var width = Dimensions.get('window').width;
   return (
     <View
-      style={{ flex: 1, width: width * 0.9, height: 400, alignSelf: 'center' }}>
+      style={{ flex: 1, width: width * 0.9, height: 400, alignSelf: 'center', marginBottom:10 }}>
       <View
         key={id}
         style={[style.container, { position: 'absolute', width: '100%' }]}>
@@ -149,7 +150,7 @@ function MainCard({
           </View>
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', justifyContent: origin === 'atividades' ? 'space-between' : 'center' }}>
           <View>
             <TouchableOpacity
               style={{

@@ -28,36 +28,8 @@ IOS Your App ID: 1f90ae75-f4f6-4763-b4b8-e348f719586e
 
 #### AJUSTES
 
-LOGIN
+- centralizar tela login
+- centralizar botao nas telas, dicas, extra, saude
+- marginBottom no card maior
 
-aumentar espacamento abaixo do logo
-login touch id - melhoria
-
-listagem de atividades
-
-border radius 4
-centralizar texto titulo nos card de atividades
-colocar seb titulo nos card de atividades 100 carac
-ajustar botao veja mais (olhar figma)
-
-ajustar filtro por categoria
- - deixar fixo com sobra(figma)
-
-
-detalhe atividade
-
-colocar titulo da atividade apos o agendar
-centralizar text agendar
-aumentar espacamento nos components de 10px
-deixar proporcao do video igual a da imagem
-alterar cor do scroll para #fd9a00
-colocar idade recomendada no card atividade
-
-dicas, saude, extra
-ajustar layout card
-
-duvidas
-ajustar tag filtros
-colocar botao criar pergunta background #fd9a00
-subir popup ao criar pergunta
 

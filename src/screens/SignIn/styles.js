@@ -5,6 +5,8 @@ import { metrics, colors } from '~/styles';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.backgroung,
+    flexDirection: 'column',
   },
   containerLogo: {
     flex: 1,
@@ -23,9 +25,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bodyLogin: {
-    flex: 1,
-    backgroundColor: colors.backgroung,
-    flexDirection: 'column',
+    
   },
   containerLogin: {
     flex: 1,

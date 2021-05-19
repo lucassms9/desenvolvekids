@@ -253,6 +253,7 @@ function Activities({
               {activities.map((act) => {
                 return (
                   <MainCard
+                    origin='atividades'
                     stateMaterial={stateMaterial}
                     setCheckedAcitivity={setCheckedAcitivity}
                     checkedAcitivity={checkedAcitivity}
