@@ -68,7 +68,7 @@
 		</dict>
 	</dict>
 	<key>NSFaceIDUsageDescription</key>
-  <string>Habilitando Touch ID para permitir que os usuários acesse os 
+  <string>Habilitando Touch ID para permitir que os usuários acesse os conteúdos</string>
 	<key>NSCameraUsageDescription</key>
 	<string>O app faz uso da camera para o usuário enviar fotos relacionado as atividades concluídas no app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
