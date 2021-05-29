@@ -26,7 +26,7 @@ PODS:
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
-  - CodePush (6.4.0):
+  - CodePush (6.4.1):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.12)
     - React-Core
@@ -75,13 +75,13 @@ PODS:
   - JWT (3.0.0-beta.12):
     - Base64 (~> 1.1.2)
   - OneSignal (2.16.1)
-  - Permission-Camera (3.0.3):
+  - Permission-Camera (3.0.4):
     - RNPermissions
-  - Permission-LocationAccuracy (3.0.3):
+  - Permission-LocationAccuracy (3.0.4):
     - RNPermissions
-  - Permission-LocationWhenInUse (3.0.3):
+  - Permission-LocationWhenInUse (3.0.4):
     - RNPermissions
-  - Permission-Notifications (3.0.3):
+  - Permission-Notifications (3.0.4):
     - RNPermissions
   - RCTRequired (0.63.4)
   - RCTTypeSafety (0.63.4):
@@ -249,13 +249,13 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-camera (3.43.0):
+  - react-native-camera (3.43.9):
     - React-Core
-    - react-native-camera/RCT (= 3.43.0)
-    - react-native-camera/RN (= 3.43.0)
-  - react-native-camera/RCT (3.43.0):
+    - react-native-camera/RCT (= 3.43.9)
+    - react-native-camera/RN (= 3.43.9)
+  - react-native-camera/RCT (3.43.9):
     - React-Core
-  - react-native-camera/RN (3.43.0):
+  - react-native-camera/RN (3.43.9):
     - React-Core
   - react-native-fbsdk (3.0.0):
     - React
@@ -276,17 +276,17 @@ PODS:
   - react-native-onesignal (3.9.3):
     - OneSignal (= 2.16.1)
     - React (< 1.0.0, >= 0.13.0)
-  - react-native-pager-view (5.1.5):
+  - react-native-pager-view (5.1.10):
     - React-Core
   - react-native-rsa-native (2.0.3):
     - React
-  - react-native-safe-area-context (3.1.9):
+  - react-native-safe-area-context (3.2.0):
     - React-Core
-  - react-native-video (5.1.0-alpha8):
-    - React
-    - react-native-video/Video (= 5.1.0-alpha8)
-  - react-native-video/Video (5.1.0-alpha8):
-    - React
+  - react-native-video (5.1.1):
+    - React-Core
+    - react-native-video/Video (= 5.1.1)
+  - react-native-video/Video (5.1.1):
+    - React-Core
   - react-native-webview (10.10.2):
     - React-Core
   - React-RCTActionSheet (0.63.4):
@@ -351,29 +351,29 @@ PODS:
     - React-jsi (= 0.63.4)
   - RNCAsyncStorage (1.12.1):
     - React-Core
-  - RNCMaskedView (0.1.10):
+  - RNCMaskedView (0.1.11):
     - React
   - RNCPicker (1.8.1):
     - React-Core
-  - RNDateTimePicker (3.0.6):
+  - RNDateTimePicker (3.5.0):
     - React-Core
   - RNDeviceInfo (6.2.1):
     - React-Core
-  - RNGestureHandler (1.9.0):
+  - RNGestureHandler (1.10.3):
     - React-Core
   - RNGoogleSignin (4.0.3):
     - GoogleSignIn (~> 5.0.0)
     - React
   - RNKeychain (7.0.0):
     - React-Core
-  - RNPermissions (3.0.3):
+  - RNPermissions (3.0.4):
     - React-Core
-  - RNReanimated (1.13.2):
+  - RNReanimated (1.13.3):
     - React-Core
-  - RNScreens (2.15.0):
+  - RNScreens (2.18.1):
     - React-Core
-  - RNVectorIcons (7.1.0):
-    - React
+  - RNVectorIcons (8.1.0):
+    - React-Core
   - SSZipArchive (2.2.3)
   - Yoga (1.14.0)
 
@@ -579,7 +579,7 @@ SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
-  CodePush: 5a26b230d14bc2c6a84514e3bad9321065247fb0
+  CodePush: 23f72a4f0be1be2b08cb3d882b10178e204e419f
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: 3bb422f41b18121b71783a905c10e58606f7dc3e
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
@@ -593,10 +593,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
   OneSignal: 5f6514ec2b931306eb067acb124afbb2e49970af
-  Permission-Camera: 104ac17250aa2632a0d488caca4e91b1d42fb70a
-  Permission-LocationAccuracy: 2b5c6cb5c30b30450ff5e3ebed9215986f19878b
-  Permission-LocationWhenInUse: 5c878c0de1a55558fe978cda69908327e6a07f31
-  Permission-Notifications: 41bc12e1ea68c62ac782526c361f15fd0a26e6f4
+  Permission-Camera: ffd449756840ddc0f6294e95d688fecaadfe238c
+  Permission-LocationAccuracy: 6bdfafc629725913855aeff80cb7a68f0f7a7ea1
+  Permission-LocationWhenInUse: 9d9050bea73073cd17dd46c3a8cee79231034c3a
+  Permission-Notifications: 0fe099b4cc307db3bdc8b63fe288015c1c0a549a
   RCTRequired: 082f10cd3f905d6c124597fd1c14f6f2655ff65e
   RCTTypeSafety: 8c9c544ecbf20337d069e4ae7fd9a377aadf504b
   React: b0a957a2c44da4113b0c4c9853d8387f8e64e615
@@ -607,14 +607,14 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-camera: c2cb270b2546bb6d99352455676cd01a1cbeb1d5
+  react-native-camera: a3193de4cc61352d9309d15a849b1e0c4a085ac4
   react-native-fbsdk: 8e92c7a334fd8d9c2b5d8b8fcd7ae2c314161099
   react-native-image-picker: 32d1ad2c0024ca36161ae0d5c2117e2d6c441f11
   react-native-onesignal: dd08d2ba301e1cb7ad4773a53d8e49d4e43ba6fd
-  react-native-pager-view: 80cb8c70bc6fb2459454ca2c47ed904b317750d7
+  react-native-pager-view: 30d972691913da1f3d85dfa7f5cab62a571e5f1a
   react-native-rsa-native: ec31d1a3ef07c070ad034797f0a40bb72ea0b2b3
-  react-native-safe-area-context: 86612d2c9a9e94e288319262d10b5f93f0b395f5
-  react-native-video: 8d97379f3c2322a569f1e27542ad1a646cad9444
+  react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
+  react-native-video: 1574074179ecaf6a9dd067116c8f31bf9fec15c8
   react-native-webview: ef8d30ecc5baf6bf7821690180c2f9bf2bdf00c0
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
@@ -627,20 +627,20 @@ SPEC CHECKSUMS:
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   RNCAsyncStorage: cb9a623793918c6699586281f0b51cbc38f046f9
-  RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
+  RNCMaskedView: f127cd9652acfa31b91dcff613e07ba18b774db6
   RNCPicker: 914b557e20b3b8317b084aca9ff4b4edb95f61e4
-  RNDateTimePicker: 54bc1830e4e8d99ed00e6b6735b8517e163b2a4a
+  RNDateTimePicker: f375105b262e0c13746f467c873b75e12f7f4757
   RNDeviceInfo: 80905692dd27fbee9034d7895c92bda29e5a3fc4
-  RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
+  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNGoogleSignin: ccf71ee4b6cfd324fd788a41e457e2043838c0d9
   RNKeychain: f75b8c8b2f17d3b2aa1f25b4a0ac5b83d947ff8f
-  RNPermissions: d6679ecf0c21bf6de5a619b20df4304182792da8
-  RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
-  RNScreens: 2ad555d4d9fa10b91bb765ca07fe9b29d59573f0
-  RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
+  RNPermissions: 75128bfb4c4ef92f572a8efdb8adfbfab75e8ed0
+  RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
+  RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
+  RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: adc64304e990af23210dd90f21a8395fdb1b657b
+PODFILE CHECKSUM: 9c42aa657dadaf6d7f6049217c19b142c83034c1
 
 COCOAPODS: 1.10.1

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { View, Text, Image, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -14,6 +14,7 @@ import {
 
 import style from './style';
 import { commons, colors } from '~/styles';
+import iconPlay from '~/assets/images/botao-play.png';
 
 function MainCard({
   id,
@@ -30,6 +31,7 @@ function MainCard({
   checkedAcitivity,
   setCheckedAcitivity,
   showFavorite = false,
+  showPlay = false,
   stateMaterial,
   icon,
   origin,
@@ -49,9 +51,31 @@ function MainCard({
   };
 
   var width = Dimensions.get('window').width;
+
+  const styleButton = useMemo(() => {
+    if(showPlay){
+      return {
+        marginTop:15,
+        borderRadius: 4,
+        width: 100,
+        height: 35,
+        backgroundColor: '#22AAB6',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }
+    }
+    return {
+      borderRadius: 4,
+      width: 100,
+      height: 50,
+      backgroundColor: '#22AAB6',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }
+  },showPlay);
   return (
     <View
-      style={{ flex: 1, width: width * 0.9, height: 400, alignSelf: 'center', marginBottom:10 }}>
+      style={{ flex: 1, width: width * 0.9, height: 400, alignSelf: 'center', marginBottom: 10 }}>
       <View
         key={id}
         style={[style.container, { position: 'absolute', width: '100%' }]}>
@@ -119,7 +143,7 @@ function MainCard({
                   checkedColor={colors.primary}
                   uncheckedColor={colors.primary}
                   containerStyle={style.checkBox}
-                  onPress={() => {}}
+                  onPress={() => { }}
                   checked={checkedAcitivity.includes(id)}
                 />
               </TouchableOpacity>
@@ -127,11 +151,18 @@ function MainCard({
           </View>
         )}
 
-        <View style={[style.fx1, { zIndex: 0 }]}>
+        <View style={[style.fx1, { zIndex: 0, justifyContent: 'center', alignItems:'center' }]}>
+          {showPlay && (
+            <Image source={iconPlay} style={{ position: 'absolute', zIndex: 1, alignSelf: 'center', }} />
+          )}
+
+
           <Image
             source={{ uri: banner }}
             resizeMode="stretch"
-            style={style.image}></Image>
+            style={[style.image,{
+              marginLeft:7
+            }]}></Image>
         </View>
 
         <View style={style.content}>
@@ -145,7 +176,7 @@ function MainCard({
               <Text style={style.title}>{title}</Text>
             </View>
             <View style={{ marginTop: 10 }}>
-              {title && <Text style={{textAlign:'center'}}>{getSubTitle(title, desc)}</Text>}
+              {title && <Text style={{ textAlign: 'center' }}>{getSubTitle(title, desc)}</Text>}
             </View>
           </View>
         </View>
@@ -153,18 +184,11 @@ function MainCard({
         <View style={{ flexDirection: 'row', justifyContent: origin === 'atividades' ? 'space-between' : 'center' }}>
           <View>
             <TouchableOpacity
-              style={{
-                borderRadius: 4,
-                width: 100,
-                height: 50,
-                backgroundColor: '#22AAB6',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+              style={styleButton}
               onPress={goDetail}>
               <View>
                 <Text
-                  style={{ color: '#fff', fontWeight: '700', fontSize: 16 }}>
+                  style={{ color: '#fff', fontWeight: '600', fontSize: 16 }}>
                   Veja Mais
                 </Text>
               </View>
@@ -184,27 +208,27 @@ function MainCard({
                   <View
                     style={{
                       backgroundColor: '#003047',
-                      borderRadius:4,
+                      borderRadius: 4,
                       width: 60,
-                      height: 30,
-                      justifyContent:'center',
-                      alignItems:'center'
+                      height: 35,
+                      justifyContent: 'center',
+                      alignItems: 'center'
                     }}>
-                    <Text style={{ color: '#fff' }}>{minAge}</Text>
+                    <Text style={{ color: '#fff',fontSize:17 }}>{minAge}</Text>
                   </View>
                 </View>
 
-                <View style={{marginTop:5}}>
-                  <Text>{progress}</Text>
+                <View style={{ marginTop: 5 }}>
+                  <Text style={{fontSize:17}}>{progress}</Text>
                 </View>
                 <TouchableOpacity
-                  style={{ marginHorizontal: 15,marginTop:5 }}
+                  style={{ marginHorizontal: 15, marginTop: 5 }}
                   onPress={() => toggleFavorite(id)}>
                   <Icon
                     name={isFavorite ? 'heart' : 'heart-o'}
                     type="font-awesome"
                     color={'#f00'}
-                    size={20}
+                    size={22}
                   />
                 </TouchableOpacity>
               </View>

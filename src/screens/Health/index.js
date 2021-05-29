@@ -13,6 +13,7 @@ import {
 import moment from 'moment';
 
 import MainCard from '~/components/MainCard';
+import ScrollCustom from '~/components/ScrollCustom';
 
 import { Creators as AuthActions } from '~/store/ducks/auth';
 
@@ -130,12 +131,12 @@ function Health({ setNavigation, navigation, route }) {
   };
 
   return (
-    <SafeAreaView style={commons.body}>
+    <View style={commons.body}>
       <Header title="Saúde" />
-      <View style={[commons.container, { paddingBottom: 70 }]}>
+      <View style={[commons.container, { paddingBottom: 70,flex: 1, }]}>
         {loading && <Loader />}
         {!loading && (
-          <ScrollView>
+          <ScrollCustom>
             {hasFilter && (
               <TouchableOpacity onPress={resetFilter}>
                 <View style={{ alignItems: 'center', marginBottom: 10 }}>
@@ -180,10 +181,10 @@ function Health({ setNavigation, navigation, route }) {
               page={page}
               getMoreItem={moreActivities}
             />
-          </ScrollView>
+          </ScrollCustom>
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

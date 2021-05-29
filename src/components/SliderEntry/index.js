@@ -29,7 +29,7 @@ export default class SliderEntry extends Component {
         {...parallaxProps}
       />
     ) : (
-      <Image source={{ uri: data }} style={styles.image} />
+      <Image source={{ uri: data }} resizeMode='stretch' style={styles.image} />
     );
   }
 

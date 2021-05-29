@@ -28,8 +28,30 @@ IOS Your App ID: 1f90ae75-f4f6-4763-b4b8-e348f719586e
 
 #### AJUSTES
 
-- centralizar tela login
-- centralizar botao nas telas, dicas, extra, saude
-- marginBottom no card maior
+Incluir opção de vídeo full screen no player. 
+
+As dicas, postagens e atividades cadastradas. Exibir primeiro a mais recente. 
+
+Forçar recorte de imagens na seguinte tamanho / proporção: 600 x 324 pixels.
+Adicionar um bullet centralizado nas imagens do carrossel.
+
+No banner de uma atividade em vídeo ou audio incluir marca d’água botão player.
+
+Verificar bug do sistema de perguntas (Fórum).
+
+Logotipo versão positiva de cores no menu principal.
+
+Adequação da proporção leia mais aos ícones de etapa e idade da atividade. 
+Ajuste no sticker das atividades. 
+Stickers no filtro superior devem ter nomes mais curtos e ser equidistantes. 
+Em dicas e saúde centralizar o botão “Veja Mais”
+Aumentar o espaço entre os elementos. 
+Centralizar a página de login.
+Aumentar o ícone de calendário do mesmo tamanho botão agendar ou 
+Diminuir o botão agendar do mesmo tamanho do ícone do calendário.
+Alterar as nomenclaturas do menu principal do BackOffice.
+Centralizar o ícone option. 
 
 
+A biometria não está funcionando no login.
+Scroll lateral amarelo 

@@ -128,7 +128,7 @@ function ActivityDetail({ navigation, route }) {
             {origem === 'Atividades' && (
               <View style={styles.fdr}>
                 <DatePicker
-                  style={{ width: 200, marginTop:15 }}
+                  style={{ width: 200, marginTop: 15 }}
                   date={date}
                   mode="date"
                   placeholder="Selecione a Data"
@@ -160,7 +160,7 @@ function ActivityDetail({ navigation, route }) {
               </View>
             )}
 
-            <View style={{ marginHorizontal: 10, marginTop:5 }}>
+            <View style={{ marginHorizontal: 10, marginTop: 5 }}>
               <Text
                 style={{
                   fontSize: 18,
@@ -185,15 +185,17 @@ function ActivityDetail({ navigation, route }) {
               </View>
               <View
                 style={{
-                  marginTop: 10,
+                 
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
+                  justifyContent: currentPage === 0 ? 'center' : 'space-between',
                 }}>
-                <View style={{ width: '45%' }}>
-                  {currentPage > 0 && (
+                {currentPage > 0 && (
+                  <View style={{ width: '45%' }}>
+
                     <ButtonPrimary text="Voltar" onPress={backPage} />
-                  )}
-                </View>
+
+                  </View>
+                )}
                 {origem === 'Atividades' && (
                   <View style={{ width: '45%' }}>
                     <ButtonPrimary

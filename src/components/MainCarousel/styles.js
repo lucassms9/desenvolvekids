@@ -49,9 +49,18 @@ export default StyleSheet.create({
   imageContainerEven: {
     backgroundColor: colors.white,
   },
+  paginationContainer: {
+    paddingBottom: 15,
+    paddingTop: 0
+  },
+  paginationDot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+  },
   image: {
-    // ...StyleSheet.absoluteFillObject,
-    resizeMode: 'center',
+    ...StyleSheet.absoluteFillObject,
+    resizeMode: 'stretch',
     borderRadius: IS_IOS ? entryBorderRadius : 0,
     borderTopLeftRadius: entryBorderRadius,
     borderTopRightRadius: entryBorderRadius,
@@ -105,4 +114,11 @@ export default StyleSheet.create({
   },
   fdr: { flexDirection: 'row' },
   wd90: { width: '90%' },
+  slider: {
+    marginTop: 15,
+    
+  },
+  sliderContentContainer: {
+  
+  },
 });

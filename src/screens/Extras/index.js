@@ -22,6 +22,7 @@ import Loader from '~/components/Loader';
 import ItemsFilter from '~/components/ItemsFilter';
 import Pagination from '~/components/Pagination';
 import NotFound from '~/components/NotFound';
+import ScrollCustom from '~/components/ScrollCustom';
 
 import api from '~/services/api';
 
@@ -130,12 +131,12 @@ function Extras({ setNavigation, navigation, route }) {
   };
 
   return (
-    <SafeAreaView style={commons.body}>
+    <View style={commons.body}>
       <Header title="Extras" />
-      <View style={[commons.container, { paddingBottom: 70 }]}>
+      <View style={[commons.container, { paddingBottom: 70,flex: 1, }]}>
         {loading && <Loader />}
         {!loading && (
-          <ScrollView>
+          <ScrollCustom>
             {hasFilter && (
               <TouchableOpacity onPress={resetFilter}>
                 <View style={{ alignItems: 'center', marginBottom: 10 }}>
@@ -181,10 +182,10 @@ function Extras({ setNavigation, navigation, route }) {
               page={page}
               getMoreItem={moreActivities}
             />
-          </ScrollView>
+          </ScrollCustom>
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

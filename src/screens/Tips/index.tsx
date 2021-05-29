@@ -13,6 +13,7 @@ import Header from '~/components/Header';
 import Pagination from '~/components/Pagination';
 import InputText from '~/components/InputText';
 import NotFound from '~/components/NotFound';
+import ScrollCustom from '~/components/ScrollCustom';
 
 import { commons } from '~/styles';
 
@@ -94,12 +95,15 @@ const Tips: React.FC<iProps> = ({ navigation, userEntity: user }: iProps) => {
   }, [user]);
 
   return (
-    <SafeAreaView style={commons.body}>
+    <View style={[commons.body, {
+      backgroundColor: '#fff',
+    }]}>
       <Header title="Dicas" />
-      <View style={[commons.container, { paddingBottom: 70 }]}>
+
+      <View style={{justifyContent:'center', alignContent:'center', alignItems:'center'}}>
         {loading && <Loader />}
         {!loading && (
-          <ScrollView>
+          <ScrollCustom>
             <View style={styles.fdr}>
               <InputText
                 value={filter}
@@ -141,10 +145,11 @@ const Tips: React.FC<iProps> = ({ navigation, userEntity: user }: iProps) => {
               page={page}
               getMoreItem={moreTips}
             />
-          </ScrollView>
+          </ScrollCustom>
         )}
       </View>
-    </SafeAreaView>
+
+    </View>
   );
 }
 

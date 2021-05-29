@@ -10,31 +10,39 @@ function Detail({ navigation, route }) {
   const { tip } = route.params;
 
   return (
-    <View style={commons.body}>
+    <ScrollView style={[commons.body, {
+      backgroundColor: '#fff'
+    }]}>
       <Header title="Dicas" hasBack />
-      <SafeAreaView>
-        <View style={[commons.container, { paddingBottom: 100 }]}>
-          <ScrollView>
-            <MainCarousel imagens={tip.imagens} />
 
-            <View style={{ marginHorizontal: 8 }}>
-              <Text
-                style={{
-                  textAlign: 'left',
-                  fontSize: 18,
-                  fontWeight: '700',
-                  marginBottom: 10,
-                }}>
-                {tip.titulo}
-              </Text>
-              <Text style={{ textAlign: 'justify' }}>
-                {tip.descricao_completa}
-              </Text>
-            </View>
-          </ScrollView>
+      <View style={[commons.container, { paddingBottom: 70, flex: 1 }]}>
+
+        <View style={{
+       
+          marginLeft: 5,
+          justifyContent: 'center',
+        }}>
+          <MainCarousel imagens={tip.imagens} />
         </View>
-      </SafeAreaView>
-    </View>
+
+        <View style={{ marginHorizontal: 8, flex: 1 }}>
+          <Text
+            style={{
+              textAlign: 'left',
+              fontSize: 18,
+              fontWeight: '700',
+              marginBottom: 10,
+            }}>
+            {tip.titulo}
+          </Text>
+          <Text style={{ textAlign: 'justify' }}>
+            {tip.descricao_completa}
+          </Text>
+        </View>
+
+      </View>
+
+    </ScrollView>
   );
 }
 

@@ -18,7 +18,7 @@ function ItemsFilter({ items, filterFunc, active }) {
                   resizeMode="contain"
                   source={{ uri: item.icon }}
                 />
-                <Text>{item.label}</Text>
+                <Text style={{textAlign:'center'}}>{item.label}</Text>
               </View>
             </TouchableOpacity>
           );

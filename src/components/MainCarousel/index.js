@@ -6,6 +6,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { itemWidth, sliderWidth } from './styles';
 
 import styles from './styles';
+import {colors} from '~/styles';
 
 function MainCarousel({ imagens }) {
   const [sliderActiveSlide, setSliderActiveSlide] = useState(1);
@@ -16,7 +17,7 @@ function MainCarousel({ imagens }) {
       <SliderEntry
         data={item}
         even={(index + 1) % 2 === 0}
-        parallax={true}
+        parallax={false}
         parallaxProps={parallaxProps}
       />
     );
@@ -41,6 +42,7 @@ function MainCarousel({ imagens }) {
         inactiveSlideScale={0.94}
         inactiveSlideOpacity={0.7}
         inactiveSlideShift={20}
+       
         containerCustomStyle={styles.slider}
         contentContainerCustomStyle={styles.sliderContentContainer}
         enableMomentum={true}
@@ -51,9 +53,9 @@ function MainCarousel({ imagens }) {
         dotsLength={imagens.length}
         activeDotIndex={sliderActiveSlide}
         containerStyle={styles.paginationContainer}
-        dotColor={'rgba(255, 255, 255, 0.92)'}
+        dotColor={colors.secondary}
         dotStyle={styles.paginationDot}
-        inactiveDotColor={'#fff'}
+        inactiveDotColor={'#000'}
         inactiveDotOpacity={0.4}
         inactiveDotScale={0.6}
         carouselRef={sliderRef}

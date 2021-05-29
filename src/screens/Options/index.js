@@ -7,6 +7,7 @@ import { Creators as AuthActions } from '~/store/ducks/auth';
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
 import { Image, Button, Icon } from 'react-native-elements';
 
+import ScrollCustom from '~/components/ScrollCustom';
 import Header from '~/components/Header';
 import { commons } from '~/styles';
 import ButtonPrimary from '~/components/ButtonPrimary';
@@ -50,7 +51,7 @@ function Options({
     navigation.navigate('Childrens');
   };
   const openForum = () => {
-    navigation.navigate('Main', {
+    navigation.push('Main', {
       screen: 'Forum',
       params: { showBack: true },
     });
@@ -65,10 +66,9 @@ function Options({
 
   return (
     <View style={commons.body}>
-      <SafeAreaView style={{ flex: 1 }}>
         <Header title="Opções" hasBack />
         <View style={[commons.container, { flex: 1 }]}>
-          <ScrollView style={{ flex: 1 }}>
+          <ScrollCustom style={{ flex: 1 }}>
             <TouchableOpacity onPress={openProfile} style={styles.items}>
               <View style={{ flexDirection: 'row' }}>
                 <Icon color="#000" name="user" type="feather" />
@@ -87,7 +87,7 @@ function Options({
                   </View>
                   <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={openForum} style={styles.items}>
+                {/* <TouchableOpacity onPress={openForum} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon
                       color="#000"
@@ -97,7 +97,7 @@ function Options({
                     <Text style={styles.itemLabel}>Pergunte ao Doutor</Text>
                   </View>
                   <Icon color="#000" name="arrow-right" type="feather" />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity onPress={openChildrens} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon color="#000" name="child" type="font-awesome" />
@@ -156,7 +156,7 @@ function Options({
               </View>
               <Icon color="#000" name="arrow-right" type="feather" />
             </TouchableOpacity>
-          </ScrollView>
+          </ScrollCustom>
           <View style={{ marginTop: 15, backgroundColor: '#f00' }}>
             <ButtonPrimary
               icon={
@@ -173,7 +173,6 @@ function Options({
             />
           </View>
         </View>
-      </SafeAreaView>
     </View>
   );
 }

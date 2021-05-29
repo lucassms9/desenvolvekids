@@ -9,6 +9,7 @@ import Loader from '~/components/Loader';
 import Pagination from '~/components/Pagination';
 import ItemsFilter from '~/components/ItemsFilter';
 import NotFound from '~/components/NotFound';
+import ScrollCustom from '~/components/ScrollCustom';
 
 import { commons, colors } from '~/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -137,13 +138,15 @@ class Forum extends Component {
     const { loading, forums, itemActive } = this.state;
     const { navigation, route } = this.props;
     const { showBack } = route?.params;
+
+    console.log(showBack)
     return (
-      <SafeAreaView style={commons.body}>
+      <View style={commons.body}>
         <Header title="Perguntas" />
-        <View style={[commons.container, { paddingBottom: 90 }]}>
+        <View style={[commons.container, { paddingBottom: 90,flex: 1, }]}>
           {loading && <Loader />}
           {!loading && (
-            <ScrollView>
+            <ScrollCustom>
               <View
                 style={{
                   flex: 1,
@@ -234,10 +237,10 @@ class Forum extends Component {
                 page={this.state.page}
                 getMoreItem={this.moreForums}
               />
-            </ScrollView>
+            </ScrollCustom>
           )}
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }

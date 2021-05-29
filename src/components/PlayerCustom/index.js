@@ -16,7 +16,7 @@ function PlayerCustom({ uriVideo }) {
   const [isLoading, setIsLoading] = useState(true);
   const [paused, setPaused] = useState(true);
   const [playerState, setPlayerState] = useState(PLAYER_STATES.PAUSED);
-  const [screenType, setScreenType] = useState('contain');
+  const [screenType, setScreenType] = useState('stretch');
 
   const onSeek = (seek) => {
     //Handler for change in seekbar
@@ -57,20 +57,30 @@ function PlayerCustom({ uriVideo }) {
     alert('Exit full screen');
   };
 
-  const enterFullScreen = () => {};
+  const enterFullScreen = () => {
+
+  };
 
   const onFullScreen = () => {
-    if (screenType == 'content') {
-      setScreenType('cover');
-    } else {
-      setScreenType('content');
-    }
+    refVideoPlayer.presentFullscreenPlayer();
   };
 
   const renderToolbar = () => (
     <View>
       <Text> DevKids </Text>
     </View>
+  );
+  const onFullscreenPlayerWillPresent = () => (
+    console.log('onFullscreenPlayerWillPresent')
+  );
+  const onFullscreenPlayerDidPresent = () => (
+    console.log('onFullscreenPlayerDidPresent')
+  );
+  const onFullscreenPlayerWillDismiss = () => (
+    console.log('onFullscreenPlayerWillDismiss')
+  );
+  const onFullscreenPlayerDidDismiss = () => (
+    console.log('onFullscreenPlayerDidDismiss')
   );
 
   const onSeeking = (currentTime) => setCurrentTime(currentTime);
@@ -87,7 +97,11 @@ function PlayerCustom({ uriVideo }) {
           refVideoPlayer = ref;
         }}
         resizeMode={screenType}
-        onFullScreen={isFullScreen}
+        fullScreen={true}
+        onFullscreenPlayerWillPresent={onFullscreenPlayerWillPresent}
+        onFullscreenPlayerDidPresent={onFullscreenPlayerDidPresent}
+        onFullscreenPlayerWillDismiss={onFullscreenPlayerWillDismiss}
+        onFullscreenPlayerDidDismiss={onFullscreenPlayerDidDismiss}
         source={{
           uri: uriVideo,
         }}
@@ -99,7 +113,7 @@ function PlayerCustom({ uriVideo }) {
         duration={duration}
         isLoading={isLoading}
         mainColor={colors.primary}
-        // onFullScreen={onFullScreen}
+        onFullScreen={onFullScreen}
         onPaused={onPaused}
         onReplay={onReplay}
         onSeek={onSeek}

@@ -11,9 +11,10 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   containerImage:{
-    height: 90,
     marginRight: 10,
-    alignItems:'center'
+    alignItems:'center',
+    maxWidth:120,
+    minWidth:90
   }
 });
 

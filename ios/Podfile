@@ -8,13 +8,11 @@ target 'OneSignalNotificationServiceExtension' do
 end
 
 target 'desenvolvekids' do
-
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationAccuracy', :path => "#{permissions_path}/LocationAccuracy"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
-  
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
   

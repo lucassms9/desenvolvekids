@@ -39,6 +39,7 @@ function ForumCreate({ navigation }) {
       forum_posts_categorias_id: values.category,
     };
     const res = await api.post('forums/add-pergunta', data);
+    console.log(res)
     setLoading(false);
     toggleOverlay();
   };
@@ -135,7 +136,7 @@ function ForumCreate({ navigation }) {
                     />
                   }
                   loading={loading}
-                  onPress={toggleOverlay}
+                  onPress={handleSubmit}
                   text={'SALVAR'}
                 />
               </View>

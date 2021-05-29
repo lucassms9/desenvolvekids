@@ -12,7 +12,7 @@ function ItemPage({ item }) {
       </View>
     );
   };
-  const renderMovies = (movie) => {
+  const renderMovies = (movie) => { 
     return (
       <View style={{ marginVertical: 15,marginBottom:20  }}>
         <PlayerCustom uriVideo={item.conteudo} />

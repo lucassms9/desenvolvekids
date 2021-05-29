@@ -33,7 +33,7 @@ export default {
   },
   body: {
     flex: 1,
-    backgroundColor: colors.backgroung,
+   
     flexDirection: 'column',
   },
   container: {

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
   SafeAreaView,
+  Animated,
   TouchableOpacity,
   ScrollView,
   View,
@@ -23,6 +24,7 @@ import Loader from '~/components/Loader';
 import ItemsFilter from '~/components/ItemsFilter';
 import Pagination from '~/components/Pagination';
 import NotFound from '~/components/NotFound';
+import ScrollCustom from '~/components/ScrollCustom';
 
 import api from '~/services/api';
 
@@ -41,6 +43,8 @@ function Activities({
   const [categories, setCategories] = useState([]);
   const [checkedAcitivity, setCheckedAcitivity] = useState([]);
   const [stateMaterial, setStateMaterial] = useState('generateList');
+
+
 
   const filterActivities = async (id) => {
     getActivities(id);
@@ -204,7 +208,7 @@ function Activities({
   };
 
   return (
-    <SafeAreaView style={commons.body}>
+    <View style={commons.body}>
       <Header
         title="Atividades"
         completeList={completeList}
@@ -213,15 +217,16 @@ function Activities({
       />
       <View
         style={{
-          paddingBottom: 150,
+          paddingBottom: 70,
           marginVertical: 10,
           borderRadius: 10,
+          flex: 1,
           backgroundColor: '#fff',
         }}>
         {loading && <Loader />}
 
         {!loading && (
-          <>
+          <View >
             {hasFilter && (
               <TouchableOpacity onPress={resetFilter}>
                 <View style={{ alignItems: 'center', marginBottom: 10 }}>
@@ -246,13 +251,16 @@ function Activities({
                 }}>
                 <ItemsFilter filterFunc={filterActivities} items={categories} />
               </View>
-              <View style={{ borderBottomWidth: 0.5, marginBottom:15, marginTop:5 }}></View>
+              <View style={{ borderBottomWidth: 0.5, marginBottom: 15, marginTop: 5 }}></View>
             </View>
-            <ScrollView>
+
+            <ScrollCustom>
               {activities.length === 0 && <NotFound type="Atividades" />}
               {activities.map((act) => {
                 return (
+
                   <MainCard
+                    showPlay
                     origin='atividades'
                     stateMaterial={stateMaterial}
                     setCheckedAcitivity={setCheckedAcitivity}
@@ -267,7 +275,7 @@ function Activities({
                     minAge={act?.faixa_etaria || 'Livre'}
                     isSchecule={
                       act.data_agenda &&
-                      moment(act.data_agenda).isSameOrAfter(moment(), 'day')
+                        moment(act.data_agenda).isSameOrAfter(moment(), 'day')
                         ? moment(act.data_agenda).format('DD/MM')
                         : false
                     }
@@ -289,11 +297,11 @@ function Activities({
                 page={page}
                 getMoreItem={moreActivities}
               />
-            </ScrollView>
-          </>
+            </ScrollCustom>
+          </View>
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
