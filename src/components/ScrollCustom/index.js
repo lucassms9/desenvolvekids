@@ -41,7 +41,7 @@ const ScrollCustom = ({ children, indicatorColor, scrollBarColor, style }) => {
   return (
     <View style={{ flexDirection: 'row', paddingRight: 1, width: '100%', ...style }}>
       <ScrollView
-        style={{ paddingTop: 10, width: '100%' }}
+        style={{ width: '100%' }}
         contentContainerStyle={{ paddingRight: 10, paddingBottom: 90 }}
         showsVerticalScrollIndicator={false}
         onContentSizeChange={onContentSizeChange}
@@ -57,7 +57,9 @@ const ScrollCustom = ({ children, indicatorColor, scrollBarColor, style }) => {
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
       >
-        {children}
+        <View style={{ marginTop: 40 }}>
+          {children}
+        </View>
       </ScrollView>
       <View style={{
         backgroundColor: scrollBarColor,

@@ -89,9 +89,9 @@ function Activities({
       throw 'error';
     }
 
-    res.postagens.sort(function (a, b) {
-      return new Date(b.data_agenda) - new Date(a.data_agenda);
-    });
+    // res.postagens.sort(function (a, b) {
+    //   return new Date(b.data_agenda) - new Date(a.data_agenda);
+    // });
 
     return res;
   };

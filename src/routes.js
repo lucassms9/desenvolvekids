@@ -309,7 +309,8 @@ function Routes() {
           style: {
             backgroundColor: colors.tabBarColor,
             borderTopColor: 'transparent',
-            // height: 60,
+            // height: 5,
+            // paddingBottom:5
           },
         }}>
         <Tab.Screen
@@ -325,7 +326,7 @@ function Routes() {
                   type="feather"
                   color={color}
                   size={24}
-                  // style={{ marginTop: 5 }}
+                // style={{ marginTop: 5 }}
                 />
               );
             },
@@ -358,17 +359,14 @@ function Routes() {
                   type="material-community"
                   color={color}
                   size={25}
-                  // style={{ marginTop: 5 }}
+                // style={{ marginTop: 5 }}
                 />
               );
             },
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.blue : '#fff';
               return (
-                <Text style={{ fontSize: 14, color: color, }}>
-                  {' '}
-                  Dicas{' '}
-                </Text>
+                <Text style={{ fontSize: 14, color: color, }}>Dicas</Text>
               );
             },
           }}
@@ -393,10 +391,7 @@ function Routes() {
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.blue : '#fff';
               return (
-                <Text style={{ fontSize: 13, color: color, }}>
-                  {' '}
-                  Saúde{' '}
-                </Text>
+                <Text style={{ fontSize: 13, color: color, }}>Saúde</Text>
               );
             },
           }}
@@ -419,10 +414,7 @@ function Routes() {
             tabBarLabel: ({ focused }) => {
               const color = focused ? colors.blue : '#fff';
               return (
-                <Text style={{ fontSize: 13, color: color,  }}>
-                  {' '}
-                  Extras{' '}
-                </Text>
+                <Text style={{ fontSize: 13, color: color, }}>Extras</Text>
               );
             },
           }}
@@ -441,7 +433,7 @@ function Routes() {
                   name="forum-outline"
                   type="material-community"
                   size={20}
-                  style={{ marginTop: 5 }}
+
                 />
               );
             },
