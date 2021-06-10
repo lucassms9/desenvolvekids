@@ -18,22 +18,6 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* desenvolvekidsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* desenvolvekidsTests.m */; };
-		76A2392A26629B6C002657A8 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2391B26629B6A002657A8 /* FontAwesome5_Brands.ttf */; };
-		76A2392B26629B6C002657A8 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2391C26629B6A002657A8 /* FontAwesome5_Regular.ttf */; };
-		76A2392C26629B6C002657A8 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2391D26629B6A002657A8 /* Zocial.ttf */; };
-		76A2392D26629B6C002657A8 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2391E26629B6A002657A8 /* Feather.ttf */; };
-		76A2392E26629B6C002657A8 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2391F26629B6A002657A8 /* MaterialIcons.ttf */; };
-		76A2392F26629B6C002657A8 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392026629B6A002657A8 /* Entypo.ttf */; };
-		76A2393026629B6C002657A8 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392126629B6A002657A8 /* Foundation.ttf */; };
-		76A2393126629B6C002657A8 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392226629B6B002657A8 /* Ionicons.ttf */; };
-		76A2393226629B6C002657A8 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392326629B6B002657A8 /* FontAwesome5_Solid.ttf */; };
-		76A2393326629B6C002657A8 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392426629B6B002657A8 /* SimpleLineIcons.ttf */; };
-		76A2393426629B6C002657A8 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392526629B6B002657A8 /* EvilIcons.ttf */; };
-		76A2393526629B6C002657A8 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392626629B6B002657A8 /* MaterialCommunityIcons.ttf */; };
-		76A2393626629B6C002657A8 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392726629B6B002657A8 /* FontAwesome.ttf */; };
-		76A2393726629B6C002657A8 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392826629B6B002657A8 /* Fontisto.ttf */; };
-		76A2393826629B6C002657A8 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392926629B6B002657A8 /* Octicons.ttf */; };
-		76A2393A26629B7F002657A8 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2393926629B7F002657A8 /* AntDesign.ttf */; };
 		76A2393B26629B93002657A8 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392026629B6A002657A8 /* Entypo.ttf */; };
 		76A2393C26629B93002657A8 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2392526629B6B002657A8 /* EvilIcons.ttf */; };
 		76A2393D26629B93002657A8 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76A2393926629B7F002657A8 /* AntDesign.ttf */; };
@@ -504,24 +488,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76A2392E26629B6C002657A8 /* MaterialIcons.ttf in Resources */,
-				76A2393526629B6C002657A8 /* MaterialCommunityIcons.ttf in Resources */,
-				76A2393026629B6C002657A8 /* Foundation.ttf in Resources */,
-				76A2393A26629B7F002657A8 /* AntDesign.ttf in Resources */,
-				76A2393626629B6C002657A8 /* FontAwesome.ttf in Resources */,
-				76A2393326629B6C002657A8 /* SimpleLineIcons.ttf in Resources */,
-				76A2393426629B6C002657A8 /* EvilIcons.ttf in Resources */,
-				76A2393126629B6C002657A8 /* Ionicons.ttf in Resources */,
 				A096A6322520231E00D9D623 /* GoogleService-Info.plist in Resources */,
-				76A2393726629B6C002657A8 /* Fontisto.ttf in Resources */,
-				76A2392D26629B6C002657A8 /* Feather.ttf in Resources */,
-				76A2393826629B6C002657A8 /* Octicons.ttf in Resources */,
-				76A2392A26629B6C002657A8 /* FontAwesome5_Brands.ttf in Resources */,
-				76A2392B26629B6C002657A8 /* FontAwesome5_Regular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				76A2392C26629B6C002657A8 /* Zocial.ttf in Resources */,
-				76A2393226629B6C002657A8 /* FontAwesome5_Solid.ttf in Resources */,
-				76A2392F26629B6C002657A8 /* Entypo.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -994,7 +962,7 @@
 				);
 				INFOPLIST_FILE = desenvolvekids/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1024,7 +992,7 @@
 				DEVELOPMENT_TEAM = 52ZA26PR4S;
 				INFOPLIST_FILE = desenvolvekids/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1277,13 +1245,14 @@
 				CODE_SIGN_ENTITLEMENTS = OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 52ZA26PR4S;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.desenvolvekids.OneSignalNotificationServiceExtension;
@@ -1312,13 +1281,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 52ZA26PR4S;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.desenvolvekids.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";

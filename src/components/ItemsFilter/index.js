@@ -6,7 +6,8 @@ import { metrics, colors } from '~/styles';
 
 function ItemsFilter({ items, filterFunc, active }) {
   return (
-    <ScrollView horizontal >
+    <ScrollView horizontal showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}>
       {items.map((item) => {
         console.log(item);
         if (item?.icon) {
@@ -18,7 +19,7 @@ function ItemsFilter({ items, filterFunc, active }) {
                   resizeMode="contain"
                   source={{ uri: item.icon }}
                 />
-                <Text style={{textAlign:'center'}}>{item.label}</Text>
+                <Text style={{ textAlign: 'center' }}>{item.label}</Text>
               </View>
             </TouchableOpacity>
           );
@@ -26,7 +27,7 @@ function ItemsFilter({ items, filterFunc, active }) {
 
         return (
           <TouchableOpacity key={item.id} onPress={() => filterFunc(item.id)}>
-            <View style={[styles.container,{backgroundColor: item.id === active ? colors.yellow : colors.secondary}]}>
+            <View style={[styles.container, { backgroundColor: item.id === active ? colors.yellow : colors.secondary }]}>
               <Text style={{ color: '#fff', fontSize: 15, fontWeight: 'bold' }}>
                 {item.label}
               </Text>
