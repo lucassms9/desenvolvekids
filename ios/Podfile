@@ -15,7 +15,7 @@ target 'desenvolvekids' do
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
-  
+ 
 
   target 'desenvolvekidsTests' do
     inherit! :complete

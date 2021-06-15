@@ -72,7 +72,7 @@ PODS:
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.5.0)
-  - JWT (3.0.0-beta.12):
+  - JWT (3.0.0-beta.14):
     - Base64 (~> 1.1.2)
   - OneSignal (2.16.1)
   - Permission-Camera (3.0.4):
@@ -591,7 +591,7 @@ SPEC CHECKSUMS:
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
-  JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
+  JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
   OneSignal: 5f6514ec2b931306eb067acb124afbb2e49970af
   Permission-Camera: ffd449756840ddc0f6294e95d688fecaadfe238c
   Permission-LocationAccuracy: 6bdfafc629725913855aeff80cb7a68f0f7a7ea1
@@ -641,6 +641,6 @@ SPEC CHECKSUMS:
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: 9c42aa657dadaf6d7f6049217c19b142c83034c1
+PODFILE CHECKSUM: a209d02a4552dc8dff4b05813e3b487b6056c136
 
 COCOAPODS: 1.10.1
