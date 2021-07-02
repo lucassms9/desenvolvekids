@@ -34,16 +34,16 @@ function Profile({ auth: { user, status }, updateUserRequest }) {
     getKinShips();
   }, []);
 
-  const endreco = user?.enderecos ? user?.enderecos[0] : {};
+  const endreco ={};
   const initData = {
-    name: user.nome,
-    fiscalNumber: maskOnlyCPF(user.cpf),
-    birthDate: moment(user.data_nascimento).format('DD/MM/YYYY'),
-    email: user.email,
-    parent: user.clientes_parentescos_id,
-    phone: maskOnlyPhone(user.celular),
+    name: user?.nome,
+    fiscalNumber: maskOnlyCPF(user?.cpf),
+    birthDate: moment(user?.data_nascimento).format('DD/MM/YYYY'),
+    email: user?.email,
+    parent: user?.clientes_parentescos_id,
+    phone: maskOnlyPhone(user?.celular),
 
-    zipCode: maskOnlyCEP(endreco?.cep),
+    zipCode: endreco?.cep ? maskOnlyCEP(endreco?.cep) : '',
     nameAddress: endreco?.nome_endereco,
     address: endreco?.endereco,
     city: endreco?.cidade,

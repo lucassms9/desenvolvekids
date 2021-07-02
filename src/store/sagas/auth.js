@@ -1,6 +1,6 @@
 import { call, put, select } from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
-import { StackActions } from '@react-navigation/native';
+import { StackActions,NavigationActions } from '@react-navigation/native';
 import { ToastActionsCreators } from 'react-native-redux-toast';
 import { initNotification } from '~/services/notificationService';
 
@@ -218,8 +218,13 @@ export function* signOut({ message }) {
 
     console.log('AQUI');
     console.log(navigationGlobal);
+   
     if (navigationGlobal.name !== 'SignIn') {
-      yield call([navigationGlobal, 'dispatch'], StackActions.replace('Auth'));
+
+      yield call([navigationGlobal, 'reset'], {
+          index: 0,
+          routes: [{ name: 'Auth' }],
+        })
       if (message) {
         yield put(ToastActionsCreators.displayError(`Erro: ${message}`));
       }

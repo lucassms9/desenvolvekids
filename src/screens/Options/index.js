@@ -30,6 +30,7 @@ function Options({
     } else {
       setHasPlan(false);
     }
+   
   }, []);
 
   const openProfile = () => {
@@ -76,8 +77,9 @@ function Options({
               </View>
               <Icon color="#000" name="arrow-right" type="feather" />
             </TouchableOpacity>
-            {hasPlan && (
+            {(hasPlan) && (
               <>
+              {!user?.clientes_id && (
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Dependent')}
                   style={styles.items}>
@@ -87,6 +89,8 @@ function Options({
                   </View>
                   <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity>
+              )}
+               
                 {/* <TouchableOpacity onPress={openForum} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon
@@ -124,6 +128,7 @@ function Options({
 
                   <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity> */}
+                  {!user?.clientes_id && (
                 <TouchableOpacity onPress={openMyPlan} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon color="#000" name="clipboard" type="feather" />
@@ -131,7 +136,7 @@ function Options({
                   </View>
                   <Icon color="#000" name="arrow-right" type="feather" />
                 </TouchableOpacity>
-
+                  )}
                 <TouchableOpacity onPress={openProgresso} style={styles.items}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon color="#000" name="activity" type="feather" />

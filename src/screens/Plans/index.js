@@ -74,22 +74,28 @@ function Plans(props) {
           {loading && <Loader />}
           {!loading && (
             <ScrollView>
-              {plans.map((plan, index) => {
-                return (
-                  <PricingCard
-                    key={plan.id}
-                    color={colors.primary}
-                    title={plan.titulo}
-                    price={maskMoney(plan.valor)}
-                    info={[plan.subtitulo, plan.descricao]}
-                    containerStyle={{
-                      borderRadius: 10,
-                    }}
-                    button={{ title: 'COMPRAR' }}
-                    onButtonPress={() => payPlan(plan)}
-                  />
-                );
-              })}
+              {plans && plan.length > 0 (
+                <>
+                {
+                plans.map((plan, index) => {
+                  return (
+                    <PricingCard
+                      key={plan.id}
+                      color={colors.primary}
+                      title={plan.titulo}
+                      price={maskMoney(plan.valor)}
+                      info={[plan.subtitulo, plan.descricao]}
+                      containerStyle={{
+                        borderRadius: 10,
+                      }}
+                      button={{ title: 'COMPRAR' }}
+                      onButtonPress={() => payPlan(plan)}
+                    />
+                  );
+                })
+                }
+                </>
+              ) }
             </ScrollView>
           )}
         </View>
