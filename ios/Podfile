@@ -17,6 +17,7 @@ target 'desenvolvekids' do
   use_react_native!(:path => config["reactNativePath"])
  
 
+
   target 'desenvolvekidsTests' do
     inherit! :complete
     # Pods for testing

@@ -40,14 +40,14 @@ function Plans(props) {
         plano_id: planFree.id,
       });
 
-      const {user} = await api.post('/user/get-data');
+      const { user } = await api.post('/user/get-data');
       console.log('data.user plan')
       console.log(user);
       signInSuccess(user);
       setTimeout(() => {
         return navigation.dispatch(StackActions.replace('Main'));
-      },50)
-      
+      }, 50)
+
 
     } catch (error) {
       dispatch(ToastActionsCreators.displayError(error.message));
@@ -74,28 +74,28 @@ function Plans(props) {
           {loading && <Loader />}
           {!loading && (
             <ScrollView>
-              {plans && plan.length > 0 (
+              {(plans && plans.length > 0) && (
                 <>
-                {
-                plans.map((plan, index) => {
-                  return (
-                    <PricingCard
-                      key={plan.id}
-                      color={colors.primary}
-                      title={plan.titulo}
-                      price={maskMoney(plan.valor)}
-                      info={[plan.subtitulo, plan.descricao]}
-                      containerStyle={{
-                        borderRadius: 10,
-                      }}
-                      button={{ title: 'COMPRAR' }}
-                      onButtonPress={() => payPlan(plan)}
-                    />
-                  );
-                })
-                }
+                  {
+                    plans.map((plan, index) => {
+                      return (
+                        <PricingCard
+                          key={plan.id}
+                          color={colors.primary}
+                          title={plan.titulo}
+                          price={maskMoney(plan.valor)}
+                          info={[plan.subtitulo, plan.descricao]}
+                          containerStyle={{
+                            borderRadius: 10,
+                          }}
+                          button={{ title: 'COMPRAR' }}
+                          onButtonPress={() => payPlan(plan)}
+                        />
+                      );
+                    })
+                  }
                 </>
-              ) }
+              )}
             </ScrollView>
           )}
         </View>
